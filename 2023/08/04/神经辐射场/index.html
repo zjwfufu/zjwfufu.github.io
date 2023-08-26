@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://example.com/images/try_nerf_6.jpg">
 <meta property="og:image" content="http://example.com/images/try_nerf_7.gif">
 <meta property="article:published_time" content="2023-08-04T01:37:14.000Z">
-<meta property="article:modified_time" content="2023-08-26T07:47:26.574Z">
+<meta property="article:modified_time" content="2023-08-26T08:07:29.411Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -314,16 +314,16 @@ R\left( \theta ,p \right) =\iint{f\left( x,y \right) \cdot \delta \left( p-x\cos
 <p>​    考虑上图，假设整个场景由若干粒子组成，也就是密度$\sigma$，颜色$c$各不相同的粒子。我们认为，光线碰到这些粒子后，会发生吸收，从而导致其光照强度遭到衰减，衰减的部分用于让粒子“发光”。</p>
 <p>​    除了不考虑衍射以外，这个假设可能乍一听都很反直觉，但它其实是完美契合“光路可逆”的一种建模。中学物理告诉我们，光线照射到一个物体上时，一部分色光的光谱会被吸收，剩下的部分再反射进我们的眼里，产生颜色。那么这种反射的性质实际上被直接建模为了颜色$c$，比如一个红色不透明的球面，我们就可以理解为是一个$\sigma$很大的球面，其颜色$c$为红。由于其$\sigma$很大，光线被尽数吸收，所以传递到后面的光线只剩很小的一部分，这就导致球面内部的粒子基本不能被“点亮”，从而产生了不透明。</p>
 <p>​    同时反射分为漫反射和镜面反射，前者是各向同性，后者是各向异性的。所以颜色$c$作为建模反射的手段，也需要根据观测角度的不同而变化。即<em>view-dependent color</em>。<a name="1"></a></p>
-<p>​    所以整个过程即为，一束强度为$I_0$的光线从$\bold{d}$处发射，在$s$处，光线通过粒子密度为$\sigma(s)$的地方后被吸收一部分，吸收的那一部分“点亮”（反射）了粒子本身，产生了颜色$c(s,\bold{d})$。粒子密度$\sigma(\cdot)$和颜色$c(\cdot)$是后面NeRF将会学习出来的值，我们可以在下面的推导中认为其已知。根据上文关于吸收定律的讨论，这个过程可以直接写作：</p>
+<p>​    所以整个过程即为，一束强度为$I_0$的光线从$\mathbf{d}$处发射，在$s$处，光线通过粒子密度为$\sigma(s)$的地方后被吸收一部分，吸收的那一部分“点亮”（反射）了粒子本身，产生了颜色$c(s,\mathbf{d})$。粒子密度$\sigma(\cdot)$和颜色$c(\cdot)$是后面NeRF将会学习出来的值，我们可以在下面的推导中认为其已知。根据上文关于吸收定律的讨论，这个过程可以直接写作：</p>
 <script type="math/tex; mode=display">
 I\left( s \right) =I_0e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}</script><p>​    所以当光行进到$s$处时，$e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}$​可以当作一个衰减的系数，由于负指数的性质，这个值必然是介于0~1的。所以我们可以记其为“透明度”：</p>
 <script type="math/tex; mode=display">
-T\left( s \right) =e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}</script><p>​    所以“不透明度”可以记作$1-T(s)$，它指的是从0到$s$被吸收的（用于反射产生颜色部分）系数，也就是一个分布函数。对其求导可以得到密度函数$T(s)\sigma(t)$，于是最后的颜色可以直接积分$\int_0^{\infty}{T\left( s \right) \sigma \left( s \right) c\left( s \right) \mathrm{d}s}$。由于在实际中积分上限不可能真的从0到无穷远，所以会设定一个下限$t_n$和上限$t_f$，取near和far之意。所以给定一个光线$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$，这条光线最后取得的颜色$C(\bold{r})$可以写作：</p>
+T\left( s \right) =e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}</script><p>​    所以“不透明度”可以记作$1-T(s)$，它指的是从0到$s$被吸收的（用于反射产生颜色部分）系数，也就是一个分布函数。对其求导可以得到密度函数$T(s)\sigma(t)$，于是最后的颜色可以直接积分$\int_0^{\infty}{T\left( s \right) \sigma \left( s \right) c\left( s \right) \mathrm{d}s}$。由于在实际中积分上限不可能真的从0到无穷远，所以会设定一个下限$t_n$和上限$t_f$，取near和far之意。所以给定一个光线$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$，这条光线最后取得的颜色$C(\mathbf{r})$可以写作：</p>
 <script type="math/tex; mode=display">
 C\left( \mathbf{r} \right) =\int_{t_n}^{t_f}{T\left( t \right) \sigma \left( \mathbf{r}\left( t \right) \right) c\left( \mathbf{r}\left( t \right) ,\mathbf{d} \right) \mathrm{d}t} \\ T\left( t \right) =\exp \left( -\int_{t_n}^{t}{\sigma \left( \mathbf{r}\left( s \right) \right) \mathrm{d}s} \right)</script><p>​    于是就有了NeRF原文中的渲染方程。现在，我们已经知道了一根光线通过一个三维粒子场后，所产生的颜色。由于我们不可能得到上述过程的解析解，我们需要考虑它的离散化情形。</p>
 <h4 id="离散化"><a href="#离散化" class="headerlink" title="离散化"></a>离散化</h4><p>​    我们将积分区间分成$N-1$等份：$\left[ t_n+\frac{i-1}{N}\left( t_f-t_n \right) ,t_n+\frac{i}{N}\left( t_f-t_n \right) \right] $，然后进行朴素的离散化：</p>
 <script type="math/tex; mode=display">
-C\left( \mathbf{r} \right) =\sum_{i=1}^N{C_i\left( \mathbf{r} \right)}</script><p>​    对于每一个$C_i(\bold{r})$，$\sigma(\cdot),c(\cdot)$可以直接近似为常数。而由于$T(\cdot)$​由于存在一个变上限积分，其导数：</p>
+C\left( \mathbf{r} \right) =\sum_{i=1}^N{C_i\left( \mathbf{r} \right)}</script><p>​    对于每一个$C_i(\mathbf{r})$，$\sigma(\cdot),c(\cdot)$可以直接近似为常数。而由于$T(\cdot)$​由于存在一个变上限积分，其导数：</p>
 <script type="math/tex; mode=display">
 \frac{\mathrm{d}T\left( t \right)}{\mathrm{d}t}=-\sigma \left( \mathbf{r}\left( t \right) \right) T\left( t \right)</script><p>​    这个导数值不仅与$T(\cdot)$有关，还与$\sigma(\cdot)$​有关，所以不能简单的直接一阶近似。一个有用的观察是利用指数函数的性质，考虑$t$是位于$t_i\sim t_{i+1}$这个小区间里的一个值：</p>
 <script type="math/tex; mode=display">
@@ -337,7 +337,7 @@ T\left( t \right) =\exp \left( -\int_{t_n}^t{\sigma \left( \mathbf{r}\left( s \r
 \\
 =T\left( t_i \right) \exp \left( -\sigma _i\left( t-t_i \right) \right)</script><p>​    这样，在积分时，$T(t_i)$本身就是个定值了，可以降低积分的误差。其离散化为：</p>
 <script type="math/tex; mode=display">
-T_i=\exp \left( -\sum_{j=1}^{i-1}{\sigma _i\left( t_{j+1}-t_j \right)} \right)</script><p>​    所以$C_i(\bold{r})$可以写作：</p>
+T_i=\exp \left( -\sum_{j=1}^{i-1}{\sigma _i\left( t_{j+1}-t_j \right)} \right)</script><p>​    所以$C_i(\mathbf{r})$可以写作：</p>
 <script type="math/tex; mode=display">
 C_i\left( \mathbf{r} \right) =\int_{t_i}^{t_{i+1}}{T\left( t \right) \sigma \left( \mathbf{r}\left( t \right) \right) c\left( \mathbf{r}\left( t \right) ,\mathbf{d} \right) \mathrm{d}t}
 \\
@@ -371,7 +371,7 @@ C\left( \mathbf{r} \right) =\alpha _1c_1+\left( 1-\alpha _1 \right) \left( \alph
 \prod_{j=1}^{i-1}{\left( 1-\alpha _j \right)}=T_i</script><p>​    于是自然就有了$\alpha=1-\exp \left( -\sigma \delta \right) $这个定义。</p>
 <p>​    同时这也解释了原文：</p>
 <blockquote>
-<p>This function for calculating $\hat{C(\bold{r})}$ from the set of $(\bold{c}_i,\sigma_i)$ values is trivially differentiable and reduces to traditional alpha compositing with alpha values $\alpha _i=1-\exp \left( -\sigma _i\delta _i \right) $.</p>
+<p>This function for calculating $\hat{C(\mathbf{r})}$ from the set of $(\mathbf{c}_i,\sigma_i)$ values is trivially differentiable and reduces to traditional alpha compositing with alpha values $\alpha _i=1-\exp \left( -\sigma _i\delta _i \right) $.</p>
 </blockquote>
 <h3 id="相机与变换"><a href="#相机与变换" class="headerlink" title="相机与变换"></a>相机与变换</h3><p>​    我们现在确定了“从多个角度射入光线可以重建一个场”以及“如何模拟一条光线光路上的颜色”。我们甚至都没有引入“图片”，我们讨论的都只是一条光线。</p>
 <p>​    不同于拉东变换时我们可以想象一个无限大的平板探测器，图像的引入需要借助“相机”，一般指的都是最简单的针孔相机模型：</p>
@@ -577,19 +577,19 @@ y=\frac{f_cy_c}{z_c}</script><p>​    对于相同的$(x_c,y_c)$，$z_c$越大�
     \frac{n}{t}\cdot \frac{y}{-z}\\
     \frac{-\left( f+n \right)}{f-n}+\frac{2fn}{f-n}\cdot \frac{1}{-z}\\
 \end{array} \right]</script><p>​    在传统的坐标系定义下，摄像头指向的方向记为$-z$，所以在标准的透视矩阵下第三列的元素可能多一个负号。由于在NeRF中使用的是带负号的版本下的坐标系，所以我们也遵守这个规矩。</p>
-<p>​    所以，对于一些“facing-forward”的场景，即我们用相机自己拍出的一些真实的图片。我们不会在默认的欧式空间里采样光线，而是在经过变换后的$[-1,1]$立方体中采样。这就产生了一个问题，我们在欧氏空间里采样的光线为$\bold{o}+t\bold{d}$，在NDC空间里，采样出的光线可能会有一些变化。我们记变换后的光线为$\mathbf{o}’+t’\mathbf{d}’=\mathcal{M}(\bold{o}+t\bold{d}) $，我们直接计算：</p>
+<p>​    所以，对于一些“facing-forward”的场景，即我们用相机自己拍出的一些真实的图片。我们不会在默认的欧式空间里采样光线，而是在经过变换后的$[-1,1]$立方体中采样。这就产生了一个问题，我们在欧氏空间里采样的光线为$\mathbf{o}+t\mathbf{d}$，在NDC空间里，采样出的光线可能会有一些变化。我们记变换后的光线为$\mathbf{o}’+t’\mathbf{d}’=\mathcal{M}(\mathbf{o}+t\mathbf{d}) $，我们直接计算：</p>
 <script type="math/tex; mode=display">
 \mathbf{o}'+t'\mathbf{d}'=\left[ \begin{array}{c}
     \frac{n}{r}\cdot \frac{o_x+td_x}{-\left( o_z+td_z \right)}\\
     \frac{n}{t}\cdot \frac{o_y+td_y}{-\left( o_z+td_z \right)}\\
     \frac{-\left( f+n \right)}{f-n}+\frac{2fn}{f-n}\cdot \frac{1}{-\left( o_z+td_z \right)}\\
-\end{array} \right]</script><p>​    考虑映射后的$\bold{o}’$，不失一般性，我们认为将$\bold{o}$作映射得到的点$\mathcal{M}(\bold{o})$，就是$t’=0$时的$\bold{o}’$。</p>
+\end{array} \right]</script><p>​    考虑映射后的$\mathbf{o}’$，不失一般性，我们认为将$\mathbf{o}$作映射得到的点$\mathcal{M}(\mathbf{o})$，就是$t’=0$时的$\mathbf{o}’$。</p>
 <script type="math/tex; mode=display">
 \mathbf{o}'=\left[ \begin{array}{c}
     \frac{n}{r}\cdot \frac{o_x}{-o_z}\\
     \frac{n}{t}\cdot \frac{o_y}{-o_z}\\
     \frac{-\left( f+n \right)}{f-n}+\frac{2fn}{f-n}\cdot \frac{1}{-o_z}\\
-\end{array} \right]</script><p>​    于是$t’\bold{d}’$可以直接逐元素作差得：</p>
+\end{array} \right]</script><p>​    于是$t’\mathbf{d}’$可以直接逐元素作差得：</p>
 <script type="math/tex; mode=display">
 t'\mathbf{d}'=\left[ \begin{array}{c}
     \frac{n}{r}\cdot \left( \frac{o_x+td_x}{-\left( o_z+td_z \right)}-\frac{o_x}{-o_z} \right)\\
@@ -630,11 +630,11 @@ t'=\frac{td_z}{\left( o_z+td_z \right)}=1-\frac{o_z}{o_z+td_z}
 <p>​    如果在原空间里倒数线性的采样，那么NDC空间里就会变成均匀的线性采样。</p>
 <p>​    在经典的图形渲染管线中，这种采样被用于矫正透视误差。想象一个火车轨道汇聚到地平线一点的照片，虽然火车轨道下的枕木沿轨道是均匀分布的，但它们在图像上的排列却并不等距。但其实NeRF在这里需要处理的不是这个问题。</p>
 <p>​    NeRF中的问题是，对于那些“facing-forward”所拍摄的场景，近景和远景之间的距离一般远大于近景到镜头的距离。所以在NeRF这个范式下，我们沿着光线采样若干个点，而近景和远景之间的大部分点事实上都是无意义的。所以，可以正好利用这个倒数线性插值产生的权重，实现在近处密集的采集近景。然后远景就稀疏的采一些点意思意思得了。这对应了后面对光线进行采样时的<a href="#4">—lindisp</a>参数，但这样其实并没有解决问题。最早，NeRF的作者们试图直接让网络去表达这种“facing-forward”的场景，但表现的并不好；后来他们尝试了利用倒数线性插值，但问题并没有得到解决。因为NeRF使用的用来克服“<em>spectral bias</em>”的<a href="#5">位置编码</a>是在$[-1,1]$有界的，引入超出这个范围的输入显然是有坏处的。所以最后他们对于这种单向的“facing-forward”的场景，采取的措施就是变换进$[-1,1]^3$的NDC空间。</p>
-<p>​    以及非常巧合的是，如果我们预先将原点$\bold{o}$移至$z=-n$处，即$\bold{o}_n=\bold{o}+t_n \bold{d},t_n=-(n+o_z)/d_z$。那么此时直接将$t’$从0均匀采样到1，那正是从近平面$n$采到远平面$f$的倒数线性采样。所以变换到NDC空间的这一操作，一箭双雕的解决了问题，在改善效果的同时也避免了显示设定—lindisp。但实际上，这并不能解决全景，即360°的那种“unbounded”的场合，因为在那种场景下，near和far平面不是确定的，是会随着角度变化的。解决360°下的场景，还要靠<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.12077">后人的智慧</a>。</p>
+<p>​    以及非常巧合的是，如果我们预先将原点$\mathbf{o}$移至$z=-n$处，即$\mathbf{o}_n=\mathbf{o}+t_n \mathbf{d},t_n=-(n+o_z)/d_z$。那么此时直接将$t’$从0均匀采样到1，那正是从近平面$n$采到远平面$f$的倒数线性采样。所以变换到NDC空间的这一操作，一箭双雕的解决了问题，在改善效果的同时也避免了显示设定—lindisp。但实际上，这并不能解决全景，即360°的那种“unbounded”的场合，因为在那种场景下，near和far平面不是确定的，是会随着角度变化的。解决360°下的场景，还要靠<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.12077">后人的智慧</a>。</p>
 <blockquote>
 <p>所以在原版NeRF里想渲染360°的真实照片，最好在命令行里追加<code>--no_ndc --spherify --lindisp</code>，这会让这三项在代码里均为true（由于parser设置时是“action=’store_true’”），所以在360°的真实照片下，我们会关闭NDC，将相机位姿球化，同时使用倒数线性插值采集近景，期望可以获得好的结果。</p>
 </blockquote>
-<p>​    进一步，在NeRF应用的针孔相机模型中，由于NeRF中并不存在“真正的场景”。我们认为“facing-forward”的远平面是无尽的，即$f$设为无穷大。然后，$n/r$这个比例的值实际上和$f_c/(W/2)$是相等的。同理$n/t=f_c/(H/2)$。所以在NeRF中，当生成了在世界坐标系下的$\bold{o},\bold{d}$后，可以进行如下映射来进入NDC空间：</p>
+<p>​    进一步，在NeRF应用的针孔相机模型中，由于NeRF中并不存在“真正的场景”。我们认为“facing-forward”的远平面是无尽的，即$f$设为无穷大。然后，$n/r$这个比例的值实际上和$f_c/(W/2)$是相等的。同理$n/t=f_c/(H/2)$。所以在NeRF中，当生成了在世界坐标系下的$\mathbf{o},\mathbf{d}$后，可以进行如下映射来进入NDC空间：</p>
 <script type="math/tex; mode=display">
 \mathbf{o}'=\left[ \begin{array}{c}
     \frac{f_c}{W/2}\cdot \frac{o_x}{-o_z}\\
@@ -713,7 +713,7 @@ t'=\frac{td_z}{\left( o_z+td_z \right)}=1-\frac{o_z}{o_z+td_z}
 <center>
     <img src="/images/nerf_8.jpg">
 </center>
-​    可以看出，NeRF并不是真的把$(x,y,z,\theta,\phi)$直接输入，然后8层MLP直接梭哈。它是先输入$\bold{x}=(x,y,z)$，位置编码后成为一个长为60的向量（上图中$\gamma(\bold{x})$设置的$L=10$，每个频率编码一个正弦和余弦，输入维数为3，所以最后2×3×10=60。如果还保留原有的输入，那就是60+3=63。），然后送入MLP，中途设一个skips决定跳连位置。8层以后，最后再过一层，映成1维的$\sigma$，（代码里称其为alpha而不是sigma。）然后计算$\sigma$的特征向量不要扔，裹上面包糠炸至金黄色，跟$\gamma(\bold{d}),\bold{d}=(\theta,\phi)$拼一下（编码方向的$\gamma(\cdot)$的$L=4$），然后再过一层线性层，输出RGB，这一步即是<a href="#1">前文</a>说的*view-dependent color*。
+​    可以看出，NeRF并不是真的把$(x,y,z,\theta,\phi)$直接输入，然后8层MLP直接梭哈。它是先输入$\mathbf{x}=(x,y,z)$，位置编码后成为一个长为60的向量（上图中$\gamma(\mathbf{x})$设置的$L=10$，每个频率编码一个正弦和余弦，输入维数为3，所以最后2×3×10=60。如果还保留原有的输入，那就是60+3=63。），然后送入MLP，中途设一个skips决定跳连位置。8层以后，最后再过一层，映成1维的$\sigma$，（代码里称其为alpha而不是sigma。）然后计算$\sigma$的特征向量不要扔，裹上面包糠炸至金黄色，跟$\gamma(\mathbf{d}),\mathbf{d}=(\theta,\phi)$拼一下（编码方向的$\gamma(\cdot)$的$L=4$），然后再过一层线性层，输出RGB，这一步即是<a href="#1">前文</a>说的*view-dependent color*。
 
 ​    所以NeRF这个结构本身的整个PyTorch实现为：
 
@@ -799,7 +799,7 @@ $$
 
 ​    之后no_batching选项会导引光线的生成，如果为true，那么每次都只是随机抽一张图片，然后计算这一张图片发出的光线；如果是false，那么会在正式训练前先遍历所有位姿矩阵，得到所有的rays，然后在训练时从rays里切片得到每个batch。
 
-​    生成光线，其实生成的是$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$中的$\bold{o}$和$\bold{d}$。用到的函数为get_rays_np()和get_rays()，后者是torch实现，前者是numpy实现，逻辑都是一样的。这里选取前者：
+​    生成光线，其实生成的是$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$中的$\mathbf{o}$和$\mathbf{d}$。用到的函数为get_rays_np()和get_rays()，后者是torch实现，前者是numpy实现，逻辑都是一样的。这里选取前者：
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_rays_np</span>(<span class="params">H, W, K, c2w</span>):</span><br><span class="line">    i, j = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32), indexing=<span class="string">&#x27;xy&#x27;</span>)</span><br><span class="line">    dirs = np.stack([(i-K[<span class="number">0</span>][<span class="number">2</span>])/K[<span class="number">0</span>][<span class="number">0</span>], -(j-K[<span class="number">1</span>][<span class="number">2</span>])/K[<span class="number">1</span>][<span class="number">1</span>], -np.ones_like(i)], -<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># Rotate ray directions from camera frame to the world frame</span></span><br><span class="line">    rays_d = np.<span class="built_in">sum</span>(dirs[..., np.newaxis, :] * c2w[:<span class="number">3</span>,:<span class="number">3</span>], -<span class="number">1</span>)  <span class="comment"># dot product, equals to: [c2w.dot(dir) for dir in dirs]</span></span><br><span class="line">    <span class="comment"># Translate camera frame&#x27;s origin to the world frame. It is the origin of all rays.</span></span><br><span class="line">    rays_o = np.broadcast_to(c2w[:<span class="number">3</span>,-<span class="number">1</span>], np.shape(rays_d))</span><br><span class="line">    <span class="keyword">return</span> rays_o, rays_d</span><br></pre></td></tr></table></figure>
 
@@ -839,7 +839,7 @@ $$
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">H, W, K, chunk=<span class="number">1024</span>*<span class="number">32</span>, rays=<span class="literal">None</span>, c2w=<span class="literal">None</span>, ndc=<span class="literal">True</span>,</span></span><br><span class="line"><span class="params">                  near=<span class="number">0.</span>, far=<span class="number">1.</span>,</span></span><br><span class="line"><span class="params">                  use_viewdirs=<span class="literal">False</span>, c2w_staticcam=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">                  **kwargs</span>):</span><br><span class="line">    <span class="keyword">if</span> c2w <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># special case to render full image</span></span><br><span class="line">        rays_o, rays_d = get_rays(H, W, K, c2w)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># use provided ray batch</span></span><br><span class="line">        rays_o, rays_d = rays</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> use_viewdirs:</span><br><span class="line">        <span class="comment"># provide ray directions as input</span></span><br><span class="line">        viewdirs = rays_d</span><br><span class="line">        <span class="keyword">if</span> c2w_staticcam <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="comment"># special case to visualize effect of viewdirs</span></span><br><span class="line">            rays_o, rays_d = get_rays(H, W, K, c2w_staticcam)</span><br><span class="line">        viewdirs = viewdirs / torch.norm(viewdirs, dim=-<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">        viewdirs = torch.reshape(viewdirs, [-<span class="number">1</span>,<span class="number">3</span>]).<span class="built_in">float</span>()</span><br><span class="line"></span><br><span class="line">    sh = rays_d.shape <span class="comment"># [..., 3]</span></span><br><span class="line">    <span class="keyword">if</span> ndc:</span><br><span class="line">        <span class="comment"># for forward facing scenes</span></span><br><span class="line">        rays_o, rays_d = ndc_rays(H, W, K[<span class="number">0</span>][<span class="number">0</span>], <span class="number">1.</span>, rays_o, rays_d)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create ray batch</span></span><br><span class="line">    rays_o = torch.reshape(rays_o, [-<span class="number">1</span>,<span class="number">3</span>]).<span class="built_in">float</span>()</span><br><span class="line">    rays_d = torch.reshape(rays_d, [-<span class="number">1</span>,<span class="number">3</span>]).<span class="built_in">float</span>()</span><br><span class="line"></span><br><span class="line">    near, far = near * torch.ones_like(rays_d[...,:<span class="number">1</span>]), far * torch.ones_like(rays_d[...,:<span class="number">1</span>])</span><br><span class="line">    rays = torch.cat([rays_o, rays_d, near, far], -<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> use_viewdirs:</span><br><span class="line">        rays = torch.cat([rays, viewdirs], -<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Render and reshape</span></span><br><span class="line">    all_ret = batchify_rays(rays, chunk, **kwargs)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> all_ret:</span><br><span class="line">        k_sh = <span class="built_in">list</span>(sh[:-<span class="number">1</span>]) + <span class="built_in">list</span>(all_ret[k].shape[<span class="number">1</span>:])</span><br><span class="line">        all_ret[k] = torch.reshape(all_ret[k], k_sh)</span><br><span class="line"></span><br><span class="line">    k_extract = [<span class="string">&#x27;rgb_map&#x27;</span>, <span class="string">&#x27;disp_map&#x27;</span>, <span class="string">&#x27;acc_map&#x27;</span>]</span><br><span class="line">    ret_list = [all_ret[k] <span class="keyword">for</span> k <span class="keyword">in</span> k_extract]</span><br><span class="line">    ret_dict = &#123;k : all_ret[k] <span class="keyword">for</span> k <span class="keyword">in</span> all_ret <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> k_extract&#125;</span><br><span class="line">    <span class="keyword">return</span> ret_list + [ret_dict]</span><br></pre></td></tr></table></figure>
 
-​    实际上这里的逻辑很像run_network()，run_network()对输入进行了预处理，然后用一个batchify()封装了计算的过程。在这里render()这里，c2w一般是不输入的，会直接将输入的batch_rays拆成rays_o和rays_d。然后将rays_d作归一化，归一化后记作新的viewdirs，作为$\gamma(\bold{d})$中的$\bold{d}$。
+​    实际上这里的逻辑很像run_network()，run_network()对输入进行了预处理，然后用一个batchify()封装了计算的过程。在这里render()这里，c2w一般是不输入的，会直接将输入的batch_rays拆成rays_o和rays_d。然后将rays_d作归一化，归一化后记作新的viewdirs，作为$\gamma(\mathbf{d})$中的$\mathbf{d}$。
 
 ​    然后如果要作ndc，那么会将现在在世界坐标系下的rays_o和rays_d都作一次对应的透视变换。ndc和use_viewdirs实际上是在**render_train_kwargs里的。对于LLFF格式的数据集，ndc是默认True的。关于这里进行透视变换的原因，在<a href="#2">前文</a>已经得到了阐述。ndc_rays()忠实的执行了前文所说的透视变换以及光线原点的搬迁：
 
@@ -935,7 +935,7 @@ $$
 <p>​    可见生成的效果还是很不错的。</p>
 <h3 id="扩展讨论"><a href="#扩展讨论" class="headerlink" title="扩展讨论"></a>扩展讨论</h3><p>​    NeRF惊艳的结果马上引来了大量研究者的关注，随之而来的就是大量的改进工作，和工程上的优化。例如<a target="_blank" rel="noopener" href="https://docs.nerf.studio/en/latest/">Nerfstudio</a>, <a target="_blank" rel="noopener" href="https://www.nerfacc.com/">Nerfacc</a>，这些库都使用了大量远超我理解范围的技术，对NeRF极其变种的实现做了很多优化。所以如果想实践NeRF，或许可以不从上面vanilla的代码开始了。</p>
 <p>​    如<a href="#6">前文</a>所说，NeRF是为了进行新视图合成的，而不是三维重建。因为，NeRF的生成结果，其$\sigma$和$c$，不一定真的是这个场景本身。NeRF只是保证优化出的视图是最贴近的，这并不代表它学到的$\sigma$（也可以叫几何“geometry”）是对的。即如果观察出来的深度图，可能深度图和真实场景相差的非常多，但最后渲染出的RGB图却相差不大。因为损失函数只关心最后计算出的RGB，所以NeRF本身并不能保证学到的几何结构是正确的。一个极端的例子是：如果我拍摄的场景里有一面镜子，那么NeRF是会把镜子重建为一个有着反射高光的几何平面，还是一个有深度，有$\sigma$的几何表示？</p>
-<p>​    在NeRF++中，作者揭示了为什么NeRF可以在学到的几何是错误的情况下，仍然能给出很好的渲染结果（因为一般来说只有几何表示对了才可能有更好的渲染质量）。原因可以概括为，对$\bold{x}$和$\bold{d}$的处理是不对称的。对位置，它被编码到了更高频的空间（$L=10$）。然而更复杂的几何一般有着更加复杂的颜色变化（或者叫“光场”），而编码$\bold{d}$只被映射进了$L=4$，同时只有一层MLP来表示它。所以这保证了对于一般的高光，non-Lambertian的效果，网络可以实现；然而一些更复杂或者充满噪声的光场，网络由于MLP的拟合能力的原因，只能生成一些平滑的光场，这些平滑的光场大多数时候都是符合实际的。所以NeRF其实并不适合三维重建，但后来的NeuS，在NeRF的框架上加入了对几何表面的描述，是真正意义上三维重建的里程碑。</p>
+<p>​    在NeRF++中，作者揭示了为什么NeRF可以在学到的几何是错误的情况下，仍然能给出很好的渲染结果（因为一般来说只有几何表示对了才可能有更好的渲染质量）。原因可以概括为，对$\mathbf{x}$和$\mathbf{d}$的处理是不对称的。对位置，它被编码到了更高频的空间（$L=10$）。然而更复杂的几何一般有着更加复杂的颜色变化（或者叫“光场”），而编码$\mathbf{d}$只被映射进了$L=4$，同时只有一层MLP来表示它。所以这保证了对于一般的高光，non-Lambertian的效果，网络可以实现；然而一些更复杂或者充满噪声的光场，网络由于MLP的拟合能力的原因，只能生成一些平滑的光场，这些平滑的光场大多数时候都是符合实际的。所以NeRF其实并不适合三维重建，但后来的NeuS，在NeRF的框架上加入了对几何表面的描述，是真正意义上三维重建的里程碑。</p>
 <p>​    以及在原始的NeRF中，我们一般只会处理有界的合成数据集和“facing-forward”的真实数据集，360°的真实数据集，由于不能应用NDC，所以会有一个两难的境地：如果不建模远景，背景会糊；如果对远景采样，那么在相同采样点数下，近景的分辨率会下降。这个问题先后被NeRF++，Mip-NeRF 360解决。前者是独立的训练两个网络，一个表述近景，一个表述远景，然后将远景进行类似复变函数中学过的反演变换。后者，应该是在Mip-NeRF的基础上做了类似的事情。（Mip-NeRF是一项针对训练和测试时如果分辨率不同，则生成的结果会模糊/锯齿这一问题所进行的改进。）</p>
 <p>​    还有一些对NeRF进行加速的工作，如instant-ngp，其中用到了一种叫作“<em>multi-resolution hash encoding</em>”的技术，同时有着很大的工程价值，我还没看懂。总之它可以将NeRF的生成速度加快很多。</p>
 <p>​    但还有一种路线，是将NeRF作为一个良好的逼近器。例如为了给人脸和人体建模，虽然NeRF本身的几何效果并不佳，但人脸和人体这两个领域本身就有一些参数化的模型如3DMM和SMPL。所以这些参数化模型可以作为一个模板（<em>template</em>），然后NeRF从不同角度射出光线，在模板空间的基础上进行估计。由于人脸和人体一般都会有一些非刚体的特点，所以在这些工作里，往往使用的是Nerfies, D-Nerf，作为整个工作管线的一个小组件。</p>
