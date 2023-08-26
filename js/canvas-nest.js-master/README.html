@@ -1,0 +1,89 @@
+<h1 id="canvas-nest-js"><a href="#canvas-nest-js" class="headerlink" title="canvas-nest.js"></a>canvas-nest.js</h1><blockquote>
+<p>A nest background of website draw on canvas. <a href="README-zh.md">中文 Readme 帮助文档</a>.</p>
+</blockquote>
+<p><a href="https://git.hust.cc/canvas-nest.js"><img src="https://img.shields.io/badge/demo-online-brightgreen.svg" alt="npm"></a><br><a href="https://www.npmjs.com/package/canvas-nest.js"><img src="https://img.shields.io/npm/v/canvas-nest.js.svg" alt="npm"></a><br><a href="https://www.npmjs.com/package/canvas-nest.js"><img src="https://img.shields.io/npm/dm/canvas-nest.js.svg" alt="npm"></a><br><a href="https://unpkg.com/canvas-nest.js/dist/canvas-nest.js"><img src="http://img.badgesize.io/https://unpkg.com/canvas-nest.js/dist/canvas-nest.js?compression=gzip" alt="gzip"></a></p>
+<p><img src="/screenshot.png" alt="screenshot"></p>
+<h2 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h2><ul>
+<li>It does not depend on jQuery and original javascrpit is used.</li>
+<li>Small size, only 2 Kb.</li>
+<li>Easy to implement, simple configuration.</li>
+<li>You do not have to be a web developer to use it.</li>
+<li>Modularized with area rendering.</li>
+</ul>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><pre><code class="lang-sh"># use npm
+npm install --save canvas-nest.js
+
+# or use yarn
+yarn add canvas-nest.js
+</code></pre>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><ul>
+<li>Script tag</li>
+</ul>
+<p>Insert the code below <code>between &lt;body&gt; and &lt;/body&gt;</code>.</p>
+<pre><code class="lang-html">&lt;script src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Strongly suggest to insert before the tag <code>&lt;/body&gt;</code>, as the following:</p>
+<pre><code class="lang-html">&lt;html&gt;
+&lt;head&gt;
+    ...
+&lt;/head&gt;
+&lt;body&gt;
+    ...
+    ...
+    &lt;script src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Then ok! <code>Please do not add the code in the &lt;head&gt; &lt;/head&gt;</code>.</p>
+<ul>
+<li>Modular usage (Area render)</li>
+</ul>
+<p>After installation, you can import this as module.</p>
+<p>There is only one API, use it as below:</p>
+<pre><code class="lang-js">import CanvasNest from &#39;canvas-nest.js&#39;;
+
+const config = {
+  color: &#39;255,0,0&#39;,
+  count: 88,
+};
+
+// Using config rendering effect at &#39;element&#39;.
+const cn = new CanvasNest(element, config);
+
+// destroy
+cn.destroy();
+</code></pre>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><ul>
+<li><strong><code>color</code></strong>: color of lines, default: <code>&#39;0,0,0&#39;</code>; RGB values: (R,G,B).(note: use ‘,’ to separate.)</li>
+<li><strong><code>pointColor</code></strong>: color of points, default: <code>&#39;0,0,0&#39;</code>; RGB values: (R,G,B).(note: use ‘,’ to separate.)</li>
+<li><strong><code>opacity</code></strong>: the opacity of line (0~1), default: <code>0.5</code>.</li>
+<li><strong><code>count</code></strong>: the number of lines, default: <code>99</code>.</li>
+<li><strong><code>zIndex</code></strong>: z-index property of the background, default: <code>-1</code>.</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>Script tag</li>
+</ul>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot; color=&quot;0,0,255&quot; opacity=&#39;0.7&#39; zIndex=&quot;-2&quot; count=&quot;99&quot; src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>Modular usage (Area render)</li>
+</ul>
+<pre><code class="lang-js">{
+  color: &#39;0,0,255&#39;,
+  opacity: 0.7,
+  zIndex: -2,
+  count: 99,
+};
+</code></pre>
+<p><strong>Note: If the Configuration isn’t customized, default values are available as well.</strong></p>
+<h2 id="Related-projects"><a href="#Related-projects" class="headerlink" title="Related projects"></a>Related projects</h2><ul>
+<li><a href="https://github.com/aTool-org/canvas-nest-for-wp">canvas-nest-for-wp</a>: a wordpress plugin, search <code>canvas-nest</code> in wordpress store.</li>
+<li><a href="https://github.com/ZYSzys/vue-canvas-nest">vue-canvas-nest</a>: vue component wrapper.</li>
+<li><a href="https://github.com/flyerH/react-canvas-nest">react-canvas-nest</a>: react component wrapper.</li>
+<li><a href="https://github.com/AShujiao/vscode-nest">canvas-nest-for-vscode</a>: a vscode extensions, search <code>nest</code> in vscode extensions.</li>
+</ul>
+<h2 id="Used-by"><a href="#Used-by" class="headerlink" title="Used by"></a>Used by</h2><ul>
+<li><a href="https://atool.vip">A Tool</a>: a convenient tool box.</li>
+</ul>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT@<a href="https://github.com/hustcc">hustcc</a>.</p>

@@ -1,0 +1,88 @@
+<h1 id="canvas-nest-js"><a href="#canvas-nest-js" class="headerlink" title="canvas-nest.js"></a>canvas-nest.js</h1><blockquote>
+<p>一个基于 html5 canvas 绘制的网页背景效果。</p>
+</blockquote>
+<p><a href="https://git.hust.cc/canvas-nest.js"><img src="https://img.shields.io/badge/demo-online-brightgreen.svg" alt="npm"></a><br><a href="https://www.npmjs.com/package/canvas-nest.js"><img src="https://img.shields.io/npm/v/canvas-nest.js.svg" alt="npm"></a><br><a href="https://www.npmjs.com/package/canvas-nest.js"><img src="https://img.shields.io/npm/dm/canvas-nest.js.svg" alt="npm"></a><br><a href="https://unpkg.com/canvas-nest.js/dist/canvas-nest.js"><img src="http://img.badgesize.io/https://unpkg.com/canvas-nest.js/dist/canvas-nest.js?compression=gzip" alt="gzip"></a></p>
+<p><img src="/screenshot.png" alt="screenshot"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="lang-sh"># 使用 npm
+npm install --save canvas-nest.js
+
+# 或者使用 yarn
+yarn add canvas-nest.js
+</code></pre>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li>不依赖 jQuery，使用原生的 javascript。</li>
+<li>非常小，只有 2 Kb。</li>
+<li>非常容易实现，配置简单，即使你不是 web 开发者，也能简单搞定。</li>
+<li>模块化 &amp; 区域渲染。</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>快捷使用</li>
+</ul>
+<p>将下面的代码插入到 <code>&lt;body&gt; 和 &lt;/body&gt; 之间</code>.</p>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot; src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>强烈建议在 <code>&lt;/body&gt;</code>标签上方. 例如下面的代码结构:</p>
+<pre><code class="lang-html">&lt;html&gt;
+&lt;head&gt;
+    ...
+&lt;/head&gt;
+&lt;body&gt;
+    ...
+    ...
+    &lt;script type=&quot;text/javascript&quot; src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>然后就完成了，打开网页即可看到效果!<code>请注意不要将代码置于 &lt;head&gt; &lt;/head&gt;里面</code>.</p>
+<ul>
+<li>模块化区域绘制（定制开发）</li>
+</ul>
+<p>完成安装好，可以使用模块化方式 import。</p>
+<p>并且只有一个 API，使用如下：</p>
+<pre><code class="lang-js">import CanvasNest from &#39;canvas-nest.js&#39;;
+
+const config = {
+  color: &#39;255,0,0&#39;,
+  count: 88,
+};
+
+// 在 element 地方使用 config 渲染效果
+const cn = new CanvasNest(element, config);
+
+// destroy
+cn.destroy();
+</code></pre>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
+<li><strong><code>color</code></strong>: 线条颜色, 默认: <code>&#39;0,0,0&#39;</code> ；三个数字分别为(R,G,B)，注意用,分割</li>
+<li><strong><code>pointColor</code></strong>: 交点颜色, 默认: <code>&#39;0,0,0&#39;</code> ；三个数字分别为(R,G,B)，注意用,分割</li>
+<li><strong><code>opacity</code></strong>: 线条透明度（0~1）, 默认: <code>0.5</code></li>
+<li><strong><code>count</code></strong>: 线条的总数量, 默认: <code>150</code></li>
+<li><strong><code>zIndex</code></strong>: 背景的z-index属性，css属性用于控制所在层的位置, 默认: <code>-1</code></li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>快捷使用</li>
+</ul>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot; color=&quot;0,0,255&quot; opacity=&#39;0.7&#39; zIndex=&quot;-2&quot; count=&quot;99&quot; src=&quot;dist/canvas-nest.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ul>
+<li>模块化区域绘制（定制开发）</li>
+</ul>
+<pre><code class="lang-js">{
+  color: &#39;0,0,255&#39;,
+  opacity: 0.7,
+  zIndex: -2,
+  count: 99,
+};
+</code></pre>
+<p><strong>注意: 所有的配置项都有默认值，如果你不知道怎么设置，可以先不设置这些配置项，就使用默认值看看效果也可以的。</strong></p>
+<h2 id="相关项目"><a href="#相关项目" class="headerlink" title="相关项目"></a>相关项目</h2><ul>
+<li><a href="https://github.com/aTool-org/canvas-nest-for-wp">canvas-nest-for-wp</a>: WP 插件，在插件市场搜索 <code>canvas-nest</code> 即可安装。</li>
+<li><a href="https://github.com/ZYSzys/vue-canvas-nest">vue-canvas-nest</a>: VUE 组件包装。</li>
+<li><a href="https://github.com/flyerH/react-canvas-nest">react-canvas-nest</a>: React 组件包装。</li>
+<li><a href="https://github.com/AShujiao/vscode-nest">canvas-nest-for-vscode</a>: vscode 扩展, 在vscode扩展市场中搜索<code>nest</code> 即可安装。</li>
+</ul>
+<h2 id="使用项目"><a href="#使用项目" class="headerlink" title="使用项目"></a>使用项目</h2><ul>
+<li><a href="https://atool.vip">A Tool</a>: 一个好用的工具集合.</li>
+</ul>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT@<a href="https://github.com/hustcc">hustcc</a>.</p>
