@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/PDE3_ErrorShow.gif">
 <meta property="og:image" content="http://example.com/images/PDEover.jpg">
 <meta property="article:published_time" content="2021-08-01T15:17:57.411Z">
-<meta property="article:modified_time" content="2021-10-06T16:25:25.437Z">
+<meta property="article:modified_time" content="2023-08-27T03:02:46.529Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="PDE">
 <meta property="article:tag" content="数学建模">
@@ -250,7 +250,11 @@ f_T\left( t \right) =c_0+\sum_{n=1}^{\infty}{\left( c_ne^{in\omega t}+c_{-n}e^{-
 <script type="math/tex; mode=display">
 f_T\left( t \right) 
 =\sum_{-\infty}^{\infty}{c_ne^{in\omega t}}</script><p>​        就是傅里叶级数的复数形式，现在我们有了两种傅里叶级数的表达，在这里我们将$\omega =\frac{2\pi}{T}$称为基频率，因为它是由该函数的周期而唯一确定的。现在我们来直观感受一下这两种表达方式的区别：</p>
-<p>​        <img src="/images/PDE3_Fourier.jpg" alt=""></p>
+<center>
+    <img src='/images/PDE3_Fourier.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​        其中时域图是我们很熟悉的，而频域图则有些陌生，实际上，我们考虑傅里叶级数的每一项，$c_n$是一个函数，不同的$n$对应着不同的$c_n$。我们取它的模长，按照$n\omega$来作为横轴，而不同$n$时与$e^{inwt}$的线性组合，即是傅里叶级数。换句话说，就类似千手观音，如果我们掌握着构成某个函数的傅里叶级数，那么他们就在这个函数背后按照一排站好，侧过去看，实际上就是频域图。</p>
 <p>​        但直到这里，好像还和我们要研究的内容没有什么关系，因为我们直觉上就知道大多数偏微分方程的解它肯定不是周期函数，所以我们还要把上面的内容再延申一下。</p>
 <p>​        对于非周期函数，即考虑周期趋近于无穷的时候，那么我们说的基频率$\omega$会相当的小，频域图会从离散的分立点构成一个连续的曲线。此时上面的积分上下限也从$\frac{T}{2}$变为$\infty$，并且此时的$n\omega$会越来越接近为我们熟悉的“自变量$\omega$”，此时频域图中分立点的间隔$\varDelta \omega %$也变得越来越小，即：</p>
@@ -259,7 +263,11 @@ f_T\left( t \right)
 <script type="math/tex; mode=display">
 f\left( t \right) =\frac{1}{2\pi}\int\limits_{-\infty}^{+\infty}{\left[ \int_{-\infty}^{+\infty}{f\left( t \right) e^{-i\omega t}dt} \right] e^{iwt}dw}</script><p>​        这个式子，括号里，正是<strong>傅里叶变换</strong>，而将括号内看成整体$F(\omega)$，这个式子就是傅里叶变换的逆变换。<strong><em>它的意义非常深刻</em></strong></p>
 <p>​        下面我们来讨论稳定性，所谓稳定性，大多是在有时间变量的问题里所提及的，如果选择的时间步长不合适，可能会出现这样类似爆炸，使人大为震撼的情况：</p>
-<p>​                <img src="/images/PDE3_ErrorShow.gif" alt=""></p>
+<center>
+    <img src='/images/PDE3_ErrorShow.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​        一种经典的分析差分格式稳定性的方法就是：傅里叶分析法。</p>
 <p>​        这里我们只给出具有指导意义的结论：将迭代时的$U_{j}^{n}$改写成复变量$v_ne^{ijk\varDelta x}$,只要计算$G=v_{n+1}/v_n$，如果对于任意实数$k$来说$G$的模长都小于1，那么格式就是稳定的。</p>
 <p>​        最后我们再说一下解析解的问题，实际上很多时候我们并不是很需要一个偏微分方程的解析解…但是有的时候，对于一些三维无界问题，找出解析解更加方便，那么上面说的傅里叶变换和解这个偏微分方程有什么关系呢？</p>
@@ -288,7 +296,9 @@ f\left( t \right) =\frac{1}{2\pi}\int\limits_{-\infty}^{+\infty}{\left[ \int_{-\
 u\left( x,y,z,t \right) =\frac{M}{\left( 2\sqrt{\pi t} \right) ^3\sqrt{a^2b^2c^2}}\exp \left\{ -\frac{\left( x-x_0 \right) ^2}{4a^2t}-\frac{\left( y-y_0 \right) ^2}{4b^2t}--\frac{\left( z-z_0 \right) ^2}{4c^2t}-k^2t \right\}</script><p>​        实际上走这一套流程的时候，如果要独立的计算出来所涉及的数学知识可能有很多，所以并不是很方便，把解析解的内容写上来只是起到“知道”就行的作用，实践时还是应以数值方法为主。</p>
 <p>​        应该到这里偏微分方程的内容就结束了，我希望我的队友…有在家好好学习，嗯……只是希望。</p>
 <p>​        完结撒花！</p>
-<p><img src="/images/PDEover.jpg" alt=""></p>
+<center>
+    <img src='/images/PDEover.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

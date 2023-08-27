@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/images/analog_2_6.png">
 <meta property="og:image" content="http://example.com/images/analog_2_7.png">
 <meta property="article:published_time" content="2022-06-06T11:29:11.000Z">
-<meta property="article:modified_time" content="2022-06-09T10:03:42.625Z">
+<meta property="article:modified_time" content="2023-08-27T03:19:11.258Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="电路分析">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,11 @@
         <p>​    本篇继续整理模电，记录一下关于基本放大电路和差分放大器的知识。</p>
 <span id="more"></span>
 <p>​    在了解这一片内容之前，要先对三极管有一个必要的认识，也就是引入少许先验：三极管工作时，发射结正篇，集电结反偏。为了使得三极管达到这个状态来放大小信号，需要引入偏置电路：</p>
-<p><img src="/images/analog_2_1.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这三个电路的意义在于将三极管“引入”工作状态，在这里我们将工作点（静态工作点）称为Q点（quiescent）。对这个点我们要计算的参数有基极电流$I_{BQ}$, 集电极电流$I_{CQ}$, 集电极电压$U_{CEQ}$ 。实际上到后面我们会发现，这也是分析放大电路的第一步，找出直流通路确定静态工作点。</p>
 <p>​    从左到右第一种是固定偏流电路，我们可以直接把三极管的三个极看成三个电位，然后像图中虚线那样看，列写电路方程：</p>
 <script type="math/tex; mode=display">
@@ -226,7 +230,11 @@ R_B=R_{B1}//R_{B2}</script><p>​    所以基极电流在这个电路中写作�
 <script type="math/tex; mode=display">
 I_{BQ}=\frac{U_{BB}-U_{BEQ}}{R_B+\left( 1+\beta \right) R_E}</script><p>​    另外两式子与电流反馈型时的相同。</p>
 <p>​    实际上我们现在就已经完成了对放大电路的静态分析，然后就是动态分析了。我们要明确一下，对于一个放大电路，我们做静态分析，画直流通路时，是将电容断路；画交流通路时，是将电容短路，并且将加的直流电源置0（一般是$U_{CC}$） 。我们以一个共射放大电路为例：</p>
-<p><img src="/images/analog_2_2.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们把参数的值赋上：</p>
 <script type="math/tex; mode=display">
 \beta =100,U_{BEQ}=0.7\mathrm{V},U_{CC}=+12\mathrm{V},R_{B1}=39\mathrm{k}\Omega 
@@ -240,7 +248,11 @@ I_{CQ}=\beta I_{BQ}\approx 1.9\mathrm{mA}
 U_{CEQ}\approx 12-1.9\mathrm{mA}\times 4\mathrm{k}\Omega \approx 8.2\mathrm{V}</script><p>​    看，我们就这样求解了静态工作点，那么对于交流通路，首先，它是一个放大器，就像之前的理想集成运放一样，我们也关注三个属性：放大倍数（也叫增益），输入电阻，输出电阻。然而三极管是个非线性元件，给分析带来了不便，所以我们采用小信号模型等效，我在这里整理一下小信号简化模型的结论，推导就略了：</p>
 <script type="math/tex; mode=display">
 r_{be}\approx 200\Omega +\left( 1+\beta \right) \frac{26\left( \mathrm{mV} \right)}{I_{BQ}\left( \mathrm{mA} \right)}</script><p>​    后面的图我就直接从教材上截了，画的话太花时间了，着重理解一下指标的推法，那么刚才的电路经过小信号等效，就变成了：</p>
-<p><img src="/images/analog_2_3.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们下面一步步计算电压放大倍数$A_u$，它是输出电压与输入电压的比值，要记住等效前后哪根导线上的电流谁是谁，因为考试中的电路上不会帮忙标记，注意到这个$r_{ce}$它非常的大，可以被看成断路，所以：</p>
 <script type="math/tex; mode=display">
 U_o=-I_c\left( R_C//R_L \right) 
@@ -253,7 +265,11 @@ R_i=\frac{U_i}{I_i}=R_{B1}//R_{B2}//r_{be}</script><p>​    而有时基极偏�
 <p>​    输出电压道理是一样的，此时将外电路电阻$R_L$开路，信号源$U_S$置零，那样受控源电流也为$0$：</p>
 <script type="math/tex; mode=display">
 R_o=\frac{U_o}{I_o}=r_{ce}//R_c\approx R_c</script><p>​    然后……我们就分析完了，共射放大电路，然后我们再看书上的共集电极放大电路：</p>
-<p><img src="/images/analog_2_4.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    直流通路是我们熟悉的分压式负反馈电路，计算方法和上面一样，下面我们看交流指标：</p>
 <script type="math/tex; mode=display">
 U_o=\left( 1+\beta \right) I_b\times \left( R_E//R_L \right) 
@@ -263,7 +279,11 @@ U_i=I_b\left( r_{be}+\left( 1+\beta \right) \left( R_E//R_L \right) \right)
 A_u=\frac{U_o}{U_i}=\frac{\left( 1+\beta \right) I_b\times \left( R_E//R_L \right)}{I_b\left( r_{be}+\left( 1+\beta \right) \left( R_E//R_L \right) \right)}
 \\
 R_i=\frac{U_i}{I_i}=R_{B1}//R_{B2}//\left[ r_{be}+\left( 1+\beta \right) \left( R_E//R_L \right) \right]</script><p>​    注意由于电流变化发生的电阻等效，这种情况下的输出电阻有些复杂，容易画出它的等效电路是：</p>
-<p><img src="/images/analog_2_5.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    由于受控源，我们要先分析从发射极看进去的输出电阻，这样再与$R_E$​并联，就得出来了。</p>
 <script type="math/tex; mode=display">
 U_o=-I_b\left( r_{be}+R_s//R_{B1}//R_{B2} \right) 
@@ -273,7 +293,11 @@ I_{o}^{'}=-I_e=-\left( 1+\beta \right) I_b
 R_{o}^{'}=\frac{U_o}{I_{o}^{'}}=\frac{r_{be}+R_s//R_{B1}//R_{B2}}{1+\beta}
 \\
 R_o=R_E//R_{o}^{'}\approx R_{o}^{'}</script><p>​    对于共基极电路，情况比较抽象：</p>
-<p><img src="/images/analog_2_6.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    注意发射极和基极回路，我们得到：</p>
 <script type="math/tex; mode=display">
 U_o=-I_c\left( R_C//R_L \right) =-\beta I_b\left( R_C//R_L \right) 
@@ -326,7 +350,11 @@ R_i=R_E//R_{i}^{'}</script><p>​    这三种放大电路各有各的特点，�
 </table>
 </div>
 <p>​    然后是一种长尾式差分放大电路，它很重要，实际上它的精髓在于那个$R_E$。这种电路可以有效抑制零点漂移。这个电路可以进行双端输入和双端输出，首先，输入方式对它是无所谓的，因为不管怎么输入都可以被拆成一对共模信号和一对差模信号，再运用叠加定理。不会影响什么。输出方式可以从两个输出端输出（双端输出），也可以从单端接地输出（单端输出）：</p>
-<p><img src="/images/analog_2_7.png" alt=""></p>
+<center>
+    <img src='/images/analog_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    直流工作状态非常好分析，把输入电压置0。我们注意到其的对称性：</p>
 <script type="math/tex; mode=display">
 U_{EE}=U_{BEQ}+IR_E\approx U_{BEQ}+2I_{CQ}R_E

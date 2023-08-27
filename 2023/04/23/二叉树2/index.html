@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://example.com/images/tree_family.png">
 <meta property="og:image" content="http://example.com/images/AVL_end.png">
 <meta property="article:published_time" content="2023-04-23T03:56:23.000Z">
-<meta property="article:modified_time" content="2023-05-02T04:51:13.330Z">
+<meta property="article:modified_time" content="2023-08-27T03:00:42.468Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,11 @@
 <h3 id="Delete-for-BST"><a href="#Delete-for-BST" class="headerlink" title="Delete for BST"></a>Delete for BST</h3><p>​    当我们设法解决这件事之前，我们还有一个遗留问题—删除。</p>
 <p>​    我们在删除时，需要维护二叉排序树的性质。我们一步一步来思考这个问题，二叉树的中序遍历是一个单增序列。如果我们只看这样的一个线性序列，删除非常简单。我们，想删除谁就删除谁就好了。</p>
 <p>​    但唯一的区别就在于二叉树是一个非线性结构，实际上我们可以直观的把中序遍历开成它的垂直投影：</p>
-<p><img src="/images/BST_0.png" alt=""></p>
+<center>
+    <img src='/images/BST_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们思考删除结点p时的情况。逐列来看：</p>
 <p>​    对于第一列，p结点只有左子树。我们发现直接移除p结点，并不会影响投影的单调性。所以对于这种情况，我们只需把q的左或者右孩子直接连成pL的根结点。</p>
 <p>​    在第二列，p只有右子树的情况，也是一样的。直接移除p不会影响单调性。</p>
@@ -257,17 +261,33 @@
 <p>​    最后，我们再体会一下删除20：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             23</span><br><span class="line">             / \</span><br><span class="line">            /   \</span><br><span class="line">           /     \</span><br><span class="line">          /       \</span><br><span class="line">         /         \</span><br><span class="line">        /           \</span><br><span class="line">       /             \</span><br><span class="line">      10              25</span><br><span class="line">     / \               \</span><br><span class="line">    /   \               \</span><br><span class="line">   /     \               \</span><br><span class="line">  5       15              27</span><br><span class="line"> / \     / \</span><br><span class="line">3   7   13  17</span><br></pre></td></tr></table></figure>
 <p>​    这个过程的动态可视化：</p>
-<p><img src="/images/BST_delete.gif" alt=""></p>
+<center>
+    <img src='/images/BST_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    现在，我们就对二叉排序树的删除有了比较清晰的认识。</p>
 <h3 id="AVL-tree"><a href="#AVL-tree" class="headerlink" title="AVL tree"></a>AVL tree</h3><p>​    就像我们在删除部分之前所举的例子，我们插入二叉排序树的顺序，会影响这棵树的形状。实际上，如果我们插入的是一个单调序列，二叉排序树甚至会退化为链表。</p>
 <p>​    我们并不希望这种事情的发生，于是有了平衡二叉树的概念。AVL树是最先发明的一种自平衡二叉搜索树。在AVL树中，每个结点会额外储存一个平衡因子(balanced factor)，这个值是左子树高度和右子树高度之差，它被要求在-1，0，1中。我们称这样的性质为AVL性质。如果AVL树因为插入和删除，破坏了这样的性质。那么需要进行旋转(rotate)来恢复它。</p>
 <p>​    在前面二叉排序树的删除中，我们已经体会到，树的递归性质。由于从一个空结点开始，插入第一个元素，它一定是满足AVL性质的。插入第二个，无论是大于还是小于，也还是满足的，此时根结点的平衡因子为1。只有在此基础上，继续插入元素，才会产生AVL性质的破坏。所以，插入元素的落点只会有4种情况：</p>
-<p><img src="/images/AVL_0.png" alt=""></p>
+<center>
+    <img src='/images/AVL_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    对于LL型和RR型，他们可以通过一次右旋(right rotation)和一次左旋(left rotation)来实现调整：</p>
-<p><img src="/images/AVL_1.png" alt=""></p>
+<center>
+    <img src='/images/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    可以看到一次右旋对应的是LL型，一次左旋是RR型。所谓左/右旋，可以形象的理解为，将AVL性质破坏的那个结点，看作方向盘的中心，然后左打/右打方向盘。我们以一次右旋为例，相当于A连同其较短的右子树，统一下降一个高度；B连同其孩子，统一上升一个高度。这样，A的高度差就被填平了。由于B被抬上去成了根结点，而B不能有三个孩子，所以很自然的，B的右孩子过继到A的左孩子（因为这样不影响高度）。</p>
 <p>​    当插入结点为LR和RL型时，情况变得少许复杂：</p>
-<p><img src="/images/AVL_2.png" alt=""></p>
+<center>
+    <img src='/images/AVL_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    简单来说，就是先左旋/右旋一次，再右旋/左旋一次。这一过程中有许多的对称性，需注意观察。</p>
 <p>​    所以，在原来代码的基础上，我们可以做如下修改，把普通的二叉排序树变成AVL树：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	keytype key;</span><br><span class="line">	datatype value;</span><br><span class="line">	<span class="type">int</span> balance_factor;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">l_child</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">r_child</span>;</span></span><br><span class="line">&#125;bstnode;</span><br></pre></td></tr></table></figure>
@@ -277,12 +297,20 @@
 <p>​    接下来我们定义左旋和右旋：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">bstnode* <span class="title function_">right_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">	bstnode* new_root = node-&gt;l_child;</span><br><span class="line">	node-&gt;l_child = new_root-&gt;r_child;</span><br><span class="line">	new_root-&gt;r_child = node;</span><br><span class="line">	node-&gt;balance_factor = balance_factor(node);</span><br><span class="line">	new_root-&gt;balance_factor = balance_factor(new_root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bstnode* <span class="title function_">left_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    bstnode* new_root = node-&gt;r_child;</span><br><span class="line">    node-&gt;r_child = new_root-&gt;l_child;</span><br><span class="line">    new_root-&gt;l_child = node;</span><br><span class="line">    node-&gt;balance_factor = balance_factor(node);</span><br><span class="line">    new_root-&gt;balance_factor = balance_factor(new_root);</span><br><span class="line">    <span class="keyword">return</span> new_root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    我们逐句的分析一下right_rotate()，因为left_rotate()的逻辑跟它完全一样。对应之前的图可以更易理解：</p>
-<p><img src="/images/AVL_1.png" alt=""></p>
+<center>
+    <img src='/images/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这里node即是A，new_root即是B。我们先将A的左孩子赋值为了B的右孩子（灰色的h三角），即图中虚线部分所表示的过程。然后将B的右孩子指向A，这一点在图里没有用虚线表示，因为图示中的旋转直接表达了这一点。在这个过程中，只有A和B的平衡因子会发生变动，所以更新了node和new_root的平衡因子。</p>
 <p>​    基于左旋和右旋，我们可以复用他们的代码，来得到RL和LR时的双旋操作：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bstnode* <span class="title function_">right_left_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    node-&gt;r_child = right_rotate(node-&gt;r_child);</span><br><span class="line">    <span class="keyword">return</span> left_rotate(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bstnode* <span class="title function_">left_right_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    node-&gt;l_child = left_rotate(node-&gt;l_child);</span><br><span class="line">    <span class="keyword">return</span> right_rotate(node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    之前二叉排序树的插入操作，是递归实现的。每一次递归调用的函数，处理的都是根结点。所以当我们最终，找到插入的位置后。只需在完成插入函数的后面，加一步更新平衡因子和旋转的判断，即可沿着插入的路径不断调整结点：</p>
-<p><img src="/images/AVL_3.png" alt=""></p>
+<center>
+    <img src='/images/AVL_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    旋转的判断可以根据待旋转结点和其左孩子/右孩子的平衡因子来区分，如图所示。</p>
 <p>​    所以插入函数可以更新为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">bstnode* <span class="title function_">insert</span><span class="params">(bstnode* root, bstnode* s)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		root = s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(s-&gt;key &lt; root-&gt;key)</span><br><span class="line">		&#123;</span><br><span class="line">			root-&gt;l_child = insert(root-&gt;l_child, s);</span><br><span class="line">			<span class="type">int</span> bf = balance_factor(root);</span><br><span class="line">			<span class="keyword">if</span> (bf == <span class="number">2</span>)</span><br><span class="line">        	&#123;</span><br><span class="line">	            <span class="keyword">if</span> (balance_factor(root-&gt;l_child) == <span class="number">1</span>)</span><br><span class="line">	            &#123;</span><br><span class="line">	                root = right_rotate(root);</span><br><span class="line">	            &#125;</span><br><span class="line">	            <span class="keyword">else</span> <span class="keyword">if</span> (balance_factor(root-&gt;l_child) == <span class="number">-1</span>)</span><br><span class="line">	            &#123;</span><br><span class="line">	                root = left_right_rotate(root);</span><br><span class="line">	            &#125;</span><br><span class="line">        	&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(s-&gt;key &gt; root-&gt;key)</span><br><span class="line">		&#123;</span><br><span class="line">			root-&gt;r_child = insert(root-&gt;r_child, s);</span><br><span class="line">			<span class="type">int</span> bf = balance_factor(root);</span><br><span class="line">			<span class="keyword">if</span> (bf == <span class="number">-2</span>)</span><br><span class="line">        	&#123;</span><br><span class="line">	            <span class="keyword">if</span> (balance_factor(root-&gt;r_child) == <span class="number">-1</span>)</span><br><span class="line">	            &#123;</span><br><span class="line">	                root = left_rotate(root);</span><br><span class="line">	            &#125;</span><br><span class="line">	            <span class="keyword">else</span> <span class="keyword">if</span> (balance_factor(root-&gt;r_child) == <span class="number">1</span>)</span><br><span class="line">	            &#123;</span><br><span class="line">	                root = right_left_rotate(root);</span><br><span class="line">	            &#125;</span><br><span class="line">        	&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;key: %d already exists\n&quot;</span>, s-&gt;key);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	root-&gt;balance_factor = balance_factor(root);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -294,14 +322,28 @@
 <p>​    如果用之前的二叉排序树来作，那就会是一个链表：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input -1 as key to end</span><br><span class="line">1 a 2 d 3 c 4 b 5 e 6 f -1</span><br><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2                                                                                 </span><br><span class="line">   \</span><br><span class="line">    3                                                                                      \</span><br><span class="line">      4                                                                               		 \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
 <p>​    这个插入的过程可以可视化为：</p>
-<p><img src="/images/AVL_insert.gif" alt=""></p>
+<center>
+    <img src='/images/AVL_insert.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    同样，我们可以可视化一下删除过程：</p>
-<p><img src="/images/AVL_delete.gif" alt=""></p>
+<center>
+    <img src='/images/AVL_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h3 id="Other-trees"><a href="#Other-trees" class="headerlink" title="Other trees"></a>Other trees</h3><p>​    除了这两种tree，还有更多的树型结构：</p>
-<p><img src="/images/tree_family.png" alt=""></p>
+<center>
+    <img src='/images/tree_family.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    可是我并没有那么长的时间，像学习之前这两者一样，逐一学习，实现，可视化。如果每个都探索，也背离了我写这个blog的初衷，我还有别的事情需要做。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “吾生也有涯，而知也无涯。”</p>
-<p><img src="/images/AVL_end.png" alt=""></p>
+<center>
+    <img src='/images/AVL_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

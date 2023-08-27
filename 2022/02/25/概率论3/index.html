@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/Probability1.png">
 <meta property="article:published_time" content="2022-02-25T09:41:03.000Z">
-<meta property="article:modified_time" content="2022-02-27T03:09:09.631Z">
+<meta property="article:modified_time" content="2023-08-27T03:16:54.267Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="概率论">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,10 @@ f\left( x,y \right) =\left\{ \begin{array}{c}
 \end{array} \right.</script><p>​    求$Z=X+Y$的概率密度：</p>
 <p>​    我们直接求分布函数，再对分布函数求导：</p>
 <script type="math/tex; mode=display">
-F_Z\left( z \right) =P\left( Z\leqslant z \right) =P\left( X+Y\leqslant z \right) =\iint_{x+y\leqslant z}{f\left( x,y \right) \mathrm{d}x\mathrm{d}y}</script><p><img src="/images/Probability1.png" alt=""></p>
+F_Z\left( z \right) =P\left( Z\leqslant z \right) =P\left( X+Y\leqslant z \right) =\iint_{x+y\leqslant z}{f\left( x,y \right) \mathrm{d}x\mathrm{d}y}</script><center>
+    <img src='/images/Probability1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    我们做出了积分区域，这样方便我们计算上式的重积分。我们可以看到，不同的$Z$的取值，结果是不一样的。所以我们往往需要进行分类讨论。</p>
 <script type="math/tex; mode=display">
 z>0:\int_0^z{\int_0^{z-x}{\frac{1}{2}\left( x+y \right) e^{-\left( x+y \right)}\mathrm{d}y\mathrm{d}x}}=1-ze^{-z}-e^{-z}-\frac{1}{2}z^2e^{-z}

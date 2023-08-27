@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/pr_4.png">
 <meta property="og:image" content="http://example.com/images/pr_5.jpg">
 <meta property="article:published_time" content="2022-10-19T07:43:28.000Z">
-<meta property="article:modified_time" content="2022-10-24T14:44:06.187Z">
+<meta property="article:modified_time" content="2023-08-27T03:17:37.667Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
@@ -261,7 +261,11 @@ L=\left[ \begin{matrix}
 p\left( x|\omega _1 \right) =p\left( x|\omega _2 \right)</script><p>​    得最小错误概率下$x_0=1/2$，当是最小风险时，记住$\lambda_{ki}$的下标：</p>
 <script type="math/tex; mode=display">
 \lambda _{12}p\left( x|\omega _1 \right) =\lambda _{21}p\left( x|\omega _2 \right)</script><p>​    得$x_0=(1-\mathrm{ln}2)/2$，可以发现阈值向左移动了。为了便于记忆，我们可以只记$L$的下标，$\lambda_{ij}$指的是在分类$i$时错误$j$的权重，在这里，$p\left( x|\omega _1 \right)$在$p\left( x|\omega _2 \right)$的左侧，所以$\lambda_{12}$指的就是分类$\omega_1$时错判成$\omega_{2}$的权重，我们发现这里$\lambda_{12}&lt;\lambda_{21}$，可以直观的理解成：把$\omega_2$错分成$\omega_1$更加严重。所以阈值一定会向左移，这样更不容易错分，或者“宁可把$\omega_1$分成$\omega_2$”。与计算的结果是相符的。</p>
-<p><img src="/images/pr_1.png" alt=""></p>
+<center>
+    <img src='/images/pr_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="Gaussian"><a href="#Gaussian" class="headerlink" title="Gaussian"></a>Gaussian</h4><p>​    在刚才推导贝叶斯分类时，我们直接构造了分割方式$\mathcal{R} _i$，在上面举的例子里，它是一个一维的区域，如果进一步扩展，它会是一个超平面。理论上，我们也经常构造一些超平面来作分析，比如在对抗攻击中（PGD）。一方面是因为线性便于分析，另一方面是在一种广泛存在的现象中，决策面确实是平面。</p>
 <p>​    首先，我们先引入关于决策面的语言，例如在之前的最小化错误概率中，特征空间被分割为了$M$个区域，区域$\mathcal{R} _i$和$\mathcal{R} _j$​正好相邻，对于最小错误概率下，决策面可以写作：</p>
 <script type="math/tex; mode=display">
@@ -320,9 +324,17 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\boldsymbol{x}^T\varSigma _{i}^{-1
 \end{matrix} \right] ,\mu _i=\left[ \mu _{i1},\mu _{i2} \right] ^T,\boldsymbol{x}=\left[ x_1,x_2 \right] ^T</script><p>​    则二维情形下的$g_i(\boldsymbol{x})$​可以写作：</p>
 <script type="math/tex; mode=display">
 g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \frac{x_{1}^{2}}{\sigma _{i1}^{2}}+\frac{x_{2}^{2}}{\sigma _{i2}^{2}} \right) +\frac{\mu _{i1}}{\sigma _{i1}^{2}}x_1+\frac{\mu _{i2}}{\sigma _{i2}^{2}}x_2-\frac{1}{2}\left( \frac{\mu _{i1}^{2}}{\sigma _{i1}^{2}}+\frac{\mu _{i2}^{2}}{\sigma _{i2}^{2}} \right) +\ln P\left( \omega _i \right) +c_i</script><h4 id="Hyper-Plane"><a href="#Hyper-Plane" class="headerlink" title="Hyper Plane"></a>Hyper Plane</h4><p>​    我们不必研究协方差矩阵不为对角阵的情况，我们知道那只是将上式表示的二次曲线再作一下拉伸或旋转的变换。观察可得，对于决策曲线$g_i(\boldsymbol{x})-g_j({\boldsymbol{x}})=0$，二次项的符号决定了它是椭圆，还是双曲线，还是抛物线。</p>
-<p><img src="/images/pr_2.png" alt=""></p>
+<center>
+    <img src='/images/pr_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    实际上，我们可以画出上面三个例子的真实分布：</p>
-<p><img src="/images/pr_3.png" alt=""></p>
+<center>
+    <img src='/images/pr_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    除了这三种情况以外，还有一种更加特殊的情况，如果所有类的协方差矩阵是相同的，那么自然二次项在决策曲线上会消失，二次项在计算最大值时不参与比较，同时$c_i$此时也是每一类都一样的，那么可以重新定义$g_i({\boldsymbol{x})}$为一个超平面：</p>
 <script type="math/tex; mode=display">
 g_i\left( \boldsymbol{x} \right) =\boldsymbol{w}_{i}^{T}\boldsymbol{x}+w_{i0}
@@ -356,10 +368,16 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{
 \left( \boldsymbol{x}-\boldsymbol{\mu }_i \right) ^T\varPhi \varLambda ^{-1}\varPhi ^T\left( \boldsymbol{x}-\boldsymbol{\mu }_i \right) =c^2</script><p>​    我们记线性变换$\boldsymbol{x}^{‘}=\varPhi ^T\boldsymbol{x}$，那么与$\mu_i$一起，得到的就是原始向量在特征向量上的投影，直接展开：</p>
 <script type="math/tex; mode=display">
 \frac{\left( x_{1}^{'}-\mu _{i1}^{'} \right) ^2}{\lambda _1}+...+\frac{\left( x_{n}^{'}-\mu _{in}^{'} \right) ^2}{\lambda _n}=c^2</script><p>​    这就得到了一个超椭球体，可以想象，这与欧式距离产生的超球体有明显的不同。当我们对$x_1,x_2,..$赋予一个实际意义时，这样往往更有意义，可以考虑到不同特征间的相互关系，以及对不同的特征施加不同的尺度。下面做了一些可视化：</p>
-<p><img src="/images/pr_4.png" alt=""></p>
+<center>
+    <img src='/images/pr_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    第一行展示了在协方差矩阵对角线相同时先验概率变化的情形，与我们的推断是一致的。第二行展示了非对角的协方差矩阵的情况。在这里我停留一下论述一个事实，由上图我们也能看出，非对角的协方差矩阵可以由一个旋转变换得到。实际上这已经是全部的非对角协方差的情形了，我们不该觉得其有什么特殊。实际上，还是归结于实对称矩阵的相似对角化，就像之前所说的$\varSigma =\varPhi \varLambda \varPhi ^T$，其中$ \varLambda$即拉伸变换，$\varPhi$是正交变换，它可以理解为某种旋转，而$\varPhi^T$由于满足$\varPhi \varPhi^T=I$，所以是对应的逆变换，相当于“转回来”。</p>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    在实际应用中，高斯分布被普遍的用来描述某种事物的分布，因此贝叶斯分类要不就是线性的，要不就是二次的。取决于对其协方差矩阵的假设，为了判断各自的协方差矩阵是完全相同还是不同的，常用最大似然估计。如果我们假设是线性的，那就会引入线性判别分析；如果是二次，那就是二次判别分析，这是下一篇要写的了。</p>
-<p><img src="/images/pr_5.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_5.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

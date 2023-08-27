@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/2015A_2.jpg">
 <meta property="og:image" content="http://example.com/images/2015A_3.jpg">
 <meta property="article:published_time" content="2021-08-14T16:26:43.508Z">
-<meta property="article:modified_time" content="2021-10-06T16:29:45.232Z">
+<meta property="article:modified_time" content="2023-08-27T03:23:36.938Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="课外学习">
 <meta name="twitter:card" content="summary">
@@ -198,11 +198,20 @@
 <span id="more"></span>
 <h4 id="透视变换"><a href="#透视变换" class="headerlink" title="透视变换"></a>透视变换</h4><p>​    太阳影子定位的问题四要求我们从给定的一段40分钟视频中获取影子长度的信息，再反演出可能位置。这里就涉及到了透视变换。</p>
 <p>​    由于高中立体几何的影响和我们潜意识的惯性思维，我们现在设想一个正方体，我们会作出这样的一个图形（左），但实际上它应该是（右）</p>
-<p><img src="/images/2015A_1.jpg" alt="">  <img src="/images/2015A_2.jpg" alt=""></p>
+<center>
+    <img src='/images/2015A_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/2015A_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    因为左边的直接用坐标行而有效的表示，更能体现出一个几何体的特点，所以我们都很习惯这种表示。但在实际情况中，如果观察一个正方体，它的情况确实是右边的样子，如果拍成右边那样的照片，量取上面的各个边，会发现他们的长度并不都相等。</p>
 <p>​    这个原理很简单，但是有意思的地方在于：当你真的习惯用坐标系来度量的时候，你拿起一个正方体，各个视角的观察，你眼睛接受的图像，还是传递给你一种他们“边长”都相等的错觉，即使如果把此时你看到的景象拍下来，用尺子量，确实是不相等的。问题就在于，原本在立方体的平行的结构，在三维的空间上，它们两条线的平行关系是会延申到无限远的，但是由于图片是二维的，在二维中会产生信息的损失，就像铁轨在远处看去汇聚成一点一样，在图片上看上去，它们不再是“平行”的，这个汇聚的点在相关领域被称为“消失点”，消失点所在的一条与视角平行的线称为“视平线”。</p>
 <p>​    知道这个以后我们来修正视频中的影长，如果我们仅仅根据已知信息，计算图中的杆顶和杆底的在像素坐标系下的距离，得到缩放系数，然后根据同样的道理计算影长，这样会带来不小的误差，我们现在试图来进行修正。这就像对于正方体而言，如果你只注意它离你最近的面，只要它的视位面对于拍出来的图片的视线是垂直的，那么它就是没有被扭曲的。</p>
-<p>​    <img src="/images/2015A_3.jpg" alt=""></p>
+<center>
+    <img src='/images/2015A_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    但是我们如何实际的办到这一点呢，我是说，我们非常熟悉对一个图片进行各种操作，比如平移，拉伸，旋转，在这里我可就要讲一下我两学期拉跨的高等代数了嗷！</p>
 <p>​    实际上对于二维的坐标变换，它的完整形式是对于(x,y,w)进行形如如下的变换:</p>
 <script type="math/tex; mode=display">

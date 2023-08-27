@@ -15,17 +15,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    由于种种原因之前写的内容等寒假再补齐，现在先恶补期末考试，这里直接接数理统计部分了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2021/12/11/xygVoLakwp27svA.png">
-<meta property="og:image" content="https://s2.loli.net/2021/12/14/dioxf5vEGW3gFmH.png">
-<meta property="og:image" content="https://s2.loli.net/2021/12/14/olJOgsxWuD6N1Yf.png">
-<meta property="og:image" content="https://s2.loli.net/2021/12/14/AzYFucghsHEBwR4.png">
+<meta property="og:image" content="http://example.com/images/static_0.png">
+<meta property="og:image" content="http://example.com/images/static_1.png">
+<meta property="og:image" content="http://example.com/images/static_2.png">
+<meta property="og:image" content="http://example.com/images/static_3.png">
 <meta property="article:published_time" content="2021-12-14T12:22:46.000Z">
-<meta property="article:modified_time" content="2022-03-03T03:19:52.222Z">
+<meta property="article:modified_time" content="2023-08-27T02:37:39.001Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数理统计">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2021/12/11/xygVoLakwp27svA.png">
+<meta name="twitter:image" content="http://example.com/images/static_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -199,14 +199,23 @@
         <p>​    由于种种原因之前写的内容等寒假再补齐，现在先恶补期末考试，这里直接接数理统计部分了。</p>
 <span id="more"></span>
 <p>​    数理统计部分书上写的非常的冗长，这里对其中的内容进行一些压缩和个人理解，其实它所讲的故事是：这里有一个总体$X$，我可能清楚它的分布，但我不可能获取$X$的所有内容，我只能作部分抽样，获得一组样本值，即管中窥豹，但是我要尽可能多的从这么一组样本值里来获得总体$X$的信息，这就是我们要理解的内容。下面用一个例子来帮助理解上面的说法。</p>
-<p><img src="https://s2.loli.net/2021/12/11/xygVoLakwp27svA.png" alt="image-20211211155739811" style="zoom: 67%;" /></p>
+<center>
+    <img src='/images/static_0.png' style='zoom:67%'>
+</center>
+
 <p>​    利用计算机生成1000个满足0~1正态分布的随机数，我们发现它们满足这样的概率密度分布，它们每个的取值可以看横坐标，也就是说我们抽样后，可能只是拿到了一组类似1.31，1.29，0.31，0.22，0.01这样的值，但一般的时候我们都是知道数据分布的（大数定律作支撑），所以我们许多时候认为数据符合正态分布，并期望通过已有的样本获取尽可能准确的$\mu \text{，}\sigma ^2$    。</p>
 <p>​    例如我们已经知道$X$服从0~1正态分布，并且获得了如下的数据：</p>
-<p><img src="https://s2.loli.net/2021/12/14/dioxf5vEGW3gFmH.png" alt="image-20211211160409719" style="zoom:67%;" /></p>
+<center>
+    <img src='/images/static_1.png' style='zoom:67%'>
+</center>
+
 <p>​    我们对它们求平均数，我们一直以来都是这么干的，求出值为$0.0162$，根据我们知道的方差公式，我们会计算出：</p>
 <script type="math/tex; mode=display">
 \sigma ^2=\frac{\sum_{i=1}^{100}{\left( x_i-0.0162 \right) ^2}}{100}=1.0108</script><p>​    这已经非常准确了，如果我们抽取更多的样本，比如1000个，结果会更加精确，以及其他$k$阶中心距也可以直接套用我们熟悉的方式计算。这都和我们的第一直觉相差不多，但只有一个例外：</p>
-<p><img src="https://s2.loli.net/2021/12/14/olJOgsxWuD6N1Yf.png" alt="image-20211211162149648" style="zoom:67%;" /></p>
+<center>
+    <img src='/images/static_2.png' style='zoom:67%'>
+</center>
+
 <p>​    这是在抽取不同大小的样本时计算出的方差，当抽取样本较大的时，这个结果在1附近震荡，但实际上有上面杂乱曲线是两条曲线，其中一条是按照分母为$n$计算的，另一个是$n-1$，确实它们的差异相当的小，但是如果计算它关于标准方差的误差平方和，会发现后者大多数时都小于前者。所以以后我们计算样本方差时分母都使用$n-1$。后面我们会给出原因，实际上上面做的实验是不严谨的，下面为了不与我们之前的认识混淆，我们要声明以下概念：</p>
 <p>​    设$X_1,X_2,…,X_n$为来自总体$X$的一个样本，$x_1,x_2,…,x_n$是$X_1,X_2,…,X_n$的样本值，值得注意的是，$X_1,X_2,…,X_n$也是随机变量，后面会用到：</p>
 <p>​    样本均值及其样本值：</p>
@@ -221,7 +230,10 @@ s^2=\frac{1}{n-1}\sum_{i=1}^n{\left( x_i-\bar{x} \right) ^2}</script><p>​    �
 EX=\mu ,DX=\sigma ^2
 \\
 E\bar{X}=\mu ,D\bar{X}=\frac{\sigma ^2}{n},ES^2=\sigma ^2</script><p>​    注意，样本均值，样本方差的期望和方差是其作为随机变量的属性，我们利用计算机模拟加以理解：</p>
-<p><img src="https://s2.loli.net/2021/12/14/AzYFucghsHEBwR4.png" alt="image-20211211222133981" style="zoom:67%;" /></p>
+<center>
+    <img src='/images/static_3.png' style='zoom:67%'>
+</center>
+
 <p>​    可以看出，它们对样本真实属性的估计，至于样本均值的方差为什么是总体方差除以$n$，不加计算可以这么理解：多次抽样获得的样本均值，一定程度上削弱了样本的波动性，削弱了多少则需要进行推导。</p>
 <p>​    详细证明见课本，这里从略了。上面的三个定理在后面经常会用到。</p>
 <p>​    但是实际上我们刚才的例子都是说，在已经知道分布是正态分布的情况下，我们作的推断，等等，而实际上，在真实情境中，我们只是“估计”总体是个正态总体，并不是百分百确定（这里涉及正态性检验，先略去），所以与其关注于所谓精确的分布，不如关心由已知量构成的那些分布，这里的已知量指的就是上面的统计量。</p>

@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/SA_3.jpg">
 <meta property="og:image" content="http://example.com/images/SA_4.jpg">
 <meta property="article:published_time" content="2021-08-07T04:53:18.944Z">
-<meta property="article:modified_time" content="2021-10-06T16:37:33.092Z">
+<meta property="article:modified_time" content="2023-08-27T03:06:48.709Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="启发式算法">
@@ -219,9 +219,17 @@ p\left( T \right) =\left\{ \begin{array}{c}
 <p>​    这里用到的两个定义的子函数是：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>=<span class="title">val</span><span class="params">(x)</span></span></span><br><span class="line">    y=<span class="number">9</span>*<span class="built_in">sin</span>(<span class="number">5</span>*x)+<span class="number">8</span>*<span class="built_in">cos</span>(<span class="number">4</span>*x);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flag</span>=<span class="title">judge</span><span class="params">(dE,t)</span></span></span><br><span class="line">  <span class="keyword">if</span>(dE&lt;<span class="number">0</span>)</span><br><span class="line">    flag=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    p=<span class="built_in">exp</span>(-(dE/t));</span><br><span class="line">    <span class="keyword">if</span>(p&gt;<span class="built_in">rand</span>)</span><br><span class="line">      flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      flag=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>​    代码运行得到的效果符合我们的预期：</p>
-<p>​    <img src="/images/SA_1.gif" alt=""></p>
+<center>
+    <img src='/images/SA_1.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    自然，在多维情况下运行，也是可以的，只需要产生多个方向的扰动即可，下面我们举一个组合优化的问题，（不是TSP，天天TSP都腻了）考虑一所学校40个新生宿舍分配的问题，调查取得了40位新生的兴趣爱好，分为“运动，音乐，游戏，书画，美食，其他”，我们希望找出一种方案，使得4个人一宿舍后，不同寝室间同寝室的两两同学的共同爱好数量分布尽可能的均匀。自然考虑“其他”这个爱好过于宽泛，这里我们就对其不作考虑了。</p>
-<p>​    <img src="/images/SA_2.jpg" alt=""></p>
+<center>
+    <img src='/images/SA_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这个问题显然不能用暴力搜索来解决，我们考虑模拟退火。我们将每个同学的喜好看成一个五元组，只考虑前五个，处理excel中的数据得到五元组的0-1矩阵$A$,我们考虑$AA^T$​的上三角部分，就是我们想要的同学之间共同喜好的个数.但实际上我们为了编程的方便不需要对$AA^T$​作多余的处理。</p>
 <p>​    为了让同寝室两两同学的爱好分布尽量均匀，我们想优化的是所有寝室的共同爱好数量的方差，我们希望它最小。</p>
 <p>​    但这里好像有一个小问题，与处理函数极值问题时的随机扰动时的极值而言，这种组合类问题的“随机扰动”感觉没那么直白。根据前人对于模拟退火在TSP问题上的总结，可以有三种方法：</p>
@@ -229,9 +237,17 @@ p\left( T \right) =\left\{ \begin{array}{c}
 <p>​    ②移位法：将序列中的一个片段移动到片段外的某点附近（左或右）。</p>
 <p>​    ③倒置法：确定两个坐标，将序列在这两个坐标间的元素逆序。</p>
 <p>​    编程求解后得到最优解的迭代情况：</p>
-<p>​    <img src="/images/SA_3.jpg" alt=""></p>
+<center>
+    <img src='/images/SA_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    此时确实有最优方案使得方差为0：</p>
-<p>​    <img src="/images/SA_4.jpg" alt=""></p>
+<center>
+    <img src='/images/SA_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    实际上，模拟退火算法要控制的一般都是初始温度，停止温度，温度衰减系数。当然也有不同的表达方法，比如最大迭代次数等等。这个与遗传算法，粒子群算法这样的群算法不同，相对简单，应用起来也比较方便。</p>
 <p>​    其实这个算法更重要的地方在于，它与玻尔兹曼机和逻辑斯蒂函数都有密切关联，前人据此构造了一种对称连接的网络，可以认为是一个无向有权全连接图，这里面单个节点$i$的能量定义为：</p>
 <script type="math/tex; mode=display">

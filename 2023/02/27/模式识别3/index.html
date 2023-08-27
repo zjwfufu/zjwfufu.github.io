@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/pr_exam_1.png">
 <meta property="og:image" content="http://example.com/images/pr_exam_2.jpg">
 <meta property="article:published_time" content="2023-02-27T12:45:50.000Z">
-<meta property="article:modified_time" content="2023-03-01T14:31:12.683Z">
+<meta property="article:modified_time" content="2023-08-27T03:18:28.374Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
@@ -334,7 +334,11 @@ J_f=\sum_{j=1}^C{\sum_{\mathbf{x}_i\in G_j}^{}{\left[ \mu _j\left( \mathbf{x}_i 
 <p>​    Bagging的数据集选择，都遵从放回抽样。假设有$N$个数据，某个数据被选中的概率为$1/N$，则没有被选中的概率为$1-1/N$。所以在$N$次放回抽样中：</p>
 <script type="math/tex; mode=display">
 \underset{N\rightarrow \infty}{\lim}\left( 1-\frac{1}{N} \right) ^N=\frac{1}{e}=0.367879</script><p>​    放回抽样后的数据集，不包含原数据集中约三分之一的数据。用这些数据集构建具有差异的模型：</p>
-<p><img src="/images/pr_exam_0.png" alt=""></p>
+<center>
+    <img src='/images/pr_exam_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    Bagging，体现在分类里，就是投票；在回归里，就是取平均。(上图左侧)</p>
 <p>​    Boosting是通过给弱分类器的表现加权，来强化某些困难样本的表现，最后再综合，见上图右侧。一个很成熟的例子是Adaboost。</p>
 <p>​    这两种方案间存在区别和联系：Bagging随机选择训练集，各轮训练集相互独立。Boosting各轮训练集并不独立，它的选择与前轮的结果有关。Bagging可以并行生成，但Boosting只能串行。但Boosting容易产生过拟合。</p>
@@ -388,7 +392,11 @@ b=1-\left[ \begin{array}{c}
 \end{array} \right] \left[ 3,3 \right] =-2</script><p>​    所以，我们得到了，分类面：</p>
 <script type="math/tex; mode=display">
 g\left( x \right) =\mathrm{sign}\left( \frac{1}{2}x_1+\frac{1}{2}x_2-2 \right)</script><p>​    我们可以发现，$\alpha_2=0$，其实就是因为它被松弛了。如果我们把$x_1,x_2$画成二维的坐标：</p>
-<p><img src="/images/pr_exam_1.png" alt=""></p>
+<center>
+    <img src='/images/pr_exam_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    可以看到……确实就是垂直平分线。</p>
 <p>​    但SVM的一个特点在这里会变成一个难绷的事情，他的输入不显式依赖于输入空间的维数。换句话说，如果上述题目变为三维坐标，整个计算过程的拉格朗日乘子的数量还是那么多，就像上面的三个。然而我们不再能够“垂直平分线”一样顶真出答案了。</p>
 <p>​    Kernel Trick是SVM的精髓，上面的操作其实使用的是”线性核函数“：</p>
@@ -435,7 +443,9 @@ g_i\left( x \right) =\ln p\left( x|\omega _i \right) +\ln p\left( \omega _i \rig
 -\frac{1}{2}\left( \boldsymbol{x}-\mu _1 \right) ^T\varSigma _{1}^{-1}\left( \boldsymbol{x}-\mu _1 \right) -\frac{1}{2}\ln \left| \varSigma _1 \right|=-\frac{1}{2}\left( \boldsymbol{x}-\mu _2 \right) ^T\varSigma _{2}^{-1}\left( \boldsymbol{x}-\mu _2 \right) -\frac{1}{2}\ln \left| \varSigma _2 \right|
 \\
 \left( x_1-3 \right) ^2+x_{2}^{2}=8+2\ln 4</script><h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    吸收掉上面的这些内容，模式识别大概率就不会挂了。接下来要一晚上速通操作系统。</p>
-<p><img src="/images/pr_exam_2.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_exam_2.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

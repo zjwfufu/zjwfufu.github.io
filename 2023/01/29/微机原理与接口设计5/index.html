@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://example.com/images/microcomputer_5_8.jpg">
 <meta property="og:image" content="http://example.com/images/microcomputer_5_9.jpg">
 <meta property="article:published_time" content="2023-01-29T11:38:29.000Z">
-<meta property="article:modified_time" content="2023-02-28T05:55:06.762Z">
+<meta property="article:modified_time" content="2023-08-27T03:12:33.874Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
@@ -209,13 +209,21 @@
 <p>​    74LS244是一个单向的缓冲器，74LS245是双向的，它们都没有锁存的功能。只是通过引入三态门，让信号传送时不至于出现总线竞争。</p>
 <p>​    74LS373是通过电平控制来锁存信号，74LS374是上升沿来锁存。</p>
 <p>​    现在我们开始依次介绍，第一个是无条件传送，它之所以叫无条件，就是因为它只传送数据信息，不传送状态和控制信息。</p>
-<p><img src="/images/microcomputer_5_1.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    左侧是输入端口，这里略去了端口地址译码，当CPU选中这个端口，且确认读I/O设备后，74LS244会允许导通，把数据传到数据总线上。</p>
 <p>​    右侧是输出端口，这个以点亮发光二极管为例，这里的74LS273不用管它，它是一种通过CLK来进行清除的锁存器，没有三态功能，上升沿有效，在这个情景下可以理解为和74LS373一样。</p>
 <p>​    这种无条件传送，需要满足“输入缓冲输出锁存”，因为输入时，如果不缓冲，会发生总线竞争。输出时，如果不锁存，由于外设较慢，数据总线上的数据可能会被覆盖掉。</p>
 <p>​    所以这种方式，只适合很简单的情况，如果CPU在快速的输出一些数据，那用这个机制就会出大问题。例如，当打印机接口为“忙”时，如果还把数据传给打印机接口，会直接覆盖掉这些没有及时接收的数据，造成数据丢失。</p>
 <p>​    这就引出了第二种方法，程序查询方式。道理很简单，我只需要等到打印机什么时候不忙了，我再把数据传给它，在这之前我等待就好了。输入的时候也是同理：</p>
-<p><img src="/images/microcomputer_5_2.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们现在通过简单的示意电路来进一步理解这种方法，由于这种方法涉及到要知道此时外设的状态，所以CPU会执行一条指令（IN）获得此时设备的状态。我们先说输入，当输入设备准备好设备后，图中左下角的选通信号会被激活，然后数据锁存器会存入要输入的设备，同时D触发器Q端置1。</p>
 <p>​    然后，CPU执行IN指令读取端口状态信息，此时激活了图下方（读状态）处的门1相与后，会使得旁边那个三态缓冲器打开，这样Q的高电平就会传入数据线上的$D_0$，这说明CPU知道此时外设已经READY了。</p>
 <p>​    程序检测到此时外设READY了，再次执行IN，这时激活的是$\overline{\mathrm{CS}}_2$相连的那个门，经过门2输出低电平，这时数据缓冲器被打开，数据被上传到数据总线；同时D触发器被清零，外设的状态被重置。</p>
@@ -260,7 +268,11 @@
 </table>
 </div>
 <p>​    就算没有直接连接接口的题，上面5个系统也会出现在后面8253，8255A的应用题里。简单的一些例子即上面的无条件传输，其实只需要编一个译码电路。这里我记录一个书上比较复杂的例子。（其实在8086里还要注意奇偶地址的事情，但是我写的时候我忘了……这个在后面连那俩可编程芯片时还会提到）</p>
-<p><img src="/images/microcomputer_5_3.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这是某一输出设备的工作时序图，当它不忙时，状态信号BUSY=0，CPU可以向外输出，当数据加到外设上时，必须利用$\overline{\mathrm{STB}}$将数据锁存于外设，饼命令外设接收数据。设数据输出端口地址为02F8H，命令输出端口地址为02F9H，状态输入端口为02FAH。</p>
 <p>（1）将该外设连接到8088最大系统上；</p>
 <p>（2）编程实现将内存40000H开始的连续50个字节单元的数据，利用查询发输出给该设备；</p>
@@ -278,7 +290,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">START:</span><br><span class="line">	MOV	DX,0FAH</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	TEST AL, 00000100</span><br><span class="line">	JZ	START</span><br><span class="line">	MOV	DX,0FCH</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	CMP	AL,01H</span><br><span class="line">	JZ	Y1</span><br><span class="line">	CMP	AL,05H</span><br><span class="line">	JZ	Y5</span><br><span class="line">	CMP	AL,10H</span><br><span class="line">	JZ	Y10</span><br><span class="line">	MOV	CL,40</span><br><span class="line">	JMP	OUT_NUM</span><br><span class="line">Y1:</span><br><span class="line">	MOV	CL,2</span><br><span class="line">	JMP	OUT_NUM</span><br><span class="line">Y5:</span><br><span class="line">	MOV	CL, 10</span><br><span class="line">	JMP	OUT_NUM</span><br><span class="line">Y10:</span><br><span class="line">	MOV	CL,20</span><br><span class="line">OUT_NUM:</span><br><span class="line">	MOV	DX,OFAH</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	TEST AL,00001000</span><br><span class="line">	JZ	OUT_NUM</span><br><span class="line">	MOV	AL,CL</span><br><span class="line">	MOV	DX,0FEH</span><br><span class="line">	OUT	DX,AL</span><br><span class="line">	JMP	START</span><br></pre></td></tr></table></figure>
 <h3 id="并行接口芯片8255A"><a href="#并行接口芯片8255A" class="headerlink" title="并行接口芯片8255A"></a>并行接口芯片8255A</h3><p>​    显然，在实际操作中，我们不可能一个电路一个电路的去构造接口。我们希望一些即插即用的方式，并且具有良好的封装。8255A就是这个东西，它是一个并行接口芯片，它可以取代上面的例子中的由74LS273，74LS244自己手搓出的电路。</p>
 <p>​    然后，我们就被迫学（纸面上的）8255A的应用。</p>
-<p><img src="/images/microcomputer_5_4.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们将整个芯片看作一个整体，只关心输入输出。8255A有四个8位寄存器。其中有三个数据寄存器A，B，C。我们称其为端口(port)，所以引脚记作了$PA,PB,PC$。在这里，A和C的高4位为一组，B和C的低4位为一组，即A组和B组。</p>
 <p>​    先放下“组”的那个概念，左下角的$A_0,A_1$，2位可以编码4个选项：</p>
 <div class="table-container">
@@ -385,12 +401,20 @@
 <p>​    那么，什么是方式控制字里的“工作方式”呢？8255A有3种，0是基本的输入输出，1是有“联络”信号的输入输出，2是双向传送。我们一个一个来……</p>
 <p>​    方式0时，对应之前的无条件传输。此时$D_0,D_1,D_3,D_4$决定各个端口的输入输出。例如$1\underset{A\text{组}}{\underbrace{00}}\underbrace{01}\underset{B\text{组}}{\underbrace{0}}\underbrace{10}$，这时，端口A与端口C的低4位是输出，端口B和端口C的高4位是输入。方式0其实可以理解为一个很好的封装的无条件传输，我们拉来一道标靶打一下：</p>
 <p>​    某可编程逻辑电路构成的芯片可以完成16位数据的八选一功能，输入$x(i,j)$其中$(i\in0\sim7,j\in0\sim15)$，输出信号为$y(j)$，选择信号为$S_2,S_1,S_0$，真值表在下图。在IBM PC系统中开发一片8255A，端口地址为260H~263H，用于分时采集这8组16位数据（无符号数），找出当前数据的最大值，并通过C口的高三位（PC7~PC5）连接的LED灯指示其序号。连接下图的硬件电路（红色部分，我先连了，懒得仔细画了）并编写程序实现功能。</p>
-<p><img src="/images/microcomputer_5_5.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    读完题，显然我们可以让A组和B组都是方式0，因为，这个神奇的8选1的外设，没有什么STB，BUSY之类的端口，方式0 is enough。</p>
 <p>​    显然，我们可以用A口和B口来接收16位的数据，然后C口输出，其中高三位来点亮LED表示索引。一个思路是我们直接“打擂台”一样找最大值就好了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">MOV	DX,263H</span><br><span class="line">MOV	AL,10010010 ;A组B组方式0，A口B口输入，C口输出。</span><br><span class="line">OUT	DX,AL</span><br><span class="line">ST2:</span><br><span class="line">	MOV	CX,8</span><br><span class="line">	XOR	BX,BX ;把BX设成全0</span><br><span class="line">	MOV	SI,0 ;SI记录序号</span><br><span class="line">ST1:</span><br><span class="line">	MOV	DX,262H ;把序号送入C口</span><br><span class="line">	MOV	AX,SI</span><br><span class="line">	OUT	DX,AL</span><br><span class="line">	MOV	DX,260H ;将y的低八位写入AL</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	MOV	AH,AL ;但是后面还要写入高8位还要AL，所以先存到AH，待会儿XCHG</span><br><span class="line">	MOV	DX,261H</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	XCHG AL,AH</span><br><span class="line">	CMP	BX,AX</span><br><span class="line">	JA	NEXT ;BX大于AX，直接跳NEXT；不然把AX赋给BX，同时更新序号</span><br><span class="line">	MOV	BX,AX</span><br><span class="line">	PUSH SI</span><br><span class="line">NEXT:</span><br><span class="line">	INC	SI</span><br><span class="line">	LOOP ST1 ;循环8次，把外设里的数据全过完</span><br><span class="line">	POP	SI ;最大值的序号出栈</span><br><span class="line">	XOR	AX,AX</span><br><span class="line">	MOV	AX,SI</span><br><span class="line">	MOV	CL,5</span><br><span class="line">	ROL	AL,CL ;把最大值的序号移到PC5,PC6,PC7</span><br><span class="line">	MOV	DX,262H</span><br><span class="line">	OUT	DX,AL ;输出序号，点亮LED灯</span><br><span class="line">	JMP	ST2</span><br></pre></td></tr></table></figure>
 <p>​    接下来是方式1，方式1是用来条件传输的。正如前面“程序查询式”中举的例子一样。在有条件时，我们需要关心外设的状态。而使用中断来进行接口之间交换，使得可以并行，在先前我们没能给出一个中断的例子，现在可以依靠8255A的封装，来初步理解一个（例子）。以及理解前面的“联络”。</p>
-<p><img src="/images/microcomputer_5_6.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们以A口为例，在方式1下，外设把数据通过A口送给CPU的过程为：</p>
 <p>​    ①外设把数据送到$PA_7\sim PA_0$，使得选通信号$\overline{\mathrm{STBA}}$有效（A指port A，下同。STB指strobe，选通），数据进入A口的输入缓冲器。</p>
 <p>​    ②A口的IBFA有效（IBF指input buffer full，表示输入缓冲区满了），同之外设或CPU，表示A口接收了一个有效数据。</p>
@@ -406,14 +430,22 @@
 <p>​    ⑤INTRA有效，以中断方式通知CPU可以再输出数据给A口了。</p>
 <p>​    实际上，上面的例子生动的站视了一个机制“握手”。通过“握手”信号，来协调数据的传输。“握手”信号至少要有两位信号线，其中一位由接口电路发给外设，另一位由外设发给接口。例如输入时的$\overline{\mathrm{STBA}}$和IBFA。$\overline{\mathrm{STBA}}$是外设所发，其有效时，通知接口A“我给了你一个数据”；IBFA是接口发出的，当其有效时，通知外设“你的数据我收到了”。在输出时，$\overline{\mathrm{OBFA}}$和$\overline{\mathrm{ACKA}}$也是一对握手信号，$\overline{\mathrm{OBFA}}$是接口发出的，当其有效时，通知外设“我这里有个新数据”，$\overline{\mathrm{ACKA}}$是外设所发，当其有效时，通知接口“我已经把你的新数据取走了”。这个机制对于复杂的外设，例如打印机，非常重要。</p>
 <p>​    显然，在方式1中，接口C奉献了自我，充当了联络信号，这也是为什么置位控制字只针对C口的原因。应试角度上，我们得能分辨那一对握手信号谁是谁，以及理解前面①②③④⑤的过程（他们反应在汇编里就几行），而他们具体的$PC_x$可能没那么重要，因为题目会给（但最好还是背下来）。</p>
-<p><img src="/images/microcomputer_5_7.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    （内心os:图丫丫！只有你能记住这串密码！）</p>
 <p>​    最后用一道例题来给出，方式1是如何“影响”考试题的：</p>
 <p>​    为了设计一个竞赛抢答系统，在8088最小方式系统中配置了一片8255A，用于CPU读取并显示人员编号。整个系统(如下图所示)的工作流程为:抢答器电路按照竞赛规则将抢答最快且有效的人员编号(共10人，编号为: 0~ 9)通过其数据引脚输出，同时输出数据准备好信号STB，编号数据在8255A的端口A锁存后由CPU读回，CPU识别编号后输出对应的段码，经8255A的端口B驱动数码管显示该编号。请完成:</p>
 <p>（1）根据系统原理图，写出8255A的4个端口地址（未画出的地址线均为0）</p>
 <p>（2）为满足系统设计要求，8255A的端口A和端口B应工作在哪种方式？</p>
 <p>（3）已知数码管数据引脚a,b,c,d,ef,g,Dp依次连接8255A的PB0…PB7，请写出编号0~9对应的段码数据，并编写程序实现该系统的功能。</p>
-<p><img src="/images/microcomputer_5_8.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    先读图，会发现地址是0000 0100 1010 00xx，即端口地址为04A0H,041H,042H,043H。注意$PC_4,PC_5$，可以看到A组是方式1输入，B组是方式0输出。</p>
 <p>​    然后是显示数码管，比如数字0需要a,b,c,d,e,f亮起，他们对应$PB_0,…,PB_6$​，所以是1100 0000，即C0H。原因是这个抢答器外接了一个Vcc，所以可以推测是PB低电平有效（产生电势差），以及这里的Dp是控制端的意思，那么按照共阳数码管的原理，Dp是高电平有效。所以段码数据为</p>
 <div class="table-container">
@@ -475,7 +507,9 @@
 <p>​    还有最后一点，即8255A如何与CPU正确连接，在前面的例题里我们没有关注这个事情，这里有两个小的注意事项。</p>
 <p>​    如果是8086，其最小方式和最大方式，区别只是读写信号的名字。真正要注意的是，如果8086采用奇地址，需将$A_0$换成$\overline{\mathrm{BHE}}$，并将数据总线从$D_7\sim D_0$换成$D_{15}\sim D_8$。如果是在IBM PC系统中，其采用的是8088最大方式，由于其系统包含了DMA，因此需要保证AEN=0。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    本来，是想和8253一块整理的，后来发现，这个一章要记的太多了。快开学了，希望一切顺利，毕竟现在能做的已经很有限了。要是一年前做，大概就来得及了。不过，谁知道呢？</p>
-<p><img src="/images/microcomputer_5_9.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_5_9.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

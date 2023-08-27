@@ -15,18 +15,18 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    最后再补充一下关于电容和电介质的内容，之后静磁场的内容与这三篇完全一致，就可以应付期中考试了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/10/20/mSLYBx6IdvMhV31.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/20/wgI2T8s3SJGNi9B.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/20/BimZxknqOFC8MwJ.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/20/6Rre2oDhFUEIMJV.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/20/cBkqWwNMaFIvYS5.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/21/wB7ehfOq6xWVtiy.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_0.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_1.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_2.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_3.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_4.png">
+<meta property="og:image" content="http://example.com/images/r3_physic_5.png">
 <meta property="article:published_time" content="2021-10-20T01:44:26.000Z">
-<meta property="article:modified_time" content="2021-10-21T05:21:32.020Z">
+<meta property="article:modified_time" content="2023-08-27T02:19:08.859Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/20/mSLYBx6IdvMhV31.png">
+<meta name="twitter:image" content="http://example.com/images/r3_physic_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -202,7 +202,12 @@
 <p>​    实际上均匀带电体在实际中很难存在，更多时候关注的是静电平衡下的导体，由于在外加电场的作用下（这里只举感应起电的例子，因为考试也只有感应起电），导体内部的自由电荷作定向移动，直到达到静电平衡状态，此时导体内部场强处处为0（内部各点散度处处为0），净电荷只存在于外表面。</p>
 <p>​    利用高斯定理，我们也可以对于静电感应时的某些特殊情况作定量解释，这个会在后面的练习中体现。</p>
 <p>​    后来人们发现静电平衡时，带电量$q$的导体有一定的电势$u$，当所带电量增加时，电势也增加，将其比例记为电容，这个属性与器件本身性质有关，特别地，对于平行板电容器：</p>
-<p><img src="https://i.loli.net/2021/10/20/mSLYBx6IdvMhV31.png" alt="image-20211020102405157" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r3_physic_0.png' style='zoom: 50%'>
+</center>
+
+
+
 <p>​    现在我们由高斯定理，可以计算出板间强度，继而计算它的电容：</p>
 <script type="math/tex; mode=display">
 E=\frac{\sigma}{\varepsilon _0},\varDelta u=Ed=\frac{\sigma}{\varepsilon _0}d=\frac{qd}{\varepsilon _0S}
@@ -223,7 +228,10 @@ W=\frac{1}{2}QU</script><p>​    一个更加重要的结论是：电场能量�
 w=\frac{1}{2}\varepsilon _0E^2</script><p>​    即单位体积下如果存在电场$E$，则就有这么多的能量。要注意到，上面直接用$Q,U$计算的那个方程，其中$Q,U$有特殊的含义，只是大学物理作为引入后面的方程的一个特殊例子。而下面<strong>能量密度的表达式更为通用，而它的推导已经远远超出了普物的范围</strong>，我们只需要记住，计算时避免用第一种，直接用第二种。</p>
 <p>​    下面是一些练习：</p>
 <p>​    ① 沿$x$轴放置的长度为$l$的不均匀带电细棒，其电荷线密度为$\lambda =\lambda _0\left( x-a \right) $，取无穷远处为电势零点，求坐标原点$O$处的电场强度和电势。</p>
-<p><img src="https://i.loli.net/2021/10/20/wgI2T8s3SJGNi9B.png" alt="image-20211020121909021" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r3_physic_1.png' style='zoom: 50%'>
+</center>
+
 <p>​    我们选取一段带电微元，且由于均匀细棒不记厚度，可以将该微元视作点电荷，直接积分计算：</p>
 <script type="math/tex; mode=display">
 \mathrm{d}q=\lambda _0\left( x-a \right) \mathrm{d}x
@@ -236,7 +244,10 @@ E=\int{dE=}\int_a^{a+l}{\frac{\lambda _0}{4\pi \varepsilon _0}\left( \frac{1}{x}
 \mathrm{d}\phi =\int_x^{\infty}{\boldsymbol{E}\cdot \mathrm{d}\boldsymbol{l}}=\int_x^{\infty}{\frac{\mathrm{d}q}{4\pi \varepsilon _0t^2}\cdot \mathrm{d}t}=\frac{\mathrm{d}q}{4\pi \varepsilon _0x}=\frac{\lambda _0}{4\pi \varepsilon _0}\left( 1-\frac{a}{x} \right) \mathrm{d}x
 \\
 \phi =\int_a^{a+l}{\frac{\lambda _0}{4\pi \varepsilon _0}\left( 1-\frac{a}{x} \right) \mathrm{d}x=}\frac{\lambda _0}{4\pi \varepsilon _0}\left( l-a\ln \frac{a+l}{a} \right)</script><p>​    ②一内外半径分别为$a,b$的带电量为$Q$的导体球壳，在球壳空腔内距离球心$O$为$r$处有一点电荷$q$。设无穷远处为电势的零点，则导体球壳的内表面上的电荷量为？外表面上的电荷量为？球心$O$处的电势为？</p>
-<p><img src="https://i.loli.net/2021/10/20/BimZxknqOFC8MwJ.png" alt="image-20211020214346027" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r3_physic_2.png' style='zoom: 50%'>
+</center>
+
 <p>​    作紧贴内表面的高斯面，由静电平衡可知此时球壳内外之间的电场强度为0，则电通量也为0，说明内表面上感应产生了$-q$的电荷，它的分布是不均匀的，由电荷守恒，此时外表面的电荷量为$Q+q$。</p>
 <p>​    此时计算球心处电势，首先考虑球壳外，由高斯定理可以得：</p>
 <script type="math/tex; mode=display">
@@ -247,7 +258,10 @@ E=\int{dE=}\int_a^{a+l}{\frac{\lambda _0}{4\pi \varepsilon _0}\left( \frac{1}{x}
 \phi _2=\int_r^a{E\cdot \mathrm{d}l}=\int_r^a{\frac{q}{4\pi \varepsilon _0r^2}\mathrm{d}r}=\frac{q}{4\pi \varepsilon _0}\left( \frac{1}{r}-\frac{1}{a} \right)</script><p>​    所以$O$点电势即为：</p>
 <script type="math/tex; mode=display">
 \varPhi =\frac{1}{4\pi \varepsilon _0}\left( \frac{Q+q}{b}+\frac{1}{r}-\frac{1}{a} \right)</script><p>​    ③三个无限长的同轴导体圆柱面$A,B,C$半径分别为$R_a,R_b,R_c$，其中圆柱面$B$带电荷，$A,C$接地，求$B$的内表面上电荷线密度$\lambda_1$和外表面上电荷线密度$\lambda_2$的比值。</p>
-<p><img src="https://i.loli.net/2021/10/20/6Rre2oDhFUEIMJV.png" alt="image-20211020221511248" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r3_physic_3.png' style='zoom: 50%'>
+</center>
+
 <p>​    由于$A,C$接地，当静电平衡时$B$的内外表面等势，所以构造圆柱形高斯面得到场强后直接计算：</p>
 <script type="math/tex; mode=display">
 E_1=\frac{\lambda _1}{2\pi r\varepsilon _0},E_2=-\frac{\lambda _2}{2\pi r\varepsilon _0}
@@ -256,7 +270,10 @@ E_1=\frac{\lambda _1}{2\pi r\varepsilon _0},E_2=-\frac{\lambda _2}{2\pi r\vareps
 \\
 \frac{\lambda _1}{\lambda _2}=\frac{\ln \left( \frac{R_b}{R_c} \right)}{\ln \left( \frac{R_a}{R_b} \right)}</script><p>​    一定要注意到两个电场强度方向相反，计算电势时代数上差一个符号，否则算出的比值会是负的。</p>
 <p>​    ④半径为$R_1$的导体球带有电荷$+q$，球外有一个内半径为$R_2$外半径为$R_3$的同心导体球壳，球壳上带有电荷$+Q$。试求系统的静电能量，再计算当外球壳接地时，计算球和球壳各自的电势。</p>
-<p><img src="https://i.loli.net/2021/10/20/cBkqWwNMaFIvYS5.png" alt="image-20211020224737613" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r3_physic_4.png' style='zoom: 50%'>
+</center>
+
 <p>​    计算静电能，对电场能量密度进行积分即可，首先由高斯定理计算球体与球壳间，球壳外的场强。</p>
 <script type="math/tex; mode=display">
 E_1=\frac{q}{4\pi \varepsilon _0r^2},R_1<r<R_2\\
@@ -271,7 +288,10 @@ W=\int_{V_1}{\frac{1}{2}\varepsilon _0E_{1}^{2}}\mathrm{d}V+\int_{V_2}{\frac{1}{
 =\frac{q^2}{8\pi \varepsilon _0}\left( \frac{1}{R_1}-\frac{1}{R_2} \right) +\frac{\left( Q+q \right) ^2}{8\pi \varepsilon _0}\cdot \frac{1}{R_3}</script><p>​    接地后球壳电势视为0，只需计算球体的电势，直接计算：</p>
 <script type="math/tex; mode=display">
 \varPhi =\int_{R_1}^{R_2}{\frac{q}{4\pi \varepsilon _0r^2}\mathrm{d}r}=\frac{q}{4\pi \varepsilon _0}\left( \frac{1}{R_1}-\frac{1}{R_2} \right)</script><p>​    ⑤两同轴导体圆筒组成的电容器，内外筒半径分别为$R_1,R_2(R_2&lt;2R_1)$其间有两层均匀电介质，分界面半径为$R$，内层介质相对介电常数为$\varepsilon_{r1}$,外层相对介电常数为$\varepsilon_{r2}$，且$\varepsilon_{r2}=\varepsilon_{r1}/2$。两层介质的击穿场强都是$E_M$。当电压升高时哪层介质先被击穿？两筒间能加的最大电压是多少？</p>
-<p><img src="https://i.loli.net/2021/10/21/wB7ehfOq6xWVtiy.png" alt="image-20211021122231854" style="zoom: 33%;" /></p>
+<center>
+    <img src='/images/r3_physic_5.png' style='zoom: 33%'>
+</center>
+
 <p>​    实际上加电压将会改变圆柱体线密度$\lambda$。先由高斯定理，构造圆柱形高斯面，可以计算得到内层到边界的场强和边界到外层的场强。</p>
 <script type="math/tex; mode=display">
 \oint_S{\boldsymbol{D}\cdot \mathrm{d}\boldsymbol{S}}=\sum{q}\rightarrow 2\pi r\varepsilon _0\varepsilon _rE=\lambda 

@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/PDEova_3.jpg">
 <meta property="og:image" content="http://example.com/images/PDEova_4.jpg">
 <meta property="article:published_time" content="2021-08-26T05:21:21.547Z">
-<meta property="article:modified_time" content="2021-10-06T16:25:53.104Z">
+<meta property="article:modified_time" content="2023-08-27T03:03:01.991Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="PDE">
 <meta property="article:tag" content="数学建模">
@@ -200,8 +200,12 @@
 <span id="more"></span>
 <p>​    问题说的是：由于血脑屏障的原因，很多精神类药物无法被循环到大脑，例如治疗帕金森症时注射的多巴胺。为此必须精确估计药物影响的脑部区域，他们必须顾及注射后药物在脑内分布区域的大小和形状。</p>
 <p>​    研究数据包括50个圆柱体组织样本的每个样本的药物含量的测定值，每个圆柱体样本的长为0.76mm,直径为0.66mm,这些互相平行的圆柱体的中心位于网格距为1mm×0.76mm×1mm的格点上，注射是在最高计数的那个圆柱体的中心附近进行的，自然在圆柱体之间以及圆柱体样本区域外也有药物。</p>
-<p><img src="/images/PDEova_1.jpg" alt=""></p>
-<p><img src="/images/PDEova_2.jpg" alt=""></p>
+<center>
+    <img src='/images/PDEova_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/PDEova_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上表的数据是经过折算后的单位，如19742就代表该圆柱体有19742单位的药物。试给出药物分布的数学模型。</p>
 <p>​    自然地，为了研究的方便，给出下面合理的假设：</p>
 <p>​    ①组织中原有的药物含量忽略不计。</p>
@@ -268,12 +272,19 @@ u\left( x,y,z \right) =\frac{M\cdot \exp \left( -\sqrt{\frac{1}{a^2}\left( x-x_0
 \frac{2}{\lambda}\approx \frac{\sum_{i,j,k}{r\left( i,j,k \right) \bar{u}\left( i,j,k \right)}}{\sum_{i,j,k}{\bar{u}\left( i,j,k \right)}}</script><p>​    编程计算为：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">load(<span class="string">&#x27;Front.mat&#x27;</span>)</span><br><span class="line">load(<span class="string">&#x27;Behind.mat&#x27;</span>)</span><br><span class="line"></span><br><span class="line">x_o=<span class="number">1</span>:<span class="number">1</span>:<span class="number">5</span>;</span><br><span class="line">y_o=<span class="number">1</span>:<span class="number">1</span>:<span class="number">5</span>;</span><br><span class="line">[x_o,y_o]=<span class="built_in">meshgrid</span>(x_o,y_o);</span><br><span class="line"></span><br><span class="line">x0=<span class="number">3.226</span>;</span><br><span class="line">y0=<span class="number">0.38</span>;</span><br><span class="line">z0=<span class="number">2.844</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line">        <span class="keyword">for</span> k=<span class="number">0.38</span>:<span class="number">0.76</span>:<span class="number">0.38</span>+<span class="number">0.76</span></span><br><span class="line">            <span class="comment">%x-z-y</span></span><br><span class="line">            <span class="keyword">if</span> k==<span class="number">0.38</span></span><br><span class="line">                k_coord=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                k_coord=<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            r(<span class="built_in">i</span>,<span class="built_in">j</span>,k_coord)=<span class="built_in">sqrt</span>((<span class="built_in">i</span>-x0)^<span class="number">2</span>+(k-y0)^<span class="number">2</span>+(<span class="built_in">j</span>-z0)^<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">u=<span class="built_in">cat</span>(<span class="number">3</span>,Behind,Front);</span><br><span class="line"></span><br><span class="line">int_A=sum(sum(sum(r.*u)));</span><br><span class="line">int_B=sum(sum(sum(u)));</span><br><span class="line"></span><br><span class="line">lambda=<span class="number">2</span>*int_B/int_A;</span><br></pre></td></tr></table></figure>
 <p>​    计算得$\lambda=1.5885$,则$a,b,c$的量级均在0.62附近，这个信息十分有用。基于此，待确定的参数只有M的数量级未知，但单个参数的数量级是好通过遍历得到的。</p>
-<p>​    <img src="/images/PDEova_3.jpg" alt=""></p>
+<center>
+    <img src='/images/PDEova_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    根据此坐标编写程序进行老一套的最小二乘，并最小化残差平方和。但是直接最小二乘拟合后，效果并不好，一方面来源于数据量少，另一方面，将每次求解的结果与真实数据作对比，发现梯度变化明显不同，原因是，所给数据未必达到了平衡状态，所以考虑将原椭圆型方程改进成抛物线型方程。</p>
 <p>​    即考虑：</p>
 <script type="math/tex; mode=display">
 \frac{\partial u}{\partial t}-\left( a^2\frac{\partial ^2u}{\partial x^2}+b^2\frac{\partial ^2u}{\partial y^2}+c^2\frac{\partial ^2u}{\partial z^2}-k^2u \right) =\delta \left( x-x_0,y-y_0,z-z_0,t \right)</script><p>​    同样是借助傅里叶变换得到解析解，并定义取样时间$t=1$,此时参数的选取的自由度比较高，$a,b,c$的数量级之前已经确定，仅需确定$M,k$。再编程求解后，得到的效果变好了许多。</p>
-<p><img src="/images/PDEova_4.jpg" alt=""></p>
+<center>
+    <img src='/images/PDEova_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    实际上，扩散问题与热传导问题，虽然遵从的规律相同，但是在实际求解中还是有不同点，在热传导问题中，参数的范围可以从边界条件很好的估计出来；而扩散问题往往要借助傅里叶变换，或者是给定初始点源浓度，之后的扩散系数和点源浓度对于结果的影响是耦合的，所以搜索起来比较困难，此外，由于扩散问题的数据往往比较少，且误差可能比较大，也造成了一定的影响。</p>
 <p>​    对于这个问题，用傅里叶变换求解析解是方便的，因为它一没有边界条件二是三维的（不便于写有限差分法），如果对于二维或者一维问题来说，用有限差分法还是最合适的，因为解析解可能求不出来。</p>
 <p>​    当我写完的时候，我四级成绩也出来了，反正是过了，过了就行，过了就行。去做核酸了……要开学了。</p>

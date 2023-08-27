@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://example.com/images/transformer_8.jpg">
 <meta property="og:image" content="http://example.com/images/transformer_9.jpg">
 <meta property="article:published_time" content="2023-01-04T02:38:29.000Z">
-<meta property="article:modified_time" content="2023-08-22T15:12:28.262Z">
+<meta property="article:modified_time" content="2023-08-27T02:54:06.152Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -294,8 +294,9 @@ X=\left[ \begin{array}{c}
 <p>​    这个过程也从$Q,K,V$的字面意义理解，$Q$表示query，$K,V$是熟悉的键值对。比如此时我用$Q$的第一行“峨”去在key里寻址，key里也是“峨”“眉”“峰”，他们计算相似度，这个相似度就是attention score，他反应了要取出的value的重要程度。然后这个相似度与value里的值分别相乘，即对各个value加权求和，最后得到了用“峨”查询的时候的结果。</p>
 <p>​    所以上面的举例和分析其实引导到了一个直观的理解：我们使用 $Q$来查询各个键$K$，每个键有相应的值$V$，最终我们通过$Q,K$来计算注意力，这里的注意力即缩放后的点积注意力，来作为每个$V$的权重，最终输出结果。因为待查询的可以有$m$个，键值对可以有$n$个，$m$完全可以不等于$n$，这就是上文$QK^T$乘出来的矩阵可以是$m\times n$的原因。</p>
 <center>
-    <img src='/images/transformer_1.jpg'>
+    <img src='/images/transformer_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 
 
@@ -357,21 +358,24 @@ PE_{t}^{\left( i \right)}=\left\{ \begin{array}{c}
 \\
 w_i=\frac{1}{10000^{2i}/d_{model}},i=0,1,2,...\frac{d_{model}}{2}-1</script><p>​    这个设计非常的精巧，把它画出来的样子是： </p>
 <center>
-    <img src='/images/transformer_2.jpg'>
+    <img src='/images/transformer_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    纵坐标指的是“句子长度”或“时间步”为128，每个步的维度为512时的情形，首先我们可以肉眼确认，这确实是一种给不同的步赋予了不同值的编码方法，而且对于$d_{model}$，越大值越小，这个情况对于处理自然语言处理中过长的语句很有帮助，因为这样对于过长的语句不会出现out of distribution。</p>
 <p>​    现在还有两个小问题，第一是为什么要如此约定$w_i$，我们可以理解在同一个时间步的不同位置上要有不同的值，反映到三角函数里就是频率的变化，这其实模拟了二进制编码里的进位，越高位进位越费劲，即高位变化的次数少，可是为什么要用如此小的$w_i$？</p>
 <p>​    简单来说，$w_i$的值很大程度上取决于底数，这里是10000，在$i$很小时，这没什么影响，$w_i t$仍然近似线性增长，所以我们能看到-1；当$i$很大时，此时的$w_i t$几乎接近于0，如果是偶数$i$，那就是$\mathrm{sin(0)}=0$，奇数$i$就是$\mathrm{cos(0)}=1$，他们稳定的交替存在，相当于一块“静止的区域”，就像二进制编码里，总有冗余的高位是0（或是1），这样的高冗余特征实际是一种纠错编码，靠高度冗余保证位置信息，如果在整个$d_{model}$上没有这样的冗余信息，那么注入的位置编码就会被网络忽略（类似于某种噪声）或者过拟合这个噪声。</p>
 <p>​    如果$w_i$没有在$i$增大时变得那么小（即底数取小，例如10），此时的编码就会是：</p>
 <center>
-    <img src='/images/transformer_2_1.jpg'>
+    <img src='/images/transformer_2_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    此时冗余的部分几乎没有了，这带来了两个缺点，一个是位置编码与位置编码之间过于致密，第二个是如果维数超过了512，会出现一些超出分布的样本。关于位置编码的致密性，还有一个角度：如果使用频率偏大，那么在$t$偏大时，不同位置的位置向量可能出现重合，例如下面我们取$d_{model}=3$，颜色从蓝到红依次是$t=0$到$t=128$：</p>
 <center>
-    <img src='/images/transformer_3.jpg'>
+    <img src='/images/transformer_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    左侧是底数取100，右侧是取10000，会发现左侧出现了大量不同时间的位置向量重叠的情况，而右测的位置向量十分可分。</p>
 <p>​    还有一个问题，余弦函数是怎么来的？为什么要引入余弦函数，而不是一直用正弦？原因其实是高中学的简单的三角恒等变换：</p>
@@ -418,8 +422,9 @@ PE_{t+\varDelta t}=T_{\varDelta t}PE_t=\left( \begin{matrix}
 \end{array} \right)</script><p>​    这样的设计，使得位置编码中不同位置之间，存在线性关系，原作者认为这样可以使得模型较为简单的学习到相对位置信息，从而克服了之前说的二进制编码距离不连续的问题。</p>
 <p>​    现在我们初步探明了这个vanilla的位置编码的设计思想，在最后，我们可以对不同时间$t$下的向量编码计算自相关矩阵，来确认这种设计的唯一性。</p>
 <center>
-    <img src='/images/transformer_4.jpg'>
+    <img src='/images/transformer_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    （这个”RdBu”配色真的经典,）</p>
 <p>​    现在，还剩最后一个问题，为什么这个位置编码可以直接“加”到所要注入的张量里，这样不会造成什么信息损失吗？实际上，这是一个误解，我们并不是把位置编码直接加在初始的原始输入中，transformer会先对原始输入做一个嵌入，把它映射到高维，然后再加上刚才所讨论的位置编码。这个过程实际等价于，先给原始输入并联(concat)一个代表位置信息的向量，再做嵌入。设一个输入向量$x\in \mathbb{R} ^{\left( 1\times d \right)}$，代表位置的编码向量$PE\in \mathbb{R} ^{\left( 1\times n \right)}$​，他们并在一起做映射：</p>
@@ -488,8 +493,9 @@ D\left( XY \right) =E\left( X^2Y^2 \right) -\left[ E\left( XY \right) \right] ^2
 <h3 id="Multi-Head"><a href="#Multi-Head" class="headerlink" title="Multi-Head"></a>Multi-Head</h3><p>​    到目前位置，self-attention算子已经可以实现RNN所实现的功能了，甚至更好，因为RNN不能并行，但它可以。然而与CNN相比，CNN当输入$c_{in}$个channel的特征图时，会用$c_{out}$个滤波器组，每一个有$c_{in}$个滤波器（卷积核），他们对应通道做卷积，然后结果加权，过激活函数。这个过程赋予了CNN与多种通道互相通信的能力，然而目前的self-attention算子，其$Q,K,V$经过训练后，是一个固定的矩阵，他们只能把输入投影到特定的空间。</p>
 <p>​    但是通过多头注意力的机制，也可以使它能并行地计算来自多个空间的注意力。</p>
 <center>
-    <img src='/images/transformer_5.jpg'>
+    <img src='/images/transformer_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    其实操作起来十分简单，之前在得到$Q,K,V$​时，我们是用$W_Q,W_K,W_V$​直接算过来的。其实只要把算过来的结果进行分块，分别做self-attention，再把最后的结果并在一起，这就是多头注意力了，$h$头的注意力可以表示为：</p>
 <script type="math/tex; mode=display">
@@ -498,16 +504,18 @@ head_i=Attention\left( Q^i,K^i,V^i \right)
 MultiHead=Concat\left( head_1,...,head_h \right)</script><p>​    于是self attention算子也有了结合多个子空间进行交互的能力。</p>
 <h3 id="LayerNorm"><a href="#LayerNorm" class="headerlink" title="LayerNorm"></a>LayerNorm</h3><p>​    BatchNorm的使用让CNN得以快速收敛，在那个年代，这减轻了调参难度，即只要是一个合理的任务，把数据标准化，输入一个CNN，只要CNN里加了BN，总能收敛的不错。而使用self-attention，由于其起源于自然语言处理，所用的是一种叫作LayerNorm的方式，如下图所示：</p>
 <center>
-    <img src='/images/transformer_6.jpg'>
+    <img src='/images/transformer_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上图展示了一种在更一般的任务中所遇到的情况，由于我们无法画出四维正方体，所以我们将$Batch$维以堆叠并联的方式展示，可以看到，BatchNorm是计算一种feature map在整个Batch里的均值和方差，然后进行标准化。</p>
 <p>​    而LayerNorm是不考虑Batch的，只计算Batch其中一个样本，它所有通道的均值和方差，然后进行标准化。</p>
 <p>​    这还是考虑到在NLP里，样本的句长会发生变化，这里不作过多讨论。</p>
 <h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>​    现在我们介绍完了一些基本的构件，终于，我们可以引出这个2017年就提出的结构，论文原文画的已经够经典和好看了：</p>
 <center>
-    <img src='/images/transformer_7.jpg'>
+    <img src='/images/transformer_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    观察这个图，上面有许多前文中熟悉的元素。先对input进行embedding，然后加上我们前面所说的，基于三角函数的positional encoding，然后作多头注意力，同时有一个残差连接，然后LayerNorm，这里的LN实际上是PostNorm，还有一种是PreNorm：</p>
 <script type="math/tex; mode=display">
@@ -519,8 +527,9 @@ MultiHead=Concat\left( head_1,...,head_h \right)</script><p>​    于是self at
 FFN\left( x \right) =\max \left( 0,xW_1+b_1 \right) W_2+b_2</script><p>​    经过FFN，再经过残差连接和Norm，这一整个结构就成为了一个“encoder”，这里的残差连接和FFN，是必要的。有一篇工作”attention is not all you need”从理论层面阐述了这一点，感兴趣可以看一下。</p>
 <p>​    注意图里的$N\times$，这说明一共堆叠了$N$层的encoder，这样过了$N$层的encoder后，会送入“decoder”。这里又来了个解码器的原因，是因为transformer最初用于机器翻译，它的训练和推理过程并不一样，如下图所示：</p>
 <center>
-    <img src='/images/transformer_8.jpg'>
+    <img src='/images/transformer_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    以机器翻译为例，当训练时，encoder和decoder都是可以并行的，可以看到训练时最开始的翻译结果很糟，所以我们进行训练。encoder直接将词向量编码，编码后给decoder去查（注意到encoder后的结果流向了decoder里的一个多头注意力的输入，这里encoder输入的分别作为$K,V$，而decoder的输入是$Q$），在训练时，我们可以直接给出ground truth，即I am a student。然而在推理（测试）时是没有的，所以transformer在这里采取和之前的seq2seq模型一样的方式，进行自回归。其中BOS是begin of sequence，EOS是end of sequence，意思是序列任务中的起始符或结束符，用来预测某一个token预测过程的开始和结束。先输入起始符，结合encoder的结果，给出第一个字，然后结合第一个字，再给出第二个字……所以叫自回归。</p>
 <p>​    在transformer的decoder中，我们可以看到outputs的输入有个shifted right，这个其实就是在添加起始符或结束符，我们不用管它。然后decoder里有一个Masked的多头注意力，这其实是为了与自回归过程对应，把后面的序列的信息先盖住。</p>
@@ -588,7 +597,7 @@ C_{ij}=\sum_k{A_{ik}B_{kj}}</script><p>​    这里，省略掉求和变量$k$�
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    That’s all，总的来说，这篇blog具体的剖析了2017年的transformer，其实现在的ViT，DETR，AutoFormer，不同任务里的former已经更进一步了，但是就像最开始学习到CNN时，也得先了解CNN的基本思想，才能去追那些各种各样的变种。而self-attention算子是这些各种transformer的变种的基础。</p>
 <p>​    虽然但是，我上学期期末考试的课是一点没学。在家一呆，效率极低。一切责任全在新冠后遗症。我在考虑我要不要现在开始准备考研，再炼俩月丹再说吧。</p>
 <center>
-    <img src='/images/transformer_9.jpg'>
+    <img src='/images/transformer_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		

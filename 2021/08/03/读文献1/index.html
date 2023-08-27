@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/Reading1_3.jpg">
 <meta property="og:image" content="http://example.com/images/Reading1_4.jpg">
 <meta property="article:published_time" content="2021-08-03T13:06:21.770Z">
-<meta property="article:modified_time" content="2021-10-06T16:22:31.164Z">
+<meta property="article:modified_time" content="2023-08-27T03:23:26.824Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="故障诊断">
@@ -199,13 +199,21 @@
         <p>​    事情是因为我看了一篇关于故障诊断（fault diagnosis）的综述，我看完了大受震撼，于是进行了一部分整理，那里面的相当多的内容对我来说还是太难了qwq。</p>
 <span id="more"></span>
 <p>​    查阅资料发现，故障诊断可分为定性和定量两类，随着现在对精细化的进一步要求，定量应该会称为主流，而这篇综述正全是关于定量的，该综述的骨架是：</p>
-<p><img src="/images/Reading1_1.jpg" alt=""></p>
+<center>
+    <img src='/images/Reading1_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    虽然上面这张图很简单，但是具体内容还是相当多的。</p>
 <h3 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h3><p>​    文章的第一部分讲述了故障诊断中一些的一些概念，故障分为三种：驱动器故障（actuator faults），传感器故障（sensor faults），设备故障（plant faults）。第一个是指例如马达的堵塞，第二个是指例如一些关键的传感器只卡在一个指，第三个是指例如某些模块断连。这些故障一般会导致控制器控制作用的中断，这样会产生大量误差，或者直接改变系统的输入输出特性，导致系统性能下降甚至是损坏。</p>
 <p>​    人们经常用冗余（redundancy）这个概念来进行故障诊断，分为硬件冗余和软件（分析性）冗余：</p>
 <p>​    硬件冗余说的是，对于一个系统，我们只需要再备份一个和其完全一致的系统，通过给定相同的输入侦测变化，就能找到问题。这个办法很有效，但是成本很高。因为这种方法很多时候都需要有充足的关键部分的冗余副本。并且结合一些流水线上的实际，安装也是一个困难。</p>
 <p>​    软件（分析性）冗余是依据现代控制理论的成熟而产生的一种故障诊断的方法。他是基于我们对正确数据的前有经验，来设计一套特定的算法来进行故障诊断的推理。</p>
-<p>​    <img src="/images/Reading1_2.png" alt=""></p>
+<center>
+    <img src='/images/Reading1_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    其中$f_a,f_c,f_s$​​​分别是对这各自的故障影响，其中的输入量$u$和输出量$y$反馈给故障诊断算法来进行推理。</p>
 <p>​    故障诊断有三个任务，首先是确定故障发生的时间，再确定故障的位置，最后确定故障的细节（大小，类型，形状，等等），最终得到这些结果以后，期望容错系统响应来作用到控制器上以纠正错误。</p>
 <p>​    文章作者在引言部分的最后给出了近年来在上面那些方面的一些实践成果（#TODO）</p>
@@ -248,14 +256,22 @@ x_k=\hat{x}_{k/k-1}+B_{k-1}u_{k-1}+J_{k-1}Z_{k-1}+H_k\left[ Z_k-C_k*\hat{x}_{k/k
 P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形式的卡尔曼滤波，把它写在这里的作用主要是提醒我要打好数理基础orz以及记得去学概率论与数理统计。</p>
 <p>​    （<del>这个玩意用在小车里估计挺好的，它迭代速度快而且不怎么占空间</del>）</p>
 <h4 id="for-Discrete-Events-and-Hybrid-Systems"><a href="#for-Discrete-Events-and-Hybrid-Systems" class="headerlink" title="for Discrete-Events and Hybrid Systems"></a>for Discrete-Events and Hybrid Systems</h4><p>​    这里主要指的是对于一些动态变化的离散系统，以及一些复杂的工业系统，一方面他们既有基于时间的连续动力学模型，又有事件驱动的离散动力学模型，哎我怎么在哪里看见过这个。</p>
-<p>​    <img src="/images/Reading1_3.jpg" alt=""></p>
+<center>
+    <img src='/images/Reading1_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这块由于太与具体示例结合了，挺麻的，“不具有普适性”。</p>
 <h4 id="for-Networked-and-Distributed-Systems"><a href="#for-Networked-and-Distributed-Systems" class="headerlink" title="for Networked and Distributed Systems"></a>for Networked and Distributed Systems</h4><p>​    这一段…给的文献综述，我没有什么网络的前置知识属实是读不懂，先鸽掉了。</p>
 <h3 id="Signal-Based-fault-diagnosis-method"><a href="#Signal-Based-fault-diagnosis-method" class="headerlink" title="Signal-Based fault diagnosis method"></a>Signal-Based fault diagnosis method</h3><p>​    由于实际中的某些系统可能机理过于复杂等原因，这一块提出的是基于信号的故障检测的方法，也就是说我们不依托这个系统本身的机理，仅仅从它的信号特征上，由已有的先前的经验进行故障检测。</p>
 <h4 id="Time-Domain"><a href="#Time-Domain" class="headerlink" title="Time-Domain"></a>Time-Domain</h4><p>​    时域方法是指分析信号的时域特征，例如峰值，均值，均方根，方差以及据此定义的一系列指标，在这里文中提到了一些很有用的算法： fast dynamic time warping(fast DTW),correlated kurtosis(CK), scale-invariant feature transform(SIFT)…</p>
 <h4 id="Frequency-Domain"><a href="#Frequency-Domain" class="headerlink" title="Frequency-Domain"></a>Frequency-Domain</h4><p>​    频域方法是说利用频谱分析工具来进行检测变化和故障，例如离散傅里叶变换，这里特别地提及了一种诊断电机故障的电机电流特征分析法（MCSA），考虑到这个以后可能要用到，我对其进行了一下查阅，找到了一个用MCSA法测量异步电机转速的方法，来简单了解一下这种方法。</p>
 <p>​    它的原理说的是电机运转时由于结构组成，转子电流感应产生一个有效的转子磁场，会在定子绕组中感应产生很小的电流，并形成一个高次谐波旋转磁场，因此转子频率可以通过检测定子电流频谱得到：</p>
-<p>​        <img src="/images/Reading1_4.jpg" alt=""></p>
+<center>
+    <img src='/images/Reading1_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    据我推测，这个技术的核心应该还是傅里叶变换，并且如果它只计算电机转速的话，那么得到的频率的大小实际上就是无关紧要的，也就是说这个技术应该不仅可以测转速。</p>
 <h4 id="Time-Frequency"><a href="#Time-Frequency" class="headerlink" title="Time-Frequency"></a>Time-Frequency</h4><p>​    这个方法结合了时域和频域，因为考虑到纯时域或者纯频域的方法进行检测，可能对某些瞬时变化的信号来说会有困难，于是人们用了很多时频分析方法：</p>
 <p>​    短时傅里叶变换（STFT），小波变换（WT），Hibert-Huang变换（HIT），Wigner-Ville分布（WVD）等等……</p>

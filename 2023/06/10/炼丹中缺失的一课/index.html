@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/flops_end.jpg">
 <meta property="article:published_time" content="2023-06-10T14:49:09.000Z">
-<meta property="article:modified_time" content="2023-07-30T04:12:06.787Z">
+<meta property="article:modified_time" content="2023-08-27T02:45:50.310Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -344,8 +344,9 @@ MAC=hw\left( C_{in}+C_{out} \right) +\frac{C_{in}C_{out}}{g}
 <p>​    结合这4个guidelines，和前面的前置知识。我们可以将部署一个神经网络模型，看作是从指标（metrics），大小（size），速度（speed）三个做trade-off。具体来说，如果我们的模型只是为了刷SOTA，在标准计算机，服务器上进行推理。那其实我们可以专心用各种技巧，比如疯狂跳连（姿态估计任务中），以及构造各种注意力。如果我们的模型是部署在移动端，移动端虽然算力不是那么有限，但内存还是充足的。使用跳连，内存上是可以满足的。所以只要在可以容忍的延迟之内，就可以成功部署。而在一些更极限的场所，比如微处理器，这时候内存是死线，所以最好就只设计一个单路的网络，直接进行推理。一个开源库<a target="_blank" rel="noopener" href="https://github.com/mit-han-lab/tinyengine">TinyEngine</a>，对深度可分离卷积进行了调整。让其只用一个原地的缓存，即用时间换空间。这个过程主要是一个“<em>trial and error</em>”的过程……</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    如果到实际部署上，其实还有两步，剪枝和量化。这里就先不提了，哪天有空再写吧。</p>
 <center>
-    <img src='/images/flops_end.jpg'>
+    <img src='/images/flops_end.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 		
 

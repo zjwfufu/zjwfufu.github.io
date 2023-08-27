@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/images/Physical_eg4_2.png">
 <meta property="og:image" content="http://example.com/images/Physical_eg5.png">
 <meta property="article:published_time" content="2022-02-28T10:23:44.000Z">
-<meta property="article:modified_time" content="2022-03-01T06:49:19.115Z">
+<meta property="article:modified_time" content="2023-08-27T02:21:57.301Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,10 @@
         <p>​    将近两个月不学大学物理，现在突击不完了。这一篇也不捋知识点了，直接整理一些有针对性的题目，来进行“Few-shot learning”。</p>
 <span id="more"></span>
 <p>​    一、考虑宽为$b$长度无限长的导体薄板，点$P$在通过板的中线并与板面垂直的直线距离$h$处。</p>
-<p><img src="/images/Physical_eg1.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg1.png'>
+</center>
+
 <p>​    1）当平面薄板的电荷面密度为$\sigma$时，求$P$处电场强度：</p>
 <p>​    2）当平面薄板上有电流$I$均匀流过时，求$P$处磁感应强度：</p>
 <p>​    对于1），我们利用无限长的带电杆的结论，但当时给的是线密度$\lambda$。需要写成$\sigma$的形式：</p>
@@ -221,10 +224,16 @@ E=\int_{-\frac{b}{2}}^{\frac{b}{2}}{\mathrm{d}E\cdot \cos \theta}=\int_{-\frac{b
 \\
 B=\int_{-\frac{b}{2}}^{\frac{b}{2}}{\frac{\mu _0Ih}{2\pi b\left( x^2+h^2 \right)}\mathrm{d}x}=\frac{\mu _0I}{2\pi b}\left[ \mathrm{arc}\tan \left( \frac{x}{h} \right) \right] _{-\frac{b}{2}}^{\frac{b}{2}}=\frac{\mu _0I}{\pi b}\mathrm{arc}\tan \left( \frac{b}{2h} \right)</script><p>​    在计算时都需要注意微分算子是否对上了，如果出现了微分算子突然跳跃了，最好检查步骤，一定是哪里列错了。</p>
 <p>​    二、考虑空心单层密绕长直螺线管，总匝数$N$，长为$l$，半径为$R$，$l$远远大于$R$。求螺线管自感$L$</p>
-<p><img src="/images/Physical_eg2.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg2.png'>
+</center>
+
 <p>​    为求自感$L$，先求穿过回路的总磁通量。这样会先求磁感应强度$B$</p>
 <p>​    首先要声明，对于螺线管，不管是圆形还是长直的，我们都将磁场线平行于轴线，管内外磁场均匀，管外磁场为零作为已知结论。这些结论的证明我们就不管了。我们这里要给出两种求解的方法：</p>
-<p><img src="/images/Physical_eg2_2.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg2_2.png'>
+</center>
+
 <p>​    对于①，我们直接利用安培环路定理，因为我们知道管外磁场强度为0，且管内均匀并平行于轴线。此时选取矩形区域即可，设矩形区域长为$\varDelta l$：</p>
 <script type="math/tex; mode=display">
 B\varDelta l=\mu _0\frac{\varDelta l}{l}NI\rightarrow B=\mu _0nI</script><p>​    对于②，基于对称性，我们计算中心轴线点$P$处的磁感应强度。可将每一匝看作一个环形电流，那么根据环形电流产生的磁感应强度我们即可积分，为了简单，我们取$P$为螺线管正中间的那个点。</p>
@@ -248,7 +257,10 @@ B=\frac{\mu _0NI}{2l}\int_{\theta _1}^{\theta _2}{\cos \theta \mathrm{d}\theta}=
 \\
 L=\frac{\varPsi}{I}=\mu _0\frac{N^2}{l\cdot l}l\pi R^2=\mu _0n^2V</script><p>​    这个式子的意义在于告诉我们，自感系数与单位长度的匝数的平方成正比，与螺线管体积成正比。值得一提的是当插入磁介质时，自感系数可以增大$\mu_r$倍。所以当插入的介质是顺磁质$\mu_r &gt; 1$，那么自感系数增大。插入的是抗磁质，$\mu_r&lt;1$，自感系数减小。插入铁磁质，自感系数会大大增大（$\mu_r \gg 1$）</p>
 <p>三、考虑如下图所示的圆环，圆环带电量$+q$，点$P$在圆环轴线距离中心$h$处。</p>
-<p><img src="/images/Physical_eg3.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg3.png'>
+</center>
+
 <p>​    1）计算$P$处电场强度</p>
 <p>​    2）现令圆环以均匀角速度$\omega$绕通过圆心垂直于圆环的轴转动，求$P$处电场强度。</p>
 <p>​    3）在2）的基础上求圆环的磁矩。</p>
@@ -308,7 +320,10 @@ p_m=\int_{R_1}^{R_2}{\pi \omega r^3\sigma \mathrm{d}r}=\frac{\pi \omega \sigma}{
 </table>
 </div>
 <p>​    四、分布电容和分布电感，如同所示为两根无限长的圆柱形导线，半径为$r_0$，轴线相距为$d$。$d \gg r_0$</p>
-<p>​    <img src="/images/Physical_eg4.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg4.png'>
+</center>
+
 <p>​    1）设单位长度带电量分别为$+\lambda,-\lambda$。求单位长度上的分布电容。</p>
 <p>​    2）设圆柱中通有方向相反的电流$I$，求单位长度的分布电感。</p>
 <p>​    对于1），先应用高斯定理求出两导线间的电势差（电势叠加），之后应用电容的定义式即可：</p>
@@ -321,7 +336,10 @@ U=\varPhi -\left( -\varPhi \right) =\frac{\lambda}{\pi \varepsilon _0}\ln \left(
 \\
 C=\frac{Q}{U}=\frac{\lambda}{\frac{\lambda}{\pi \varepsilon _0}\ln \left( \frac{d-r_0}{r_0} \right)}=\frac{\pi \varepsilon _0}{\ln \left( \frac{d-r_0}{r_0} \right)}\approx \frac{\pi \varepsilon _0}{\ln \left( \frac{d}{r_0} \right)}</script><p>​    这里要穿插一个类似的问题，来对电容器有更清晰的认识：</p>
 <p>​    取两块平行平板，相距为$d$，总面积均为$S$，分别均匀带电$+q,-q$，两板线度远大于$d$，则它们的相互作用力大小为$(\frac{q^2}{2\varepsilon _0S})$。这里要注意分母的那个2，原理可以简述成：两块平行平板，实际上是四个带电平面，分别做高斯定理，由静电平衡条件可知中间两个面所带电量必然等量异号。而此时高斯定理是$E \cdot 2S$。所以求解相互作用力时有个$2$。</p>
-<p><img src="/images/Physical_eg4_2.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg4_2.png'>
+</center>
+
 <p>​    对于2），要先计算出两个导线间的总磁通，之后即可求出分布电感：</p>
 <script type="math/tex; mode=display">
 \varPhi =\varPhi _1+\varPhi _2
@@ -332,7 +350,10 @@ C=\frac{Q}{U}=\frac{\lambda}{\frac{\lambda}{\pi \varepsilon _0}\ln \left( \frac{
 \\
 L=\frac{\varPhi}{I\cdot l}=\frac{\mu _0}{\pi}\ln \left( \frac{d-r_0}{r_0} \right) \approx \frac{\mu _0}{\pi}\ln \left( \frac{d}{r_0} \right)</script><p>​    五、地心游记</p>
 <p>​    半径为$R_1$的导体球带有电荷$+q$，球外有一个内，外半径分别为$R_2,R_3$的同心导体球壳，壳上带有电荷$+Q$。</p>
-<p><img src="/images/Physical_eg5.png" alt=""></p>
+<center>
+    <img src='/images/Physical_eg5.png'>
+</center>
+
 <p>​    1）计算系统的静电能量</p>
 <p>​    2）若外球壳接地，计算此时球和球壳的各自的电势</p>
 <p>​    3）若内球接地，计算此时球和球壳的各自的电势</p>
@@ -358,8 +379,7 @@ V_2=\frac{Q+q'}{4\pi \varepsilon _0R_3}
 \\
 q'=-\frac{R_1R_2Q}{R_1R_2+R_2R_3-R_1R_3}
 \\
-V_2=\frac{Q}{4\pi \varepsilon _0}\cdot \frac{R_2-R_1}{R_1R_2+R_2R_3-R_1R_3}</script><script type="math/tex; mode=display">
-</script>
+V_2=\frac{Q}{4\pi \varepsilon _0}\cdot \frac{R_2-R_1}{R_1R_2+R_2R_3-R_1R_3}</script>
 		
 
 		

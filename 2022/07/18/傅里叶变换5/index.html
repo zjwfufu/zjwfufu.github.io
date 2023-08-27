@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/DSP_1.png">
 <meta property="og:image" content="http://example.com/images/DSP_2.png">
 <meta property="article:published_time" content="2022-07-18T05:40:30.000Z">
-<meta property="article:modified_time" content="2022-10-18T13:43:01.371Z">
+<meta property="article:modified_time" content="2023-08-27T03:05:12.174Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="傅里叶变换">
@@ -230,7 +230,11 @@ f_s\left( t \right) =\frac{1}{\omega _s}f\left( t \right) \ast \delta _{T_s}\lef
 =\frac{1}{\omega _s}\sum_{n=-\infty}^{\infty}{f\left( t-nT_s \right)}</script><p>​    当然这里要求信号是时限信号，同样，为了避免混叠：</p>
 <script type="math/tex; mode=display">
 T_s>T_c</script><p>​    （这里是没有2的，因为时域信号不存在类似“负频率”的要素）</p>
-<p><img src="/images/DSP_1_append.png" alt=""></p>
+<center>
+    <img src='/images/DSP_1_append.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这两个定理的意义在于，我们明确了抽样这一操作，建立了连续信号和离散序列的关系，这里先略去了如何从离散序列恢复成连续信号，因为我们先暂时不关心这一点。接下来，有两种思路推出离散傅里叶变换(DFT)，首先我们要明确，DFT它并不严格，只是一种在一定程度近似的条件下，能允许计算机计算有限长序列的傅里叶变换的方法。在下文里我们会发现，频域分析貌似没有我们在连续情形下想的“那么美好”。我们先给出第一种推导：</p>
 <h3 id="DFS→DFT"><a href="#DFS→DFT" class="headerlink" title="DFS→DFT"></a>DFS→DFT</h3><p>​    如果我们已知一个连续的周期信号，我们知道它是可以展开成傅里叶级数的，它的幅度谱和相位谱都是离散的，本质上是从复指数函数集里找了最优逼近。之后进行采样，得到了一个周期序列，根据前面的分析它的频域频谱会发生周期延拓。但是，如果我们最开始已知的就是一个周期序列，这个序列不是一个函数，比如可以写成解析式表达的那种，它就是一个简单的$x[1],x[2],..,x[n]$一样的序列。所以，不如直接借坡下驴，既然每一个序列相差1，那我就认为采样间隔是1，然后采样频率是$2\pi *1=2\pi$。</p>
 <p>​    这样处理后，频域的一个周期就是$2\pi$，之后我们把连续傅里叶级数的思想迁移过来。首先要认识到，在之前连续的情形里，我们是用了无穷多个频率的复指数信号来逼近一个连续的函数，而周期信号的谱是离散的，它往往是带限的。我们假设处理的离散信号是没有混叠的，那么也就是说它的截止频率已经被包含进那一个主值序列里了，我们只关注中心的那个主值序列，因为负频和高频远处的那些是完全相同的。所以，此时的复指数就不需要无穷多个频率分量了。</p>
@@ -262,12 +266,19 @@ E\left( F_N\left( 0 \right) ,F_N\left( 2 \right) ,...,F_N\left( n-1 \right) \rig
 =F_N\left( N-i \right)</script><p>​    将$N-i$代换为$k$，注意到左侧复指数的周期性，得：</p>
 <script type="math/tex; mode=display">
 F_N\left( k \right) =\sum_{n=0}^{N-1}{f_N\left( n \right) e^{\mathrm{j}\frac{2\pi}{N}n\left( N-k \right)}}=\sum_{n=0}^{N-1}{f_N\left( n \right) e^{-\mathrm{j}\frac{2\pi}{N}nk}}</script><p>​    这就是离散傅里叶级数(DFS)，注意，它处理的输入形式仍然是一个无限长的周期序列，而我们试图解决的是有限长序列的，实际上，我们可以尝试直接套用DFS的公式，如果得到的有限长信号确实是周期序列的子周期，那就不会有什么问题，然而，如果不这样呢？就会发生频谱泄露，会出现一些本不应存在的频率。</p>
-<p><img src="/images/DSP_1.png" alt=""></p>
+<center>
+    <img src='/images/DSP_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上图，当使用矩形窗加窗后，就发生了频谱泄露，出现了很多本不应出现的频率分量。（实际上不加窗的那个结果本身，也相当于加窗了，所以也出现了一定的泄露。只是额外加矩形窗的那个更严重了。）本质上是因为，我们截取的序列，是从无限长中提取的一部分，由卷积定理，相当于在频域上卷积了一个窗的频谱函数，泄露是无法避免的，对已知信号加一些窗进行衰减，可以减缓频谱泄露。</p>
 <p>​    上图中出现了一个“采样点数”，实际上如果用我们后面说的第二种得出DFT的思路，会更好理解，在这里的话，在介绍第二种思路之前，我们先在这里给出频域分辨率这一概念。实际上，在DFT中，$N$可以看成在单位圆上找共$N$次单位根，$N$越多能表达了频率就越多，所以可以定义一个分辨率：</p>
 <script type="math/tex; mode=display">
 \varDelta R=\frac{F_s}{N}</script><p>​    其实就是$N$越大，分辨率越高，能读出的频谱成份就越多。例如下面这个例子：</p>
-<p><img src="/images/DSP_2.png" alt=""></p>
+<center>
+    <img src='/images/DSP_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    在上面的例子里，采样点数为$N$时的频谱图恰好很干净，这其实是由于此时设置的频率是10，恰好是一个整数倍。当改成9.5后，第二行的结果就显示了严重的畸变，此时不是因为频谱泄露，只是因为之前的频谱分辨率不够，捕捉不到那些分量，当第三列，同时增加采样点数后，频域分辨率得以提升，可以看见出现了明显了频谱泄露，它们看起来很像sinc函数，这其实是有原因的。这里就先不讨论了。</p>
 <p>​    实际上，在操作的时候，如果采样点数大于序列长度，补零即可，这与$N$个正交基的推理并不矛盾。补零这个操作在后面还会遇到。</p>
 <h3 id="DTFT→DFT"><a href="#DTFT→DFT" class="headerlink" title="DTFT→DFT"></a>DTFT→DFT</h3><p>​    另一种引入DFT的方法更为直接，对于连续非周期信号的傅里叶变换：</p>
@@ -290,7 +301,7 @@ F\left( j\omega \right) =\int_{-\infty}^{+\infty}{f\left( t \right) \delta _T\le
 \varDelta \omega =\frac{2\pi}{N}
 \\
 F_N\left( k \right) =\sum_{n=0}^{N-1}{f_N\left( n \right) e^{-\mathrm{j}\frac{2\pi}{N}nk}}</script><p>​    这里采集点数的要求，就用到了之前的频域采样定理，如果序列有$M$个点，采集点数要大于等于$N$个点，虽然一般我们都会记序列有$N$个点，这里为了匹配以前的公式，就记为$M$个了。当$N&gt;M$时，对序列进行补零操作。这里进行频域采样，是因为我们默认了要处理的是一个有限长的带限序列，所以就都，通了。</p>
-<p>​    这里的补零操作，和前面所说的频谱泄露，频谱分辨率等概念，我只做了简要的描述。实际上它们之间的关系完全解释清楚，那又是一篇blog了。这实际上已经接近数字信号处理的范围了。以及，按照DFT计算，时间复杂度是$O(N^2)$，这是很糟糕的，快速傅里叶变换把时间复杂度降到了$O(nlogn)$，那个算法的深刻洞见非常的神奇，包括他的实现细节，如果我能在学数据结构之前知道这些，我肯定好好学数据结构。其实这一篇就是为了那点醋包的饺子，今天有点事得去下北校区，等到下一篇把它们补完。</p>
+<p>​    这里的补零操作，和前面所说的频谱泄露，频谱分辨率等概念，我只做了简要的描述。实际上它们之间的关系完全解释清楚，那又是一篇blog了。这实际上已经接近数字信号处理的范围了。以及，按照DFT计算，时间复杂度是$O(N^2)$，这是很糟糕的，快速傅里叶变换把时间复杂度降到了$O(\mathrm{nlogn})$，那个算法的深刻洞见非常的神奇，包括他的实现细节，如果我能在学数据结构之前知道这些，我肯定好好学数据结构。其实这一篇就是为了那点醋包的饺子，今天有点事得去下北校区，等到下一篇把它们补完。</p>
 
 		
 
@@ -422,7 +433,7 @@ F_N\left( k \right) =\sum_{n=0}^{N-1}{f_N\left( n \right) e^{-\mathrm{j}\frac{2\
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          傅里叶变换6
+          傅里叶变换6(#TODO)
         
       </div>
     </a>

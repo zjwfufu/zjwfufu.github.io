@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/micro_computer_2_2.gif">
 <meta property="og:image" content="http://example.com/images/microcomputer_2_end.jpg">
 <meta property="article:published_time" content="2022-10-02T06:31:51.000Z">
-<meta property="article:modified_time" content="2022-10-18T06:14:16.682Z">
+<meta property="article:modified_time" content="2023-08-27T03:10:32.483Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,11 @@
 <p>​    特别地，有一对隐含寻址的指令PUSHF,POPF。它是用来把PSW压入堆栈和把栈顶所指数据赋给PSW的。用于调用子程序时保护和恢复标志位。</p>
 <h4 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h4><p>​    实际上，数据传送类指令，如果在考试中要自己写，其实还是MOV和LEA用的多。这里的有些指令的出现与硬件设置强相关，所以……</p>
 <h3 id="算术运算类"><a href="#算术运算类" class="headerlink" title="算术运算类"></a>算术运算类</h3><p>​    算术运算就很重要了，从名字可以知道，算术运算需要ALU（算术逻辑单元），同时我们也注意到ALU往往会连一个PSW。还记得学计组的时候，学习到booth乘法和加法时的一堆机制，例如什么双符号位判断溢出等等。在玩具CPU里，有一个PSW，但它只有1位置，实际上由于玩具CPU只执行一段简短的冒泡排序，所以PSW并没有忠实的体现。现在我们要给出在8086中的标志寄存器的设置：</p>
-<p><img src="/images/micro_computer_2_1.png" alt=""></p>
+<center>
+    <img src='/images/micro_computer_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    至于打//的地方是什么，有什么具体的意义，我也不是很清楚。这9个标志位要记录一下报个菜名：</p>
 <div class="table-container">
 <table>
@@ -288,7 +292,11 @@
 <p>s    首先，ADD和ADC也只能实现8位和16位的加法（这里的实现，依托的是硬件逻辑，这里略了。），那么32位的加法就需要一定操作了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LEA DI, DVAR ;</span><br><span class="line">MOV AX, 4[DI] ;</span><br><span class="line">ADD AX, [DI] ;</span><br><span class="line">MOV DVARC, AX ;</span><br><span class="line">MOV AX, 6[DI] ;</span><br><span class="line">ADC AX, 2[DI] ;</span><br><span class="line">MOV DVARC+2, AX;</span><br></pre></td></tr></table></figure>
 <p>​    要时刻记住地址由低位到高位，整个代码的流程其实很简单：</p>
-<p><img src="/images/micro_computer_2_2.gif" alt=""></p>
+<center>
+    <img src='/images/micro_computer_2_2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这个动图期望可以带来一些直觉上的帮助，因为制作比较花费时间。如果后面每一小串指令都绘制这样一个动图那太花时间了。在下一章简单的汇编语言编程里会有更多的这些内容。</p>
 <h4 id="SUB-SBB"><a href="#SUB-SBB" class="headerlink" title="SUB,SBB"></a>SUB,SBB</h4><p>​    它和加法几乎是一样的，这里SBB中的其中一个B是with borrow借位的意思。仍然用一个例题来解决：设DVAR1和DVAR2保存有双字数，并将结果存于DVARR中。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DVAR1 DD 78127654H</span><br><span class="line">DVAR2 DD 12349821H</span><br><span class="line">DVARR DD     ?</span><br><span class="line">MOV AX DVAR1</span><br><span class="line">SUB AX, DVAR2</span><br><span class="line">MOV DVARR, AX</span><br><span class="line">MOV AX, DVAR1+2</span><br><span class="line">SBB AX, DVAR2+2</span><br><span class="line">MOV DVARR+2, AX</span><br></pre></td></tr></table></figure>
@@ -703,7 +711,11 @@
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这一篇blog已经太长了，所以我略去了一些内容，它们在理解微机原理主体上没那么重要，比如BCD码校正的指令，和那些记忆向的处理器控制指令。以及，我并没有规范的介绍汇编语言编程的一些要求，很多例子虽然已经是不错的demo了但确实缺乏一定的严谨性，比如变量的定义等等，都很似然，在下一篇里会进一步介绍。</p>
 <p>​    这一篇写的比较费时间，期间经历了一次国家奖学金答辩（在这里感谢准备答辩期间帮助我的朋友们），在那里我看见了很多半仙。有的门门课90好几，均分说出来都吓人，如果放在以前，我直接焦虑感拉满，然后转而思考自己在实验班里难看的rank夏令营不是得寄？后来格局打开了，第一，我未必会（能）保研；第二，当时考600来分然后交学费，大概不是为了多上四年高中的。我觉得大概是要找到自己的adventure然后write your own stroy。至少我现在很开心，置于均分不靠前，没有ICPC/CCPC经历的劣势会把我导向何处，这并不是我能决定的了。人生有梦，各自精彩。</p>
 <p>​    “哈，你终于领悟了成为传奇的诀窍。”——CyberPunk2077</p>
-<p><img src="/images/microcomputer_2_end.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_2_end.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 
 		
 

@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://example.com/images/FAST_10.png">
 <meta property="og:image" content="http://example.com/images/FAST_11.jpg">
 <meta property="article:published_time" content="2022-08-06T12:34:37.000Z">
-<meta property="article:modified_time" content="2022-08-11T07:41:07.742Z">
+<meta property="article:modified_time" content="2023-08-27T03:24:11.011Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数学建模">
@@ -206,14 +206,22 @@
         <p>​    前段时间，有点小忙。结果忙完了数模培训就开始了，然后……摆了，可怜了我一学弟。CUMCM-2021A是永远的痛，当时按照前五年的A题准备的微分方程，然后开题以后直接扑空了。当时甚至没怎么读懂题，也没抓住方向，遂寄。</p>
 <span id="more"></span>
 <p>​    由于今年的数模培训，我再直面一波自己的翻车历史。但是不管怎么复盘，也不能完全达到初见的状态。这不得不让我有一种“欲买桂花同载酒，终不似，少年游。”的感觉。所以最后我就摆了，然后就一组没交第一次培训，你猜是哪组？</p>
-<p><img src="/images/FAST_1.jpg" alt=""></p>
+<center>
+    <img src='/images/FAST_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这里引用题目中给的三张插图，其实就可以很简要的概括题目的意图和要求。最开始，从一个球面和抛物面切入，最右边的剖面图给出了一些固定的参数$R=300,F=0.466R,D=500$，即FAST本身是个球面，给出一个坐标，球面的一部分会变成抛物面，这一区域的直径是$300$。之后，这个理论的球面和抛物面肯定不是真实存在的，是若干反射面板拼接近似的。如中图所示。每三个点会确定一个反射面板，结点被称为主索结点。通过调节反射面板的位置，也就是三个主索结点的位置来将球面转成抛物面。但是，如左图所示，有这么几个部件要注意：促动器，下拉索，主索。题目进一步要求，促动器的上下调整幅度为$-0.6$到$0.6$，且下拉索长度不变。主索长度变化不超过$0.07{\%}$。</p>
 <p>​    实际上，如果当时阅读理解够真切，其实就不难，我记得我当时相当错误的理解了$0.07\%$这个条件，我内心加戏加太多了：我以为是每一次迭代(iter)变动不能超过$0.07\%$，稍加思考就会发现这逻辑根本不通。我当时也感觉隐隐不对，结果把自己绕糊涂了。</p>
 <p>​    现在看来，$0.07\%$这个条件其实很直接，他其他的都没说，就是一个简简单单的约束条件罢了。只要和最初的长度比，在这个范围内即可。容易想到这个条件来源于简化后的机械结构，应该是某种应力要求主索不能移动太多。</p>
 <p>​    这个问题还有两个坑点，其中一个是下拉索和促动器并不共线，评阅标准也称之为“不正确的假设”。但现在以上帝视角看，这两个计算结果相差无几。第二个是几乎没被人作出的，即第三问算接收比时要按照曲面三角形处理。</p>
 <p>​    第一问和第二问的前半部分只是简单的代数计算，还不涉及将具体调节纳入考虑中：</p>
 <p>​    注意到附件里其实给了很多坐标，所以直接移用题目所建的坐标系，往往不会出错。注意到第一问是一个完全竖直的抛物面，那么其实可以被归为抛物线来处理。但第二问需要一个旋转后的抛物面。所以我们最好先建立一个抛物面的模型来备用，注意到促动器是可以上下运动的，那么从基准球面到抛物面，就是一部分向下运动，一部分向上运动。所以，跟在二维平面的抛物线类似。我们可以由定义来给出抛物面通式，设抛物面的准平面到基准平面距离为$h$，焦点由图可知，为：$p=\left[ \left( F-R \right) \cos \beta \cos \alpha ,\left( F-R \right) \cos \beta \sin \alpha ,\left( F-R \right) \sin \beta \right] $。</p>
-<h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question-1"></a>Question-1</h2><p><img src="/images/FAST_2.jpg" alt=""></p>
+<h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question-1"></a>Question-1</h2><center>
+    <img src='/images/FAST_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如图所示，准平面与轴线的交点$q=\left[ -\left( F+R+h \right) \cos \beta \cos \alpha ,-\left( F+R+h \right) \cos \beta \sin \alpha ,-\left( F+R+h \right) \sin \beta \right] $</p>
 <p>​    一般地，应该采用旋转矩阵的办法，来得到一般的角度时的抛物面，但这里直接暴力美学了。由抛物面上的点到准平面距离相等：</p>
 <script type="math/tex; mode=display">
@@ -233,7 +241,11 @@ z=\frac{x^2+y^2}{4\left( F+h \right)}-\left( R+h \right)</script><p>​    （�
 <script type="math/tex; mode=display">
 \min z=\sum_{i=0}^{N-1}{\left( \sqrt{x_{i}^{2}+y_{i}^{2}}-R \right)}</script><p>​    此时最好的$h=0.3609$，带进去，第一问就是：</p>
 <script type="math/tex; mode=display">
-z=\frac{x^2+y^2}{561.39}- 300.761</script><p>​    <img src="/images/FAST_3.png" alt=""></p>
+z=\frac{x^2+y^2}{561.39}- 300.761</script><center>
+    <img src='/images/FAST_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    至于第二问的理想抛物面，将$\alpha =36.795°,\beta =78.169°,h=0.3609$带进去，就得到了一个复杂的曲面表达式，此时抛物面的顶点坐标容易写出：</p>
 <script type="math/tex; mode=display">
 \left[ -\left( R+h \right) \cos \beta \cos \alpha ,-\left( R+h \right) \cos \beta \sin \alpha ,-\left( R+h \right) \sin \beta \right] =
@@ -248,17 +260,33 @@ e_{2}^{\left( j \right)}=\mathrm{Norm}\left[ x_{o}^{\left( j \right)}-x_{+}^{\le
 \\
 e_{3}^{\left( j \right)}=\mathrm{Norm}\left[ x_{o}^{\left( j \right)}-x_{-}^{\left( j \right)},y_{o}^{\left( j \right)}-y_{-}^{\left( j \right)},z_{o}^{\left( j \right)}-z_{-}^{\left( j \right)} \right] 
 \\
-e_{4}^{\left( j \right)}=\mathrm{Norm}\left[ x_{o}^{\left( j \right)},y_{o}^{\left( j \right)},z_{o}^{\left( j \right)} \right]</script><p>​    <img src="/images/FAST_4.png" alt=""></p>
+e_{4}^{\left( j \right)}=\mathrm{Norm}\left[ x_{o}^{\left( j \right)},y_{o}^{\left( j \right)},z_{o}^{\left( j \right)} \right]</script><center>
+    <img src='/images/FAST_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们验证后发现，三者基本共线且指向球心，误差非常的小。所以现在需得到与理想抛物面的距离，在这里，我们是写出了一个一般形式的曲面，由于下拉索长度不变，我们只需让主索结点上下沿径向移动，求取其到抛物面的交点，可以用参数方程来解：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line"><span class="comment">% 计算附件中主索结点到理想抛物面距离</span></span><br><span class="line"></span><br><span class="line">load(<span class="string">&#x27;Q2_Data.mat&#x27;</span>)</span><br><span class="line"></span><br><span class="line">e = Q2_Data.nodes;</span><br><span class="line">e = e ./ <span class="built_in">sqrt</span>(sum(e&#x27;.^<span class="number">2</span>)&#x27;);</span><br><span class="line"></span><br><span class="line">syms t</span><br><span class="line"></span><br><span class="line">N = <span class="built_in">length</span>(Q2_Data.nodes);</span><br><span class="line">dis_expected = <span class="built_in">zeros</span>(N, <span class="number">1</span>);</span><br><span class="line">alpha = <span class="number">36.795</span>*<span class="built_in">pi</span>/<span class="number">180</span>;</span><br><span class="line"><span class="built_in">beta</span> = <span class="number">78.169</span>*<span class="built_in">pi</span>/<span class="number">180</span>;</span><br><span class="line">R = <span class="number">300.4</span>; <span class="comment">%笔误 : R  = 300;%</span></span><br><span class="line">F = <span class="number">0.466</span>*R;</span><br><span class="line">h = <span class="number">0.3609</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : N</span><br><span class="line">    m = e(<span class="built_in">i</span>, <span class="number">1</span>);</span><br><span class="line">    n = e(<span class="built_in">i</span>, <span class="number">2</span>);</span><br><span class="line">    q = e(<span class="built_in">i</span>, <span class="number">3</span>);</span><br><span class="line">    x0 = Q2_Data.nodes(<span class="built_in">i</span>, <span class="number">1</span>);</span><br><span class="line">    y0 = Q2_Data.nodes(<span class="built_in">i</span>, <span class="number">2</span>);</span><br><span class="line">    z0 = Q2_Data.nodes(<span class="built_in">i</span>, <span class="number">3</span>);</span><br><span class="line">    f= (R + h)*(<span class="number">16</span>*F + <span class="number">16</span>*h) - <span class="number">2</span>*<span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">beta</span>)*(z0 + q*t)^<span class="number">2</span> - <span class="number">3</span>*(x0 + m*t)^<span class="number">2</span> - <span class="number">3</span>*(y0 + n*t)^<span class="number">2</span> - <span class="number">2</span>*(z0 + q*t)^<span class="number">2</span> +...</span><br><span class="line">        <span class="number">2</span>*<span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">beta</span>)*(<span class="built_in">cos</span>(alpha)*(x0 + m*t) + <span class="built_in">sin</span>(alpha)*(y0 + n*t))^<span class="number">2</span> + <span class="built_in">sin</span>(<span class="built_in">beta</span>)*(z0 + q*t)*(<span class="number">16</span>*F + <span class="number">16</span>*h) + ...</span><br><span class="line">        <span class="built_in">cos</span>(<span class="number">2</span>*alpha)*(x0 - y0 + m*t - n*t)*(x0 + y0 + m*t + n*t) + <span class="number">4</span>*<span class="built_in">sin</span>(<span class="number">2</span>*<span class="built_in">beta</span>)*(z0 + q*t)*(<span class="built_in">cos</span>(alpha)*(x0 + m*t) +...</span><br><span class="line">        <span class="built_in">sin</span>(alpha)*(y0 + n*t)) + <span class="number">2</span>*<span class="built_in">sin</span>(<span class="number">2</span>*alpha)*(x0 + m*t)*(y0 + n*t) +...</span><br><span class="line">        <span class="built_in">cos</span>(<span class="built_in">beta</span>)*(<span class="number">16</span>*F + <span class="number">16</span>*h)*(<span class="built_in">cos</span>(alpha)*(x0 + m*t) + <span class="built_in">sin</span>(alpha)*(y0 + n*t));</span><br><span class="line">    p=sym2poly(f);</span><br><span class="line">    result=roots(p);</span><br><span class="line">    index = <span class="built_in">find</span>(<span class="built_in">min</span>(<span class="built_in">abs</span>(result)) == <span class="built_in">abs</span>(result));</span><br><span class="line">    dis_expected(<span class="built_in">i</span>) = result(index);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">save(<span class="string">&#x27;Dis_Expected.mat&#x27;</span>, <span class="string">&#x27;dis_expected&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>​    然后一波计算，发现：</p>
-<p><img src="/images/FAST_5.png" alt=""></p>
+<center>
+    <img src='/images/FAST_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    在我们这一版本下，只有少数主索结点的限制超过了0.6。最大约为-0.7。我们以一种折半的方式来迭代，具体来说：我们遍历每一个结点，如果它的调整范围大于0.6，那么我们先将它约束在0.6（正负），然后直接按此时的0.6调整。调整后检查是否符合0.07%的约束，如果符合就更新此时的距离和结点位置，然后继续遍历。直到收敛。这个的实现并不复杂：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">load(<span class="string">&#x27;Dis_Expected.mat&#x27;</span>)</span><br><span class="line">load(<span class="string">&#x27;Q2_Data.mat&#x27;</span>)</span><br><span class="line"></span><br><span class="line">N = <span class="built_in">length</span>(Q2_Data.nodes);</span><br><span class="line"></span><br><span class="line"><span class="keyword">global</span> e</span><br><span class="line">e = Q2_Data.nodes;</span><br><span class="line">e = e ./ <span class="built_in">sqrt</span>(sum(e&#x27;.^<span class="number">2</span>)&#x27;); <span class="comment">% 方向向量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">global</span> Node_origanl</span><br><span class="line">Node_origanl = Q2_Data.nodes; <span class="comment">% 一个保留的nodes,用于计算Lo（原始主索长度） 此处待优化</span></span><br><span class="line"></span><br><span class="line">Nodes_fit = <span class="built_in">zeros</span>(<span class="built_in">size</span>(Q2_Data.nodes));</span><br><span class="line">step_history = <span class="built_in">zeros</span>(<span class="built_in">size</span>(dis_expected));</span><br><span class="line"></span><br><span class="line">iter = <span class="number">20</span>;</span><br><span class="line">Error = <span class="built_in">zeros</span>(<span class="number">1</span>, iter);</span><br><span class="line">e0 = <span class="built_in">mean</span>(dis_expected.^<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span> : iter</span><br><span class="line">    fprintf(<span class="string">&#x27;iter:%d\n&#x27;</span>,<span class="built_in">j</span>)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : N</span><br><span class="line">        [step, Nodes_c, step_history] = step_in_constraint(Q2_Data.nodes, Q2_Data.D(<span class="built_in">i</span>, :), dis_expected, <span class="built_in">i</span>, Q2_Data.index, step_history); <span class="comment">% 输入主索结点，相连矩阵，以及此时的index</span></span><br><span class="line">        Q2_Data.nodes(<span class="built_in">i</span>, <span class="number">1</span>:<span class="number">3</span>) = Nodes_c;</span><br><span class="line">        dis_expected(<span class="built_in">i</span>) = dis_expected(<span class="built_in">i</span>) - step;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    Error(<span class="built_in">j</span>) = <span class="built_in">mean</span>(dis_expected.^<span class="number">2</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Error = [e0, Error];</span><br><span class="line">Nodes_fit = Q2_Data.nodes;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[h, Nodes_c, step_history]</span> = <span class="title">step_in_constraint</span><span class="params">(Nodes, D_row, dis, index, Nodes_index, step_history)</span></span></span><br><span class="line">    <span class="keyword">global</span> e</span><br><span class="line">    <span class="keyword">global</span> Node_origanl</span><br><span class="line">    k_max = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    h = dis(index);</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">abs</span>(h) &gt; <span class="number">0.6</span>    <span class="comment">% 由dis_expected的分布知，最大的距离为0.7m</span></span><br><span class="line">        h = <span class="built_in">sign</span>(h) * <span class="number">0.6</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    [Index, ~] = <span class="built_in">find</span>(D_row == Nodes_index);</span><br><span class="line">    Lo_pre = <span class="built_in">zeros</span>(<span class="built_in">length</span>(Index) - <span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span> : <span class="built_in">length</span>(Index) - <span class="number">1</span></span><br><span class="line">        Lo_pre(<span class="built_in">j</span>, <span class="number">1</span>:<span class="number">3</span>) = Node_origanl(Index(<span class="built_in">j</span> + <span class="number">1</span>), <span class="number">1</span>:<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    Lo = sum((Lo_pre - Node_origanl(index, <span class="number">1</span>:<span class="number">3</span>)).^<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : k_max</span><br><span class="line">        Nodes_changed = Nodes(index, <span class="number">1</span>:<span class="number">3</span>) + h * e(index, <span class="number">1</span>:<span class="number">3</span>);</span><br><span class="line">        L = sum((Lo_pre - Nodes_changed).^<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">        ratio = L ./ Lo;</span><br><span class="line">        step_history_temp = step_history(index) + h;</span><br><span class="line">        <span class="keyword">if</span>  ratio &gt;= <span class="number">1</span> + <span class="number">0.0007</span> | ratio &lt;=  <span class="number">1</span> - <span class="number">0.0007</span> | <span class="built_in">abs</span>(step_history_temp) &gt; <span class="number">0.6</span></span><br><span class="line">            h = h / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            step_history(index) = step_history_temp;</span><br><span class="line">            Nodes_c = Nodes_changed;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">% 如果失败了的话就ban掉</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">i</span> == k_max</span><br><span class="line">        h = <span class="number">0</span>;</span><br><span class="line">        Nodes_c = Nodes(index, <span class="number">1</span>:<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <h2 id="Question-3"><a href="#Question-3" class="headerlink" title="Question-3"></a>Question-3</h2><p>​    然后我们把迭代后的节点存起来做第三问，因为第三问是摆弄主索结点，所以促动器上下端就已经用不到了。特别地，如果把反射面板当成平面，所求的接收比会很低（基准时0.7%~0.8%，调节后1.1%）……总之，要用曲面三角形来做，也就是我们要考虑三点所成的球面的反射。实际上，它比平面处理时仅多了几步工序，其余别无二致：</p>
-<p><img src="/images/FAST_6.png" alt=""></p>
+<center>
+    <img src='/images/FAST_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    左侧是平面时的情况，馈源舱所在的平面会把反射的三棱柱截成一个三角形，曲面三角形时其实是一样的，这里为了方便画了二维的情形。由于反射和圆的性质，$\theta$越大，$F$点越远离圆心，且张角$2\theta$也越大，所以还是会被一个馈源舱所在平面截成平面。所以思路是直接的，遍历每个反射面板，计算每个反射面板所在球面的球心，球心到端点的向量即为端点的法向量，之后计算沿法向量的反射光线，再计算其与馈源舱所在平面的交点，得到投影三角形。我们先解决反射的问题：</p>
-<p><img src="/images/FAST_7.png" alt=""></p>
+<center>
+    <img src='/images/FAST_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    借助简单的向量知识，我们即可找出A向量关于B向量的对称向量C向量。</p>
 <p>​    现在我们考虑寻找法向量，我们需确定此时曲面三角形的球心，很容易我们会这么想：给定空间三点，求三点所确定的球心极半径，于是有三点共面，且三点到空间球心距离相等（此时你可能没有考虑半径$R$到底是个什么情况……）然后你列写：</p>
 <script type="math/tex; mode=display">
@@ -332,16 +360,31 @@ S_{\varDelta}=\frac{1}{2}\left| \overrightarrow{AB}\times \overrightarrow{AC} \r
 </table>
 </div>
 <p>​    与评阅要点中的符合的较好。国赛并不对可视化那么看重，所以我就没整什么花活。最后高低意思意思吧作点基本的可视化：</p>
-<p><img src="/images/FAST_8.gif" alt=""></p>
+<center>
+    <img src='/images/FAST_8.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    看，我们动态可视化了第二问调整主索结点的过程，可以用来催眠。</p>
-<p><img src="/images/FAST_9.png" alt=""></p>
+<center>
+    <img src='/images/FAST_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们抽取了相同的入射光线，将光路可视化，发现抛物面状态下效果确实更优。</p>
-<p><img src="/images/FAST_10.png" alt=""></p>
+<center>
+    <img src='/images/FAST_10.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    馈源舱所在平面可视化，直观的体现了汇聚作用。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    就像西安交大今年本科招生宣传片《怎样才能达到完美毕业生》，有时候我也在脑补要是能魂穿回大一刚入学或者三河二中，就像《开端》以及其他影视作品里的那样，一定有一个听起来很嗨的最优路径。但是后来越想越觉得，就算是真的，其实不会实现。当我说出那些美好的幻想的时候，实际上是对当前遇到的事情或困难的投影，但等我真的一顿时间穿越修正了它的时候，有些我认识里的好或坏的事情会不发生，然后遇到另一个时间线的福祸，然后继续盼望着另一个最优路径，所以，都一样的。</p>
 <p>​    但毕竟开学就大三了，以前的焦虑现在也没得可焦虑了，因为，寄了啊，当时焦虑那是因为感觉得好好把握机会，现在已经积重难返/大局已定。所以突出一个自己的局限性。接受并和解就好。</p>
 <p>​    至少，感谢现代科技和过去以及将来，我现在晚上能沉迷计算机图形学的伟大作品无法自拔，现代快餐的制成品足以让被接受过精神阉割的我乐一天，我列表里还有同学可以骚扰。所以，让脑筋多转转往好处看看~</p>
-<p><img src="/images/FAST_11.jpg" alt=""></p>
+<center>
+    <img src='/images/FAST_11.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    </p>
 
 		
@@ -481,7 +524,7 @@ S_{\varDelta}=\frac{1}{2}\left| \overrightarrow{AB}\times \overrightarrow{AC} \r
   
   
     <a href="/2022/07/24/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A26/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">傅里叶变换6</div>
+      <div class="article-nav-title">傅里叶变换6(#TODO)</div>
       <i class="icon-circle-right"></i>
     </a>
   

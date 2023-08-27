@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/images/dawn_5.png">
 <meta property="og:image" content="http://example.com/images/dawn_6.png">
 <meta property="article:published_time" content="2022-08-18T07:24:21.000Z">
-<meta property="article:modified_time" content="2023-08-22T15:21:43.283Z">
+<meta property="article:modified_time" content="2023-08-27T02:58:54.121Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="杂记">
@@ -214,8 +214,9 @@ WT\left( a,\tau \right) =\frac{1}{\sqrt{a}}\int_{-\infty}^{+\infty}{f\left( t \r
 <script type="math/tex; mode=display">
 \mathrm{scale}\times f=F_s\times \omega _{cf}</script><p>​    我找个例子演示一下，这里面时间和频率（尺度）都作了归一化，采样率直接归一化为1。</p>
 <center>
-    <img src='/images/dawn_1.png'>
+    <img src='/images/dawn_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    这图是为了给出一个直观印象，这里我们使用了morlet小波。可以发现，高频率（低尺度）的地方显然细长。低频率（高尺度）的地方矮宽。我们这里并不会延申到更深入的地方，只需通过这张图片体会这种多分辨率分析的直觉即可。</p>
 <p>​    我们注意到：其实有些时候我们并不需要如此多的$a,\tau$的结果，只需要一部分，也就是这些带通滤波器并不是完全正交的，其中存在冗余。和提到离散傅里叶变换时类似（也仅仅是类似），我们同时对$a,\tau$​离散化。一种常见的离散化方案是对尺度进行二进离散，对时移进行均匀离散：</p>
@@ -226,8 +227,9 @@ a=a_{0}^{m},\tau =n\tau _0a_{0}^{m}
 <script type="math/tex; mode=display">
 DWT\left( m,n \right) =2^{-\frac{m}{2}}\sum_{k=-\infty}^{\infty}{f\left( k \right) \psi \left( 2^{-m}k-n \right)}</script><p>​    离散小波变换的过程相当于将信号与一个特殊的滤波器组进行作用，这与接下来要给出的多分辨率分析有着密切关系。<strong>很遗憾的是，确实没有什么很浅显的方法能把这一块说清楚，我建议是如有需要找相关参考资料，因为那些内容在这篇blog里其实并不是重点。</strong></p>
 <center>
-    <img src='/images/dawn_2.png'>
+    <img src='/images/dawn_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    这就是之前说的特殊的滤波器组，它进行了一个多级分解。通过低通滤波器得到近似系数$A_j$<em>(Approximation)</em>，通过高通滤波器得到细节系数$D_j$ (<em>details</em>)。然后进一步下采样，对近似部分继续分解，得到的这些系数就是小波系数。</p>
 <p>​    这个多分辨率的视角很有用，但截止到现在，我们的实现方法都依赖于精心设计的小波基或者滤波器组。所以有了第二代小波（<em>second generation of wavelet</em>），它被称为“提升格式 (<em>lifting scheme</em>) ”它不依托傅里叶变换，可以直接从时域得到一个近似表示，它分为三部分：</p>
@@ -268,13 +270,15 @@ A_j=X_{even}+U\left( D_j \right)</script><p>​    理论可以证明，这种�
 <p>​    一些具体的个性化进度条的方案这里就不赘述了，基本功能就已经够用了。</p>
 <h2 id="More-discussion"><a href="#More-discussion" class="headerlink" title="More discussion"></a>More discussion</h2><p>​    DAWN的想法有些许novel，但是作者的实现上多少有点草率，而且实验不是那么的充分？下面我开始胡言乱语一波，一部分内容是结合ICLR2022的一篇文章总结的。这个<em>lifting scheme</em>的具体细节，很难考证了，原文是很久以前的影印版数学论文，够呛看得懂，只能大概体会一下。首先我们对一个信号使用传统的<em>harr</em>小波试一试，这里我为了演示是直接从matlab里load的内置含噪心电图数据。</p>
 <center>
-    <img src='/images/dawn_3.png'>
+    <img src='/images/dawn_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    左边是低频（近似），右边是高频（细节），实际上，它们只是低频系数和高频系数，但后面叙述时不作区分。我们注意到每次分解，长度都折半。这是传统的分解方法，实际上这种方法在几年前的计算机视觉中已经被讨论过了。用这种方式替代池化层等等，是不错的故事。而现在考虑<em>lifting scheme</em>的三个步骤：</p>
 <center>
-    <img src='/images/dawn_4.png'>
+    <img src='/images/dawn_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    对比前后两张图，发现确实有点那个意思，这里$U(\cdot),P(\cdot)$均是恒等映射，如果我们把代码实现里modified的那个版本写上去，在恒等映射的条件下它们只差一个正负号，所以我们先以上面的来。现在我们关心$U(\cdot),P(\cdot)$的一些性质，查阅资料后我们这里给出一种作为例子：</p>
 <script type="math/tex; mode=display">
@@ -296,8 +300,9 @@ U\left[ x_o\left( k \right) \right] =-0.0312d\left( k-2 \right) +0.2813d\left( k
     \gamma _j\left( z \right)\\
 \end{array} \right)}</script><p>​    具体的理论分析这里就不给了，涉及到数字信号处理，一些代数，感兴趣的可以在一些硕士毕业论文里查，我们还是重点关心这个$U(\cdot),P(\cdot)$的刻画，这确实就像一个滤波器组……所以，这么看来…论文原文提供的解决方案：</p>
 <center>
-    <img src='/images/dawn_5.png'>
+    <img src='/images/dawn_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    它使用的$U(\cdot),P(\cdot)$并没有起到这样的性质，实际上，我推测它最后可视化以后，真的能产生小波分解的样子，原因第一是数据归一化后的量级在-1到1，以及每层加了BN（这也是那句”we do want a ReLU and BN.“）维持分布一直不变，好让被Tanh作用后的结果和原信号在一个量级上；第二是正则项的添加。总之原作者处理的并不好。</p>
 <p>​    ICLR2022里的一篇文章沿用了这种设置，但是在迭代基础上用一个INN的故事把式子改写为了：</p>
@@ -306,7 +311,7 @@ d=X_{odd}\odot \exp \left( \phi \left( X_{even} \right) \right) -\rho \left( X_{
 <p>​    Now, everything I have to say has already cross my mind…</p>
 <h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>​    当我彻底写完的时候，是8月24号，今天竹园停电，麻了。我对此改进这个dawn萌生了一个比较成熟的想法，打算去试试。不过快要开学了捏，如果写的这个有人看的话，那就祝你新年快乐吧。</p>
 <center>
-    <img src='/images/dawn_6.png'>
+    <img src='/images/dawn_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		

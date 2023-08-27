@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/ddpm_128.jpg">
 <meta property="og:image" content="http://example.com/images/DDPM_2.jpeg">
 <meta property="article:published_time" content="2022-11-23T11:15:21.000Z">
-<meta property="article:modified_time" content="2023-08-22T15:15:48.552Z">
+<meta property="article:modified_time" content="2023-08-27T02:56:04.896Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -360,8 +360,9 @@ D_{KL}\left( p_1||p_2 \right) =\frac{1}{2}\left( \ln \frac{\left| \varSigma _2 \
 <script type="math/tex; mode=display">
 \mathrm{H}\left[ \boldsymbol{x} \right] =\frac{d}{2}\left( \log 2\pi +1 \right) +\frac{1}{2}\ln \left| \varSigma \right|</script><p>​    所以看起来，这一项也是个常数。但是DDPM的作者指出，最后一步的过程不能简单的看作从$\mathcal{N} \left( \tilde{\mu}_{\theta}\left( \mathbf{x}_1,1 \right) ,\varSigma _{\theta}\left( \mathbf{x}_1,1 \right) \mathbf{I} \right) $中采样，而是在采样的基础上再加上一步离散化。这就导致这一项并不是个常数。DDPM原文中给出了一种计算这一项的方法，后来也被改进为单独用一个离散的“解码器”来建模，总之就是不用考虑这一项了。</p>
 <center>
-    <img src='/images/DDPM_1.png'>
+    <img src='/images/DDPM_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    最后，训练和采样的过程，就像DDPM原文中给出的一样，非常简洁。训练时，从数据集中取出$q( \mathbf{x}_0)$，从均匀分布中抽样时间步$t$，再生成一个随机噪声$\mathbf{\epsilon }$。之后将前向扩散得到的$\mathbf{x}_t$和$t$输入模型，得到预测的结果${\epsilon }_{\theta}$，然后梯度回传，反向传播。</p>
 <p>​    采样时，则直接采样一个高斯噪声$\mathbf{x}_t$，得到估计的噪声$\mathbf{\epsilon_\theta }$，利用估计的噪声$\mathbf{\epsilon_\theta }$和$\mathbf{x}_t$，计算估计的均值：</p>
@@ -383,27 +384,30 @@ PE_{\left( pos,2i+1 \right)}=\cos \left( \frac{pos}{10000\frac{2i}{d}} \right)</
 <p>​    当然，如果现在去github上搜OpenAI或者别的project写的扩散模型，他们十分复杂，非常的长，他们有各种加速采样的tricks，以及更细致的损失函数。比如他们中有的忠实的实现了变分下界，而DDPM原文里实际上已经放弃了那一项。直接看他们的代码是非常不利于初学者的。</p>
 <p>​    我最后合成了一个gif来作纪念：</p>
 <center>
-    <img src='/images/DDPM_demo.gif'>
+    <img src='/images/DDPM_demo.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    可以看出，这看起来”come from nowhere“，在高斯噪声中突然就演化出了不同的图案，spectacular！</p>
 <p>​    如果观察在训练时，不同epoch下，采样出的结果，会感到更加的神奇：</p>
 <center>
-    <img src='/images/DDPM_demo_2.png'>
+    <img src='/images/DDPM_demo_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    图片从上到下依次是epoch从小到大的结果。最初，网络去噪之后是一团混沌，随着训练的进行逐渐开始拟合噪声。如果我不过一遍上面那些式子，然后一个人过来，告诉我说：”你可以通过预测噪声来去噪，你每次只需rand出噪声就好了“。我是断然不信的，但是随机过程和动力学给出了insight，让这个操作得以实现。</p>
 <p>​    我把img_size改成128的，期望生成分辨率更高的图片，这次的效果就没这么好了。一方面是数据集有限，另一方面是由于分辨率变大，self-attention的一个hidden_dim跟着扩大，导致训练成本有点贵了，于是随便玩了几下就不玩了。</p>
 <center>
-    <img src='/images/ddpm_128.jpg'>
+    <img src='/images/ddpm_128.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    有些结果还是很不错的。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这就是对DDPM的简单介绍了，一些加速采样，余弦schedule，设计技巧之类的操作，由于时间关系和篇幅原因，就不写了。可以从Sampling看出，这就是在一团噪声中取出了什么东西，就像许愿池一样。如果不是明天考认知计算，我还没开始看PPT，我会搓个demo试一下。</p>
 <p>​    虽然，我可能最应该做的是找github的repo开始看文件然后魔改……或者去背PPT……推一遍公式然后写下来，除了消磨了我一天时间以外，估计也就锻炼大脑一个用处了。</p>
 <p>​    由于我水平有限，不能很高屋建瓴的说出扩散模型和之前的VAE，GAN的异同。当然这设计上差距是很大的，感觉有一种mulit-scale的设计一直在这。算辣，这个不是很重要。</p>
 <center>
-    <img src='/images/DDPM_2.jpeg'>
+    <img src='/images/DDPM_2.jpeg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -538,8 +542,8 @@ PE_{\left( pos,2i+1 \right)}=\cos \left( \frac{pos}{10000\frac{2i}{d}} \right)</
     </a>
   
   
-    <a href="/2022/11/08/%E4%BA%BA%E4%BD%93%E5%8A%A8%E4%BD%9C%E9%A2%84%E6%B5%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">人体动作预测(#TODO)</div>
+    <a href="/2022/10/30/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A13/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微机原理与接口设计3</div>
       <i class="icon-circle-right"></i>
     </a>
   

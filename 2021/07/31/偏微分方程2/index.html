@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/images/PDE2_eg3PDEtool2.jpg">
 <meta property="og:image" content="http://example.com/images/PDE2_eg4.jpg">
 <meta property="article:published_time" content="2021-07-31T03:14:40.861Z">
-<meta property="article:modified_time" content="2021-10-06T16:24:42.661Z">
+<meta property="article:modified_time" content="2023-08-27T03:02:31.744Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="PDE">
@@ -208,7 +208,11 @@
     \frac{\partial u}{\partial t}=a^2\frac{\partial ^2u}{\partial x^2}+f\left( x,t \right)\\
     u\left( x,0 \right) =\varphi \left( x \right)\\
 \end{array} \right.</script><p>​        其中$f\left( x,t \right) $表示热源，不失一般性，我们将$x,t$的取值设为从0到$x_m,t_m$,建立二维平面网格$x\times t$</p>
-<p><img src="/images/PDE2-xtimest.jpg" alt=""></p>
+<center>
+    <img src='/images/PDE2-xtimest.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​        则时间步长和空间步长满足：</p>
 <p>​                                                                    <script type="math/tex">\left\{ \begin{array}{c}
 ​    x_j=0+\left( j-1 \right) \varDelta x\\
@@ -275,7 +279,11 @@
     u\left( 1,t \right) =0, 0\leqslant t\leqslant 0.03\\
 \end{array} \right.</script><p>​        我们用上面的思路进行编程求解：</p>
 <p>​        作出温度关于时间和空间演变的曲面：</p>
-<p><img src="/images/PDE2_eg1.jpg" alt=""></p>
+<center>
+    <img src='/images/PDE2_eg1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​        实际上上面这个问题是有解析解的：$u\left( t,x \right) =e^{-\left( 4\pi \right) ^2t}\sin \left( 4\pi x \right) $,并且我们将解析解与数值解作对比，发现数值解效果很好。实际上数值解的好坏很大程度上取决于步长的选取，在最简显格式下步长产生的误差会不断积累，至于偏微分方程的解析解如何得到，在后面会进行介绍。</p>
 <h3 id="有恒定热源的二维热传导情形"><a href="#有恒定热源的二维热传导情形" class="headerlink" title="有恒定热源的二维热传导情形"></a>有恒定热源的二维热传导情形</h3><p>​        当维数升高时，我们处理起来的难度就有所增加，仅仅上面一维的情况就需要我们用三维来表示了，对于二维的热传导清形，我们有：    </p>
 <script type="math/tex; mode=display">
@@ -300,10 +308,19 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
     u\left( x,0,t \right) =u\left( x,1,t \right) =0\\
     u\left( 0,y,t \right) =u\left( 1,y,t \right) =0\\
 \end{array} \right.</script><p>​        由于完整展现二维热传导需要四维，所以我们只可视化它随时间的动态过程：</p>
-<p><img src="/images/PDE2_eg2.gif" alt=""></p>
+<center>
+    <img src='/images/PDE2_eg2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h3 id="更复杂的情况-PDEtool"><a href="#更复杂的情况-PDEtool" class="headerlink" title="更复杂的情况/PDEtool"></a>更复杂的情况/PDEtool</h3><p>​        上面的两个例子只是很简单的应用，实际上边界条件可能并不像例子里一样是第一类的，并且边界可能是圆，甚至是周期性的；且上面例子的维数不超过二维，当维数为3时，再归结出一套矩阵之间的迭代公式是很麻烦的，如果真的遇到了三维的偏微分问题，建议列出各元素的迭代关系后无脑写$for$​循环。</p>
 <p>​        但，如果我们已经知道了某个偏微分方程的全部信息，可以直接用matlab中的PDEtool来进行解方程，这个操作起来相当的简单，只要知道方程的格式，点几个按钮就能得到数值解。</p>
-<p><img src="/images/PDE2_eg3PDEtool.jpg" alt=""><img src="/images/PDE2_eg3PDEtool2.jpg" alt=""></p>
+<center>
+    <img src='/images/PDE2_eg3PDEtool.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/PDE2_eg3PDEtool2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​        第二类边界条件处理起来稍微复杂一点点，我们以下面的一维抛物线型方程来举个简单的例子：</p>
 <script type="math/tex; mode=display">
 \left\{ \begin{array}{c}
@@ -316,9 +333,11 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
 \left\{ \begin{array}{c}
     u_{1}^{n}=u_{2}^{n}-\varDelta xu_{1}^{n-1}\\
     u_{i_{\max}}^{n}=u_{i_{\max}-1}^{n}-\varDelta xu_{i_{\max}}^{n-1}\\
-\end{array} \right.</script><p>​        <img src="/images/PDE2_eg4.jpg" alt=""></p>
+\end{array} \right.</script><center>
+    <img src='/images/PDE2_eg4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​        现在我们已经可以简单的用数值方法来求解一些偏微分方程了，但是要注意，我们实际上用的都是最简单的差分格式，在调整步长作实验时我们常会遇到一些“奇怪的现象”，这些会在后面介绍不同种差分格式和稳定性时解释到。</p>
-<p>PS：由于篇幅原因代码就不贴上去了qwq</p>
 
 		
 

@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/images/EE_ode_1.png">
 <meta property="og:image" content="http://example.com/images/EE_ode_2.png">
 <meta property="article:published_time" content="2022-03-03T11:29:36.000Z">
-<meta property="article:modified_time" content="2022-03-06T02:22:41.205Z">
+<meta property="article:modified_time" content="2023-08-27T03:09:21.776Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="ODE">
@@ -223,7 +223,11 @@ y\left( t \right) =y\left( \infty \right) +\left[ y\left( 0_+ \right) -y\left( \
 <p>​    实际上对于电路分析基础，上面就已经是全部了。如果激励是正弦式的，那么有后面的相量法来简化求解微分方程。</p>
 <p>​    通过上面的式子也可以看出，完全响应可以拆成暂态响应和稳态响应。同样也可以被拆成零输入响应和零状态响应，这两者只需要指的其实就是不同的初始值和不同的$Q$（激励）。</p>
 <p>​    计算时要注意电流和电压的关联参考方向，放电阶段电感和电容相当于电流源和电压源。它们的方向应该是非关联的。这点要在符号中体现出来。我们下面找一道例题：</p>
-<p><img src="/images/EE_ode_1.png" alt=""></p>
+<center>
+    <img src='/images/EE_ode_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    $t=0$时开关闭合，在此前电路已经达到稳态。求$t&gt;0$时的电压$u(t)$。图中既有电容也有电感，我们一步一步看。</p>
 <p>​    首先$t&lt;0$时开关断开，电容断路，开关断开，电感无电流通过。此时只有电流源和两个电阻串联形成的电路。那么结合换路定理：</p>
 <script type="math/tex; mode=display">
@@ -243,7 +247,11 @@ u_2\left( t \right) =4+\left( 10-4 \right) e^{-2t}=4+6e^{-2t}
 \\
 u\left( t \right) =6e^{-3t}+6e^{-2t}+4</script><p>​    如果强行写成一个二阶的微分方程，也是可以的。但确实没有必要。什么？如果你和我当时一样觉得这样直接拆开等效不合适？没关系，那这样做就好了。</p>
 <p>​    根据$KCL$以及电容和电感的微分式，闭合后的电流为：</p>
-<p><img src="/images/EE_ode_2.png" alt=""></p>
+<center>
+    <img src='/images/EE_ode_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    那么可以得到两个一阶的方程：</p>
 <script type="math/tex; mode=display">
 \frac{\mathrm{d}i_L}{\mathrm{d}t}+3i_L=3,r=-3,A=1,i_L\left( 0_+ \right) =0\mathrm{A}

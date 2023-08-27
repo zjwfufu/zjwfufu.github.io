@@ -24,13 +24,13 @@
 <meta property="og:image" content="http://example.com/images/8253_w4.png">
 <meta property="og:image" content="http://example.com/images/8253_w5.png">
 <meta property="og:image" content="http://example.com/images/8253_2.png">
-<meta property="og:image" content="http://example.com/images/8253_3.png">
+<meta property="og:image" content="http://example.com/images/8253_3.png%20style=">
 <meta property="og:image" content="http://example.com/images/8253_4.png">
 <meta property="og:image" content="http://example.com/images/8253_5.png">
 <meta property="og:image" content="http://example.com/images/8253_6.png">
 <meta property="og:image" content="http://example.com/images/miku_1.jpg">
 <meta property="article:published_time" content="2023-02-26T09:57:41.000Z">
-<meta property="article:modified_time" content="2023-02-27T12:42:23.301Z">
+<meta property="article:modified_time" content="2023-08-27T03:13:06.602Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
@@ -208,42 +208,78 @@
         <p>​    这篇blog是来记录如何理解和使用8253的！时间不多了！</p>
 <span id="more"></span>
 <p>​    假设你已经掌握了如何解决8255A的题目，那么如下图所示，你应该可以很轻松的解决左侧的连接：</p>
-<p><img src="/images/8253_0.png" alt=""></p>
+<center>
+    <img src='/images/8253_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    接下来的所有工作就是处理右侧的连接。</p>
 <p>​    首先，我们要知道8253的控制字，这样才能让他under our command.</p>
 <p>​    8253有三个通道，记作计数器0，计数器1，计数器2。紧随着可以定义每个通道的读写方式，锁存，读低8位，读高8位，读写16位（其实是先读低8位再读高8位，所以编程时需要两次调用）。但这里不是重点，大部分编程8253的时候，都采用16位读写。</p>
 <p>​    接下来的三位，用二进制定义了6种工作方式，方式0~5。最后1位定义了是否为BCD，如果是0，就是普通的2进制计数，如果是1，其实就是十进制计数。</p>
-<p><img src="/images/8253_1.png" alt=""></p>
+<center>
+    <img src='/images/8253_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    将上述控制字输入控制字寄存器（和8255A一样）就可以逐个设置不同技术通道。当将端口地址换为技术通道0，1，2时，再输入的，就是计数初值，也叫时常数。另外两个信号，一个是CLK，时钟信号；一个是GATE，门信号。我们结合6种方式来依次学习。注意，我们先很快的知道，每个方式是什么意思。然后在后面，我会系统的归纳这六种方式，从而让人更容易理解和记忆。</p>
 <h4 id="方式0-计数中断"><a href="#方式0-计数中断" class="headerlink" title="方式0-计数中断"></a>方式0-计数中断</h4><p>​    方式0是最简单的方式，当设置为方式0后，OUT会变为低电平。指定一个时常数例如5，OUT会持续5个周期的低电平。然后OUT再跳回高电平。所以如果输入时常数$N$，那么会得到低电平宽度为$N+1$的计数时钟，我们这里忽略了一些细节，但对初步的理解影响不大。</p>
-<p><img src="/images/8253_w0.png" alt=""></p>
+<center>
+    <img src='/images/8253_w0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    注意，方式0是在GATE=1时才计数，如果GATE在计数过程中等于0了，可以变向的延长时间。</p>
 <p>​    我们可以把方式0想象成一个单纯的计时器，就像沙漏。</p>
 <h4 id="方式1-单稳负脉冲"><a href="#方式1-单稳负脉冲" class="headerlink" title="方式1-单稳负脉冲"></a>方式1-单稳负脉冲</h4><p>​    这里要先解释什么是单稳脉冲，即在输入的激励下产生固定宽度的脉冲。输入一个不低于规定的最小宽度的脉冲后，单稳电路就输出一个用户事先设定宽度的脉冲。输入脉冲称为触发脉冲，一般由边沿触发。我们可以想象，如果要做这样一个单稳电路，是需要较为复杂的构造电阻，电容的，不能随意更改。所以8253的方式1可以通过编程，来灵活的修改输出脉冲的宽度。</p>
 <p>​    所以，在方式1中，并不是一旦设置好方式和时常数，OUT就会有变化。（当然，写入控制字后OUT会变成高电平。）如上所说，触发是靠边沿的，这里是GATE的上升沿。所以，这其实是硬件触发的一种机制。当GATE触发一次后，下一个时间步，OUT就会进入低电平，持续时常数个周期。</p>
-<p><img src="/images/8253_w1.png" alt=""></p>
+<center>
+    <img src='/images/8253_w1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    注意，与方式0相比，方式0当维持了$N$个低电平后就会回去，之后除非手动装入时常数，否则就会“静止”。而方式1其实是在时常数归零后，自动装填了时常数。</p>
 <p>​    我们可以把方式1想象成一个计数器，例如接在马路上的车辆计数器。有车经过，会产生单稳负脉冲，所以通过统计正脉冲的数量，就可以知道车辆数量。</p>
 <h4 id="方式2-分频脉冲"><a href="#方式2-分频脉冲" class="headerlink" title="方式2-分频脉冲"></a>方式2-分频脉冲</h4><p>​    分频是一个重要的功能，我们的时钟信号往往是很高频率的，不容易满足我们宏观设计的需要。在方式2中，写入控制字，OUT变为高电平。然后，写入时常数后，开始计数，当计数器到1时，OUT变为低电平。然后再变回去。</p>
-<p><img src="/images/8253_w2.png" alt=""></p>
+<center>
+    <img src='/images/8253_w2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    全称，都需要GATE保持高电平，否则计数会停止。这样操作后，把$N-1$个高电平和剩下的1个低电平看作一个周期，信号的周期就变大了，频率就变小了，所以是分频。</p>
 <p>​    显然，时常数在方式2中也被自动装填了。</p>
 <h4 id="方式3-方波发生器"><a href="#方式3-方波发生器" class="headerlink" title="方式3-方波发生器"></a>方式3-方波发生器</h4><p>​    方式3与方式2几乎完全一样，但从名字可以知道，方式3可以控制分频信号的占空比近似为50%（与方波一样），近似的原因是，时常数可能是奇数，仅此而已。</p>
-<p><img src="/images/8253_w3.png" alt=""></p>
+<center>
+    <img src='/images/8253_w3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="方式4-软件触发"><a href="#方式4-软件触发" class="headerlink" title="方式4-软件触发"></a>方式4-软件触发</h4><p>​    软件触发，这个名字很令人困惑。换个角度思考，考虑前面4种工作方式，如何实现“让打印机10个CLK周期后工作”（选通信号低电平有效）这件事情。</p>
 <p>​    如果用方式0，并不行，方式0是让OUT从高电平变为低电平，持续时常数个周期。同时，我也不能让方式0的激活时间变得“任意”，它是随开随用的。</p>
 <p>​    方式1，是一段单稳态脉冲，也不行。方式2和3又都是分频的操作，也不能满足。</p>
 <p>​    所以就有了方式4，一个“形式上与方式0”相反的功能。</p>
 <p>​    简而言之，方式4是维持$N$个高电平，然后来一下低电平，来扮演选通信号。与方式0一样，它的时常数不能回填。（因为也不需要）</p>
 <p>​    方式4应用于启动数据传输，打印等流程中。</p>
-<p><img src="/images/8253_w4.png" alt=""></p>
+<center>
+    <img src='/images/8253_w4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="方式5-硬件触发"><a href="#方式5-硬件触发" class="headerlink" title="方式5-硬件触发"></a>方式5-硬件触发</h4><p>​    与方式4对偶，方式5指的就是如何让外部触发一个事件。这里就是在GATE里做手脚了。很简单，输入控制字后，如果GATE迎来了一个上升沿，那么，OUT就开始等待$N$个周期，$N$个周期后变成低电平。</p>
-<p><img src="/images/8253_w5.png" alt=""></p>
+<center>
+    <img src='/images/8253_w5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>​    我省略了大部分的冗余的内容，把6个方式介绍了进来。从上述6个方式来看，8253的工作方式可以归为两类：充当频率发生器，充当计数器。</p>
 <p>​    充当频率发生器是方式2和方式3，对于方式2，OUT提供负脉冲，方式3，OUT提供方波。这两种方式下GATE信号需要始终为高。同时，计数初值会被自动装填，实现循环计数。</p>
 <p>​    充当计数器类的是方式0，1，4，5。但启动计数器的方式有两种，一种是CPU把时常数写入相应通道后计数器开始工作，这称为软件启动。这种方式下，GATE需要始终保持高电平。另一种是只有GATE产生上升沿时，才开始工作，故称为硬件触发。同时， OUT的输出也分为两种，方式0和1输出的是负脉冲，方式4和5生成的是正电平。</p>
 <p>​    我们可以总结如下图：</p>
-<p><img src="/images/8253_2.png" alt=""></p>
+<center>
+    <img src='/images/8253_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    更精简的版本可以参照这个表格：</p>
 <div class="table-container">
 <table>
@@ -295,18 +331,30 @@
 </div>
 <h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>​    下面给出两道例题，以便快速抓住重点。</p>
 <p>​    晶体振荡电路输出频率为1MHz，要求利用8253的输出驱动一个发光二极管，1秒点亮，1秒熄灭的方式闪烁。设8253的通道地址为2881H-2887H的奇地址。</p>
-<p><img src="/images/8253_3.png" alt=""></p>
+<center>
+    <img src='/images/8253_3.png style="max-width: 800px; max-height: 600px; width: auto; height: auto;"'>
+</center>
+
+
 <p>​    这是8086最大方式，我们分析通道地址，2881H-2887H，得到0010 1000 1000 0xx1，实际上，$A_0$是1还是0在这里无关紧要（后面解释）。于是我们得以构建译码电路。</p>
 <p>​    至于8253的右侧，这里涉及到级联的考点。考虑16位的时常数，在使用方式2和3时，它分频的倍数最大只能是$2^{16}=65536$倍，然而在这里，我们希望1MHz降频成0.5Hz，倍数是$2\times10^{6}$，这大于65536，所以需要两次分频。比如第一次倍数是1000，第二次是2000。</p>
 <p>​    于是我们可以连接全部电路：</p>
-<p><img src="/images/8253_4.png" alt=""></p>
+<center>
+    <img src='/images/8253_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们令时钟源作CLK1，然后将OUT0（分频后的）当作下一个CLK1，让Vcc作为高电平令GATE0，GATE1持续打开。最后得到OUT1。按上述连接后，整个代码流程非常简单：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MOV	DX, 2887H</span><br><span class="line">MOV	AL, 00110110B # 计数通道0 方式3 00 11 011 0</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	DX, 2881H</span><br><span class="line">MOV	AX, 1000 # 给计数通道0输入时常数1000</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AL, AH</span><br><span class="line">OUT	DX, AL # 8位8位分两次传</span><br><span class="line">MOV	DX, 2887H</span><br><span class="line">MOV	AL, 01110110B # 计数通道1 方式3</span><br><span class="line">OUT	DX， AL</span><br><span class="line">MOV	DX， 2883H</span><br><span class="line">MOV	AX, 2000</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AL, AH</span><br><span class="line">OUT	DX, AL</span><br></pre></td></tr></table></figure>
 <p>​    最后我们解释，为什么在连8255A和8253（8254）的时候，当8086奇地址时，我们只需要关注$\overline{\mathrm{BHE}}$，而不需要管$A_0$。在8086的设置中，只要$\overline{\mathrm{BHE}}$低电平有效，就会选通奇存储体（$D_{15}\sim D_8$），此时即可从奇地址取数据。如果$A_0$也是0，此时偶地址也可以被选通，如果数据对齐，可以一次取16位。如果$A_0$是1，那就只取高8位。然而8253和8255A都只有8个数据线，所以我们都会将他们与8086的$D_{15}\sim D_8$相连，这样，$A_0$无论接通与否，都不影响结果。</p>
 <p>​    同理，选偶地址时，也只要保证$A_0$等于0即可，$\overline{\mathrm{BHE}}$有不有效无所谓。</p>
 <p>​    下面我们看一道较为复杂的例题，这个题应该是理解里最为复杂的了。</p>
 <p>​    在8086最大模式中，有一大功率外设，为了降低系统的整体功耗，该外设采用周期间歇性工作方式，每1s内工作50ms，即每工作50ms后自动进入休眠。因此为了确保系统正常运行，需每隔1s产生选通脉冲（选通脉冲如下图OUT2输出所示）对其进行唤醒。分配端口地址为261H，263H，265H，267H，尝试实现这一方案：</p>
-<p><img src="/images/8253_5.png" alt=""></p>
+<center>
+    <img src='/images/8253_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    左侧的连线我们就不连了，和上面是一样的。</p>
 <p>​    现在我们分析右边连线的操作。首先我们肯定需要一个周期为1s的时钟信号。所以自然的有一个级联的设置，这里使用计数器0和计数器1按照方式3（或2）进行分频，初值设为2000和1000。</p>
 <p>​    然后，我们需要激活这个选通脉冲。注意，它每个1秒都要生成一个出来，所以我们不能选择方式0或方式4。因为他们不支持自动装填。再看这个唤醒脉冲的波形，是5ms高电平后产生一个选通脉冲，长达1ms。所以选择方式5。</p>
@@ -314,12 +362,18 @@
 <p>​    综上就有了上述连接，想通这个需要熟练掌握方式0~5，是比较复杂的。但看明白以后，编程实现就是简单的了：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 0011011B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AX, 2000</span><br><span class="line">MOV	DX, 261H</span><br><span class="line">OUT	DX, AL</span><br><span class="line">XCHG AH, AL</span><br><span class="line">OUT	DX,AL</span><br><span class="line"></span><br><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 01110110B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AX, 1000</span><br><span class="line">MOV	DX, 263H</span><br><span class="line">OUT	DX, AL</span><br><span class="line">XCHG AH, AL</span><br><span class="line">OUT	DX, AL</span><br><span class="line"></span><br><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 10011010B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AL, 5</span><br><span class="line">MOV	DX, 265H</span><br><span class="line">OUT	DX, AL # 最后只有一个初值5，所以只用一次</span><br></pre></td></tr></table></figure>
 <p>​    最后，我们给出两种波形，来思考如何生成他们，以及和上面凌空出现的方式5做比较。</p>
-<p><img src="/images/8253_6.png" alt=""></p>
+<center>
+    <img src='/images/8253_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上面的波形，只要分频到合适的频率，只需用方式2即可实现。其中$1.5$ms是CLK的周期，即可。</p>
 <p>​    下面的波形，其实可以在上面的基础上取反得到。但如果不允许添加额外的部件，可以用方式1来实现。</p>
 <p>​    我们可以看到，哪怕上面用方式5的例题，其实也可以由方式2实现，但由于考察的时候，指定了8253的连接方式，于是就有了方式5的表演。如果让我们自己连，其实那个选通脉冲可以用一个很长的方式2来实现，因为显然，在不选通的时候，OUT就需要满足高电平。那方式2不就正合适？时常数也是宽裕的。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    写的非常仓促，很麻，得去学模式识别了。</p>
-<p><img src="/images/miku_1.jpg" alt=""></p>
+<center>
+    <img src='/images/miku_1.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

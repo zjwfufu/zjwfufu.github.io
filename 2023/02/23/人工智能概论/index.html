@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://example.com/images/AI_tutorial_9.png">
 <meta property="og:image" content="http://example.com/images/miku_0.jpg">
 <meta property="article:published_time" content="2023-02-23T08:59:20.000Z">
-<meta property="article:modified_time" content="2023-02-27T12:40:26.898Z">
+<meta property="article:modified_time" content="2023-08-27T03:01:30.508Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,11 @@
 <span id="more"></span>
 <p>​    所以，秉持着对传统运筹，博弈的尊敬。以及，我要期末考试了。我决定对着每一章的PPT整理一下例题，好记性不如烂笔头。</p>
 <h3 id="图搜索策略"><a href="#图搜索策略" class="headerlink" title="图搜索策略"></a>图搜索策略</h3><p>​    这里引入了一个通用的图搜索过程，用OPEN表记录还没有扩展的点，CLOSED表记录已经扩展的点。（选择最左支最先访问，节点12是目标节点）</p>
-<p><img src="/images/AI_tutorial_1.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    使用DFS访问的open表和closed表：</p>
 <div class="table-container">
 <table>
@@ -327,7 +331,11 @@
 </div>
 <p>​    可以看到，是一样的逻辑。</p>
 <p>​    还存在一些变式，例如代价图。每次探测一个分支是需要考虑代价的。</p>
-<p><img src="/images/AI_tutorial_2.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如上图，考虑从A点分别BFS和DFS到E点。那么在OPEN表和CLOSED表里，实际上可以被理解为，在OPEN表中按代价最小来排序。注意在上面的例题中，OPEN表的排序也不是任意的，后面会给出答案。</p>
 <p>​    BFS时的情形：</p>
 <div class="table-container">
@@ -414,7 +422,11 @@
     7&        6&        5\\
 \end{matrix} \right]</script><p>​    搜索树的估价函数是$F(n)=D(n)+H(n)$，$D(n)$表示初始状态的深度，$H(n)$表示不在对应位置上的数码的个数，</p>
 <p>​    所以整个代价图可以画作：</p>
-<p><img src="/images/AI_tutorial_3.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    相应的，OPEN表和CLOSED表就是：</p>
 <div class="table-container">
 <table>
@@ -462,10 +474,18 @@
 <p>​    一个很有意思的例子是求不定积分，我们往往会逐项拆开来处理。如果拆到最后得到了一个例如$\int{e^{-x^2}\mathrm{d}x}$，那就说明，原积分无初等函数的解。把这个例子泛化，就会是与或图的归约问题。此时我们搜索一个与或图，停止的条件就变为“初始节点被标记为可解”或“初始节点被标记为不可解”。</p>
 <p>​    而具体搜索的过程，和前面的搜索是一样的。有一点不同，终叶结点没必要储存在closed表里（因为它们不会被探索），在OPEN表里的那些代表可解or不可解的结点，一旦可以判断一个具体的逻辑，就会从OPEN表里移除。</p>
 <h3 id="Max-Min搜索和-alpha-beta-剪枝"><a href="#Max-Min搜索和-alpha-beta-剪枝" class="headerlink" title="Max-Min搜索和$\alpha-\beta$剪枝"></a>Max-Min搜索和$\alpha-\beta$剪枝</h3><p>​    这一部分其实是博弈树的搜索，分为极大极小搜索和$\alpha-\beta$剪枝两个部分，其实道理很简单。</p>
-<p><img src="/images/AI_tutorial_4.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们先直接看题目，1）计算各节点的倒推值。2）利用$\alpha-\beta$剪枝来剪去不必要的分支。</p>
 <p>​    这个树，描述的是一个博弈的过程。倒数第二层，是MIN，往上是MAX，再往上是MIN。所有带着与的分支，其实都是对手做出的选择，因为我们需要处理对手可能做出的所有的选择，所以是与。最底下的分数是此时的估值。那么倒退的意思其实就是根据“对手想让估值变越小越好，我想要估值变越大越好”来理解。这样就会产生一些不必要的分支。</p>
-<p><img src="/images/AI_tutorial_5.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    倒推值很简单，与树选最小，或树选最大。例如结点G，结点G演化到0和5两个估值，是我方做的操作导致的。我方一定会做有益的操作，所以在G时的估值肯定是小于等于0的。</p>
 <p>​    那么$\alpha-\beta$剪枝是什么呢？他是在执行搜索时的一个策略。并不是在整个极大极小树被构造之后再用的。</p>
 <p>​    它的逻辑是：首先我们从$S_0$开始，沿着左分支一路走，走到0和5。此时我们会知道G处的结点是小于等于0的。然后我们探测H，进一步探测到-3。此时我们会知道，H处是小于等于-3的。那么我们就不需要探测是3的那一支了（我们当时不知道它是不是3）。我们此时认为我们不知道它是不是3，记作？。</p>
@@ -475,7 +495,11 @@
 <p>​    2）节点$x$的父结点，此时可能有取值范围，也可能没有。</p>
 <p>​    3）如果$x$的父结点已经有取值范围了，那么如果$x$的取值范围和$x$的父结点的取值范围没有交集（或只有一个元素），则剪掉此时$x$还没有探测的那些子结点。</p>
 <p>​    所以整个过程为：</p>
-<p><img src="/images/AI_tutorial_6.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    蓝色方框标记着触发剪枝时的取值范围的情景。</p>
 <h3 id="谓词逻辑"><a href="#谓词逻辑" class="headerlink" title="谓词逻辑"></a>谓词逻辑</h3><p>​    这里主要是记录两点，一个是翻译逻辑命题时的一个issue。</p>
 <p>​    例如要表示：1）人总是要死的。2）有些人不怕死。</p>
@@ -574,7 +598,11 @@ P\lor \left( Q\land R \right) \Leftrightarrow \left( P\lor Q \right) \land \left
 \left\{ \lnot S\left( x,y \right) \lor \lnot M\left( y \right) \lor \lnot H\left( x \right) \lor I\left( f\left( x \right) \right) , \lnot S\left( x,y \right) \lor \lnot M\left( y \right) \lor \lnot H\left( x \right) \lor E\left( x, f\left( x \right) \right) \right\} 
 \\
 \left\{ \lnot I\left( z \right), M\left( y \right) , S\left( x,y \right), H\left( x \right)\right\}</script><p>​    饺子包完了，该上醋了。（上述依次记作子句(1), (2), (3),…)</p>
-<p><img src="/images/AI_tutorial_7.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="消解反演"><a href="#消解反演" class="headerlink" title="消解反演"></a>消解反演</h4><p>​    消解反演，其实就是上面那个图的反过程，从底部的NIL变换到上面。换句话说，就是从一个NIL出发，能不能到达想要的结论的否定。此处的考察比较简单，例题可见于PPT。</p>
 <h4 id="规则演绎系统"><a href="#规则演绎系统" class="headerlink" title="规则演绎系统"></a>规则演绎系统</h4><p>​    这里涉及到规则变化和化为与或形，见于PPT，此处从略。建议考前看一眼，在理解了前面的基础上，很好做。</p>
 <h3 id="模糊推理"><a href="#模糊推理" class="headerlink" title="模糊推理"></a>模糊推理</h3><p>​    这整个一章，就是把二元的集合给扩展了一下，来表征模糊。如果数学建模参加的多会见怪不怪。</p>
@@ -584,9 +612,17 @@ P\lor \left( Q\land R \right) \Leftrightarrow \left( P\lor Q \right) \land \left
 <p>​    前提E可以是命题，也可以是命题的合取和析取。结论H也可以是单一命题或复合命题。CF(H,E)是确定性因子，取值于-1到1，代表可信程度。</p>
 <p>​    CF的计算公式（就是个故事）考试会给，所以只要知道怎么算就好。命题的合取和析取，就对应着去最小值还是最大值。</p>
 <p>​    这个考题的变式还有，如果给知识加权（由于不确定度），以及给知识的可信度一个阈值$\lambda$。这里我直接把PPT上的题贴上来，通俗易懂。</p>
-<p><img src="/images/AI_tutorial_8.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="模糊推理-1"><a href="#模糊推理-1" class="headerlink" title="模糊推理"></a>模糊推理</h4><p>​    模糊推理中，用一个0到1上的隶属函数来表达模糊性。就一个“精心设计”的函数罢了，从而在这个模糊的设定下，更新了一系列的简单运算：</p>
-<p><img src="/images/AI_tutorial_9.png" alt=""></p>
+<center>
+    <img src='/images/AI_tutorial_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这里要注意$\lambda$截集，核，支集的概念。$\lambda$截集只保留了隶属度大于$\ge\lambda$，如果没有等号称为$\lambda$强截集。核就是隶属度等于1的，支集就是隶属度大于0（不等于0）的。</p>
 <p>​    计算模糊度的公式，很好记，前三个都是关于0.5截集的$p$范数，最后是熵表示。</p>
 <p>​    有了模糊的构造，就要有模糊的关系，继而才能有模糊的推理。</p>
@@ -734,7 +770,9 @@ q_i=\sum_{j=1}^i{P\left( x_j \right)}</script><p>​    这不就轮盘赌了。
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    剩下的杂项，需要接着看PPT，漏掉的大概是“规则演绎系统”，“模糊匹配”，“冲突消解”，后面群智能里的一些常识。建议考前再速记。</p>
 <p>​    人工智能概论和模式识别一天考，所以还是比较紧张的。实在不行，上面那些几项抛弃掉，看懂正文的，也能及格。</p>
 <p>​    得梳理微机原理了，不然该寄了！</p>
-<p><img src="/images/miku_0.jpg" alt=""></p>
+<center>
+    <img src='/images/miku_0.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

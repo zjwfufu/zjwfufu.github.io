@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/Signal_System_4.png">
 <meta property="og:image" content="http://example.com/images/Signal_System_5.png">
 <meta property="article:published_time" content="2022-06-14T14:47:05.000Z">
-<meta property="article:modified_time" content="2022-06-15T17:21:59.070Z">
+<meta property="article:modified_time" content="2023-08-27T03:02:06.867Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,11 @@ H\left( j\omega \right) =\left\{ \begin{array}{c}
     e^{-j\frac{\pi}{3}\omega},\left| \omega \right|<1.5\mathrm{rad}/s\\
     0,\left| \omega \right|>1.5\mathrm{rad}/s\\
 \end{array} \right.</script><p>​    求系统响应$y(t)$ 。</p>
-<p>​    <img src="/images/Signal_System_2.png" alt=""></p>
+<center>
+    <img src='/images/Signal_System_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    解：这个题实际上开了个玩笑，上述是一个载波调制的基本雏形，但是这里的$s(t)$作用与否不影响结果，当然是因为这是理想状态，首先对于$f(t)$，它天然就是一个傅里叶级数，$F_n =1$，根据周期信号的傅里叶变换：</p>
 <script type="math/tex; mode=display">
 F\left( j\omega \right) =2\pi \sum_{n=-\infty}^{\infty}{\delta \left( \omega -n \right)}</script><p>​    这里$\varOmega =1$，然后啊，如果乘一个$\mathrm{cos}(t)$ ，那么根据傅里叶变换的性质：</p>
@@ -271,7 +275,11 @@ y\left( t \right) =\int_{-\infty}^{1-2t}{f\left( \tau \right) \mathrm{d}\tau}</s
 <p>​    我们验证发现它也是满足时不变性的。</p>
 <p>​    至于线性，我们在高等代数中验证过许多次了，这里就不作赘述了。</p>
 <p>​    ⑤图示某离散$LTI$因果系统的信号流图：</p>
-<p><img src="/images/Signal_System_3.png" alt=""></p>
+<center>
+    <img src='/images/Signal_System_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    (1)求系统函数$H(z)$</p>
 <p>​    (2)写出输入输出之间的差分方程</p>
 <p>​    (3)判断该系统是否稳定</p>
@@ -294,11 +302,18 @@ H\left( z \right) =\frac{1}{\varDelta}\sum_i{P_i\varDelta _i}=\frac{2z^{-2}-6z^{
 -3Y\left( z \right) -3z^{-1}Y\left( z \right) -14z^{-2}Y\left( z \right) =2z^{-2}F\left( z \right) -6z^{-1}F\left( z \right)</script><p>​    作逆$z$变换：</p>
 <script type="math/tex; mode=display">
 -3y\left( k \right) -3y\left( k-1 \right) -14y\left( k-2 \right) =2f\left( k-2 \right) -6f\left( k-1 \right)</script><p>​    对于离散因果系统，我们考虑它极点的位置，若都在单位圆内，说明系统是稳定的。（这一段说来话长了，还是有点故事的。）</p>
-<p><img src="/images/Signal_System_4.png" alt=""></p>
+<center>
+    <img src='/images/Signal_System_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    （顺带一提这张图中间其实就是信号最后一章状态方程的建立）</p>
 <p>​    求极点，得一对共轭复根都在单位圆外，系统不稳定。</p>
 <p>​    ⑥电路如图所示，原已稳定，$t=0$将开关$S$由1打到2，求之后的$u_0(t)$:</p>
-<p><img src="/images/Signal_System_5.png" alt=""></p>
+<center>
+    <img src='/images/Signal_System_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    我很不喜欢这个，实际上这个只是套了个皮，本质上是个电路分析，我一般只记微分式变化的，因为那样简单，老记积分的version容易错。</p>
 <script type="math/tex; mode=display">
 u_L\left( t \right) =L\frac{\mathrm{d}i_L\left( t \right)}{\mathrm{d}t}\leftrightarrow U_L\left( s \right) =sLI_L\left( s \right) -Li_L\left( 0_- \right) 

@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/pr_2_3.jpg">
 <meta property="og:image" content="http://example.com/images/pr_2_4.jpg">
 <meta property="article:published_time" content="2022-10-25T12:57:26.000Z">
-<meta property="article:modified_time" content="2023-03-01T08:13:16.762Z">
+<meta property="article:modified_time" content="2023-08-27T03:18:09.897Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
@@ -221,7 +221,11 @@ J\left( \boldsymbol{w} \right) =\sum_{\boldsymbol{x}\in Y}{\left( \delta _x\bold
 \boldsymbol{w}\left( t+1 \right) =\boldsymbol{w}\left( t \right) -\rho _t\left. \frac{\partial J\left( \boldsymbol{w} \right)}{\partial \boldsymbol{w}} \right|_{\boldsymbol{w}=\boldsymbol{w}\left( t \right)}</script><p>​    实际上，这里要指出：上式并不是真正的梯度下降，因为$J(\omega)$是个分段线性函数，它在某些点不一定有梯度。所以这种算法的收敛性其实需要证明一下，这里就从略了。因为这个算法实际上是1950年左右提出的，当时计算资源很匮乏，所以跟现在直接back propagation然后各种layer一叠比，有种突兀感。我们就不过多的介绍它了，只表以敬意。</p>
 <h4 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h4><p>​    感知器算法给出的超平面并不唯一，可能收敛于任何可能的解，并且每一个解其实都完全的分开了训练集（如果线性可分的话），但真正分类时是在测试集上用的，所以我们仍然需要从每个可能的解里选择那些“泛化性”强的解，这样当面对未知数据时，通过超平面得到的结果更可信。这就引入了支持向量机。</p>
 <p>​    支持向量机在网络上可以找到各种层次的详尽的资料，有的深度很深，有的注重几何直观。但是对我自己来说，仍然有整理的必要。因为学习学的其实不是支持向量机这一个事物，学的是学习能力的提升。如果仅仅只是走马观花的看一看一些视频，或者收藏夹吃灰，大概知道了一下“哦我知道，这不就是找个间隔最大的超平面嘛”，是起不到学习的意义的。</p>
-<p><img src="/images/pr_2_1.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_2_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上图画了一个示意图，就像很多的SVM示意图一样。其实SVM这个词我大一就听说过，但是当时我的“学习能力”并不足以支持我理解它，但它的意义就像傅里叶变换之于通信工程和信号处理，是机器学习工程师的护城河。所以我今天鼓起勇气，来看懂它。</p>
 <p>​    最开始我们还是讨论线性可分，我们寻找的是与两类间隔都能最远的超平面，我们认为这样的超平面更加可信一些。注意到对于正样本有：</p>
 <script type="math/tex; mode=display">
@@ -264,7 +268,11 @@ L\left( \boldsymbol{x},\boldsymbol{\lambda } \right) =f\left( \boldsymbol{x} \ri
 <script type="math/tex; mode=display">
 \nabla _xf\left( x \right) =-\sum_{i=11}^p{\lambda _i\nabla _xh_i\left( \boldsymbol{x} \right)}</script><p>​    这个式子有一个几何解释：在极值点处目标函数的梯度是约束函数梯度的线性组合。</p>
 <p>​    这个解释看起来很抽象，下面做一些解释：考虑一个二维的情形，这将有助于理解。我们知道，如果这个点的梯度是零，那么它就是一个极值；在等式约束下，极值处的梯度虽然往往不为零，但它一定与约束函数的梯度是共线的，否则就可以沿着与约束函数梯度正交的方向再调整，这样这个点就不是极值点。</p>
-<p><img src="/images/pr_2_2.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_2_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如上图所示，左边演示了高数题中常见的二维情形和一个约束等式，注意到由于左图展示的是等值面，而该点的梯度是与等值面垂直的，能非常直观的看到极值所在的点处的梯度与约束函数共线。</p>
 <p>​    置于多个约束等式时，二维已经不好观察了，因为约束等式必然相交，否则会无解。而两个相交的平面曲线自然导致解空间只有一个点。所以右图画了一个三维的情形，在右图我们能更直观的看出，约束面的梯度构成了一个法空间（outer space），这个空间由各个约束面的梯度的分量张成，只有梯度落在这个法空间里，它才是极值，也就是上式中线性组合的来源。</p>
 <h5 id="Lagrange-Duality"><a href="#Lagrange-Duality" class="headerlink" title="Lagrange Duality"></a>Lagrange Duality</h5><p>​    下面要引入拉格朗日对偶，我们知道，上述的拉格朗日乘数法只能解决等式约束，那么不等式约束的情况下，仍需要进一步探究：</p>
@@ -304,7 +312,11 @@ p^s=L\left( \boldsymbol{x}_1,\boldsymbol{\lambda }_1,\boldsymbol{\nu }_1 \right)
 G=\left\{ \left( u,t \right) |u=f_1\left( x \right) ,t=f_0\left( x \right) ,x\in D \right\}</script><p>​    那么原问题的最优解即$p^{s}=\mathrm{inf}_x\left\{ t|\left( u,t \right) \in G,u\leqslant 0 \right\} $，其中$\mathrm{inf}$是下确界。写出拉格朗日乘子函数$L\left( x,\lambda \right) =f_0\left( x \right) +\lambda f_1\left( x \right) $，则对偶函数为：</p>
 <script type="math/tex; mode=display">
 g\left( \lambda \right) =\mathrm{inf}_xL\left( x,\lambda \right) =\mathrm{inf}_x\left( f_0\left( x \right) +\lambda f_1\left( x \right) \right) =\mathrm{inf}_{\left( u,t \right) \in G}\left( t+\lambda u \right)</script><p>​    所以对偶问题的最优解是$d^{s}=\underset{_{\lambda \geqslant 0}}{\mathrm{sup}}g\left( \lambda \right) $，$\mathrm{sup}$是上确界。所以，我作出了这种简单情形下的几何直观：</p>
-<p><img src="/images/pr_2_3.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_2_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如这张图的左侧，当可行域为凹时，$p^{s}&gt;d^{s}$ </p>
 <p>​    是一个弱对偶问题。这张图可能有些不是特别直观，一点点来看，因为$p^{s}=\mathrm{inf}_x\left\{ t|\left( u,t \right) \in G,u\leqslant 0 \right\} $ </p>
 <p>​    所以$p^{*}$是好找的，只需要在$u\le0$的点里找$t$最小的即可；但$d^{s}=\underset{_{\lambda \geqslant 0}}{\mathrm{sup}}g\left( \lambda \right) $，而$g\left( \lambda \right) =\mathrm{inf}_{\left( u,t \right) \in G}\left( t+\lambda u \right)$ </p>
@@ -395,7 +407,9 @@ s.t. \alpha _i\geqslant 0, \sum_{i=1}^l{\alpha _iy_i}=0</script><p>​    这个
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    在这篇blog里，我介绍了两种著名的线性分类器，实际上我略过了多层感知机（由于篇幅的问题）。如果对照PPT会发现，我没有写“Fisher”线性判别，是因为它与多层感知机，感知器算法，支持向量机有本质的不同：后者都只是被动的使用类别可分性，而并没有度量类别可分的程度。</p>
 <p>​    写这篇blog最大的时间花费在了理解支持向量机的前置条件，值得重申的是，确实，花费一番功夫弄懂这背后的细节，其实并没有什么用。我可能永远都不会使用支持向量机，因为在大多数情况下，召唤几个nn.Linear()，然后nn.Dropout，再来几个PReLU做分类器，能直接走BP而且效果往往都比SVM好。但是这番功夫的重点还是学习能力的提升，我记得我大一的时候，班里有同学看西瓜书，我打开一看，一堆连乘求和下角标，我非常沮丧，尤其是看到支持向量机那一堆密密麻麻的解释，我觉得我可能学不会，最好退学重新高考。但好在经过两年的学习，在学习知识的方法论上得到了提升，知道了如何有效的利用资料，以及如何理解一些新概念。就像怪物猎人：世界里的蛮颚龙，教会新玩家不要贪刀，学走位，被称为“蛮颚龙老师”一样。能弄懂一遍支持向量机，就起到了这样的效果，说明我的理解能力更进了一步。</p>
 <p>​    “倚醉梦提笔，痴人就不必醒。”</p>
-<p><img src="/images/pr_2_4.jpg" alt=""></p>
+<center>
+    <img src='/images/pr_2_4.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

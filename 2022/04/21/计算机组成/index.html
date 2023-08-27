@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/images/CS_6.png">
 <meta property="og:image" content="http://example.com/images/CS_7.png">
 <meta property="article:published_time" content="2022-04-21T13:50:36.000Z">
-<meta property="article:modified_time" content="2022-04-25T02:08:02.849Z">
+<meta property="article:modified_time" content="2023-08-27T03:22:42.066Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
@@ -229,12 +229,24 @@ c_Y=0
 \\
 Y'=101010101</script><p>​    ②海明码非常的巧妙，详细的说明可以参考3b1b的视频，这里只给出记忆的应试策略：</p>
 <p>例如对$D_8D_7D_6D_5D_4D_3D_2D_1=10101110$进行海明编码，一共有8位，根据前面的不等式，我们得出$k$至少为4。将校验位$P_i$插入海明码$H[n+k]$第$2^{i-1}$的位置：</p>
-<p><img src="/images/CS_1.png" alt=""></p>
+<center>
+    <img src='/images/CS_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    之后将不是校验位的序号用二进制表示，然后从低到高为$1,2,3..$寻找每一列为1的，将对应的拿来作偶校验（异或）：</p>
-<p><img src="/images/CS_2.png" alt=""></p>
+<center>
+    <img src='/images/CS_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    所以最后的海明编码即：101001110010</p>
 <p>​    假设获得的海明编码是101001010010，即第六位跳变，则运行校验方程，即$P_i$分别与对应项进行异或：</p>
-<p><img src="/images/CS_3.png" alt=""></p>
+<center>
+    <img src='/images/CS_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    $S_4 S_3 S_2 S_1$不为0，$0110$指出了错误位置在第六位。</p>
 <p>​    ③循环冗余校验码简称$CRC$基于模2运算，即不进位的加减乘除，题目会给出一个生成多项式$G(x)$,$G(x)$的系数表示一个编码。将这个编码与信息左移最高次幂低位补零后作模2除，例：</p>
 <p>​    当信息码为101001时，选择生成多项式$G(x)=x^3+x^2+1$，生成多项式的二进制编码为1101，对两者进行模二除，得余数为001。将余数接在101001后面，即得$CRC$码101001001。</p>
@@ -290,7 +302,11 @@ OF=C_2\oplus C_1</script><p>​    下面是原码和补码的乘除法，这里
 <p>​    作原码一位乘法：$X=-0.1101,Y=+0.0110$</p>
 <p>​    自然，被乘数$[X]_原=1.1101,[Y]_原=0.0110$，乘积符号位$1 \oplus0=1$</p>
 <p>​    之后我们对其绝对值进行原码一位乘法：</p>
-<p><img src="/images/CS_4.png" alt=""></p>
+<center>
+    <img src='/images/CS_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    彻底记住这个方法必须手动写一遍，本质上是根据乘数的最后一位来判断加$|X|$还是0，以及进行的是对$CF+D+A$的整体逻辑右移，最后的结果加上符号位就是乘数积$X\cdot Y=1.01001110$</p>
 <p>​    之后是补码的一位乘法，补码比较复杂，观察上面的原码一位乘法，发现他需要进行$n$轮移位和加法，补码的一位乘法还需要多进行一次加法，并且需要引入一个辅助位。基于这样的不同点，我们最好将两者对比起来记忆：</p>
 <div class="table-container">
@@ -325,17 +341,29 @@ OF=C_2\oplus C_1</script><p>​    下面是原码和补码的乘除法，这里
 </div>
 <p>​    注意，原码一位乘法时用单符号位不会出错，而补码一位乘法时必须用双符号位，我们现在作补码的乘法练习一下，还是用上面那个例子：</p>
 <p>$[X]_补=11.0011,[-X]_补=00.1101,[Y]_补=00.0110$</p>
-<p><img src="/images/CS_5.png" alt=""></p>
+<center>
+    <img src='/images/CS_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    最后得到的结果是1.10110010，将补码转换为原码为1.01001110和上面原码一位乘法是一样的。</p>
 <p>​    最后是除法，和乘法类似，分为原码的除法和补码的除法，我们首先讨论原码的除法，有两种：恢复余数法和加减交替法，其实后者是前者的优化：</p>
 <p>​    我们现在作$X=-0.10001011,Y=0.1110$试用恢复余数法求$X \div Y$的商和余数：</p>
 <p>​    首先我们列写：$[|X|]_原=0.10001011,[|Y|]_原=0.1110,[|Y|]_补=0.1110,[|-Y|]_补=1.0011$</p>
 <p>​    符号位显然可以确定为1：</p>
-<p><img src="/images/CS_6.png" alt=""></p>
+<center>
+    <img src='/images/CS_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    那么商即为1.1001，余数的符号与被除数$X$一致，为$-0.1101\times 2^{-4}$。</p>
 <p>​    加减交替法其实就是当上述过程中，若商为0了，不再进行加$Y$然后左移减$Y$，实际上这个过程等效于直接加左移加$Y$。所以就这样“加减交替”。</p>
 <p>​    补码的除法只介绍了加减交替法，类似于补码乘法，它有它独特的性质，我们仍以上面那个例子为例：$[X]_补=1.01110101,[Y]_补=0.1110,[-Y]_补=1.0010$:</p>
-<p><img src="/images/CS_7.png" alt=""></p>
+<center>
+    <img src='/images/CS_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    最后算出来的数都是自带符号位的，商虽然对上了但是余数没对上，很怪。我表示很迷，但是不影响应试……这个运算方法太深奥了，应付考试给出的定点小数的特殊情形就已经很难理解了。</p>
 <p>​    然后是浮点数……呜呜呜，浮点数就像是科学计数法，它利用阶码和尾数来表示一个数。阶码是一个常用补码或移码表示的定点整数，尾数是常用原码和补码表示的定点小数。阶符和数符表示它们的正负。浮点数的规格化，就是在存储空间不变的情况下，尽可能多的保持精度。就像科学计数法中让第一位为有效值一样。规格化分为左规和右规：</p>
 <p>​    左规：尾数算数左移1位，阶码减1，直到尾数最高位是有效值。</p>

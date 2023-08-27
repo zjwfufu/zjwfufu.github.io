@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://example.com/images/dsp_exam_9.png">
 <meta property="og:image" content="http://example.com/images/dsp_exam_miku.jpg">
 <meta property="article:published_time" content="2023-03-03T08:56:15.000Z">
-<meta property="article:modified_time" content="2023-03-05T08:19:07.546Z">
+<meta property="article:modified_time" content="2023-08-27T03:15:33.369Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
@@ -273,7 +273,11 @@ U\left( e^{j\omega} \right) =\mathrm{DTFT}\left[ u\left( n \right) \right] =\fra
 <script type="math/tex; mode=display">
 X\left( e^{j\omega} \right) =\sum_{n=-\infty}^{\infty}{a^nu\left( n \right) e^{-j\omega n}}=\sum_{n=0}^{\infty}{\left( ae^{-j\omega} \right) ^n}=\frac{1}{1-ae^{-j\omega}}</script><p>​    在学信号与系统时，我们多数都考虑输入信号为一个实函数。那时关于连续情形的傅里叶变换，只需记住一个“奇虚偶实”的结论，就可以了。即实函数的傅里叶变换，其频谱函数虚部是奇函数，实部为偶函数。</p>
 <p>​    但在DSP这里需要进一步扩展这个点，书上写的，太乱了，叫人半懂不懂的：</p>
-<p><img src="/images/dsp_exam_0.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    红色部分就是之前奇虚偶实的来源，即考虑一个实数序列。那么它的DTFT只有共轭对称分量，共轭对称分量的虚部是奇函数，偶数是实函数。故奇虚偶实。</p>
 <p>​    $x_e(n),x_o(n)$由于构造出来，天然有共轭对称和共轭反对称的性质。所以称$x_e(n)$也为偶序列（取对称，even之意），$x_o(n)$为奇序列（取反对称，odd之意）。</p>
 <p>​    大多数时候，我们会关心离散时间的线性时不变系统的频率响应。输入序列$x(n)$通过单位脉冲响应$h(n)$，我们可以得到系统的零状态响应：</p>
@@ -322,7 +326,11 @@ X\left( e^{j\omega} \right) =\sum_{n=-\infty}^{\infty}{x\left( n \right) e^{-j\o
 <p>​    我们用新的记号来表示等间隔采样后的$e^{-j\omega n}$：$W_{N}^{kn}=e^{-j\frac{2\pi}{N}kn}$。沿着$k$建立索引，就得到了离散傅里叶变换：</p>
 <script type="math/tex; mode=display">
 X\left( k \right) =\sum_{n=0}^{N-1}{x\left( n \right) W_{N}^{kn}},0\leqslant k\leqslant N-1</script><p>​    这里求和只作用在了主值区间中。形象表示如下图所示：</p>
-<p><img src="/images/dsp_exam_1.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    实际上，$W_{N}^{kn}$可以写成矩阵形式：</p>
 <script type="math/tex; mode=display">
 \boldsymbol{X}=\boldsymbol{W}_N\boldsymbol{x}
@@ -342,7 +350,11 @@ X\left( k \right) =X^*\left( N-k \right)</script><p>​    所以我们只需求
 X\left( k \right) =X\left( N-k \right)</script><p>​    同理，如果序列是实奇对称。那么不存在$x_e(n)$，其DFT只有虚数部分。所以可以将共轭直接换成负号，此时$X(k)$呈纯虚奇对称：</p>
 <script type="math/tex; mode=display">
 X\left( k \right) =-X\left( N-k \right)</script><p>​    更重要的是，我们可以用DFT进行一些更一般的频谱分析。而不是拘泥于先前，只能计算一些特定序列的级数和。我们现在着重考虑用DFT分析连续时间信号，我们先着重分析这张图的横坐标：</p>
-<p><img src="/images/dsp_exam_2.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    最上面是模拟信号的频谱$X_a(j\varOmega)$，此时的横坐标是角频率$\varOmega=2\pi/T$，其截止频率是$\varOmega_c$。中间是进行采样，得到的$X(e^{j\omega})$，我们先前讨论过，它其实是角频率被采样频率$f_s$归一化的结果$\omega =\frac{\varOmega}{f_s}$，由于采样频率$f_s$一般大于等于2倍的$f_c$，所以我们看到$X(e^{j\omega})$主值区间截止于$T\varOmega_c&lt;\pi$。这里的$T$是采样周期，即$1/f_s$。</p>
 <p>​    接下来，$X(e^{j\omega})$被直接进行了抽取，间隔为$2\pi/N$，我们现在关注在$X(k)$中第$k$个频率对应在$X_a(j\varOmega)$的频率是多少。这需要分情况讨论，因为$X_a(j\varOmega)$没有经过周期延拓。</p>
 <p>​    当$0\le k\le N/2-1$时，我们可以得到：</p>
@@ -358,9 +370,17 @@ k\frac{2\pi}{N}f_s=k\frac{\varOmega _s}{N}=\varOmega _k</script><p>​    当$N/
 <p>​    如果一个信号持续时间很长，我们只能对其进行截断，得到一个有限长的序列。这个过程形象的叫作时域加窗，即我们对信号乘上了一个窗函数：</p>
 <script type="math/tex; mode=display">
 x_N\left( n \right) =x\left( n \right) w_N\left( n \right)</script><p>​    时域相乘相当于频域卷积，如果我们不加任何处理，我们其实选取的就是一个矩形窗。它的傅里叶变换是一个$\mathrm{Sinc}$函数，其幅度值会呈现“主瓣”和“副瓣”，就像：</p>
-<p><img src="/images/dsp_exam_3.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们以一个余弦的频谱为例，体会一下其影响：</p>
-<p><img src="/images/dsp_exam_4.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们得以观察到两个现象，一是频谱泄露，由于一个$\mathrm{Sinc}$卷积的作用，冲激函数附近产生了较大的扩展，这种现象有时会淹没掉频率相近但微弱的信号。二，谱间干扰，这种扩展本身也会造成不可避免的混叠，有时他们会混叠出一个峰值，可能会被误认为是另一个信号的谱线，造成误判。</p>
 <p>​    这种截断效应，可以通过增加截断长度来缓解。还可以通过使用主瓣更宽，副瓣更窄的窗函数，这些在后面会介绍。</p>
 <p>​    ③栅栏效应：</p>
@@ -384,7 +404,10 @@ y\left( n \right) =x\left( n \right) \ast h\left( n \right) =\sum_{m=-\infty}^{\
 <p>​    首先，我们定义一种移位运算，它很直接，看图一下就能看懂：</p>
 <script type="math/tex; mode=display">
 f\left( n \right) =x\left( \left( n+n_0 \right) \right) _NR_N\left( n \right)</script><p>​    这种运算指的是：</p>
-<p><img src="/images/dsp_exam_5.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_5.png'>
+</center>
+
 <p>​    在这个基础上，扩展了一种循环卷积，这种循环卷积可以满足在离散序列下“时域卷积等价于频域相乘”。</p>
 <script type="math/tex; mode=display">
 X\left( k \right) =\mathrm{DFT}\left[ x\left( n \right) \right] 
@@ -402,16 +425,32 @@ x\left( n \right) =\left\{ 1,3,2,1;n=0,1,2,3 \right\}
 \\
 h\left( n \right) =\left\{ 1,2,1,2;n=0,1,2,3 \right\}</script><p>​    计算两序列线性卷积$y_L(n)$，7点循环卷积$y_C(n)$，并作出由DFT计算线性卷积的框图，标出每一步所需的点数。</p>
 <p>​    线性卷积是好计算的，我们直接用不进位乘法就可以得到：</p>
-<p><img src="/images/dsp_exam_6.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    此时由于满足$7\ge 4+4-1$，所以循环卷积的结果和线性卷积是一样的。框图即为：</p>
-<p><img src="/images/dsp_exam_7.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    其中$M=N=3, L=7$。</p>
 <p>​    下面我们给出一种更一般的方法来计算循环卷积，它是说先算出对位相乘相加序列，然后根据$L$修正。若$L$为4，则把4之后的序列搬移到前面，两序列求和即得最终结果。</p>
 <p>​    例如$x_1(n)=\{-3,2,4,1\},x_2(n)=\{1,1,1\}$，作$x_1\left( n \right) \circledast x_2\left( n \right) $，$L=4$。</p>
 <p>​    我们得到：</p>
-<p><img src="/images/dsp_exam_8.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <h4 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h4><p>​    考试中要求作出FFT的蝶形计算流图，今年只用记住时域抽取基2FFT算法即可。</p>
-<p><img src="/images/dsp_exam_9.png" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这里，要记住三个事情：</p>
 <p>​    输入$x(n)$的顺序：使用“逆序二进制加法”，例如$N=8$时，从000开始，先最高位加1，得100（4），然后继续最高位加1，向次高位进位，得010（2），然后是110，6。所以顺序即为$x(0),x(4),x(2),x(6)…$</p>
 <p>​    第$L$级旋转因子$W$的填写：按照$W_{N}^{J\cdot 2^{M-L}}$，其中$J=0,1,2…(2^{L-1}-1),M=log_2N$。例如第一级，$J=0$，所以都是$W_8^0$，到了第二级，$J=0,1$，所以$W_8^0,W_8^2$，以此类推……</p>
@@ -419,7 +458,9 @@ h\left( n \right) =\left\{ 1,2,1,2;n=0,1,2,3 \right\}</script><p>​    计算�
 <p>​    如果使用传统的矩阵相乘，需要有$N(N-1)$次复数加法，$N^2$次复数乘法；用FFT计算，如蝶形图所示，乘法次数为$\frac{N}{2}\log _2N$，加法次数为$N\log _2N$。</p>
 <p>​    实际上，这个蝶形单元并不是一个正式的信号流图。所以，照做吧，死记硬背。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这才仅仅是一半，另一边是和滤波器设计相关的，记在下一篇blog了。</p>
-<p><img src="/images/dsp_exam_miku.jpg" alt=""></p>
+<center>
+    <img src='/images/dsp_exam_miku.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

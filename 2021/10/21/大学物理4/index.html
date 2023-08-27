@@ -15,15 +15,15 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    第四篇主要总结下考试会考到的静磁场，由于非相关专业，只是为了过考试，会省略许多内容。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/10/21/cNQjazts81YE4V5.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/21/pBU5qufnRTyIrQj.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/21/INwSZ1yrK6CEpbv.png">
+<meta property="og:image" content="http://example.com/images/r4_physic_0.png">
+<meta property="og:image" content="http://example.com/images/r4_physic_1.png">
+<meta property="og:image" content="http://example.com/images/r4_physic_2.png">
 <meta property="article:published_time" content="2021-10-21T12:37:53.000Z">
-<meta property="article:modified_time" content="2021-10-21T15:54:34.847Z">
+<meta property="article:modified_time" content="2023-08-27T02:20:47.452Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/21/cNQjazts81YE4V5.png">
+<meta name="twitter:image" content="http://example.com/images/r4_physic_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -205,7 +205,10 @@ B=\frac{\mathrm{d}F_{\max}}{I\mathrm{d}l}</script><p>​    （这里对$F_{max}
 <script type="math/tex; mode=display">
 \mathrm{d}B=\frac{\mu _0}{4\pi}\frac{I\mathrm{d}l\sin \theta}{r^2},\mu _0=4\pi \times 10^{-7}\mathrm{N}/\mathrm{A}^2</script><p>​    其中$\mu_0$为真空磁导率，这里的$sin\theta$是由电流元指向$P$的位矢与电流源的夹角，而$r$是$P$与电流源的距离，方向由从电流元到$P$小于$\pi$的位矢确定，利用这个公式再进行积分，就可以得到简单通电几何体的磁感应强度。</p>
 <p>​    其中一个是载流直导线。</p>
-<p><img src="https://i.loli.net/2021/10/21/cNQjazts81YE4V5.png" alt="image-20211021210717186" style="zoom: 33%;" /></p>
+<center>
+    <img src='/images/r4_physic_0.png' style='zoom: 50%'>
+</center>
+
 <p>​    由毕奥-萨伐尔定律可以判断出磁感应强度微元方向均垂直指入纸面，积分过程中$\theta,r,l$都在变化，需要统一积分变量：</p>
 <script type="math/tex; mode=display">
 r=a\csc \theta ,l=-a\cot \theta 
@@ -215,7 +218,10 @@ r=a\csc \theta ,l=-a\cot \theta
 B=\frac{\mu _0I}{4\pi}\int_{\theta _1}^{\theta _2}{\frac{a\csc ^2\theta \sin \theta \mathrm{d}\theta}{a^2\csc ^2\theta}}=\frac{\mu _0I}{4\pi a}\left( \cos \theta _1-\cos \theta _2 \right)</script><p>​    对于无限长的导线，$\cos \theta _1=1,\cos \theta _2=-1$,此时有用的结果是</p>
 <script type="math/tex; mode=display">
 B=\frac{\mu _0I}{2\pi a}</script><p>​    另一个特殊的几何体是位于环形电流对称轴线上的点的磁感应强度。</p>
-<p><img src="https://i.loli.net/2021/10/21/pBU5qufnRTyIrQj.png" alt="image-20211021212736498" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r4_physic_1.png' style='zoom: 50%'>
+</center>
+
 <p>​    我们将环形电流的电流元带入进行计算，发现电流元一周形成的磁感应强度呈一个圆锥，由于$y,z$方向互相抵消，只需计算$x$方向。</p>
 <p>(由立体几何知此时毕奥-萨伐尔公式中的$sin\theta=1$)</p>
 <script type="math/tex; mode=display">
@@ -234,7 +240,10 @@ B=\frac{\mu _0IR^2}{2x^3}=\frac{\mu _0IS}{2\pi x^3}</script><p>​    这里引�
 \boldsymbol{M}=\boldsymbol{p}_m\times \boldsymbol{B}</script><p>​    磁场做功的一般公式（电流恒定时）</p>
 <script type="math/tex; mode=display">
 A=I\varDelta \varPhi</script><p>​    这个的好处是不管对于磁场力做功还是磁力矩做功，都可以用这个式子来计算。下面举个例子来说明：</p>
-<p><img src="https://i.loli.net/2021/10/21/INwSZ1yrK6CEpbv.png" alt="image-20211021231253272" style="zoom:50%;" /></p>
+<center>
+    <img src='/images/r4_physic_2.png' style='zoom: 50%'>
+</center>
+
 <p>​    半径为$R$的半圆形闭合载流线圈，通有电流$I$，放在均匀磁场中磁感应强度与$Ox$方向平行，计算此时磁力对$y$轴的力矩，在此力矩作用下线圈转过$90$度磁力矩做的功。</p>
 <script type="math/tex; mode=display">
 \mathrm{d}M=x\mathrm{d}F=xBI\mathrm{d}l\sin \left( \frac{\pi}{2}-\alpha \right) 

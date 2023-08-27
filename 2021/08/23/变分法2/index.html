@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/Mars2_2.jpg">
 <meta property="og:image" content="http://example.com/images/Mars2_3.jpg">
 <meta property="article:published_time" content="2021-08-23T13:20:02.749Z">
-<meta property="article:modified_time" content="2022-05-21T16:22:05.576Z">
+<meta property="article:modified_time" content="2023-08-27T03:06:17.460Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="泛函">
@@ -200,7 +200,11 @@
 <span id="more"></span>
 <p>​    ①自变量函数的变分：</p>
 <p>​    考虑自变量函数$y(t)$,那么$\delta y=y_1\left( t \right) -y_2\left( t \right) $，其中的$y_1(t),y_2(t)$是同属于函数类$\left\{ y\left( t \right) \right\} $的两个函数，在这里$t$最后变为了类似自变量的存在，当取$y(t)$为一维函数时，意思就是说：</p>
-<p>​    <img src="/images/Mars2_1.jpg" alt=""></p>
+<center>
+    <img src='/images/Mars2_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    ②最简泛函及其变分：</p>
 <p>​    最简泛函这个概念是从我们之前讨论过的最速降线的问题导出的，它是说：设$F\left( x,y\left( x \right) ,y’\left( x \right) \right) $是三个独立变量在区间$[x_0,x_1]$上的已知函数，且二阶连续可微。（其实确定了$y(x)$,$y’(x)$也就随之确定。），那么泛函：</p>
 <script type="math/tex; mode=display">
@@ -214,7 +218,7 @@ J\left[ y\left( x \right) \right] =\int_{x_0}^{x_1}{F\left( x,y\left( x \right) 
 \\
 =\int_{x_0}^{x_1}{\left( F_y\delta y+F_{y'}\delta y' \right) dx}+...+\int_{x_0}^{x_1}{\frac{1}{n!}\left[ \left( \delta y\frac{\partial}{\partial y}+\delta y'\frac{\partial}{\partial y'} \right) ^nF \right] dx}+R_n</script><p>​    取其线性主部为该泛函的变分，即$\int_{x_0}^{x_1}{\left( F_y\delta y+F_{y’}\delta y’ \right) dx}$，记作$\delta J$。</p>
 <p>​    这里存在一个定理：</p>
-<p>​    $J(X)$在$X=X^{<em>}$处有极值的必要条件是对于$X^{</em>}$在此处的变分，有$\delta J\left( X^{<em>},\delta X \right) =0$。实际上为了判断是极大还是极小，要计算二阶变分，但是由于实际问题中很容易判断是极大还是极小，所以没必要计算二阶变分。这个定理的意思实际上是说，当我们对一个$X^{</em>}$施加扰动，而此时将这一附近的$X^{*}$的函数带入泛函进行计算，泛函的值几乎不变，这是有意义的。</p>
+<p>​    $J(X)$在$X=X^{\ast}$处有极值的必要条件是对于$X^{\ast }$在此处的变分，有$\delta J\left( X^{\ast },\delta X \right) =0$。实际上为了判断是极大还是极小，要计算二阶变分，但是由于实际问题中很容易判断是极大还是极小，所以没必要计算二阶变分。这个定理的意思实际上是说，当我们对一个$X^{\ast }$施加扰动，而此时将这一附近的$X^{\ast }$的函数带入泛函进行计算，泛函的值几乎不变，这是有意义的。</p>
 <p>​    所以对我们前面分析出的线性主部，即泛函的变分，考察它为0的时候，根据上一篇我们的推导，它计算后的结果是：</p>
 <script type="math/tex; mode=display">
 \delta J=\int_{x_0}^{x_1}{\left( \frac{\partial F}{\partial y}-\frac{d}{dx}\left( \frac{\partial F}{\partial y'} \right) \right) \delta ydx-\left. \frac{\partial F}{\partial y'}\delta y \right|}_{x_0}^{x_1}=0</script><p>​    在这个方程中，它的一种情况我们已经见过，即满足欧拉-拉格朗日方程，且第二项为零，但是之前讨论时，我们固定了两个端点，即最速降线下落的起点和终点，在这两点的$x,y$坐标是给定的，所以对第二项要做更进一步的说明：</p>
@@ -288,9 +292,15 @@ J=\frac{1}{2}\int_0^{t_f}{a^2dt}</script><p>​    边界约束条件${G}$为：
 a = -\lambda_v\\
 = (t_f - t)\lambda_r + \lambda_v(t_f)</script><p>​    记$t_g=t_f-t$，则只要求解出${\lambda _r}$与${\lambda_v(t_f)}$​就可以根据此时的${t}$得到最优的加速度，进而推算出此时的推力和燃料消耗，对加速度进行积分，与边值条件进行联立，得到：</p>
 <script type="math/tex; mode=display">
-a=-\frac{6r}{t_{g}^{2}}-\frac{4v}{t_g}-g</script><p>​    <img src="/images/Mars2_2.jpg" alt=""></p>
+a=-\frac{6r}{t_{g}^{2}}-\frac{4v}{t_g}-g</script><center>
+    <img src='/images/Mars2_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这个坑就先挖了不填了，可能以后如果遇到无人车或者无人机之类的方面我再填一填，实际上根据2014A的结果来看，CUMCM直接拿最优控制来处理也并不是加分项，可能是这样专业性太强，实际上当时的许多队伍选择了离散化轨道和一些别的数值方法，得到的效果虽然并不相同，但对于当时的2014A评阅要点并未对结果有要求，应该是基于无穷维优化简化为有限维后精度的丢失。通过深圳杯和2014A也简单的对泛函和变分有了一定的了解，接着摆烂了。</p>
-<p>​    <img src="/images/Mars2_3.jpg" alt=""></p>
+<center>
+    <img src='/images/Mars2_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 

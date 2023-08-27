@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/GAova_3.jpg">
 <meta property="og:image" content="http://example.com/images/GAova_4.jpg">
 <meta property="article:published_time" content="2021-08-29T06:31:03.000Z">
-<meta property="article:modified_time" content="2021-10-06T16:27:44.965Z">
+<meta property="article:modified_time" content="2023-08-27T03:07:03.753Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="启发式算法">
@@ -203,7 +203,11 @@
 \frac{\partial u\left( x,t \right)}{\partial t}=k^2\frac{\partial ^2u\left( x,t \right)}{\partial x^2}</script><p>​    由于依题目要求，回焊炉启动后炉间温度快速平衡，那么温度函数关于$t$的一阶偏导为0，则关于$x$​炉间温度分布呈线性关系，对于炉前区域和炉后区域，认为从炉头到炉前末端，从炉后前端到炉尾，温度为线性变化。编写一维温度场函数（利用阶跃函数heaviside避免if语句，但是这两种做法哪个更快我还没有试过）：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">T</span>=<span class="title">TEMP</span><span class="params">(x)</span></span></span><br><span class="line"><span class="keyword">global</span> T1 T2 T3 T4</span><br><span class="line">T=<span class="built_in">ceil</span>(heaviside(x)-heaviside(x<span class="number">-25</span>))*((((T1<span class="number">-25</span>)/<span class="number">25</span>)*(x)+<span class="number">25</span>))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-25</span>)-heaviside(x<span class="number">-197.5</span>))*T1+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-197.5</span>)-heaviside(x<span class="number">-202.5</span>))*((((T2-T1)/<span class="number">5</span>)*(x<span class="number">-197.5</span>)+T1))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-202.5</span>)-heaviside(x<span class="number">-233</span>))*T2+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-233</span>)-heaviside(x<span class="number">-238</span>))*((((T3-T2)/<span class="number">5</span>)*(x<span class="number">-233</span>)+T2))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-238</span>)-heaviside(x<span class="number">-268.5</span>))*T3+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-268.5</span>)-heaviside(x<span class="number">-273.5</span>))*((((T4-T3)/<span class="number">5</span>)*(x<span class="number">-268.5</span>)+T3))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-273.5</span>)-heaviside(x<span class="number">-339.5</span>))*T4+...</span><br><span class="line">    <span class="built_in">ceil</span>(heaviside(x<span class="number">-339.5</span>)-heaviside(x<span class="number">-344.5</span>))*((((<span class="number">25</span>-T4)/<span class="number">5</span>)*(x<span class="number">-339.5</span>)+T4))+...</span><br><span class="line">    <span class="built_in">floor</span>(heaviside(x<span class="number">-344.5</span>)-heaviside(x<span class="number">-435.5</span>))*<span class="number">25</span>;</span><br></pre></td></tr></table></figure>
 <p>​    当给出一组温度$T$时，温度场函数的图像如图所示：</p>
-<p><img src="/images/GAova_1.jpg" alt=""></p>
+<center>
+    <img src='/images/GAova_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    该问题可以归结为一维的热传导问题，边界条件由牛顿冷却定律给出：</p>
 <script type="math/tex; mode=display">
 \left\{ \begin{array}{c}
@@ -212,8 +216,15 @@
 \end{array} \right.</script><p>​    其中参数$\alpha$代表热扩散率，这个物理量与温度有关，不同的温度段热扩散率可能有差异，这里按照上述分布的五个温度分区定义五个热扩散率$\alpha_1,\alpha_2,..\alpha_5$。由有限差分法，迭代格式可以写作：</p>
 <script type="math/tex; mode=display">
 U^{n+1}=A^{-1}BU^n</script><p>​    编程求解得到炉温曲线和电路板温度随时间的变化的图像：</p>
-<p><img src="/images/GAova_2.jpg" alt=""></p>
-<p><img src="/images/GAova_3.jpg" alt=""></p>
+<center>
+    <img src='/images/GAova_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+<center>
+    <img src='/images/GAova_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    迭代计算温度T的函数CurveCal.m过于冗长，这里略去。</p>
 <p>​    此时还要考虑制程界限，即题目表格的限制条件：</p>
 <div class="table-container">
@@ -305,7 +316,10 @@ U^{n+1}=A^{-1}BU^n</script><p>​    编程求解得到炉温曲线和电路板�
 </div>
 <p>​    所以可以认为所求的最优解就在490附近。在求解解空间很高的优化问题时，一定要注意每个过程用到的子函数是否简洁，否则可能耗费更多的时间。</p>
 <p>​    当写完这个的时候，我已经到学校了，刚把阳台收拾完，返校那一路十分折磨，仿佛是对我假期摸鱼的报复。这学期，要做个人，从不翘课开始，好好学习，天天向上。</p>
-<p><img src="/images/GAova_4.jpg" alt=""></p>
+<center>
+    <img src='/images/GAova_4.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    后续：</p>
 <p>​    当我像往常一样部署时发现展开这篇博客全文后显示为404的问题，找了好久发现是大小写的问题，因为原本我打的是’ova’,后来上传上去想改成’OVA’,可是改好部署后就发生了404，原因是git默认忽视文件名大小写，所以即使大小写变更，git也检测不到，解决方案是从博客项目中的.deploy_git中，修改.git下的config,将ignorecase=true改成ignorecase=false。</p>
 

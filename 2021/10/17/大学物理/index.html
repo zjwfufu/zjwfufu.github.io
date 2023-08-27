@@ -15,16 +15,16 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    为了应付期中考试，要预习大学物理了。由于大物只是个凑学分的课，所以不会纠的太深，能过个考试就得了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/OH7XJZ5s2gTeBU3.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/rQTUC5dHpGyz2MI.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/PURsToVk9vFfrHC.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/17/LOx6MnJf4Vi8yWY.png">
+<meta property="og:image" content="http://example.com/images/r_physic_0.png">
+<meta property="og:image" content="http://example.com/images/r_physic_1.png">
+<meta property="og:image" content="http://example.com/images/r_physic_2.png">
+<meta property="og:image" content="http://example.com/images/r_physic_3.png">
 <meta property="article:published_time" content="2021-10-17T15:30:34.000Z">
-<meta property="article:modified_time" content="2021-10-17T15:36:05.892Z">
+<meta property="article:modified_time" content="2023-08-27T03:08:15.732Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/17/OH7XJZ5s2gTeBU3.png">
+<meta name="twitter:image" content="http://example.com/images/r_physic_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -199,12 +199,14 @@
 <span id="more"></span>
 <p>​    其实第十章和第十一章的内容可以被总结的十分简洁，先从第十章开始。首先我们要对库仑定律进行改写：</p>
 <script type="math/tex; mode=display">
-\boldsymbol{F}=k\frac{q_1q_2\boldsymbol{r}}{r^3}=\frac{q_1q_2\boldsymbol{r}}{4\pi \varepsilon _0r^3}</script><p>​    </p>
-<p>​    也就是我们将高中学的静电力常数$k$改写成一个别的形式，这个形式是由高斯定理得来的，证明需要用到立体角，我们不必关心具体细节，在这里$\varepsilon _0\approx 8.85\times 10^{-12}\mathrm{C}^2\cdot \mathrm{N}^{-1}\cdot \mathrm{m}^{-2}$。</p>
+\boldsymbol{F}=k\frac{q_1q_2\boldsymbol{r}}{r^3}=\frac{q_1q_2\boldsymbol{r}}{4\pi \varepsilon _0r^3}</script><p>​    也就是我们将高中学的静电力常数$k$改写成一个别的形式，这个形式是由高斯定理得来的，证明需要用到立体角，我们不必关心具体细节，在这里$\varepsilon _0\approx 8.85\times 10^{-12}\mathrm{C}^2\cdot \mathrm{N}^{-1}\cdot \mathrm{m}^{-2}$。</p>
 <p>​    并且在以后的一些表达式里，会更多的将表达式写成矢量式的形式，因为这样才是规范的，但在实际上应付考试和写作业的时候，由于处理的问题都很简单，其实……没啥太大的必要。</p>
 <p>​    电场强度的定义与高中完全相同，这里引入一种说法：电偶极子。</p>
 <p>​    说的是高中时经常遇到的两个大小相等的异号点电荷$+q,-q$相距$l$,要计算的电场强度的各场点相对这一对电荷的距离$r\gg l$时，这样一对点电荷称为电偶极子。这个定义十分的形象，</p>
-<p><img src="https://i.loli.net/2021/10/17/OH7XJZ5s2gTeBU3.png" alt="image-20211017210104356" style="zoom: 33%;" /></p>
+<center>
+    <img src='/images/r_physic_0.png' style="zoom: 33%;">
+</center>
+
 <p>​        利用平行四边形法则可以计算出：</p>
 <script type="math/tex; mode=display">
 E_p=2\cos \alpha E_{+/-}=2\frac{l/2}{\sqrt{r^2+l^2/4}}\frac{1}{4\pi \varepsilon _0}\frac{q}{r^2+l^2/4}
@@ -213,7 +215,10 @@ E_p=\frac{1}{4\pi \varepsilon _0}\frac{ql}{r^3\left( 1+\frac{l^2}{4r^2} \right) 
 <p>​        这样公式可以简化成：</p>
 <script type="math/tex; mode=display">
 \boldsymbol{E}=\frac{1}{4\pi \varepsilon _0}\frac{\boldsymbol{p}}{r^3}</script><p>​        但对于很多时候的带电体，电场强度都需要利用矢量积分来求解，将矢量积分转化为标量积分然后求解。下面举一个可以延伸到很多种情形的例子。&lt;下面不加特殊说明，$q$代表带电体总电量，$\lambda ,\sigma ,\rho $依次代表电荷的线密度，面密度，体密度&gt;</p>
-<p><img src="https://i.loli.net/2021/10/17/rQTUC5dHpGyz2MI.png" alt="image-20211017213943749" style="zoom: 33%;" /></p>
+<center>
+    <img src='/images/r_physic_1.png' style="zoom: 33%;">
+</center>
+
 <p>​        首先要处理右边的细圆环时的情形，由于对称性，$zOy$平面的电场强度分量互相抵消，只需计算$Ox$方向。在下面的介绍中我们均认为带电体电荷分布均匀，这是一个理想化的做法。那么对于圆环，可以得：</p>
 <script type="math/tex; mode=display">
 E_{ring}=\int{dE_x}=\frac{1}{4\pi \varepsilon _0}\int{\frac{\cos \theta}{r^2}dq}=\frac{1}{4\pi \varepsilon _0}\frac{q\cos \theta}{r^2}=\frac{1}{4\pi \varepsilon _0}\frac{qx}{\left( R^2+x^2 \right) ^{\frac{3}{2}}}</script><p>​        有了这个前置结果，对于左侧的同心圆环带电体，自然可以将其看作若干细圆环的叠加，则有：</p>
@@ -243,7 +248,10 @@ g\left( R \right) =\frac{1}{\sqrt{R^2+x^2}},g'\left( R \right) =-\frac{R}{\left(
 \\
 E=\frac{x}{2\varepsilon _0}\frac{q}{2\pi R_1\varDelta R}\frac{R_1\varDelta R}{\left( R_{1}^{2}+x^2 \right) ^{\frac{3}{2}}}=\frac{1}{4\pi \varepsilon _0}\frac{qx}{\left( R_{1}^{2}+x^2 \right) ^{\frac{3}{2}}}</script><p>​        和之前的结果是一致的。</p>
 <p>​        还有一个比较重要的理想模型是均匀带电直线杆</p>
-<p><img src="https://i.loli.net/2021/10/17/PURsToVk9vFfrHC.png" alt="image-20211017224256616" style="zoom: 33%;" /></p>
+<center>
+    <img src='/images/r_physic_2.png' style="zoom: 33%;">
+</center>
+
 <p>​            由于$\theta_1,\theta_2$并没有给出特殊关系，所以对称性不能得到保证。所以要分$x,y$​方向计算。</p>
 <script type="math/tex; mode=display">
 \mathrm{d}q=\lambda \mathrm{d}y
@@ -261,7 +269,10 @@ E_x=\int_{\theta _1}^{\theta _2}{\frac{1}{4\pi \varepsilon _0a}\lambda \sin \the
 E_y=\int_{\theta _1}^{\theta _2}{\frac{1}{4\pi \varepsilon _0a}\lambda \cos \theta \mathrm{d}\theta}=\frac{1}{4\pi \varepsilon _0a}\left( \sin \theta _2-\sin \theta _1 \right)</script><p>​            许多时候是考虑当杆无限长时，此时积分上下限变为$\pi,0$。得到较为有用的结论：</p>
 <script type="math/tex; mode=display">
 E_x=\frac{\lambda}{2\pi \varepsilon _0a},E_y=0</script><p>​            以圆环和直杆的结果出发可以求解多种几何体的电场强度，后面还会有另一种简洁的求电场强度的方法，在此就从略了。</p>
-<p><img src="https://i.loli.net/2021/10/17/LOx6MnJf4Vi8yWY.png" alt="image-20211017232636005"></p>
+<center>
+    <img src='/images/r_physic_3.png'>
+</center>
+
 <p>​        今天先写到这里，以后有空把一些可以可视化的作出来，上面是等量同种电荷和不等量同种电荷的图像，我希望我的高中老师在我上高中的时候也能画出这个来给我们看，但很遗憾他没有。</p>
 
 		

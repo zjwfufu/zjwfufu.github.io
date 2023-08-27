@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/images/BT_in_no_recursive.gif">
 <meta property="og:image" content="http://example.com/images/BT_0_end.png">
 <meta property="article:published_time" content="2023-04-18T14:37:56.000Z">
-<meta property="article:modified_time" content="2023-08-22T15:23:31.876Z">
+<meta property="article:modified_time" content="2023-08-27T02:59:48.843Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -236,32 +236,27 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PreOrder:</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line">InOrder:</span><br><span class="line"><span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">5</span> <span class="number">4</span> <span class="number">6</span></span><br><span class="line">PostOrder:</span><br><span class="line"><span class="number">3</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span> <span class="number">4</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>可视化如下：</p>
 <center>
-    <img src="/images/BT_in.gif" width="290"/>
-    <img src="/images/BT_in.gif" width="290"/>
-    <img src="/images/BT_post.gif" width="290"/>
+    <img src="/images/BT_in.gif"  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/BT_in.gif"  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/BT_post.gif"  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
-### 非递归式的遍历
 
-​    上述是用递归来实现遍历的，那么自然我们也可以模拟非递归的方式。虽然这个遍历过程，作为对一个非线性结构的线性化，时间复杂度不管是递归还是非递归，都是$O(n)$。然而，后续在计组，微机原理里，我们都知道，如果一直通过递归函数调用自身来实现，每个递归函数的调用需要在系统堆栈中保存一些信息，导致实现的空间复杂度较高。所以我们有必要实现一下非递归的遍历。同时，非递归的遍历涉及到记录访问结点，这在后续也会频繁用到。
-
-​    我们先考虑前序遍历，直观上，前序遍历是先“处理”（这里就是printf)了中间结点，然后依次“访问”左孩子和右孩子。“访问”左孩子时，会先“处理”左孩子，然后接着“访问”左孩子的左孩子……
-
-​    所以我们可以先将**右孩子入栈，再将左孩子入栈。**这样就可以达到我们要的先左后右的要求。然后每一次都让栈顶元素弹出。
-
-​    这里我们就只用一个tree*的指针数组来模拟栈了，就不去补全栈的代码了。
-
+<h3 id="非递归式的遍历"><a href="#非递归式的遍历" class="headerlink" title="非递归式的遍历"></a>非递归式的遍历</h3><p>​    上述是用递归来实现遍历的，那么自然我们也可以模拟非递归的方式。虽然这个遍历过程，作为对一个非线性结构的线性化，时间复杂度不管是递归还是非递归，都是$O(n)$。然而，后续在计组，微机原理里，我们都知道，如果一直通过递归函数调用自身来实现，每个递归函数的调用需要在系统堆栈中保存一些信息，导致实现的空间复杂度较高。所以我们有必要实现一下非递归的遍历。同时，非递归的遍历涉及到记录访问结点，这在后续也会频繁用到。</p>
+<p>​    我们先考虑前序遍历，直观上，前序遍历是先“处理”（这里就是printf)了中间结点，然后依次“访问”左孩子和右孩子。“访问”左孩子时，会先“处理”左孩子，然后接着“访问”左孩子的左孩子……</p>
+<p>​    所以我们可以先将<strong>右孩子入栈，再将左孩子入栈。</strong>这样就可以达到我们要的先左后右的要求。然后每一次都让栈顶元素弹出。</p>
+<p>​    这里我们就只用一个tree*的指针数组来模拟栈了，就不去补全栈的代码了。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">PreOrder</span><span class="params">(tree* root)</span> &#123;</span><br><span class="line">    tree *<span class="built_in">stack</span>[MAXSIZE], *node;<span class="comment">//模拟栈</span></span><br><span class="line">    <span class="type">int</span> top = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;树为空树!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        top++;</span><br><span class="line">        <span class="built_in">stack</span>[top] = root;</span><br><span class="line">        <span class="keyword">while</span> (top &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            node = <span class="built_in">stack</span>[top];</span><br><span class="line">            top--;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, node-&gt;data);</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (node-&gt;r_child != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            	top++;</span><br><span class="line">                <span class="built_in">stack</span>[top] = node-&gt;r_child;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;l_child != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            	top++;</span><br><span class="line">                <span class="built_in">stack</span>[top] = node-&gt;l_child;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">###<span class="meta">#output:####</span></span><br><span class="line">#PreOrder:</span><br><span class="line">#<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-​    上面就是非递归的前序遍历的实现，接下来，我们考虑如果我们先右孩子后左孩子，如果我们先让左孩子入栈，再让右孩子入栈。这其实相当于“先右后左”的前序遍历，如果我们这样做，设想一下：对于输出出的序列，根结点始终是在最左侧的，由于我们按照“中右左”的顺序，每一个子结构的根结点（也就是中），它们都在子结构在序列的相对位置里的最左侧。
-
+<p>​    上面就是非递归的前序遍历的实现，接下来，我们考虑如果我们先右孩子后左孩子，如果我们先让左孩子入栈，再让右孩子入栈。这其实相当于“先右后左”的前序遍历，如果我们这样做，设想一下：对于输出出的序列，根结点始终是在最左侧的，由于我们按照“中右左”的顺序，每一个子结构的根结点（也就是中），它们都在子结构在序列的相对位置里的最左侧。</p>
 <center>
-    <img src='/images/BT_pre_no_recursive.gif'>
+    <img src='/images/BT_pre_no_recursive.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    所以我们可以直接翻转我们“中右左”得到的序列，这样就能得到“左右中”的后序遍历的序列。具体来说，我们可以通过一个<strong>辅助的栈</strong>来实现。</p>
 <center>
-    <img src='/images/BT_post_no_recursive.gif'>
+    <img src='/images/BT_post_no_recursive.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    然而如果我们想接着实现非递归的中序遍历，就会有一些问题了。我们再观察前面两个非递归遍历的逻辑，核心在于，对于一个不为空的结点，（我们任何时候都可以视它为一个结构的根结点），这个结点在被访问到的时候，就立刻被处理/输出了。</p>
 <p>​    而中序遍历没有这样的性质，我们虽然也是从初始的根结点开始，但我们需要先遍历完整个左子树， 才会输出原来的根结点。所以在刚才的那种逻辑（栈非空时，输出栈顶元素，然后先右后左的让子树入栈）<strong>很适合前序和后序，但不适合中序。</strong></p>
@@ -269,8 +264,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InOrder</span><span class="params">(tree* root)</span></span><br><span class="line">&#123;</span><br><span class="line">	tree *<span class="built_in">stack</span>[MAXSIZE], *node;</span><br><span class="line">	<span class="type">int</span> top=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;树为空树!\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		node = root;</span><br><span class="line">		<span class="keyword">while</span>(node!=<span class="literal">NULL</span> || top &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(node!=<span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// printf(&quot;%d &quot;, node-&gt;data); 在这里输出可以实现前序遍历 </span></span><br><span class="line">				top++;</span><br><span class="line">				<span class="built_in">stack</span>[top] = node;</span><br><span class="line">				node = node-&gt;l_child;  <span class="comment">//遍历左子树 </span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				node = <span class="built_in">stack</span>[top];</span><br><span class="line">				top--;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, node-&gt;data);  <span class="comment">//输出 </span></span><br><span class="line">				node = node-&gt;r_child;  <span class="comment">//遍历右子树 </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    这里我们使用类似一路向左的操作，本质上是使用<strong>栈记录搜索的路径</strong>。然后当探测到接下来的某个孩子为空时，再进行输出。</p>
 <center>
-    <img src='/images/BT_in_no_recursive.gif'>
+    <img src='/images/BT_in_no_recursive.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    在上面代码的逻辑中，我们是先将一路向左的结点全入栈了，当到叶子结点时，叶子节点的左子树为空。所以我们会走else分支，如果此时我们是在出栈后，进行一次输出，我们就会输出当前的叶子结点。这就是中序遍历；如果我们是把printf放在遍历左子树之前，那么此时我们其实就是先输出了根结点，就是前序遍历。</p>
 <p>​    看起来我们马上可以写出一个更通用的非递归的方式，然而此时一个不好的事情，后序遍历需要先遍历完当前节点的左右子树后再输出当前结点，也就是需要当前结点出栈时，再输出。然而在上面的逻辑中，当前节点出栈后才能访问其右子树，而在右子树遍历完成之前，当前结点已经不在栈中。所以这种写法，<strong>可以很好的联系前序和中序，但不适合后序。</strong></p>
@@ -339,9 +335,8 @@
 <p>​    在上述应用中，我们都使用的是递归的方法。但同时，我们也要记住非递归遍历时的思想。因为有时候我们可能被要求用非递归的办法来实现递归的操作。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这一篇里给出了二叉树的基本概念。只有掌握了基本概念，我们才能借助这个结构实现更复杂和有效的算法。如果我还有一次重来的机会——可惜没有如果。</p>
 <center>
-    <img src='/images/BT_0_end.png'>
+    <img src='/images/BT_0_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
-
 
 		
 

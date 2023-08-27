@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/images/amc_7.jpg">
 <meta property="og:image" content="http://example.com/images/amc_end.png">
 <meta property="article:published_time" content="2023-06-29T15:20:41.000Z">
-<meta property="article:modified_time" content="2023-07-30T04:11:58.109Z">
+<meta property="article:modified_time" content="2023-08-27T03:22:18.777Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
@@ -229,8 +229,9 @@ I\left[ n \right] =a\left[ n \right] \cos \varphi \left[ n \right]
 \\
 Q\left[ n \right] =-a\left[ n \right] \sin \varphi \left[ n \right]</script><p>​    其中$I[n]$称为同相（<em>in-phase</em>），$Q[n]$称为正交（<em>Quadrature</em>）。所以自然的，我们可以设想这样的一种调制器：</p>
 <center>
-    <img src="/images/amc_1.jpg">
+    <img src="/images/amc_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    它就可以满足上述公式的构想，我们只需要给定$I[n],Q[n]$，然后给定载波信号的频率$\omega_0$，再用一个移相器来凑$\mathrm{sin(\cdot),cos(\cdot)}$。这就是著名的“IQ调制”。这种架构的提出并不是偶然，其实背后蕴含很深的道理。</p>
 <p>​    比如我们考虑相移键控PSK：$p_{\mathrm{psk}}\left( t \right) =\sum_n{g_{T_s}\left( t-nT_s \right) \exp \left( j\varphi _n \right)}$​。在这里：</p>
@@ -245,8 +246,9 @@ g_{T_s}\left( t \right) =\left\{ \begin{array}{c}
 <p>​    同样，这种方式可以一次调制两个（独立）的信号，所以有一种理解的角度是：对于单路调制而言，它同时可以调制两个信号，携带的信息量翻倍，而最终调制信号的带宽不变，所以有更高的频率利用率。（这一点实际上是针对相同的调制方式说的。）</p>
 <p>​    现在我们要简单分析一下解调的这个过程：</p>
 <center>
-    <img src="/images/amc_2.jpg">
+    <img src="/images/amc_2.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    为了叙述的方便，接下来我们仍采用模拟表达式。实际上，考虑接收到的信号$s(t)$​，计算：</p>
 <script type="math/tex; mode=display">
@@ -295,16 +297,18 @@ a\left( t \right) =\sqrt{x^2\left( t \right) +\mathcal{H} ^2\left[ x\left( t \ri
 \\
 \omega \left( t \right) =\frac{\mathrm{d}\varphi \left( t \right)}{\mathrm{d}t}=\frac{H^{'}\left[ x\left( t \right) \right] \cdot x\left( t \right) -x^{'}\left( t \right) \cdot H\left[ x\left( t \right) \right]}{x^2\left( t \right) +\mathcal{H} ^2\left[ x\left( t \right) \right]}</script><p>​    这背后的直觉是：</p>
 <center>
-    <img src="/images/amc_3.gif">
+    <img src="/images/amc_3.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    解析信号是原始的实信号的高维表达，而且频谱完全相同。所以用其相位的瞬时变化定义瞬时频率，是合理的。其实也有不同的定义方法，但我们这里不作讨论。</p>
 <p>​    最后衔接希尔伯特变换和IQ调制的，又是欧拉公式。欧拉公式$e^{j\omega}=\cos \omega +j\sin \omega $本来就指出，<strong>正弦和余弦是一对希尔伯特变换对</strong>。</p>
 <p>​    所以现在，我们清楚了IQ调制的本质。“与其只传输一个实信号，不如传输一个解析信号。”</p>
 <h3 id="解调？整个系统？"><a href="#解调？整个系统？" class="headerlink" title="解调？整个系统？"></a>解调？整个系统？</h3><p>​    行文至此，其实我们只是对“为什么是IQ两路信号”做了回答。我们并没有给出整个系统的工作流程，虽然我们也不需要知道。但理解这整个系统，也会帮助我们加深对接下来“调制识别”的体会。</p>
 <center>
-    <img src='/images/amc_4.jpg'>
+    <img src='/images/amc_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上述过程描述的是一个数字调制信号，产生，发射，接收，识别的整个过程。所以我们需要插播一下模拟调制和数字调制的一些区别，实际上如果我们应用朴素的模拟调制，如调幅（AM），调频（FM），调相（PM）上述流程图会简单许多。这个过程将不会有“symbol mapping”，“phase shaping”。但可想而知，这种方式非常容易受干扰和衰减影响（我们可以联系数字信号和调制信号的区别）。所以这种方式已经逐渐被数字调制替代，比如一些老式收音机，仍然用的是模拟调制。</p>
 <p>​    上述过程中，发射机首先产生一段码流，我们这里并不关心这段码流的具体编码方式，如双相码，曼彻斯特编码。对此感兴趣的话可以查询计算机网络和通信原理等书籍。当得到这段码流的表示后，我们会根据调制方式$\mathcal{F} \left( \cdot \right) $来进行“符号映射”。</p>
@@ -346,8 +350,9 @@ g_{T_s}(t)=\sin\mathrm{c}\left( \frac{t}{T_s} \right) \frac{\cos \left( \pi \alp
 </blockquote>
 <p>​    我们这里对升余弦背后的一些技术细节和选择原理就不作讨论了。接下来记此时得到的两路信号（解析信号）为$s(t)$。最后$s(t)$与高频载波相乘，完成调制。如下图所示，我们实现了一个8ASK的调制方式：</p>
 <center>
-    <img src='/images/amc_5.jpg'>
+    <img src='/images/amc_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    蓝色是原始的信号，橙色是脉冲整形后的信号。可以看到其变得更光滑，同时影响了最终信号的包络。</p>
 <p>​    $s(t)$​显然可以由不同的调制方式导出，这里我举我力所能及的几个，并作一些代表性的波形（的实部），帮助读者理解，它们通式都可以表达为：</p>
@@ -358,8 +363,9 @@ s_{\mathrm{mod}}\left( t \right) =p_{\mathrm{mod}}\left( t \right) \exp \left( j
 </ul>
 <script type="math/tex; mode=display">
 p_{ask}\left( t \right) =\sum_n{b_ng_{T_s}\left( t-nT_s \right)},\\ b_n\in \left\{ 0,1,...,M-1 \right\}</script><center>
-    <img src='/images/8ask.jpg'>
+    <img src='/images/8ask.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上图所示为8ASK，可以看到幅度分布呈现不同的量级。</p>
 <ul>
@@ -367,8 +373,9 @@ p_{ask}\left( t \right) =\sum_n{b_ng_{T_s}\left( t-nT_s \right)},\\ b_n\in \left
 </ul>
 <script type="math/tex; mode=display">
 p_{psk}\left( t \right) =\sum_n{\exp \left( j\varphi _n \right) g_{T_s}\left( t-nT_s \right)},\\\,\,\varphi _n\in \left\{ 0,\frac{1}{M}2\pi ,...,\frac{M-1}{M}2\pi \right\}</script><center>
-    <img src='/images/bpsk.jpg'>
+    <img src='/images/bpsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上图显示了BPSK，注意波形上相位的跳变。</p>
 <ul>
@@ -376,8 +383,9 @@ p_{psk}\left( t \right) =\sum_n{\exp \left( j\varphi _n \right) g_{T_s}\left( t-
 </ul>
 <script type="math/tex; mode=display">
 p_{fsk}\left( t \right) =\sum_n{\exp \left( j\left( \omega _n-\omega _c \right) t \right) g_{T_s}\left( t-nT_s \right)},\\\,\,\varphi _n\in \left\{ \omega _1,...,\omega _M \right\}</script><center>
-    <img src='/images/2fsk.jpg'>
+    <img src='/images/2fsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上图显示了2FSK，注意波形的稠密度的变化，这是频率改变的结果。</p>
 <ul>
@@ -385,8 +393,9 @@ p_{fsk}\left( t \right) =\sum_n{\exp \left( j\left( \omega _n-\omega _c \right) 
 </ul>
 <script type="math/tex; mode=display">
 p_{qam}\left( t \right) =\sum_n{\left( a_n+jb_n \right) g_{T_s}\left( t-nT_s \right)}</script><center>
-    <img src='/images/16qam.jpg'>
+    <img src='/images/16qam.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上图显示了QAM16其实部的波形，注意它和单路幅度调制（如ASK）的区别。</p>
 <p>​    我们不需要了解每种调制方式的具体细节，我们只需要知道，阶数$M$越高，信号吞吐量就越高，但越容易受到干扰。同时，不同调制方式之间的抗干扰性本身就有一定差异。</p>
@@ -463,13 +472,15 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
 <p>​    下载可以通过访问<a target="_blank" rel="noopener" href="https://www.deepsig.ai/">DeepSig</a>，其实除了这三个以外还有一个数据集：HisarMod2019.1，模拟了一些更复杂的情况，但我自己没有在这上面做过。关于这些数据集的各种参数之类的，网上都可以查到，这里不作赘述。</p>
 <p>​    我们可以检视一下RadioML2016.10a里的样本们：</p>
 <center>
-    <img src='/images/amc_6.jpg'>
+    <img src='/images/amc_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    如果你在阅读完上面的内容后，自然地产生了一个疑问：“为什么这个波形和上面生成出来的相差这么多？”。其实是出于一个很自然的原因：“采样率”。在上面模拟每种调制方式时，为了看的清晰，每个符号其实是过采样的，用了甚至100个采样点来表达一个符号。而上述数据集一般都只会过采样2倍，相当于就是4倍于载频，并不会那么高。这是进行调整后的QAM16的例子：</p>
 <center>
-    <img src='/images/amc_7.jpg'>
+    <img src='/images/amc_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    由于没有加入一些信道衰落等因素，还是和样本生成的有一定区别，但已经很神似了。</p>
 <p>​    现在，我们也能完全理解，数据集里的信号是怎么来的了。这点非常重要，因为现在是2023年，再上手的人大概import torch，继承一下torch.utils.data.dataloader就开炼了，然而对自己处理的数据是什么毫无了解！这是非常可笑的。另外，学习一下这整个过程，也可以强化一下一些信号分析上的基础，虽然这都是通信工程专业上入门级别的知识，但也够弥补（如果你和我一个专业且一个学校）一些培养方案上的缺陷。</p>
@@ -501,7 +512,7 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
 <p>​    但是，这个任务说穿了，也是一个非常基础的分类任务，实现难度并不会很大，适合初学者上手。但是，<strong>零食不能当饭吃</strong>。当得到了足够的科研训练后，应当去冲击一些更有挑战性的课题。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这篇blog简单整理了自动调制识别任务所需要的一些背景知识，以及指出了一些接下来有希望的方向，算是给自己一个收尾。实际上就我个人经验，在升学面试时，老师基本不太关心自动调制识别（AMC）本身，老师大多关心这背后的信号分析的素养是否扎实，你对信号处理的理解是否到位。如果做AMC，做到最后，讲也讲不出来，支支吾吾就会说“两路正交信号”，“注意力机制”，“卷积神经网络”，那无疑是不合格的。</p>
 <center>
-    <img src='/images/amc_end.png'>
+    <img src='/images/amc_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		

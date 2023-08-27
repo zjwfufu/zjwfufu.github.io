@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    由于在要做的事情上要用到时频分析，在此之前只是简单的接触了一下傅里叶变换，可是那点程度完全不够用。所以写个blog记录一下从傅里叶变换到小波变换的过程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png">
+<meta property="og:image" content="http://example.com/images/first_fft.png">
 <meta property="article:published_time" content="2021-10-22T12:55:33.000Z">
-<meta property="article:modified_time" content="2021-10-23T16:48:48.625Z">
+<meta property="article:modified_time" content="2023-08-27T03:04:04.892Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="傅里叶变换">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png">
+<meta name="twitter:image" content="http://example.com/images/first_fft.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -277,7 +277,11 @@ f_T\left( t \right) =\sum_{n=-\infty}^{\infty}{\frac{1}{T}\int_{-\frac{T}{2}}^{\
 <script type="math/tex; mode=display">
 \mathcal{F} ^{-1}\left( \omega \right) =\frac{1}{2\pi}\int_{-\infty}^{\infty}{\mathcal{F} \left( \omega \right) e^{i\omega t}}\mathrm{d}\omega</script><p>​    这就是傅里叶逆变换，它会将频域信息再变回去，这里的$1/2\pi$实际上是归一化因子，在不同地方会有不同写法，比如可能根号一下放在傅里叶变换中，这对我们的目的是无所谓的。</p>
 <p>​    现在唯一的问题就是，这个积分往往不是很好计算，而计算机又无法直接处理反常积分，以及实际采样获得的信号，也并不是连续的，都只是离散点。所以后面就有了离散傅里叶变换（DFT），这是下一篇要介绍的内容了，但实际上它们的原理完全一致。</p>
-<p><img src="https://i.loli.net/2021/10/24/5Fi3djuxg92AIOK.png" alt="image-20211024004545639"></p>
+<center>
+    <img src='/images/first_fft.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这是利用matlab进行傅里叶变换的结果，可以直观的看到，信号的频率确实被直观的提取了出来。</p>
 
 		

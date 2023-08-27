@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://example.com/images/try_nerf_7.gif">
 <meta property="og:image" content="http://example.com/images/nerf_end.jpg">
 <meta property="article:published_time" content="2023-08-04T01:37:14.000Z">
-<meta property="article:modified_time" content="2023-08-26T14:43:29.804Z">
+<meta property="article:modified_time" content="2023-08-27T03:21:07.310Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -220,8 +220,9 @@
 <h3 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序<a name="6"></a></h3><p>​    NeRF解决的任务是“novel view synthesis”，就是有一组相同事物不同角度的照片，如何通过这组照片合成出其他角度下的照片，这其实可以理解为对图片的某种插值。我们可能很容易认为：“如果我可以给出任意角度下某个场景的照片，那我是不是就重建出了一个三维场景？”。可以这么理解，所以NeRF也带动了“3D reconstruction”这个任务的发展。</p>
 <p>​    但在最后我们会讨论，这两者之间虽然紧密联系，但还是有差别的，以及NeRF并不适合进行三维重建。但由于对于没有接触过相关领域的人，我们可能既不了解“novel view synthesis”，也不了解“3D reconstruction”。这就导致NeRF可能是接触到的第一篇跟3D沾边的事物，如果提前不学NeRF而是先一股脑缕清前面的related work，那只会导致“懂的都懂，不懂的说了也不懂”的尴尬局面。所以我们可以暂时认为“NeRF”就是通过实现了“3D reconstruction”，然后由于重建出了整个场景，所以就可以直接“novel view synthesis”。当我们理解了NeRF以后，会自然地再回到这个话题。</p>
 <center>
-    <img src="/images/3d_recon_demo.jpg">
+    <img src="/images/3d_recon_demo.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 
 <p>​    遗憾的是，我们可能对“重建”也知之甚少。然而我突然发觉，之前数学建模中接触到的“计算机断层扫描”，其整个过程的逻辑和背景与NeRF有类似之处，以及其本身也是实现“重建”的一种思路。所以出于对CUMCM2017的致意，同时当作热身，所以会先用CT扫描的理论基础——拉东变换（Radon Transform）来抛砖引玉。</p>
@@ -240,8 +241,9 @@ I=I_0e^{-\mu d}</script><p>​    上式其实就是朗伯-比尔定律（Beer-L
 I=I_0e^{-\left( \mu _1d_1+\mu _2d_2+...+\mu _nd_n \right)}</script><p>​    这里厚度$d_i$是已知的，每次测量后，$I/I_0$也是已知的。所以多次测量会自然地导出一个线性方程组。</p>
 <p>​    显然，为了解决这个方程组，我们需要更多的信息。所以考虑这样的情形：</p>
 <center>
-    <img src='/images/nerf_2.jpg'>
+    <img src='/images/nerf_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    我们可以记录从不同角度射入的光线，在不同光路下行进的光程$s$，只要我们采集$m$个角度，这种离散的情形就可以张成一个线性方程组，我们记$p=\ln \frac{I}{I_0}$：</p>
 <script type="math/tex; mode=display">
@@ -261,8 +263,9 @@ s\in \left( -\infty ,+\infty \right) , \theta \in \left( 0,\pi \right)</script><
 <script type="math/tex; mode=display">
 R\left( \theta ,p \right) =\iint{f\left( x,y \right) \cdot \delta \left( p-x\cos \theta -y\sin \theta \right) \mathrm{d}x\mathrm{d}y}</script><p>​    实际上$R(\theta,p)$就是拉东变换的意思，所以拉东变换其实就是一个将函数$f(x,y)$转化为参数坐标$(\theta,p)$下的积分变换：</p>
 <center>
-    <img src="/images/nerf_3.jpg">
+    <img src="/images/nerf_3.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    这样作出来的$\theta-p$图，也被称为弦图（sinogram）。为什么这么叫呢？因为假设$f(x,y)$只有一个孤立的点$(x_0,y_0)$的值非零，而其余值均为0。那么此时经过$(x_0,y_0)$的那些有值的$R(\theta,p)$一定满足：</p>
 <script type="math/tex; mode=display">
@@ -287,20 +290,23 @@ R\left( \theta ,p \right) =\iint{f\left( x,y \right) \cdot \delta \left( p-x\cos
 \\
 =\mathcal{F} \left[ f\left( \omega \cos \theta ,\omega \sin \theta \right) \right]</script><p>​    上面的推导给了通过“通过不断的扫描得到的线积分来复原一个场”一个很坚实的理论基础，它指出：<strong>二维函数投影的一维傅里叶变换等于函数的二维傅里叶变换沿与探测器平行的方向过原点的切片。</strong></p>
 <center>
-    <img src='/images/nerf_4.jpg'>
+    <img src='/images/nerf_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    这个定理只是一个理论上的保证，实际操作时可能要引入各种各种工程优化的机制，因为不难看出。为了覆盖完整的区域，需要的$\theta$是无止境的。并且越高频的地方是越不会被覆盖的，这就导致了大量的误差，以及重建的模糊。</p>
 <center>
-    <img src='/images/nerf_5.gif'>
+    <img src='/images/nerf_5.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    所以就有了一些相应的迭代重建算法，滤波反投影，来得到更好的重建效果，这里我们对其不作讨论。</p>
 <p>​    实际上，我们可以发现，上面举的三个不同材质的$\mu_i$的例子，实际上是拉东变换的一个特例。如果一个$f(x,y)$从上到下分为三个部分，每个部分的值都是一个定值。那么其傅里叶变换的非零处基本也只有一根竖线。所以一次切片即可复原，对应的其实就是线性方程组被化简为对角阵时的情形（我们只需沿着“宽-高”的面射一个角度即可）。</p>
 <p>​    拉东变换其实可以扩展为$\mathbb{R} ^n$上的实值函数的拉东变换，其定义为了一个$n-1$维上的积分值。我们刚才介绍的其实就是$\mathbb{R} ^2$，那么$\mathbb{R} ^3$自然也是可以的。</p>
 <center>
-    <img src='/images/randon_supp.jpg'>
+    <img src='/images/randon_supp.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 
 <p>​    只不过此时在现实生活中就需要用一个足够大的平行板探测器，这基本是不能承受的。所以工程实现时一般是应用例如三维锥形束FDK算法，这就是更复杂的话题了，这里就不予讨论了。</p>
@@ -309,8 +315,9 @@ R\left( \theta ,p \right) =\iint{f\left( x,y \right) \cdot \delta \left( p-x\cos
 <h3 id="体渲染"><a href="#体渲染" class="headerlink" title="体渲染"></a>体渲染</h3><p>​    现在热身完了，我们继续朝着理解NeRF的方向前进。</p>
 <h4 id="导出渲染方程"><a href="#导出渲染方程" class="headerlink" title="导出渲染方程"></a>导出渲染方程</h4><p>​    在CT重建时，人们往往要一个灰度表示就好了，但在真实成像时我们需要颜色。可以使用图形学中一种叫作体渲染（Volume Rendering）的技术来实现这一点，它最初是目的是为了解决一些类似云雾一样的半透明，非刚性物体的渲染。它的一个好处就是天然可微，给反向传播带来了机会。</p>
 <center>
-    <img src="/images/nerf_1.jpg">
+    <img src="/images/nerf_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    考虑上图，假设整个场景由若干粒子组成，也就是密度$\sigma$，颜色$c$各不相同的粒子。我们认为，光线碰到这些粒子后，会发生吸收，从而导致其光照强度遭到衰减，衰减的部分用于让粒子“发光”。</p>
 <p>​    除了不考虑衍射以外，这个假设可能乍一听都很反直觉，但它其实是完美契合“光路可逆”的一种建模。中学物理告诉我们，光线照射到一个物体上时，一部分色光的光谱会被吸收，剩下的部分再反射进我们的眼里，产生颜色。那么这种反射的性质实际上被直接建模为了颜色$c$，比如一个红色不透明的球面，我们就可以理解为是一个$\sigma$很大的球面，其颜色$c$为红。由于其$\sigma$很大，光线被尽数吸收，所以传递到后面的光线只剩很小的一部分，这就导致球面内部的粒子基本不能被“点亮”，从而产生了不透明。</p>
@@ -377,14 +384,16 @@ C\left( \mathbf{r} \right) =\alpha _1c_1+\left( 1-\alpha _1 \right) \left( \alph
 <h3 id="相机与变换"><a href="#相机与变换" class="headerlink" title="相机与变换"></a>相机与变换</h3><p>​    我们现在确定了“从多个角度射入光线可以重建一个场”以及“如何模拟一条光线光路上的颜色”。我们甚至都没有引入“图片”，我们讨论的都只是一条光线。</p>
 <p>​    不同于拉东变换时我们可以想象一个无限大的平板探测器，图像的引入需要借助“相机”，一般指的都是最简单的针孔相机模型：</p>
 <center>
-    <img src='/images/nerf_6.jpg'>
+    <img src='/images/nerf_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    为了分析的方便，经常将成像平面沿小孔（光心）对称处理，使图像不再倒立，如图中蓝色虚线所指平面。</p>
 <h4 id="相机外参"><a href="#相机外参" class="headerlink" title="相机外参"></a>相机外参</h4><p>​    现在，我们要公式化一下上述过程：</p>
 <center>
-    <img src='/images/nerf_7.jpg'>
+    <img src='/images/nerf_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    首先，体素所在的（整个场）有一个默认坐标系，称为世界坐标系$O-x_wy_wz_w$。不同的相机可能会从不同的角度进行拍摄，即不同的$\phi,\theta$，以及此时小孔位置的三维坐标。即我们可以通过绕$z_w$轴和绕$x_z$轴旋转坐标系，然后再对坐标系进行平移，来将世界坐标系上的一个点转移到相机坐标系下的表示。假设此时相机的位置是$(x,y,z)$，那么可以绕$z_w$轴旋转$\theta$，再绕$x_w$轴旋转$\phi$：</p>
 <script type="math/tex; mode=display">
@@ -515,15 +524,15 @@ x=\frac{f_cx_c}{z_c}
 \\
 y=\frac{f_cy_c}{z_c}</script><p>​    对于相同的$(x_c,y_c)$，$z_c$越大，其投影出来的$(x,y)$越小。除以$z_c$的这一步也被称为“透视除法（perspective division）”，这正是“近大远小”的物理规律，图来自<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LS4y1b7xZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=770437002a403fccdaf0ff2a150cee20">该视频</a></p>
 <center>
-    <img src="/images/camera_2.jpg">
+    <img src="/images/camera_2.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
-​    
 
-​    刚才我们所有的推导，都是基于一个坐标的操作。然而在一个$\mathbb{R}^3$中，摄像机本身其实建立了一个视锥：
-
+<p>​    </p>
+<p>​    刚才我们所有的推导，都是基于一个坐标的操作。然而在一个$\mathbb{R}^3$中，摄像机本身其实建立了一个视锥：</p>
 <center>
-    <img src="/images/camera_1.jpg">
+    <img src="/images/camera_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    注意我们定义了视锥的left($l$),right($r$),bottom($b$),top($t$),near($n$),far($f$，不要与上文表示焦距的$f_c$混淆)，这个视锥的深度可能很深，比如是一张人的照片，背后是一座大山。山的实际位置可能远得多。如果我们此时用3D坐标来表示的话，可能需要一个值域很大的$z$来表示。所以一种表示是将这个视锥规范化成一个长宽高均在$[-1,1]$内的立方体。这个立方体张成的空间也叫NDC空间（normalized device coordinates）。</p>
 <p>​    不失一般性，我们认为$l=-r,b=-t$。与二维的情形相比，我们需要多引入一个齐次坐标：</p>
@@ -618,14 +627,16 @@ t'=\frac{td_z}{\left( o_z+td_z \right)}=1-\frac{o_z}{o_z+td_z}
     \frac{2fn}{f-n}\cdot \frac{1}{o_z}\\
 \end{array} \right]</script><p>​    这里最重要的一个观察是$t’$与$t$成反比关系，或者与倒数成线性关系。这表明在$t’$上线性插值，等价于在$t$上作“倒数线性插值”。后者也被称为“深度（depth）采样”或者“视差（disparity）采样”，这种采样规定了一种特殊的在$z$轴上插值的方法。</p>
 <center>
-    <img src='/images/camera_3.jpg'>
+    <img src='/images/camera_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 
 <p>​    如图所示，如果在原空间均匀采样，那么在NDC空间里就会变得不均匀。</p>
 <center>
-    <img src="/images/camera_4.jpg">
+    <img src="/images/camera_4.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 
 <p>​    如果在原空间里倒数线性的采样，那么NDC空间里就会变成均匀的线性采样。</p>
@@ -713,8 +724,9 @@ t'=\frac{td_z}{\left( o_z+td_z \right)}=1-\frac{o_z}{o_z+td_z}
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input_ch_views = <span class="number">0</span></span><br><span class="line">embeddirs_fn = <span class="literal">None</span></span><br><span class="line"><span class="keyword">if</span> args.use_viewdirs:</span><br><span class="line">    embeddirs_fn, input_ch_views = get_embedder(args.multires_views, args.i_embed)</span><br><span class="line">output_ch = <span class="number">5</span> <span class="keyword">if</span> args.N_importance &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">4</span></span><br><span class="line">skips = [<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
 <p>​    然后，又多定义了一个为了”viewdirs”的embedder，以及给出了一些如output_ch，skips的设置。为了搞清楚这是在干嘛，就要在这里给出NeRF整体的网络结构了：</p>
 <center>
-    <img src="/images/nerf_8.jpg">
+    <img src="/images/nerf_8.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    可以看出，NeRF并不是真的把$(x,y,z,\theta,\phi)$直接输入，然后8层MLP直接梭哈。它是先输入$\mathbf{x}=(x,y,z)$位置编码后成为一个长为60的向量，然后送入MLP，中途设一个skips决定跳连位置。</p>
 <blockquote>
@@ -803,7 +815,7 @@ z_{\mathrm{vals}}=\mathrm{near}\cdot \left( 1-t_{\mathrm{vals}} \right) +\mathrm
 <p>​    现在，一切离散化的描述都具备了。最后会由raw2outputs()函数完成最后的计算：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">raw2outputs</span>(<span class="params">raw, z_vals, rays_d, raw_noise_std=<span class="number">0</span>, white_bkgd=<span class="literal">False</span>, pytest=<span class="literal">False</span></span>):</span><br><span class="line">    raw2alpha = <span class="keyword">lambda</span> raw, dists, act_fn=F.relu: <span class="number">1.</span>-torch.exp(-act_fn(raw)*dists)</span><br><span class="line"></span><br><span class="line">    dists = z_vals[...,<span class="number">1</span>:] - z_vals[...,:-<span class="number">1</span>]</span><br><span class="line">    dists = torch.cat([dists, torch.Tensor([<span class="number">1e10</span>]).expand(dists[...,:<span class="number">1</span>].shape)], -<span class="number">1</span>)  <span class="comment"># [N_rays, N_samples]</span></span><br><span class="line"></span><br><span class="line">    dists = dists * torch.norm(rays_d[...,<span class="literal">None</span>,:], dim=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    rgb = torch.sigmoid(raw[...,:<span class="number">3</span>])  <span class="comment"># [N_rays, N_samples, 3]</span></span><br><span class="line">    noise = <span class="number">0.</span></span><br><span class="line">    <span class="keyword">if</span> raw_noise_std &gt; <span class="number">0.</span>:</span><br><span class="line">        noise = torch.randn(raw[...,<span class="number">3</span>].shape) * raw_noise_std</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Overwrite randomly sampled data if pytest</span></span><br><span class="line">        <span class="keyword">if</span> pytest:...</span><br><span class="line"></span><br><span class="line">    alpha = raw2alpha(raw[...,<span class="number">3</span>] + noise, dists)  <span class="comment"># [N_rays, N_samples]</span></span><br><span class="line">    <span class="comment"># weights = alpha * tf.math.cumprod(1.-alpha + 1e-10, -1, exclusive=True)</span></span><br><span class="line">    weights = alpha * torch.cumprod(torch.cat([torch.ones((alpha.shape[<span class="number">0</span>], <span class="number">1</span>)), <span class="number">1.</span>-alpha + <span class="number">1e-10</span>], -<span class="number">1</span>), -<span class="number">1</span>)[:, :-<span class="number">1</span>]</span><br><span class="line">    rgb_map = torch.<span class="built_in">sum</span>(weights[...,<span class="literal">None</span>] * rgb, -<span class="number">2</span>)  <span class="comment"># [N_rays, 3]</span></span><br><span class="line"></span><br><span class="line">    depth_map = torch.<span class="built_in">sum</span>(weights * z_vals, -<span class="number">1</span>)</span><br><span class="line">    disp_map = <span class="number">1.</span>/torch.<span class="built_in">max</span>(<span class="number">1e-10</span> * torch.ones_like(depth_map), depth_map / torch.<span class="built_in">sum</span>(weights, -<span class="number">1</span>))</span><br><span class="line">    acc_map = torch.<span class="built_in">sum</span>(weights, -<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> white_bkgd:</span><br><span class="line">        rgb_map = rgb_map + (<span class="number">1.</span>-acc_map[...,<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rgb_map, disp_map, acc_map, weights, depth_map</span><br></pre></td></tr></table></figure>
 <p>​    在这个函数中，局部定义了匿名函数raw2alpha，它是将网络输出的用来当作$\sigma$的那一维，祛负然后计算为$\alpha_i$的。dists是对采样序列作差分，对应公式推导中的$\delta_i$。然后每个点的颜色由输出的用来当作颜色的那三个通道，压进0~1后来表示。</p>
-<p>​    在计算颜色（rgb_map）时，代码实现是按照上文提到的Alpha合成的那个风格来实现的，计算$\alpha_i$和$\prod_{j=1}^{i-1}{\left( 1-\alpha _j \right)}$，本质是一样的。同时会返回视差图（disp_map），深度图（depth_map），累积图（acc_map）以及每条光线上的采样点计算出的权重$w_i$（weights）。</p>
+<p>​    在计算颜色（rgb_map）时，代码实现是按照上文提到的Alpha合成的那个风格来实现的，计算$\alpha_i$和$\prod_{j=1}^{i-1}{\left( 1-\alpha _j \right)}$，和$T_i\left( 1-e^{-\sigma _i\delta _i} \right)$本质是一样的。同时会返回视差图（disp_map），深度图（depth_map），累积图（acc_map）以及每条光线上的采样点计算出的权重$w_i$（weights）。</p>
 <p>​    这里有一个一直存在于render_kwargs_train里的一个参数：white_bkgd，终于用上了。这个参数穿越这么多层堆栈，其实只为了是在那种合成出的数据集格式（blender）下补加一个白色背景。（其实设为false出来的结果也差不多，因为图像本身就是白的，但可能psnr会差一点。）</p>
 <p>​    如果N_importance&gt;0，需要进行重要性采样。那么就会拿刚才的weights作为先前sample_pdf()函数的输入，采样出来新的坐标点，训练，渲染，然后更新{‘rgb_map’, ‘disp_map’, ‘acc_map’}。同时coarse网络计算出的结果会标记为rgb_map_0, disp_map_0, acc_map_0，一块传出去来优化。</p>
 <p>​    历经艰险后，我们终于从一堆函数堆栈里跳出来，回到了train()。核心的优化由下面几行代码完成：</p>
@@ -813,37 +825,43 @@ z_{\mathrm{vals}}=\mathrm{near}\cdot \left( 1-t_{\mathrm{vals}} \right) +\mathrm
 <p>“只要计算图成功传回来梯度，一切都会好起来的。” ——佚名</p>
 </blockquote>
 <h3 id="Try-it"><a href="#Try-it" class="headerlink" title="Try it!"></a>Try it!</h3><p>​    就是为了这碟醋而包的饺子！</p>
-<p>​    首先，我们可以用自己的手机对一个场景拍摄若干照片。由于现在智能手机上的相机都是自动对焦的（AF-S，AF-C），为了避免不必要的麻烦，建议改成手动对焦MF。如果拍摄不同照片时相机的焦距不同，可能会导致糟糕的成像质量。因为这说明网络拟合的场景随着视角的变化是非刚性的。当然，后面也有<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.12948">改进工作</a>去修改它。</p>
+<p>​    首先，我们可以用自己的手机对一个场景拍摄若干照片。由于现在智能手机上的相机都是自动对焦的（AF-S，AF-C），为了避免不必要的麻烦，建议改成手动对焦MF。如果拍摄不同照片时相机的焦距不同，可能会导致糟糕的成像质量。因为这会要求网络拟合的场景随着视角的变化是非刚性的。当然，后面也有<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.12948">改进工作</a>去修改它。</p>
 <center>
-    <img src="/images/try_nerf_1.jpg">
+    <img src="/images/try_nerf_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    之后，用<a target="_blank" rel="noopener" href="https://github.com/colmap/colmap">COLMAP</a>去估计相机位姿等信息。</p>
 <center>
-    <img src="/images/try_nerf_2.jpg">
-    <img src="/images/try_nerf_3.jpg">
+    <img src="/images/try_nerf_2.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/try_nerf_3.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    然后使用<a target="_blank" rel="noopener" href="https://github.com/Fyusion/LLFF">LLFF</a>中提供的imgs2pose.py，我们就可以得到一个poses_bounds.npy文件：</p>
 <center>
-    <img src="/images/try_nerf_4.jpg">
+    <img src="/images/try_nerf_4.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    其是一个N×17的矩阵，里面就是我们要的参数：</p>
 <center>
-    <img src="/images/try_nerf_5.jpg">
+    <img src="/images/try_nerf_5.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    红色的部分从左到右依次是图像的高，宽，和相机焦距。剩下的前三块蓝色部分，根据代码进行重排就可以得到相机的外参矩阵。最后两列是near和far。可以看出手机拍出来的分辨率是很大的，大约4000×3000。所以在训练时会进行8倍的下采样。</p>
 <p>​    然后仿照LLFF格式下的数据集，重写一个自己的数据集下的config，开始训练：</p>
 <center>
-    <img src="/images/try_nerf_6.jpg">
+    <img src="/images/try_nerf_6.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    最后剩余的一些生成视角路径的函数会帮忙完成测试：</p>
 <center>
-    <img src="/images/try_nerf_7.gif">
+    <img src="/images/try_nerf_7.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    可见生成的效果还是很不错的。</p>
 <h3 id="扩展讨论"><a href="#扩展讨论" class="headerlink" title="扩展讨论"></a>扩展讨论</h3><p>​    NeRF惊艳的结果马上引来了大量研究者的关注，随之而来的就是大量的改进工作，和工程上的优化。例如<a target="_blank" rel="noopener" href="https://docs.nerf.studio/en/latest/">Nerfstudio</a>, <a target="_blank" rel="noopener" href="https://www.nerfacc.com/">Nerfacc</a>，这些库都使用了大量远超我理解范围的技术，对NeRF极其变种的实现做了很多优化。所以如果想实践NeRF，或许可以不从上面vanilla的代码开始了。</p>
@@ -855,9 +873,8 @@ z_{\mathrm{vals}}=\mathrm{near}\cdot \left( 1-t_{\mathrm{vals}} \right) +\mathrm
 <p>​    总之，NeRF的改进一般都是基于一些数学原理或工程优化的角度，我没能把他们每一个都这么细致的看完。TODO list疯狂++。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这篇blog详尽的指出了原版的NeRF的原理以及各种技术细节，尤其是在网络里较少被提及NDC和—lindisp。我真希望我一年前做的就是这些，而不是对着model.py“堆积木+缝合”撞大运。</p>
 <center>
-    <img src="/images/nerf_end.jpg" width='400'>
+    <img src="/images/nerf_end.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
-
 
 		
 

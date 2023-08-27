@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/images/merge_sort.png">
 <meta property="og:image" content="http://example.com/images/sort_end.png">
 <meta property="article:published_time" content="2023-05-04T07:36:50.000Z">
-<meta property="article:modified_time" content="2023-07-28T02:02:28.847Z">
+<meta property="article:modified_time" content="2023-08-27T03:14:33.835Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -264,8 +264,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">ShellSort</span><span class="params">(rectype R[], <span class="type">int</span> d[], <span class="type">int</span> t)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j, k;</span><br><span class="line">	<span class="keyword">for</span>(k=<span class="number">0</span>; k&lt;t; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(i=d[k]+<span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">		&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span>(R[i].key &lt; R[i-d[k]].key)</span><br><span class="line">			&#123;</span><br><span class="line">				R[<span class="number">0</span>] = R[i];</span><br><span class="line">				<span class="keyword">for</span>(j = i - d[k]; j&gt;=d[k] &amp;&amp; R[<span class="number">0</span>].key &lt; R[j].key; j -= d[k])</span><br><span class="line">				&#123;</span><br><span class="line">					R[j+d[k]] = R[j];</span><br><span class="line">				&#125;</span><br><span class="line">				R[j+d[k]] = R[<span class="number">0</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    我们一般采取$n/2^i$来作为步长，比如$n=10000$的话，最开始的步长是$5000$，然后$2500$，最终到1。</p>
 <center>
-    <img src="/images/shell_sort.gif">
+    <img src="/images/shell_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    希尔排序的时间复杂度的分析比较困难，我们只需要知道，由于增量序列选择不同，希尔排序的复杂度在$O(n\mathrm{log}n)$到$O(n^2)$之间；当$n$达到某特定范围时，时间复杂度为$O(n^{1.3})$。</p>
 <p>​    实际上，希尔排序与插入排序相比，它是先整体地对待整个序列，使其相对有序，最后再整体有序。而插入排序是令有序区严格的有序。这两者之间体现了通过<strong>减少递归深度来使其尽快达到递归边界</strong>的思想。也就是分治法(<em>divide and conquer</em>)，我们在后面的几种排序中也会遇到这种思想。</p>
@@ -273,8 +274,9 @@
 <p>​    所以，这是一种基于<strong>交换</strong>的排序。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(rectype R[])</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;n+<span class="number">1</span>-i; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(R[j].key &gt; R[j+<span class="number">1</span>].key)</span><br><span class="line">			&#123;</span><br><span class="line">				R[<span class="number">0</span>] = R[j+<span class="number">1</span>];</span><br><span class="line">				R[j+<span class="number">1</span>] = R[j];</span><br><span class="line">				R[j] = R[<span class="number">0</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <center>
-    <img src="/images/bubble_sort.gif">
+    <img src="/images/bubble_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    朴素的冒泡排序，无论对于已排好序的序列还是完全的逆序列，都表现出$O(n^2)$​。一个很简单的改进是标记一个交换标志：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(rectype R[])</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j, swap;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">        swap = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;n+<span class="number">1</span>-i; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(R[j].key &gt; R[j+<span class="number">1</span>].key)</span><br><span class="line">			&#123;</span><br><span class="line">				R[<span class="number">0</span>] = R[j+<span class="number">1</span>];</span><br><span class="line">				R[j+<span class="number">1</span>] = R[j];</span><br><span class="line">				R[j] = R[<span class="number">0</span>];</span><br><span class="line">                swap = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">if</span>(!swap)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -339,8 +341,9 @@
 <p>​    然后，我们只需要递归的进行这个划分，然后对每个划分的子序列进行排序即可：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">QuickSort</span><span class="params">(rectype R[], <span class="type">int</span> s, <span class="type">int</span> t)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="keyword">if</span>(s&lt;t)</span><br><span class="line">	&#123;</span><br><span class="line">		i = Partition(R, s, t);</span><br><span class="line">		QuickSort(R, s, i<span class="number">-1</span>);</span><br><span class="line">		QuickSort(R, i+<span class="number">1</span>, t);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <center>
-    <img src="/images/quick_sort.gif">
+    <img src="/images/quick_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    仔细观察动图，我们会发现一个现象。如果序列是基本有序的，那么每一次分成的两个子序列的长度会相差很大。比如选pivot为末尾的关键字，然而此时序列基本有序，末尾的关键字基本就是最大的。这导致划分出的序列和没划分一样：</p>
 <center>
@@ -556,30 +559,34 @@ C\left( n \right) =\left( n+1 \right) \sum_{i=0}^n{\frac{2}{i+1}\begin{array}{c}
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">SelectSort</span><span class="params">(rectype R[])</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j, k;</span><br><span class="line">	rectype temp;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		k = i;</span><br><span class="line">		<span class="keyword">for</span>(j=i+<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(R[j].key &lt; R[k].key)</span><br><span class="line">			&#123;</span><br><span class="line">				k = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(k!=i)</span><br><span class="line">		&#123;</span><br><span class="line">			temp = R[i];</span><br><span class="line">			R[i] = R[k];</span><br><span class="line">			R[k] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    我们容易分析出这种排序的时间复杂度为$O(n^2)$，并且它也没有什么最好情况最坏情况之分。这种算法体现了<strong>贪心策略</strong>，即每步我都只选当下最好的解。</p>
 <center>
-    <img src="/images/select_sort.gif">
+    <img src="/images/select_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    然而，这种排序其实并没有很好的利用每次比较的结果。比如在第$n$次比较时所要做的判断，可能在前面已经判断过了。基于这一点，就有了堆排序。</p>
 <h3 id="Heap-Sort"><a href="#Heap-Sort" class="headerlink" title="Heap Sort"></a>Heap Sort</h3><p>​    堆排序是选择排序的一种改进，它将储存的记录借助一个完全二叉树的顺序结构来进行存储。这种结构称为堆。但这个过程远远没有平衡二叉树那么令人头疼，实际上你如果乐意，你完全可以把它看成“基于先验的对数组元素进行交换”。</p>
 <p>​    堆是具有以下性质的完全二叉树，它的非叶子结点的关键字，都必须大于等于或小于等于其左右孩子的关键字。要求是完全二叉树的原因，是因为完全二叉树的层序遍历可以和序列索引一一对应。满足条件$R[i].key\ge R[2i].key$且$R[i].key\ge R[2i+1].key$的，称为大根堆。满足条件$R[i].key\le R[2i].key$且$R[i].key\le R[2i+1].key$的，称为小根堆。</p>
 <center>
-    <img src="/images/heap.png">
+    <img src="/images/heap.png" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    我们可以很直接的发现这个结构的好处，大根堆可以直接找到最大值，小根堆可以直接找到最小值。我们以大根堆为例，如果我们能一直维护这个性质，每次只需要输出堆顶元素，即可得到一个有序序列。</p>
 <p>​    我们先考虑给定一个序列，如何建立一个堆。这里有两种，<em>自顶向下</em>建堆法和<em>自底向上</em>建堆法。它们分别对应着<strong>上滤</strong>和<strong>下滤</strong>两种操作。</p>
 <p>​    我们先来考虑下滤：</p>
 <center>
-    <img src="/images/sift_down.png">
+    <img src="/images/sift_down.png" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    堆序性的一个好处是，当破坏一个结点的堆序性后，它的左孩子和右孩子以及孩子们的结构的堆序性不会被破坏。同时，当我们真正调整了不满足堆序性的结点后，破坏的性质也只会传递到一侧。这使得处理这个问题比旋转二叉树要简单许多。上图即表示了下滤的过程。</p>
 <p>​    同时，由于完全二叉树的性质，后$[n/2]$的结点都是叶子结点，叶子结点天然满足堆序性。所以我们可以只下滤操作前$[n/2]$的结点。但不要误解，我们并不是不会交换后$[n/2]$的结点，因为叶子节点天然满足堆序性不代表其父结点满足。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HeapSift_down</span><span class="params">(rectype R[], <span class="type">int</span> s, <span class="type">int</span> t)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j;</span><br><span class="line">	rectype temp;</span><br><span class="line">	i = s;</span><br><span class="line">	j = <span class="number">2</span> * i;</span><br><span class="line">	<span class="keyword">while</span>(j &lt;= t)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(j&lt;t &amp;&amp; R[j].key &lt; R[j+<span class="number">1</span>].key)</span><br><span class="line">		&#123;</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(R[j].key &lt; R[i].key)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			::swap(R[i], R[j]);</span><br><span class="line">			i = j;</span><br><span class="line">			j = <span class="number">2</span> * i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 <p>​    类似地，我们也可以推出上滤操作：</p>
 <center>
-    <img src="/images/sift_up.png">
+    <img src="/images/sift_up.png" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    然而上滤操作需要循环所有元素：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HeapSift_up</span><span class="params">(rectype R[], <span class="type">int</span> s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    i = s;</span><br><span class="line">    j = i / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (j &gt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (R[i].key &lt; R[j].key)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ::swap(R[i], R[j]);</span><br><span class="line">            i = j;</span><br><span class="line">            j = i / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -606,8 +613,9 @@ C\left( n \right) =\left( n+1 \right) \sum_{i=0}^n{\frac{2}{i+1}\begin{array}{c}
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HeapSort</span><span class="params">(rectype R[])</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i = n/<span class="number">2</span>; i&gt;=<span class="number">1</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		HeapSift_down(R, i, n);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">1</span>; i&lt;n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		::swap(R[<span class="number">1</span>], R[n-i+<span class="number">1</span>]);</span><br><span class="line">		HeapSift_down(R, <span class="number">1</span>, n-i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    我们可以看到，运行时间主要消耗在初始建堆和对堆的反复筛选上。初始建堆虽然是$O(n)$，但后面每次要调整$n$次，每次是$O(\mathrm{log}n)$，所以堆排序的实际复杂度还是$O(n\mathrm{log}n)$。所以在有些资料里，其实并没有强调上滤和下滤，因为其只是一个常数级优化。堆排序的过程可以可视化为：</p>
 <center>
-    <img src="/images/heap_sort.gif">
+    <img src="/images/heap_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    一个能让这个小节变得干净利落的原因是：堆排序对原始序列的状态并不敏感，并不会因为序列有序或者有大量重复数字，就显著降低效率。这是其与快速排序相比最大的优点。</p>
 <p>​    然而大部分时候，在一些标准库的内置函数里，我们还是会使用基于快排的排序。这是因为堆排虽然很稳定，但由于它交换时的索引一般不会在一个局部内（i和2i），这会导致Cache命中率的降低，从而影响性能。</p>
@@ -616,8 +624,9 @@ C\left( n \right) =\left( n+1 \right) \sum_{i=0}^n{\frac{2}{i+1}\begin{array}{c}
 <p>​    取出最高优先级的元素，</p>
 <p>​    可以以$O(1)$的时间复杂度查看最高优先级的元素（即堆顶），这个操作也叫<em>peek</em>。</p>
 <center>
-    <img src="/images/priority_queue.gif">
+    <img src="/images/priority_queue.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <h3 id="Merge-Sort"><a href="#Merge-Sort" class="headerlink" title="Merge Sort"></a>Merge Sort</h3><p>​    归并排序和前面介绍的排序都不一样，它是完全基于分治思想得出的。简单来说，你可以把含有$n$个记录的序列，看成$n$个有序的子表，每个子表长度为1，所以它们必然是有序的。之后两两归并，一直恢复到长度为$n$的序列为止。这种算法即二路归并排序。</p>
 <p>​    归并两个有序表这个操作本身是很容易的，比如有两个表$A,B$。由于$A,B$​都是有序的，就像两个牌堆一样，你每次只关注顶部哪张牌最小，就拿哪个即可。自然地，我们可以通过开辟一个辅助空间来实现这个归并操作：</p>
@@ -627,13 +636,15 @@ C\left( n \right) =\left( n+1 \right) \sum_{i=0}^n{\frac{2}{i+1}\begin{array}{c}
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">MergeSort</span><span class="params">(rectype R[], <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(left == right)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">	MergeSort(R, left, mid);</span><br><span class="line">	MergeSort(R, mid + <span class="number">1</span>, right);</span><br><span class="line">	Merge(R, left, right, mid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    整个过程可视化如下：</p>
 <center>
-    <img src="/images/merge_sort.gif">
+    <img src="/images/merge_sort.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    从动图里我们其实能清晰的看到三步：分(<em>Divide</em>)—治(<em>Conquer</em>)—合并(<em>Combine</em>)。我们可以分析整个递归的过程：</p>
 <center>
-    <img src="/images/merge_sort.png">
+    <img src="/images/merge_sort.png" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    在每一层递归，最后的合并都一共需要$O(k\times \frac{n}{k})$的时间复杂度，同时一共递归$O(\mathrm{log}n)$层，所以归并排序的总的时间复杂度是$O(n\mathrm{log}n)$。之前我们讨论归并操作时说其需要$O(n)$的额外空间，在这里，除了这一部分额外空间以外，还有递归调用所隐式消耗的栈空间（类似快排）$O(\mathrm{log}n)$。但由于增长速度上$n&gt;\mathrm{log}n$，所以我们一般都只说归并排序的空间复杂度是$O(n)$。</p>
 <p>​    显然，我们可以仿照快速排序，用栈来模拟上面的归并排序：</p>
@@ -739,7 +750,7 @@ n!\approx \sqrt{2\pi n}\left( \frac{n}{e} \right) ^n</script><p>​    可以进
 <p>​    最后我们讨论一下快速排序，归并排序，堆排序三者。这三者都有$O(n\mathrm{log}n)$的平均时间复杂度，快排的缺点是对于不同的输入，表现不够稳健。归并的缺点是需要$O(n)$的额外空间。堆排序的缺点是不能很好的支持局部性原理。所以具体使用哪些排序，是需要case by case的。例如在一些内存紧张的边缘设备中，我们就最好不要采用归并排序。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “悟已往之不谏，知来者之可追。”</p>
 <center>
-    <img src="/images/sort_end.png">
+    <img src="/images/sort_end.png"  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 		
 

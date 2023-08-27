@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://example.com/images/CS_2_10.png">
 <meta property="og:image" content="http://example.com/images/CS_2_11.png">
 <meta property="article:published_time" content="2022-06-10T13:44:19.000Z">
-<meta property="article:modified_time" content="2022-06-23T16:17:22.736Z">
+<meta property="article:modified_time" content="2023-08-27T03:23:11.432Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
@@ -207,22 +207,38 @@
 <h1 id="quiz1"><a href="#quiz1" class="headerlink" title="quiz1:"></a>quiz1:</h1><p>​    利用6264芯片在8位ISA系统总线上实现00000H~03FFFH的主存区域，试画其连接电路图。若在8086系统总线（16位ISA总线）上实现主存模块，试画其连接电路图：</p>
 <p>​    首先，我们得知道什么是6264芯片，简单来说它有8位数据位，13位地址位。而要实现的主存区域是00000H~03FFFH，我们化成二进制，然后得到主存范围是$2^{14}$，也就是32K。这个时候，数据位8位对8位对上了，我们只需要考虑字，也就是进行字扩展。此时我们需要扩大2倍，所以一个1-2译码器就够了。</p>
 <p>​    注意到所给的主存区域，则总线上应有20位。我们直接作出：</p>
-<p><img src="/images/CS_2_1.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    啊，我就懒的画了，直接贴答案了。我们注意左侧8位ISA的情况，对$A_{14}$到$A_{19}$作用一个或门，相当于把它压缩成了0/1一个单元，当它是0以及$A_{13}$是0时，激活下面的芯片，$A_{13}$是1时激活上面的芯片。值得注意的是，$A_{14}$到$A_{19}$实际上是进行一个要求它们全为0的约束，这样的话就能精准实现00000H~03FFFH。</p>
 <p>​    当系统总线的数据位增多时，第二块芯片数据线的连法就可以发生变化，如上图所示，即位扩展。</p>
 <h1 id="quiz2"><a href="#quiz2" class="headerlink" title="quiz2:"></a>quiz2:</h1><p>​    某CPU地址总线为$A_0$~$A_{19}$，数据总线为$D_0$~$D_7$，主存读信号为$\overline{MEMR}$，主存写信号为$\overline{MEMW}$。某SRAM连接电路如图：</p>
-<p><img src="/images/CS_2_2.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    (1)分析该图，指出该SRAM芯片占用的主存地址范围。</p>
 <p>​    (2)采用该SRAM芯片实现30000H~33FFFH的主存区域，试画连接图。</p>
 <p>​    这道题就清晰的阐述了上面的思想，我们注意到，片选线是否激活由下面的组合逻辑电路决定，只有在$A_{13}=0$,$A_{14}$~$A_{19}=1$时才能被激活，所以地址范围是1111 110x xxxx xxxx xxxx，换算得FC000H~FDFFFH。</p>
 <p>​    注意到30000H=0011 0000 0000 0000 0000，33FFF=0011 0011 1111 1111 1111，我们发现了范围是0011 00xx xxxx xxxx xxxx，所以按照这个逻辑控制$A_{14}$~$A_{19}$即可。就与前面的quiz1呼应了。</p>
-<h1 id="quiz3"><a href="#quiz3" class="headerlink" title="quiz3:"></a>quiz3:</h1><p><img src="/images/CS_2_3.png" alt=""></p>
+<h1 id="quiz3"><a href="#quiz3" class="headerlink" title="quiz3:"></a>quiz3:</h1><center>
+    <img src='/images/CS_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这个Cache和主存的映射关系肯定会考，总的来说，三种不同的映射方式满足下面的关系：</p>
 <p>​    全相联映射：主存物理地址=标记+块内地址</p>
 <p>​    组相联映射：主存物理地址=标记+组号+块内地址</p>
 <p>​    直接映射：主存物理地址=标记+Cache行号+块内地址</p>
 <p>​    在这里写一下我的理解：Cache是把主存的某一块拿过来，存着，为了提速。</p>
-<p><img src="/images/CS_2_4.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    主存是一串二进制数，在这里我们将其分块，例如四个一块，那么一个块中，只会有最后两位不相同。而这四个地址其余部分都相同，所以是一个块，那样把这个块送入Cache后，只需要知道后两个数，就可以取得数据，这后两个数即“块内地址”，前面的那一串块号，就是“标记”，标记唯一指定了一个块。</p>
 <p>​    如果使用直接映射和组相联映射，标记位可以进一步缩短，我们以上面的quiz3为例：</p>
 <p>​    (1)主存1MB，共20位，每块1KB，那么块内地址占10位。四路组相联，即分成了四组，每组2块。那么组号占两位，组内区号占一位。所以标记占20-(10+2+1)=7位。</p>
@@ -230,7 +246,11 @@
 <p>1CDEH，就是从Cache的角度看，索引加原来的块内地址。</p>
 <p>​    我们再看一种经典的找位数分区的题目：</p>
 <p>​    某计算机采用页式虚拟存储管理方式，按字节编址，虚拟地址为32位，物理地址为26位，页大小为4KB，TLB采用全相联映射；Cache数据区大小为64KB，按2路组相联方式组织，主存块大小为64B。</p>
-<p><img src="/images/CS_2_9.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    (1)A~G的位数各是多少？TLB标记字段B中存放的是什么信息？</p>
 <p>​    解：</p>
 <p>​    A,B是虚页号，虚拟地址32位，页大小4KB是12位，所以A=B=32-12=20位，D是真实地址中的页内地址，是12位。那么C是26-12=14位。之后考虑主存和Cache，由于是2路组相联，主存块大小为64B，Cache一共64KB大小，那么Cache一共1K块，两路，即512组。所以F(index)是9位，块内地址G是6位(64B)，E是26-6-9=11.</p>
@@ -239,7 +259,11 @@
 <p>,0.02,0.02,0.01,0.01。给出定长操作码，霍夫曼编码，只用两种码长的扩展操作码的三种方案。</p>
 <p>​    定长操作码，显然只需4位即可。平均操作码长度也为4。</p>
 <p>​    霍夫曼编码，我们构造霍夫曼树。</p>
-<p><img src="/images/CS_2_5.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    然后求一下平均操作长度：3.38</p>
 <p>​    (这个手算起来好繁琐)</p>
 <p>​    两种码长的扩展操作码，即分成大概率和小概率的，大概率的（大于0.1）有6个，3位就够了。剩下的8个，只能用四位来表示了。</p>
@@ -248,9 +272,17 @@
 <p>​    最后计算平均操作码长度为4×50%+6×25%+10×15%+10%×13=6.3位。</p>
 <h1 id="quiz5"><a href="#quiz5" class="headerlink" title="quiz5:"></a>quiz5:</h1><p>​    寻址方式</p>
 <p>​    一条指令中，地址码的解读方式可能有很多，所以会加入寻址特征，数据寻址的种类如下，其中EA表示effective address。形式地址为A。</p>
-<p><img src="/images/CS_2_6.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我们会在习题中看见他们的复合，但是只要按照上图捋清楚，都是很直接的。例如：</p>
-<p><img src="/images/CS_2_7.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    (1)是立即寻址，R1直接等于1200H。(2)是寄存器寻址，R1=0100H。(3)是间接寻址，查表得，注意目标寄存器是16位的数据，采用小端存储，所以4C2AH。(4)是寄存器间接寻址，0100H是12H，0101H是34H，小端存储为3412H。(5)寄存器相对寻址，看到这种表示直接相加即可，1100H与0100H相加，得1200H，是4C2AH。(6)基址变址寻址，看这个意思是两个间接寻址的地址相加，即0100H+0002H=0102H，查表得7856H。(7)EA=0100+0002+1100=1202H，得65B7H。</p>
 <h1 id="quiz6"><a href="#quiz6" class="headerlink" title="quiz6:"></a>quiz6:</h1><p>​    一些概念性的指标类运算：</p>
 <p>​    CPI(Clock Cycles Per Instruction)</p>
@@ -277,7 +309,11 @@ T=h\times T_C+\left( 1-h \right) \times T_M</script><p>​    磁盘指标：</p
 \\
 \text{非格式化容量}=\text{位密度}\times \frac{\text{内圈磁道周长}+\text{外圈磁道周长}}{2}\times \text{每盘面磁道数}\times \text{盘面数}
 \\
-\text{数据传输率}=\text{每扇区字节数}\times \text{每道扇区数}\times \text{磁盘转速}</script><p><img src="/images/CS_2_8.png" alt=""></p>
+\text{数据传输率}=\text{每扇区字节数}\times \text{每道扇区数}\times \text{磁盘转速}</script><center>
+    <img src='/images/CS_2_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    磁头沿盘径向移动，找磁道。磁头不动，盘片旋转，找扇区。最后一个指标是平均访问时间，它分为寻道时间$T_s$，等待时间$T_r$，数据传输时间$T_t$。</p>
 <script type="math/tex; mode=display">
 T_r=\frac{1}{2r}
@@ -298,14 +334,21 @@ S_n\left( m \right) =\frac{mn\tau}{\left( m+n-1 \right) \tau}=\frac{m}{1+\frac{m
 <script type="math/tex; mode=display">
 E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h1 id="quiz7"><a href="#quiz7" class="headerlink" title="quiz7:"></a>quiz7:</h1><p>​    第六章考核上给我一种波将金村的感觉，遂记录一下。</p>
 <p>​    某计算机系统简化的CPU结构如下图：</p>
-<p><img src="/images/CS_2_10.png" alt=""></p>
+<center>
+    <img src='/images/CS_2_10.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    (1)写出ADD R0 R1（功能为$\mathrm{R}_0\gets \left( \mathrm{R}_0 \right) +\left( \mathrm{R}_1 \right) $）的微流程。</p>
 <p>​    (2)写出ADD R0 (R1) 的微流程。</p>
 <p>​    (3)写出ADD R1, B(R2)的微流程。其中B是偏移量。</p>
 <p>​    (4)写出减法指令SUB R1 100(PC)的微流程。</p>
 <p>​    实际上我们可以发现，这一定程度考察了前面的寻址方式。</p>
 <p>​    我们都是先取指令(fetch)，在我们这里是直接执行(execute)，即二级时序。注意不同寻址方式下的差别。</p>
-<p><img src="/images/CS_2_11.png" alt="">    </p>
+<center>
+    <img src='/images/CS_2_11.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 
 		
 

@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://example.com/images/FFT_5.png">
 <meta property="og:image" content="http://example.com/images/FFT_7.png">
 <meta property="article:published_time" content="2022-04-18T15:21:36.000Z">
-<meta property="article:modified_time" content="2022-06-12T14:47:14.610Z">
+<meta property="article:modified_time" content="2023-08-27T03:04:40.335Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="傅里叶变换">
@@ -203,13 +203,21 @@
 <span id="more"></span>
 <p>​    由于前面我们已经推导出了傅里叶变换的数学表达式，以及阐述了在实际情况下我们用的是离散形式的傅里叶变换，所以下文对这两个概念不作区分，同时也尽量避免数学表达式的出现，多和例子相结合。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">fs = <span class="number">100</span>;<span class="comment">%采样频率</span></span><br><span class="line">t = <span class="number">0</span>:(<span class="number">1</span>/fs):(<span class="number">10</span><span class="number">-1</span>/fs);</span><br><span class="line">t_1 = <span class="number">0</span>:(<span class="number">1</span>/fs):(<span class="number">5</span><span class="number">-1</span>/fs);</span><br><span class="line">t_2 = <span class="number">5</span>:(<span class="number">1</span>/fs):(<span class="number">10</span><span class="number">-1</span>/fs);</span><br><span class="line">S_1 = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1</span>*t_1);</span><br><span class="line">S_2 = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">5</span>*t_2);</span><br><span class="line"></span><br><span class="line">S = [S_1 S_2];</span><br><span class="line">S_cp = [S_2 S_1];</span><br><span class="line"></span><br><span class="line">n = <span class="built_in">length</span>(S);</span><br><span class="line">X = fft(S);</span><br><span class="line">X_2 = fft(S_cp);</span><br><span class="line">f = (<span class="number">0</span>:n<span class="number">-1</span>)*(fs/n);</span><br><span class="line">fshift = (-n/<span class="number">2</span>:n/<span class="number">2</span><span class="number">-1</span>)*(fs/n);<span class="comment">%zero-center化后的频率</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">221</span>);</span><br><span class="line"><span class="built_in">plot</span>(t,S)</span><br><span class="line">xlabel(<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line">Y = fftshift(X);<span class="comment">%重新排列</span></span><br><span class="line">powershift = <span class="built_in">abs</span>(Y).^<span class="number">2</span>/n;<span class="comment">%计算频率幅度</span></span><br><span class="line">subplot(<span class="number">222</span>);</span><br><span class="line"><span class="built_in">plot</span>(fshift,powershift)</span><br><span class="line">xlabel(<span class="string">&#x27;f&#x27;</span>);</span><br><span class="line">subplot(<span class="number">223</span>);</span><br><span class="line"><span class="built_in">plot</span>(t,S_cp)</span><br><span class="line">xlabel(<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line">Y_2 = fftshift(X_2);</span><br><span class="line">powershift_2 = <span class="built_in">abs</span>(Y_2).^<span class="number">2</span>/n;</span><br><span class="line">subplot(<span class="number">224</span>);</span><br><span class="line"><span class="built_in">plot</span>(fshift,powershift_2)</span><br><span class="line">xlabel(<span class="string">&#x27;f&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="/images/FFT_1.png" alt=""></p>
+<center>
+    <img src='/images/FFT_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这个例子很好的说明了傅里叶变换的局限性，（实际上我们从傅里叶变换的表达式中可以看到，前一半和后一半的变换结果是共轭的，所以它们的幅度是一样的，这也是为什么我们表示的时候用了fftshift()，否则图像将会以二分之采样频率为对称轴对称。）也就是它将全部的信息从时域变化为了频域，而没有表达出频率随时间的变化，导致两个不同的波形，傅里叶变换后的结果是一样的。</p>
 <p>​    此时我再更新这一篇blog的时候已经是2022年4月18日了，马上要期中考试，本来是想写短时傅里叶变换继而引入小波变换，但是物是人非。现在打算在下面整理一下傅里叶变换的性质并加一些例子便于记忆：</p>
 <p>​    首先，作为一个工科生，我自然不会关心“这积分符号是否可以交换”，“这严谨吗”等等……所以……</p>
 <p>​    首先我们选取经典的$Sinc$函数在时域的波形用于下面的可视化：</p>
 <script type="math/tex; mode=display">
-\mathrm{Sinc}\left( x \right) =\frac{\sin \pi x}{\pi x}</script><p><img src="/images/FFT_2.png" alt=""></p>
+\mathrm{Sinc}\left( x \right) =\frac{\sin \pi x}{\pi x}</script><center>
+    <img src='/images/FFT_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    左边是时域图，右边是频域。可以看出右边是个门函数，至于为什么是门函数我们后面会提到。</p>
 <p>​    线性性质我们这里就默认了，因为傅里叶变换是个线性变换，这个无需赘述。</p>
 <p>​    下面我们考虑时域变量$t$发生线性变换而变为$at+b$的情况：</p>
@@ -229,18 +237,30 @@
 \text{所以}\mathcal{F} \left[ f\left( at+b \right) \right] =\frac{1}{\left| a \right|}e^{j\frac{b}{a}\omega}F\left( j\frac{\omega}{a} \right)</script><p>​    当$b=0$时，上式变为：</p>
 <script type="math/tex; mode=display">
 \mathcal{F} \left[ f\left( at \right) \right] =\frac{1}{\left| a \right|}F\left( j\frac{\omega}{a} \right)</script><p>​    被称为尺度变换。这个式子表明，当信号$f(t)$被时域压缩$1/a$的时候，频域将展宽，但频率分量的幅度也被削弱，这是能量守恒的体现。比如当快放视频时，会觉得声音发尖，这就是频率展宽后高频分量的作用。我们将上面的$Sinc$函数开个刀试一下：</p>
-<p><img src="/images/FFT_3.png" alt=""></p>
+<center>
+    <img src='/images/FFT_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    看，确实是这样的。</p>
 <p>​    当取$a=1$时，即没有尺度变换时，称为时移特性：</p>
 <script type="math/tex; mode=display">
 \mathcal{F} \left[ f\left( t\pm t_0 \right) \right] =e^{\pm jt_0\omega}F\left( j\omega \right)</script><p>​    容易看出这个变换不会使得幅度谱发生改变，只会改变相位。这个例子就不能靠$Sinc$函数了，我们找一个平移后的门函数来验证一下：</p>
-<p><img src="/images/FFT_4.png" alt=""></p>
+<center>
+    <img src='/images/FFT_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    幅度谱没有变化，相位谱变了。并且要注意，如果门函数是完全沿$y$轴对称的，它根本不应该有相位谱，因为变换后的结果是$\tau \mathrm{Sa}\left( \frac{\omega \tau}{2} \right) $没有虚部。通过这一现象我们进一步可以加深对这一性质的理解。</p>
 <p>​    跟时移性质对偶的是频移性质，它是调制的基础：</p>
 <script type="math/tex; mode=display">
 \mathcal{F} \left[ f\left( t \right) e^{\pm j\omega _0t} \right] =\int_{-\infty}^{+\infty}{f\left( t \right) e^{\pm j\omega _0t}\cdot e^{-j\omega t}\mathrm{d}\omega}=\int_{-\infty}^{+\infty}{f\left( t \right) \cdot e^{-j\left( \omega \mp \omega _0 \right) t}\mathrm{d}\omega}=F\left( j\omega \mp j\omega _0 \right) 
 \\
-f\left( t \right) e^{\pm j\omega _0t}\longleftrightarrow F\left( j\omega \mp j\omega _0 \right)</script><p>​    <img src="/images/FFT_6.png" alt=""></p>
+f\left( t \right) e^{\pm j\omega _0t}\longleftrightarrow F\left( j\omega \mp j\omega _0 \right)</script><center>
+    <img src='/images/FFT_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这里为了可视化的直观，取了一个特殊的情况$\mathrm{cos}(20t)$，可以看到频谱发生了搬移，分向了高频部分。这里的一些细节我们最后再汇总。</p>
 <p>​    实际上，特殊地，我们将信号$f(t)$乘上$\mathrm{cos}(\omega_0t)$或$\mathrm{sin}(\omega_0t)$，此时的频谱会发生搬移，利用欧拉公式展开，可以得下面这俩常用的结论：</p>
 <script type="math/tex; mode=display">
@@ -259,7 +279,11 @@ f\left( -\omega \right) =\frac{1}{2\pi}\int_{-\infty}^{+\infty}{F\left( jt \righ
 f\left( t \right) \longleftrightarrow F\left( j\omega \right) 
 \\
 F\left( jt \right) \longleftrightarrow 2\pi f\left( -\omega \right)</script><p>​    特别地，当$f$具有奇偶性质时，该性质十分好用。注意常数因子$2\pi$，这个因子其实是为了能量守恒，如果我们最初定义傅里叶正变换需要乘一个$\sqrt{1/2\pi}$，那对称性就不需要标出常数了。对于这个性质有一个比较high-level的解释方法：</p>
-<p><img src="/images/FFT_5.png" alt=""></p>
+<center>
+    <img src='/images/FFT_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    将时域和频域看成一个时频平面，每一次傅里叶变换相当于沿正方向（逆时针）转九十度。那么转两次就会是一个flip，这是可以证明的。而若交换$\omega,t$，就会有对称性的结论，负号正是因为旋转两次，到了一个负方向上。</p>
 <p>​    接下来是时域的微积分性质，微分性质非常直接：</p>
 <script type="math/tex; mode=display">
@@ -314,7 +338,11 @@ F\left( j\omega \right) =\int_{-\infty}^{+\infty}{f\left( t \right) e^{-j\omega 
 tf\left( t \right) \longleftrightarrow j\frac{\mathrm{d}}{\mathrm{d}\omega}F\left( j\omega \right)</script><p>​    频域积分定理和时域积分定理的证明十分类似，这里就直接给出结论：</p>
 <script type="math/tex; mode=display">
 \int_{-\infty}^{\omega}{F\left( j\omega \right)}\mathrm{d}\omega \longleftrightarrow \left( \pi \delta \left( t \right) -\frac{1}{jt} \right) f\left( t \right)</script><p>​    最后的时域和频域卷积定理我们以后再说，利用上述性质可以推出一系列函数的傅里叶变换：</p>
-<p><img src="/images/FFT_7.png" alt=""></p>
+<center>
+    <img src='/images/FFT_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    这张图整理了常用的傅里叶变换对以及它们的联系，这里主要要提的是右下角的几个能量信号的傅里叶变换。门函数可以由两个阶跃函数线性表示，所以通过时移性质，尺度变换和线性性质可以从阶跃函数的傅里叶变换导出门函数的傅里叶变换，当然直接用定义计算也不复杂。我们在这里写一下由阶跃函数导出的过程，可以有助于加深对前面性质的应用：</p>
 <script type="math/tex; mode=display">
 \varepsilon \left( t \right) \longleftrightarrow \pi \delta \left( \omega \right) +\frac{1}{j\omega}
@@ -522,8 +550,8 @@ g\left( t \right) \longleftrightarrow j\omega F\left( j\omega \right) =G\left( j
     </a>
   
   
-    <a href="/2022/04/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">卷积神经网络(#TODO)</div>
+    <a href="/2022/03/07/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A13/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数理统计3</div>
       <i class="icon-circle-right"></i>
     </a>
   

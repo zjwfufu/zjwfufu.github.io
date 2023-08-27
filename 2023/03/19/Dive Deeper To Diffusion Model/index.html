@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/diffusion_plus_2.png">
 <meta property="og:image" content="http://example.com/images/diffusion_plus_3.png">
 <meta property="article:published_time" content="2023-03-19T03:24:14.000Z">
-<meta property="article:modified_time" content="2023-08-22T15:17:44.464Z">
+<meta property="article:modified_time" content="2023-08-27T02:56:40.809Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -228,8 +228,9 @@ L_{\mathrm{hybrid}}=L_{\mathrm{simple}}+\lambda L_{\mathrm{vlb}}</script><p>​ 
 <p>​    当然，为什么人们一开始就不用$L_{\mathrm{vlb}}$，因为其很难优化。IDDPM中展示直接优化这种loss，梯度噪声极大。所以他们引入重要性采样来缓解，这也是一种方法。</p>
 <h5 id="Improved-scheduler"><a href="#Improved-scheduler" class="headerlink" title="Improved scheduler"></a>Improved scheduler</h5><p>​    同时，这篇论文给出了一种新的噪声调度器，即“余弦”式的，相比于线性调度器，他直观上不会让信息消逝的那么快。具体到个人的实验上有哪个好，主要靠试。典型的除了Linear, Cosine，其实还有Sqrt, Sigmoid等调度器，只不过比较小众。一般用Cosine就挺合适的了。</p>
 <center>
-    <img src='/images/diffusion_plus_0.png'>
+    <img src='/images/diffusion_plus_0.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    但是根据我的使用经验，具体是什么scheduler还要结合所生成的内容的性质和分布。比如你需要生成的内容最终是低频，光滑的，那么最好就不要用sqrt调度器。因为其在$t$很小时，sqrt的噪声量级仍然很大。但高频，一定程度上也意味着，会有更多的细节（如果被训练的完备的话）。我们很难说对于自然图像，或者序列数据的这个分布，需要额外的噪声来逼近细节是否合理。但如果是latent space的话，谁知道呢？没准有奇效。</p>
 <h5 id="Class-condition"><a href="#Class-condition" class="headerlink" title="Class-condition"></a>Class-condition</h5><p>​    这篇论文最后指出，将类别信息和时间步一起，送入model中建模。这样就可以指定类别的生成了。当人们通过这篇论文确定了，这样做是会work以后，铺天盖地的工作就都来了。这些后面再说。</p>
@@ -284,16 +285,18 @@ q\left( \boldsymbol{x}_{t-1}|\boldsymbol{x}_t,\boldsymbol{x}_0 \right) =\sqrt{\b
 \epsilon _{\theta}\left( \boldsymbol{x}_t,t \right) =\frac{\boldsymbol{x}_t-\sqrt{\bar{\alpha}_t}\boldsymbol{x}_0}{\sqrt{1-\bar{\alpha}_t}}</script><p>​    它是这样相互估计来的。$\boldsymbol{x}_0$和$\epsilon _{\theta}\left( \boldsymbol{x}_t,t \right)$是模型的两种输出，模型本身抑或估计噪声抑或估计$\boldsymbol{x}_0$。我们之所以换算成这种形式，是因为这会带来一种很好的视角（注意公式下面的三个文字注解）：</p>
 <p>​    我们接下来用一种更直观的图示来理解一下上面的那个式子，就像中学时的尺规作图一样，我们约定刚才的$\boldsymbol{x}, \epsilon…$都发生在二维平面里：</p>
 <center>
-    <img src='/images/diffusion_plus_1.png'>
+    <img src='/images/diffusion_plus_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    上面三个图展示了在三种$\sigma_t$的情形下，整个去噪过程的形态。首先我们知道，如果噪声预测网络非常的准确，非常的神奇，那么直接就有$\boldsymbol{x}_0=\boldsymbol{x}_t-\epsilon _{\theta}\left( \boldsymbol{x}_t,t \right) $。然而实际上并没有那么容易，所以我们用估计出的$\boldsymbol{\hat{x}}_0$来替代上式的$\boldsymbol{x}_0$。这样，在图上，反映出来的就是$\boldsymbol{\hat{x}}_0$和$\boldsymbol{x}_0$的位置不同，我们可以通过此时的$\boldsymbol{x}_t$和$\boldsymbol{x}_0$来确定预测出的噪声向量$\epsilon _{\theta}\left( \boldsymbol{x}_t,t \right) $。然后，公式中的“direction pointing to $\boldsymbol{x}_t$”，自然就如图所示了。</p>
 <p>​    所以，从$\boldsymbol{x}_t$得到$\boldsymbol{x}_{t-1}$，相当于三个向量相加。当$\sigma_t =0$时，最后的那个噪声项，由于噪声是随机的，我们就视作一个圆吧，就消失了。于是整个过程就是确定性的了。此时就是，DDIM。所以，DDIM的I（implicit），就指的是“隐式的概率模型”，因为它推出来的结果其实是确定性的。</p>
 <p>​    当$\sigma _t=\sqrt{1-\bar{\alpha}_{t-1}}$时，指向$\boldsymbol{x}_t$的向量就消失了。此时就是朴素的DDPM。</p>
 <p>​    当然，如图上所示，我们相加时的三个向量，其中第一个是$\sqrt{\bar{\alpha}_{t-1}}\boldsymbol{\hat{x}}_0$，并不是$\boldsymbol{\hat{x}}_0$本身。自然，这是公式整理出的直接结果。其实，在后面如果有机会，我介绍score-based model时，我们会发现，从这个角度来理解，会对这个$\sqrt{\bar{\alpha}_{t-1}}$有更深的理解。现在我们可以给出一个直接的直觉：考虑用朴素的线性调度器时$\sqrt{\bar{\alpha}_{t-1}}$的曲线：</p>
 <center>
-    <img src='/images/diffusion_plus_2.png'>
+    <img src='/images/diffusion_plus_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
+
 
 <p>​    我们发现，当处于比较大的采样步数$t$时，$\sqrt{\bar{\alpha}_{t-1}}$很小，基本就是零。这其实指代的是，在这种比较大的$t$时，预测的$\boldsymbol{\hat{x}}_0$相当不准，所以我们给其分配的权重就比较低。这个地方就先解释到这里了。</p>
 <p>​    所以，在探索了这么多以后，我们其实可以给出一个很简单的DDIM的介绍：</p>
@@ -425,7 +428,7 @@ q\left( \boldsymbol{x}_m|\boldsymbol{x}_n \right) =\sqrt{\bar{\alpha}_m}\boldsym
 <p>​    所以其实在实际训练时，都是只优化随机抽取到的时间$t$。这个求和符号只是数学上的意义。这在只用$L_{\mathrm{simple}}$时很直接，我取一个$\boldsymbol{x}_0$，加噪到$\boldsymbol{x}_t$，预测噪声，计算预测噪声和真实噪声的二范数，然后优化。当loss多加一项$L_{\mathrm{vlb}}$，就像IDDPM里一样时，我们也是只计算$t$时的那一项，即$L_{t}$。</p>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    通过理解DDIM和IDDPM，现在我们对扩散模型有了更进一步的认识，但这还不够。他们的背后可以用更统一的框架来实现，等到有时间的时候再仔细学一下。除去一些理论上的启发和理解外，openAI开源的gaussian_diffusion.py写的也很规范和工整，值得我们学习。</p>
 <center>
-    <img src='/images/diffusion_plus_3.png'>
+    <img src='/images/diffusion_plus_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		

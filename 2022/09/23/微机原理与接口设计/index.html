@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/images/micro_computer_3.png">
 <meta property="og:image" content="http://example.com/images/micro_computer_end.png">
 <meta property="article:published_time" content="2022-09-23T02:16:49.000Z">
-<meta property="article:modified_time" content="2022-10-18T06:14:36.712Z">
+<meta property="article:modified_time" content="2023-08-27T03:10:07.020Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
@@ -199,7 +199,11 @@
 <span id="more"></span> 
 <p>​    首先这门课选择了一个经典具体的Intel 8086/8088来分析，先考虑8086。不同CPU寄存器设置等不尽相同，与之前central processing unit那篇实现的简单的单总线三级时序CPU不同，8086稍微复杂了一点点。</p>
 <p>​    这门课十分具有我国特色，我在作总结时参考了三本教材：微机原理与接口技术（第二版）西安电子科技大学出版社，微机原理与接口技术（第五版）电子工业出版社，和王爽老师的《汇编语言》第三版。大概我在hexo d的时候只会写到前三章（以西电出版社那本为准），所以会长期更新。</p>
-<h1 id="Intel-8086-CPU"><a href="#Intel-8086-CPU" class="headerlink" title="Intel 8086 CPU"></a>Intel 8086 CPU</h1><p><img src="/images/micro_computer_1.png" alt=""></p>
+<h1 id="Intel-8086-CPU"><a href="#Intel-8086-CPU" class="headerlink" title="Intel 8086 CPU"></a>Intel 8086 CPU</h1><center>
+    <img src='/images/micro_computer_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上图是大多数教科书中关于8086CPU的插图，从<strong>内部结构</strong>上看，它分为四部分：寄存器，控制器，算术逻辑单元，I/O控制逻辑，这四个部分在之前blog的toy model里已经被讨论过了。从<strong>功能结构</strong>上看，它可以分为两个独立的逻辑单元，执行单元EU（execution unit）和总线接口单元（bus interface unit）。这种划分方式和之前的讨论有所不同：</p>
 <p>​    如插图所示，EU是用于执行规定的操作。BIU用于完成取指令，存取数据的操作。这里的这个指令队列，是一个新物件，在之前的简单模型中是没有的。一般来说，EU和BIU可以独立，并行执行。执行过程中，满足如下规则：</p>
 <p>（1）指令队列无指令，EU处于等待状态。</p>
@@ -347,7 +351,11 @@
 <p>​    西电教材里的7个例子很好形容了变量的规则：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">VAR1 DB 12H, 0A5H, 18+20, 50/3, 0, -1</span><br><span class="line">VAR2 DW 12H, $+1</span><br><span class="line">VAR3 DD 12345678H</span><br><span class="line">VAR4 DB &#x27;ABC&#x27;</span><br><span class="line">     DW &#x27;AB&#x27;</span><br><span class="line">VAR5 DB ?,?</span><br><span class="line">VAR6 DB 4 DUP(0FFH,?)</span><br><span class="line">VAR7 DB 3 DUP(55H, 2 DUP(77H))</span><br></pre></td></tr></table></figure>
 <p>​    假设VAR1的偏移地址是0000H，存储器分配图为：</p>
-<p><img src="/images/micro_computer_2.png" alt=""></p>
+<center>
+    <img src='/images/micro_computer_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    下面我们根据上面的VAR1~VAR7复习一下一些琐碎的知识。首先我们可以声明一个常数或多个，一个时就与C语言中的int a类似，a是一个整型。当有多个常数时，类似一位数组。当有多个时从低位到高位依次存储。值得注意的是-1，我们知道计算机中以补码来存储，那么-1的原码为10000001，补码为11111111，所以是FFH。</p>
 <p>​    对于VAR2中的$，它在这里的意思是当前的偏移地址，所以这里为08H+1=09H。VAR3，定义的是一个32位变量，12345678H先存低位再存高位。特别指出，对于VAR4，注意第一个声明是8位DB，而’A’,’B’,’C’等ASCII码一个字母即代表8位。此时相当于DB ‘A’, ‘B’, ‘C’，所以按顺序低位到高位存A，B，C。当定义变量类型为DW时，相当于DW 4142H，所以低字节低位，高字节高位，就像12345678H一样。VAR5中出现的？代表先占位。VAR6和VAR7中的DUP为重复次数。</p>
 <p>​    下面我们要关注指令操作和数据的存放位置，即数据的寻址方式。与计组不同的是，我们同样需要依托于一个实际存在的指令来给出数据的寻址方式，即MOV指令：</p>
@@ -426,7 +434,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV DL, [BX+15][DI+8]</span><br></pre></td></tr></table></figure>
 <h4 id="8-隐含寻址（hidden-addressing）"><a href="#8-隐含寻址（hidden-addressing）" class="headerlink" title="8.隐含寻址（hidden addressing）"></a>8.隐含寻址（hidden addressing）</h4><p>​    在一些教材中这并没有被当作一个特别的寻址方式，所以有的教材是7种寻址方式。隐含寻址指的是操作码中本身隐含了操作数的地址。如书上举的MOVSB。一个类似的例子也出现在计组中，指ADD自动暂存在ALU的累加寄存器中，在这里也就是AX。</p>
 <h2 id="MOV"><a href="#MOV" class="headerlink" title="MOV"></a>MOV</h2><p>​    转移地址的寻址方式此处略去，因为内容不多且日后可以和JMP指令合并记录。上面我们介绍的8种寻址方式，实际上是从单纯的“数据寻址”来阐明一些规律，我们更侧重于“有这样的寻址方式”，而不是“如果我选定特定的两个单元，这样写可不可以”。后者需要专门了解MOV传送指令：</p>
-<p><img src="/images/micro_computer_3.png" alt=""></p>
+<center>
+    <img src='/images/micro_computer_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    从上面8种寻址我们一定得到一个观念：不管什么时候，确认一个物理地址都需要段地址和偏移地址。把这个记住，我们下面来看MOV指令的几个要点：</p>
 <p>①目的操作数不允许用段寄存器CS，当改变CS后，会让一个新的段成为当前代码段，而此时的IP仍然是之前代码段的下一条指令，这会导致一些奇怪的事情。</p>
 <p>②目的操作数不允许是立即数，一方面是因为立即数只是一串数，它不是变量不能被赋值。另一方面是立即数一般来自指令内部，不可更改。</p>
@@ -435,7 +447,10 @@
 <p>⑤源操作数和目的操作数不可以同时为段寄存器，电路设计上它们没有互联。而且段寄存器储存的都是不同属性的基地址，这样做没有意义。</p>
 <p>⑥源操作数和目的操作数的数据类型必须相同。例如MOV AL,BX是错误的。</p>
 <h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>​    我先在这里标个End，但这篇不知道啥时候能End。“给岁月以文明，而不是给文明以岁月。”昨天晚上路过海棠社团招新，才有一种“妈呀，我要毕业了。”的感觉。我的大学生话还只剩不到两年，只有在这种土埋半截的时候，我才能放下那些内卷，加分，保研，来满足智慧生命的好奇心。我现在看着一些课本，已经不再考虑诸如“这门课几学分，要考多少分才够。”，而是完全沉浸在logical的精彩里。我还有太多事情没有做，我在图书馆翻到了一本30天自制操作系统，非常的amusing。我想阅读pytorch的源码，了解一下我之前蹉跎岁月无脑炼丹后面到底是什么机制。我想，现在距离我回到家乡穿上外卖服，还有些时间，应该还够用。</p>
-<p><img src="/images/micro_computer_end.png" alt=""></p>
+<center>
+    <img src='/images/micro_computer_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
 <p>​    </p>
 <p>​    </p>
 <p>​    </p>

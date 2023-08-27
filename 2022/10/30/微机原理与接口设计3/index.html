@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/images/microcomputer_3_9.jpg">
 <meta property="og:image" content="http://example.com/images/microcomputer_3_end.jpg">
 <meta property="article:published_time" content="2022-10-30T08:39:49.000Z">
-<meta property="article:modified_time" content="2022-11-28T14:15:29.686Z">
+<meta property="article:modified_time" content="2023-08-27T03:11:34.836Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
@@ -209,22 +209,50 @@
         <p>​    两周没听课，微机原理又讲到后半本书了。感觉没有前半本书直接和有逻辑性，有点杂乱。这一篇主要捋一下关于西电教材-第五章-总线的知识点。</p>
 <span id="more"></span>
 <p>​    我觉得，越学到后面，就像，吃螃蟹一样。必须，用一种够巧妙的方式来理解，才能逻辑连贯。不然会撞上不可逾越的知识壁垒……比如，这一篇里会涉及到一个元件“三态门”，如果真探究到底，那么就会遇到：</p>
-<p><img src="/images/microcomputer_3_edge.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_edge.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    显然……这对于时间有限，而且有考核要求的我来说，是不可取的。所以下文不会讨论那些十分高深的内容，只是有条理的总结考试内容。</p>
-<p><img src="/images/microcomputer_3_1.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我继续召唤出这个玩具CPU，我当时在学CPU的那篇里，提到了两点：①这些“线”有规律的亮起，来一步步完成指令。②同一时钟周期内“线”上只能有一组数据。实际上这很好的刻画了，总线的特点。第一点，再仔细观察，其实是靠一种叫“三态门”的元件实现的。如果这个寄存器只需要out，那么可能三态门是单向的，例如上图中的Zout。但是有时候是需要双向的，即能读又能写，比如数据寄存器，就有一个DRin和一个DRout。第二点，由于总线上只能走一组数据，是一种竞争性资源。所以像地址一样的数据，可能需要寄存，这也就是计组中的取指令：M[PC]→IR，的用处，它将数据暂存到地址寄存器，等要用到的时候，再激活IRout的使能端，地址就又出来了。</p>
 <p>​    但是8086毕竟更复杂一些，有些地方更加复杂，而且写法不太一样，但我们仍然能从中看出一些类似的性质。：</p>
-<p><img src="/images/microcomputer_3_2.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    首先，8086CPU肯定不像上面那个玩具一样，它是封装好的，对外露出40根引脚。我们一种一种的看：</p>
 <h4 id="1-mathrm-AD-15-sim-mathrm-AD-0"><a href="#1-mathrm-AD-15-sim-mathrm-AD-0" class="headerlink" title="1.$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$"></a>1.$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$</h4><p>​    它叫Address Data Bus，这里的Bus指的就是总线。它们一共有16条，有三种状态，即“三态”。这种策略也被称为分时复用。</p>
-<p><img src="/images/microcomputer_3_ad.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_ad.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    在总线周期$T_1$状态，用于输出储存器或者IO端口的地址，在$T_2$到$T_4$状态，用来传送数据，此时是可以双向输入/输出的。这里的“三态”，“双向输入/输出”，如果看上面的toy model，这比较好理解；但如果看教材上甩的一堆74LS244什么的，会非常困惑。这里我找到了一个折中的例子：</p>
-<p><img src="/images/microcomputer_3_3.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如图左侧的情形，$G_1,G_2,G_3$三个外设都想往总线上输入数据，如果没有三态门，就需要接逻辑门做控制，比如一个纯组合逻辑电路。有了三态门以后，直接相连，使用使能端来起到开关。只要使能信号分配好了，电路就能正常工作。同一时刻只能有一个外设在写入，其余都应关闭。而且高阻态这个状态，不同于低电位。对于总线来说，如果外设处于高阻态，那其实相当于不存在。但如果是低电位，可能出现电压不稳等情况，这个不是很清楚，从略了。</p>
-<p><img src="/images/microcomputer_3_4.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    数据的双向传输也是通过上图所示的装置实现的，这样只需通过一个使能端，就可以控制数据是从外设写入总线，还是从总线写入外设。</p>
 <p>​    现在我们再来看，基于上述原理，封装的三种常用的芯片，74LS244，74LS245，74LS373。</p>
-<p><img src="/images/microcomputer_3_clip.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_clip.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    简单来说，74LS244和74LS245分别是单向和双向的信号缓冲器。由三态门的特性，它们可以用来防止竞争。74LS373是一个锁存器，它实现了寄存功能。所以前两者常用来作驱动芯片，后者常用来作地址总线锁存器。</p>
 <h4 id="2-mathrm-A-19-mathrm-S-6-sim-mathrm-A-16-mathrm-S-3"><a href="#2-mathrm-A-19-mathrm-S-6-sim-mathrm-A-16-mathrm-S-3" class="headerlink" title="2.$\mathrm{A}_{19}/\mathrm{S}_{6}\sim \mathrm{A}_{16}/\mathrm{S}_{3}$"></a>2.$\mathrm{A}_{19}/\mathrm{S}_{6}\sim \mathrm{A}_{16}/\mathrm{S}_{3}$</h4><p>​    这里A指代Address，S是Status。同样，分时复用。在$T_1$状态，与16个$AD$一起，组成20位物理地址。当$T_2$到$T_4$状态，用于输出状态信息，$S_6$为0，说明此时8086连接在总线上，$S_5$表示中断，$S_3,S_4$用来编码此时所使用的段寄存器名：</p>
 <div class="table-container">
@@ -271,18 +299,34 @@
 <p>​    $\mathrm{CLK}$即时钟信号，不需多说。</p>
 <p>​    $\mathrm{HOLD},\mathrm{HLDA}$是两个关于总线与CPU的信号，我们以一个例子来理解它们：</p>
 <p>​    直接存储器访问（direct memory access）DMA将数据从一个地址空间复制到另一个地址空间，提供外设和存储器之间或者存储器和存储器之间的高速数据传输。这个技术的关键在于跳过CPU借助总线。当DMA控制器需要占用总线时，会向CPU发出总线请求HOLD（Hold Request），CPU收到有效的HOLD信号后，如果允许让出总线，会在当前总线周期完成时，发出HLDA（Hold Acknowledge）信号，同时使地址总线，数据总线，控制总线处于高阻态，表示让出总线。在下一个时钟周期，总线请求部件收到HLDA信号，获得总线控制权。在这期间HOLD与HLDA都处于高电平，直到总线请求部件完成对总线的栈用，使HOLD变为低电平，撤销总线请求，CPU收到后，HLDA变为低电平，CPU恢复对总线的控制。</p>
-<p><img src="/images/microcomputer_3_hold.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_hold.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    下面这四个引脚往往会在一起出现：</p>
 <p>​    $\mathrm{ALE}$是Address Lunch Enable，是地址锁存允许信号。</p>
 <p>​    $\mathrm{DT}/\overline{\mathrm{R}}$是数据发送/接收控制信号，用来控制读写方向。</p>
 <p>​    $\overline{\mathrm{DEN}}$是数据允许信号。</p>
 <p>​    $\overline{\mathrm{BHE}}$是总线高位有效信号，它与$\mathrm{AD}_0$一起编码，给出总线的使用情况。我们后面会写到。</p>
 <h4 id="最小工作模式"><a href="#最小工作模式" class="headerlink" title="最小工作模式"></a>最小工作模式</h4><p>​    最小工作模式中，系统只有一个微处理器，系统所需的所有控制信号全部由8086直接产生。</p>
-<p><img src="/images/microcomputer_3_5.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    由于在8086中，依照之前的叙述，数据线和地址线是复用的。所以地址锁存器是必要的。在对存储器进行访问时，要先将地址输出。此时复用的引脚是地址线，当利用地址锁存器保存这些地址后。这些引脚才是数据线，将数据读出或写入存储器。由于一片74LS373是8位的，所以图中画了三片。而数据总线共16位，所以两片就够用了。如下图所示：</p>
-<p><img src="/images/microcomputer_3_5eg.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_5eg.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    由于我们在上面给出了许多的引脚，不方便记忆，而且我们也很难知道这些引脚到底在CPU运行时是如何进行配合的。所以我们现在分别考察读/写总线周期时的时序：</p>
-<p><img src="/images/microcomputer_3_6.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    <strong>T1</strong>状态：</p>
 <p>​    $\mathrm{M}/\overline{\mathrm{IO}}$先指出CPU是从内存还是I/O端口读取数据，其有效电平一直保持到总线周期结束的$T_4$状态。然后，20位的地址信号输出，指出所要读取的地址。高4位从$\mathrm{A}_{19}/\mathrm{S}_{6}\sim \mathrm{A}_{16}/\mathrm{S}_{3}$送出，低16位从$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$送出。与此同时，总线高位有效信号$\overline{\mathrm{BHE}}$也被送到总线上。</p>
 <p>​    之后，$\mathrm{ALE}$输出，使得地址锁存器将地址锁存。送到总线上的$\overline{\mathrm{BHE}}$与$\mathrm{AD}_0$，按下表给出下面数据总线的有效情况：</p>
@@ -329,7 +373,11 @@
 <p>​    如果在$T_3$周期里没来得及读出数据，那么会插入等待周期$T_w$，直到$\mathrm{READY}$有效。</p>
 <p>​    <strong>T4</strong>状态：</p>
 <p>​    从数据总线上撤销数据，各控制信号和状态信号变为无效。</p>
-<p><img src="/images/microcomputer_3_7.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    写总线时的时序与读时大同小异。只有几点不同：</p>
 <p>​    $\mathrm{DT}/\overline{\mathrm{R}}$会表示为高电平，表示是写入。</p>
 <p>​    $T_2$状态，地址信号输出后，CPU立即向$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$发出数据，使存储器或I/O一旦准备好即可取走数据。</p>
@@ -393,9 +441,17 @@
 <p>​    $\overline{\mathrm{S}_0},\overline{\mathrm{S}_1},\overline{\mathrm{S}_2}$会输入总线控制器8288，8288对它们进行译码后代替CPU输出相应的控制信号，我们后面会再提到。</p>
 <p>​    $\overline{\mathrm{LOCK}}$有效时，表示CPU不允许其他总线主控者（比如之前例子里的DMA系统，其他CPU）占用总线。</p>
 <p>​    $\overline{\mathrm{RQ}}/\overline{\mathrm{GT}}_1,\overline{\mathrm{RQ}}/\overline{\mathrm{GT}}_0$这两个引脚类似HOLD和HLDA，用于不同处理器之间的连接控制。</p>
-<p><img src="/images/microcomputer_3_8.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上图展示了8086最大方式下的总线结构，观察中间的总线控制器8288，它主要生成存储器和I/O端口的读写信号（$\overline{\mathrm{MRDC}},\overline{\mathrm{MWTC}},\overline{\mathrm{IORC}},\overline{\mathrm{IOWC}}$）和$\mathrm{ALE}$,${\mathrm{DEN}}$,$\mathrm{DT}/\overline{\mathrm{R}}$。注意此时由8288生成的${\mathrm{DEN}}$极性与8086CPU单独发出的相反。</p>
-<p><img src="/images/microcomputer_3_9.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    上图给出了最大模式下的读总线和写总线，我们可以观察它与最小模式的不同之处。</p>
 <p>​    只要检测到$\overline{\mathrm{S}_0},\overline{\mathrm{S}_1},\overline{\mathrm{S}_2}$任何一个或者几个为低电平，则立即开始一个新的总线周期。</p>
 <p>​    $\overline{\mathrm{MRDC}}$和$\overline{\mathrm{IORC}}$指出是读存储器还是I/O端口，代替了读信号$\overline{\mathrm{RD}}$，相当于最小模式中的$\mathrm{M}/\overline{\mathrm{IO}}$和$\overline{\mathrm{RD}}$。进入$T_3$状态后，$\overline{\mathrm{S}_0},\overline{\mathrm{S}_1},\overline{\mathrm{S}_2}$全部进入高电平，这种状态称为无源状态。一直维持到$T_4$，这意味着很快可以启动一个新的总线周期。</p>
@@ -463,7 +519,9 @@
 </table>
 </div>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    16号考模式识别，这预示着上强度的期末考试的来临。总线后是存储器设计，接口技术，中断系统和8295A，定时/计数器8253的应用设计。接口技术那一章比较水，但是另外这仨都不简单，争取每天解决一章吧。</p>
-<p><img src="/images/microcomputer_3_end.jpg" alt=""></p>
+<center>
+    <img src='/images/microcomputer_3_end.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 
@@ -587,11 +645,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/11/08/%E4%BA%BA%E4%BD%93%E5%8A%A8%E4%BD%9C%E9%A2%84%E6%B5%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/11/23/Denoising%20Diffusion%20Probabiblistic%20Model/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          人体动作预测(#TODO)
+          Denoising Diffusion Probabiblistic Model
         
       </div>
     </a>

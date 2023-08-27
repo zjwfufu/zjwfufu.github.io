@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/images/Eig5.png">
 <meta property="og:image" content="http://example.com/images/Eig6.png">
 <meta property="article:published_time" content="2022-09-14T05:52:34.000Z">
-<meta property="article:modified_time" content="2022-09-14T10:20:25.632Z">
+<meta property="article:modified_time" content="2023-08-27T03:19:41.258Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="线性代数">
@@ -202,9 +202,17 @@
 <span id="more"></span>
 <h1 id="Useful-view"><a href="#Useful-view" class="headerlink" title="Useful view"></a>Useful view</h1><p>​    说到底，当时的我没能够认识到矩阵理论的重要。不然我在之前暑假翻开数值分析的时候，就不会略去最后那一章。尤其在代数课上学到特征值和特征向量时，我感到非常的不解，但现在回过头发现，其实不难。</p>
 <p>​    一个矩阵对应着一个线性映射，这里的一个题外话：在我当时大一的时候，书上是这么写的：</p>
-<p><img src="/images/Eig1.png" alt=""></p>
+<center>
+    <img src='/images/Eig1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    如果当时以“拉伸，旋转，剪切”来佐为例子，会形象的多。例如：</p>
-<p><img src="/images/Eig2.png" alt=""></p>
+<center>
+    <img src='/images/Eig2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    那么特征值实际上就是，如果对某个向量$\mathrm{\vec{v}}$做线性变换，而特别的是，这个线性变换相当于给$\mathrm{\vec{v}}$乘上了常数$\lambda$的标量。想象一个二维向量，如果以某种特别的方式拉伸它，那么它相当于长度变化了$ \lambda$倍；但是如果一个线性变换是旋转，那么就不可能让旋转某个角度后的向量满足上述关系。也就是说此时的实常数$\lambda$不存在（计算会发现它其实是个复数）。如果我们要求解出$\mathrm{\vec{v}},\lambda$​，直接计算即可：</p>
 <script type="math/tex; mode=display">
 A\mathrm{\vec{v}}=\lambda \mathrm{\vec{v}}
@@ -290,7 +298,11 @@ A_{m\times n}=\left( \alpha _1,\alpha _2,...,\alpha _n \right)
     l_{41}u_{11}&        l_{41}u_{12}+l_{42}u_{22}&        l_{41}u_{13}+l_{42}u_{23}+l_{43}u_{33}&        l_{41}u_{14}+l_{42}u_{24}+l_{43}u_{34}+u_{44}\\
 \end{matrix} \right)</script><p>​    依次计算即可得到$L$和$U$。上三角和下三角矩阵有些许性质，上三角矩阵乘以一个上三角矩阵，仍然是上三角阵，下三角一样。同样，上三角阵的逆阵也是上三角阵，这同样适用于下三角。</p>
 <p>​    现在我们来了解一下幂法。幂法是一种求特征值和特征向量的数值方法。我们先观察一个现象：</p>
-<p><img src="/images/Eig3.gif" alt=""></p>
+<center>
+    <img src='/images/Eig3.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    我均匀选取了8个单位向量，每次作用一个矩阵$[1,3;2,4]$，每次作用后对向量进行归一化。反复迭代了数次，发现它们被“富集”到了一个方向上。这并不是偶然。这个方向其实是”主特征值”（绝对值最大的特征值）对应的特征向量的方向。同样我们假设一个矩阵$A$，它有$n$个线性无关的特征向量。则我们每次选取的一个随机的向量可以写作：</p>
 <script type="math/tex; mode=display">
 \beta _0=k_1x_1+k_2x_2+...+k_nx_n</script><p>​    当然，它在主特征向量的方向的分量$k_1$不能为0，否则就没有意义了。我们这里设定$\lambda_1$为主特征值，之后我们直接计算：</p>
@@ -365,13 +377,23 @@ U^TAV=\varSigma</script><p>​    这就是大名鼎鼎的奇异值分解（<em>
 <script type="math/tex; mode=display">
 A=U\varSigma V^T</script><p>​    任何一个线性变换，都可以通过先旋转，再拉伸，再旋转来得到。</p>
 <p>​    它的一大应用是进行主成分分析，简单来说，奇异值最大的，就是主成分。这里略去了对主成分分析的一些推导，简单来说这两者最终都归结为了对$X^TX$作特征值分解。主成分分析中最出名的例子就是鸢尾花数据集。</p>
-<p><img src="/images/Eig4.png" alt=""></p>
+<center>
+    <img src='/images/Eig4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    可以看到，$x$轴在分类中很有帮助，实际上$\sigma_1=4.23,\sigma_2=0.246$，这也解释了为什么但用$y$轴很难分类。这个例子很好的说明了对统计量的分析。</p>
 <p>​    另一个用处是压缩，例如图像压缩和去噪，例如对Lena图（256×256）进行压缩：</p>
-<p><img src="/images/Eig5.png" alt=""></p>
+<center>
+    <img src='/images/Eig5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
+
+
 <p>​    可以发现，当选取的奇异值从大到小达到100时，lena图就很清晰的展现了出来。</p>
 <h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>​    在最开始学习高等代数的时候，我遇到了很多困难，我并不习惯于代数的语言，我只是一个来自小镇的依托直觉和可视化解决全国卷一数学的普通学生（而且我解决的并不好）。我现在仍然能回想起当时被$m \times n$支配的恐惧，和那些读了半天都读不懂的话。相较我的同学们，我比较愚笨，上高中，排列组合，化学反应原理，受力分析啥的我接受的往往都很慢；大学里，当他们讨论什么东西的证明，编程，指针，平衡二叉树，我在旁边思路是跟不上的。所以我的考试成绩也不是很靠前，但是这不重要，rank不rank1或者前不前5%人还不是活着。无非是以后衣着是否光鲜或鼎食是否奢华。回想起两年前刚报到，到现在，别人一遍能学明白的，我多学几遍就好了。“故余虽愚,卒获有所闻。”</p>
-<p><img src="/images/Eig6.png" alt=""></p>
+<center>
+    <img src='/images/Eig6.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+</center>
 
 		
 
