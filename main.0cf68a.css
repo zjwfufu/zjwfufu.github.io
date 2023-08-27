@@ -320,19 +320,19 @@ body::before{
 }
 
 body {
-	/*cursor: url("http://qykz8qw1j.hn-bkt.clouddn.com/picGo/Arrow.cur"),default;*/
-	margin: 0;
-	font-size: 14px;
-	font-family: Helvetica Neue,Helvetica,STHeiTi,Arial,sans-serif;
-	line-height: 1.5;
-	color: #333;
-	/* background-color:#fff; */
-	/*background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+  /*cursor: url("http://qykz8qw1j.hn-bkt.clouddn.com/picGo/Arrow.cur"),default;*/
+  margin: 0;
+  font-size: 14px;
+  font-family: Helvetica Neue,Helvetica,STHeiTi,Arial,sans-serif;
+  line-height: 1.5;
+  color: #333;
+  /* background-color:#fff; */
+  /*background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
     url('http://qykz8qw1j.hn-bkt.clouddn.com/picGo/82213401_p1.jpg?image') no-repeat 0% 0%/ cover; */
-	background: linear-gradient(-45deg, #87CEFA, #B0C4DE);
-	animation: gradientBG 8s ease infinite;
-	background-size: 400% 400%;
-	min-height: 100%
+  background: linear-gradient(-45deg, #F0F8FF, #B0C4DE);
+  animation: gradientBG 8s ease infinite;
+  background-size: 400% 400%;
+  min-height: 100%
 }
 @keyframes gradientBG{
 	0% {
@@ -1142,14 +1142,16 @@ body {
 }
 
 .article-entry .highlight {
-	border-radius: 4px
+  background: #000;
+  border-radius: 4px
 }
 
-.article-entry .highlight pre {
-	border: none;
-	margin: 0;
-	padding: 0
-}
+  .article-entry .highlight pre {
+    background: #000;
+    border: none;
+    margin: 0;
+    padding: 0
+  }
 
 .article-entry .highlight table {
 	margin: 0;
@@ -1181,13 +1183,15 @@ body {
 }
 
 .article-entry .highlight .gutter pre {
+  color: #000;
 	text-align: right;
 	padding-right: 20px
 }
 
-.article-entry .highlight .gutter pre .line {
-	text-shadow: none
-}
+  .article-entry .highlight .gutter pre .line {
+    color: #fff;
+    text-shadow: none
+  }
 
 .article-entry .highlight .line {
 	color: #fff;
@@ -1712,11 +1716,12 @@ pre .css~* .id,pre .id {
 }
 
 .archives-wrap {
-	position: relative;
-	margin: 0 30px;
-	padding-right: 60px;
-	border-bottom: 1px solid #eee;
-	background: #fff
+  position: relative;
+  margin: 0 30px;
+  padding-right: 60px;
+  border-bottom: 1px solid #eee;
+  /* background:#fff */
+  background: rgba(255,255,255,.5);
 }
 
 .archives-wrap:first-child {
@@ -2356,24 +2361,32 @@ pre .css~* .id,pre .id {
 	margin-top: 10px
 }
 
-.article-entry li code,.article-entry p code {
-	padding: 1px 3px;
-	margin: 0 3px;
-	background: #ddd;
-	border: 1px solid #ccc;
-	font-family: Menlo,Monaco,Andale Mono,lucida console,Courier New,monospace;
-	word-wrap: break-word;
-	font-size: 14px
-}
+  .article-entry li code, .article-entry p code {
+    color: #c7254e;
+    /* background-color: #f9f2f4; */
+    background-color: rgba(249, 242, 244, .7);
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: 0 3px;
+    /* background:#ddd; */
+    /* border:2px solid #ccc; */
+    font-family: Menlo, Monaco, Andale Mono, lucida console, Courier New, monospace;
+    word-wrap: break-word;
+    /* font-size:14px */
+  }
 
-.article-entry blockquote {
-	background: #ddd;
-	border-left: 5px solid #ccc;
-	padding: 15px 20px;
-	margin-top: 10px;
-	border-left: 5px solid #657b83;
-	background: #f6f6f6
-}
+  .article-entry blockquote {
+    background: #ddd;
+    border-left: 5px solid #ccc;
+    padding: 15px 20px;
+    margin-top: 10px;
+    border-left: 5px solid #657b83;
+    /* background:#f6f6f6; */
+    background: rgba(246, 246, 246, .7);
+    /* 如果超长，自动截断 */
+    word-wrap: break-word;
+    word-break: break-all;
+  }
 
 .article-entry blockquote p {
 	margin-top: 0;
@@ -3428,7 +3441,7 @@ pre .css~* .id,pre .id {
 
 	.archives-wrap {
 		margin: 10px 10px 0;
-		padding: 10px
+		padding: 10px;
 	}
 
 	.archives-wrap .archive-article-title {
@@ -4310,3 +4323,55 @@ a.pswp__share--download:hover {
 	font-family: STXingkai;
 	font-size: 22px;
 }
+
+<!-- 《valine评论 -->
+<% if (theme.valine && theme.valine.appid && theme.valine.appkey) {
+  %> <section id="comments" class="comments"> <%- partial('post/valine', {
+            key: post.slug,
+            title: post.title,
+            url: config.url + path
+        }) %> </section> <%
+}
+/* 《评论框 */
+.comments {
+  padding: 0px;
+  margin: 0px;
+  /* background:#fff */
+  background: rgba(240,255,255,.5);
+}
+
+@media screen and (max-width:800px) {
+  .comments {
+    margin: 0px;
+    padding: 0px;
+    /* background:#fff */
+    background: rgba(240,255,255,.5);
+  }
+}
+
+/* valine的背景颜色 */
+#vcomment {
+  /* background:#fff */
+  background: rgba(240,255,255,.5);
+  padding: 0px;
+  margin: 0px;
+}
+
+  /* 设置valine占位符的颜色 */
+  #vcomment :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #979292;
+  }
+
+  #vcomment ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #979292;
+  }
+
+  #vcomment input:-ms-input-placeholder, #vcomment textarea:-ms-input-placeholder {
+    color: #979292;
+  }
+
+  #vcomment input::-webkit-input-placeholder, #vcomment textarea::-webkit-input-placeholder {
+    color: #979292;
+  }
+/* 评论框》 */
+

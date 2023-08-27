@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Neural Radiance Fields | 我起初心向明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场&#x3D;神经突击车+辐射工兵。">
+  <meta name="description" content="​    “在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场&#x3D;神经突击车+辐射工兵。”">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural Radiance Fields">
 <meta property="og:url" content="http://example.com/2023/08/04/%E7%A5%9E%E7%BB%8F%E8%BE%90%E5%B0%84%E5%9C%BA/index.html">
 <meta property="og:site_name" content="我起初心向明月">
-<meta property="og:description" content="​    在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场&#x3D;神经突击车+辐射工兵。">
+<meta property="og:description" content="​    “在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场&#x3D;神经突击车+辐射工兵。”">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/3d_recon_demo.jpg">
 <meta property="og:image" content="http://example.com/images/nerf_2.jpg">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://example.com/images/try_nerf_7.gif">
 <meta property="og:image" content="http://example.com/images/nerf_end.jpg">
 <meta property="article:published_time" content="2023-08-04T01:37:14.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:21:07.310Z">
+<meta property="article:modified_time" content="2023-08-27T03:51:40.523Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -202,7 +202,17 @@
     </h1>
   
 
+		<!--显示阅读次数-->
 		
+		  <br/>
+		  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+		  <span class="icon-sort"></span>
+		  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+					阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+		  </span>
+		  </a>
+		
+		<!--显示阅读次数完毕-->
         
         <a href="/2023/08/04/%E7%A5%9E%E7%BB%8F%E8%BE%90%E5%B0%84%E5%9C%BA/" class="archive-article-date">
   	<time datetime="2023-08-04T01:37:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-04</time>
@@ -213,7 +223,7 @@
     
 	<div class="article-entry" itemprop="articleBody">
       
-        <p>​    <del>在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场=神经突击车+辐射工兵。</del></p>
+        <p>​    “在红色警戒2中，尤里国有一个单位叫神经突击车，伊拉克有一个单位叫辐射工兵。所以神经辐射场=神经突击车+辐射工兵。”</p>
 <span id="more"></span>
 <p>​    神经辐射场（Neural Radiance Fields, NeRF）最早是一种用来解决渲染多视图图像的工具。网上其实有相当多的资料，许多翔实的博客和资料都记录的很好。所以这篇blog是记录我自己学的时候的经历，以及想补充的一些角度。</p>
 <p>​    整体来说，这篇blog将会先从一些背景知识出发，沿途补充一下相关知识，然后到NeRF的整体流程，再到代码实现。适合像我一样的，对计算机图形学毫无了解，数理基础欠佳，有着信号与系统教育背景的人通过一篇blog来掌握NeRF。</p>
@@ -911,6 +921,11 @@ z_{\mathrm{vals}}=\mathrm{near}\cdot \left( 1-t_{\mathrm{vals}} \right) +\mathrm
     </div>
     <div class="article-info article-info-index">
       
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
@@ -1038,15 +1053,48 @@ z_{\mathrm{vals}}=\mathrm{near}\cdot \left( 1-t_{\mathrm{vals}} \right) +\mathrm
   
   
 
-
-
-
   
 
   
 
   
 
+
+
+
+   
+       <section id="comments" class="comments">
+         <style>
+           .comments{margin:30px;padding:10px}
+           @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+         </style>
+         <div id="vcomment" class="comment"></div>
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+    av: AV,
+    el: '#vcomment',
+    notify: notify,
+    app_id: "KTThWK27Eh6ekYfsqiopKv5U-gzGzoHsz",
+    app_key: "422yG6fEuKk191rqIdgv7KQY",
+    placeholder: "Hi~",
+    avatar: "mm",
+  });
+</script>
+
+     </section>
+   
+
+
+
+
+  <i class="fa fa-thumb-tack"></i>
+  <font color=7D26CD>置顶</font>
+  <span class="post-meta-divider">|</span>
 
           </div>
         </div>
@@ -1109,6 +1157,7 @@ MathJax.Hub.Queue(function() {
 </script>
 <script type="text/javascript" src="/./click.js">
 </script>
+<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -1214,10 +1263,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">课外学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
               </li>
              
@@ -1231,6 +1276,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">课外学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1286,11 +1335,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">

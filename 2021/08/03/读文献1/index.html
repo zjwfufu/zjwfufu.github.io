@@ -185,7 +185,17 @@
     </h1>
   
 
+		<!--显示阅读次数-->
 		
+		  <br/>
+		  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+		  <span class="icon-sort"></span>
+		  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+					阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+		  </span>
+		  </a>
+		
+		<!--显示阅读次数完毕-->
         
         <a href="/2021/08/03/%E8%AF%BB%E6%96%87%E7%8C%AE1/" class="archive-article-date">
   	<time datetime="2021-08-03T13:06:21.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-03</time>
@@ -443,14 +453,43 @@ P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形�
   
   
 
-
-
-
   
 
   
 
   
+
+
+
+
+   
+       <section id="comments" class="comments">
+         <style>
+           .comments{margin:30px;padding:10px}
+           @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+         </style>
+         <div id="vcomment" class="comment"></div>
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+    av: AV,
+    el: '#vcomment',
+    notify: notify,
+    app_id: "KTThWK27Eh6ekYfsqiopKv5U-gzGzoHsz",
+    app_key: "422yG6fEuKk191rqIdgv7KQY",
+    placeholder: "Hi~",
+    avatar: "mm",
+  });
+</script>
+
+     </section>
+   
+
+
 
 
           </div>
@@ -514,6 +553,7 @@ MathJax.Hub.Queue(function() {
 </script>
 <script type="text/javascript" src="/./click.js">
 </script>
+<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -619,10 +659,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">课外学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
               </li>
              
@@ -636,6 +672,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">课外学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,11 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
