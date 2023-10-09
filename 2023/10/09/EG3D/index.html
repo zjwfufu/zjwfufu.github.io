@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/images/eg3d_miku_1.png">
 <meta property="og:image" content="http://example.com/images/eg3d_end.jpg">
 <meta property="article:published_time" content="2023-10-09T02:39:52.000Z">
-<meta property="article:modified_time" content="2023-10-09T10:54:04.612Z">
+<meta property="article:modified_time" content="2023-10-09T13:01:02.444Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -218,9 +218,16 @@
     
 	<div class="article-entry" itemprop="articleBody">
       
+	  
+		
+		  <div id="custom-toc" class="custom-toc-article">
+			<strong class="toc-title">文章目录</strong>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-Analysis"><span class="toc-text">Code Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#config-setting"><span class="toc-text">config setting</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#click%E5%8F%96%E4%BB%A3argsparse"><span class="toc-text">@click取代argsparse</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5"><span class="toc-text">动态导入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#launch-training"><span class="toc-text">launch training</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DP%E4%B8%8EDDP%E7%9A%84%E5%85%A5%E9%97%A8"><span class="toc-text">DP与DDP的入门</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#training-loop"><span class="toc-text">training loop</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B2%A1%E7%94%A8%E8%BF%87sampler%EF%BC%9F"><span class="toc-text">没用过sampler？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C%E6%8C%81%E4%B9%85%E5%8C%96%E2%80%9D%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-text">“持久化”的用处</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%BE%AA%E7%8E%AF%E4%BD%93"><span class="toc-text">构造循环体</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#accumulate-gradients"><span class="toc-text">accumulate gradients</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Non-saturating-or-saturating"><span class="toc-text">Non-saturating or saturating</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#R1-regularization"><span class="toc-text">R1 regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Density-regularization"><span class="toc-text">Density regularization</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9CEG3D%E2%80%9D"><span class="toc-text">“EG3D”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mapping-Network"><span class="toc-text">Mapping Network</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pose-swapping-regularization"><span class="toc-text">pose swapping regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#style-mixing-regularization"><span class="toc-text">style mixing regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Truncation-trick"><span class="toc-text">Truncation trick</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Generator"><span class="toc-text">Generator</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Tri-plane-3D-representation"><span class="toc-text">Tri-plane 3D representation</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tri-plane-intuition"><span class="toc-text">Tri-plane intuition</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Discriminator"><span class="toc-text">Discriminator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trailer"><span class="toc-text">Trailer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-text">End</span></a></li></ol>
+		  </div>
+		
+	  
         <p>​    “暮雨沾轻裘，声色随性收。弦歌久，续盏酬，结客少年游；落花踏尽信马走，风盈袖。天地旋袂划星斗，白月隐辰宿。“</p>
-<span id="more"></span>
-<p>[TOC]</p>
+<span id="more"></span><!--toc-->
 <p>​    EG3D是一篇nVidia参与的基于单视角的2D图片，生成3D形状的工作，其生成的结果兼具几何和视角上的一致性。EG3D整个工作其实由许多部分和细节组成，文中由于篇幅，以及“科技论文”写作时的要求，对于大量的细节基本就是一带而过，这就导致理解这篇时会非常困难。为了透彻的理解这篇工作，首先需要了解NeRF，GAN，然后进一步要了解StyleGAN系列。因为以及其中用到的一些技术严格来讲横跨StyleGAN，StyleGAN2，StyleGAN3。</p>
 <p>​    除了纸面的“contributions”，EG3D的代码库也已经很有学习价值了，其代码给出了一个非常先进的深度学习项目管线。后面许多的工作都沿用了他们代码的pipeline，例如<a target="_blank" rel="noopener" href="https://github.com/MrTornado24/Next3D">Next3D</a>，<a target="_blank" rel="noopener" href="https://github.com/ShuhongChen/panic3d-anime-reconstruction">panic3D</a>，<a target="_blank" rel="noopener" href="https://github.com/dunbar12138/pix2pix3D">pix2pix3D</a>。</p>
 <blockquote>
@@ -231,6 +238,7 @@
 <p>StyleGAN -&gt; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1812.04948">A Style-Based Generator Architecture for Generative Adversarial Networks</a></p>
 <p>StyleGAN2 -&gt; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.04958">Analyzing and Improving the Image Quality of StyleGAN</a></p>
 <p>StyleGAN3 -&gt; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.12423">Alias-Free Generative Adversarial Networks</a></p>
+<p>实际上EG3D的作者后面有<a target="_blank" rel="noopener" href="https://research.nvidia.com/person/tero-karras">Tero Karras</a>的署名。我在炼丹里最喜欢的工作基本都是他的力作，例如<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.10196">PGGAN</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.12423">StyleGAN3</a>。其中后者的强度基本是给炼丹者一点小小的数字信号处理震撼，以及这一篇：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2206.00364">Elucidating the Design Space of Diffusion-Based Generative Models</a>，一个恐怖的diffusion实验报告，基本把diffusion里的各个部件都测明白了。</p>
 </blockquote>
 <h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><center>
     <img src='/images/eg3d_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
@@ -814,6 +822,19 @@ L_D=-\left[ \mathbb{E} _{x\sim p_{data}}\log \left[ D\left( x \right) \right] +\
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Overview"><span class="toc-number">1.</span> <span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-Analysis"><span class="toc-number">2.</span> <span class="toc-text">Code Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#config-setting"><span class="toc-number">2.1.</span> <span class="toc-text">config setting</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#click%E5%8F%96%E4%BB%A3argsparse"><span class="toc-number">2.1.1.</span> <span class="toc-text">@click取代argsparse</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5"><span class="toc-number">2.1.2.</span> <span class="toc-text">动态导入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#launch-training"><span class="toc-number">2.2.</span> <span class="toc-text">launch training</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DP%E4%B8%8EDDP%E7%9A%84%E5%85%A5%E9%97%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">DP与DDP的入门</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#training-loop"><span class="toc-number">2.3.</span> <span class="toc-text">training loop</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B2%A1%E7%94%A8%E8%BF%87sampler%EF%BC%9F"><span class="toc-number">2.3.1.</span> <span class="toc-text">没用过sampler？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9C%E6%8C%81%E4%B9%85%E5%8C%96%E2%80%9D%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-number">2.3.2.</span> <span class="toc-text">“持久化”的用处</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%BE%AA%E7%8E%AF%E4%BD%93"><span class="toc-number">2.3.3.</span> <span class="toc-text">构造循环体</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#accumulate-gradients"><span class="toc-number">2.4.</span> <span class="toc-text">accumulate gradients</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Non-saturating-or-saturating"><span class="toc-number">2.4.1.</span> <span class="toc-text">Non-saturating or saturating</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#R1-regularization"><span class="toc-number">2.4.2.</span> <span class="toc-text">R1 regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Density-regularization"><span class="toc-number">2.4.3.</span> <span class="toc-text">Density regularization</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9CEG3D%E2%80%9D"><span class="toc-number">3.</span> <span class="toc-text">“EG3D”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mapping-Network"><span class="toc-number">3.1.</span> <span class="toc-text">Mapping Network</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pose-swapping-regularization"><span class="toc-number">3.1.1.</span> <span class="toc-text">pose swapping regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#style-mixing-regularization"><span class="toc-number">3.1.2.</span> <span class="toc-text">style mixing regularization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Truncation-trick"><span class="toc-number">3.1.3.</span> <span class="toc-text">Truncation trick</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Generator"><span class="toc-number">3.2.</span> <span class="toc-text">Generator</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Tri-plane-3D-representation"><span class="toc-number">3.2.1.</span> <span class="toc-text">Tri-plane 3D representation</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tri-plane-intuition"><span class="toc-number">3.2.2.</span> <span class="toc-text">Tri-plane intuition</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Discriminator"><span class="toc-number">3.3.</span> <span class="toc-text">Discriminator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trailer"><span class="toc-number">4.</span> <span class="toc-text">Trailer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-number">5.</span> <span class="toc-text">End</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -1041,11 +1062,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
               </li>
              
               <li class="article-tag-list-item">

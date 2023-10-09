@@ -2923,6 +2923,39 @@ pre .css~* .id,pre .id {
 	background: #24c1f6
 }
 
+.custom-toc-article {
+  background: #eee;
+  margin: 0 0 0 .5em;
+  padding: 1em;
+}
+
+  .custom-toc-article strong {
+    padding: .3em 0;
+  }
+
+#custom-toc {
+  line-height: 1.6em;
+  font-size: .8em;
+  text-align: left; /* 设置文本居中 */
+  margin: 0 auto; /* 水平居中 */
+}
+
+
+  #custom-toc .custom-toc {
+    padding: 0;
+  }
+
+  #custom-toc .custom-toc li {
+      list-style-type: none;
+      list-style-type: decimal;
+      list-style-position: inside;
+   }
+
+  #custom-toc .custom-toc-child {
+    padding-left: 1.5em;
+  }
+
+
 @-webkit-keyframes pulse {
 	0% {
 		-webkit-transform: scale3d(.5,.5,1)
