@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>NeuS &amp;&amp; VolSDF | 我起初心向明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    在NeRF中，我们知道最后MLP预测的$\sigma$其实是“不保真”的。那么有没有什么办法可以让其预测的$\sigma$是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。">
+  <meta name="description" content="​    在NeRF中，我们知道最后MLP预测的体密度其实是“不保真”的。那么有没有什么办法可以让其预测的体密度是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NeuS &amp;&amp; VolSDF">
 <meta property="og:url" content="http://example.com/2023/10/22/neus_and_volsdf/index.html">
 <meta property="og:site_name" content="我起初心向明月">
-<meta property="og:description" content="​    在NeRF中，我们知道最后MLP预测的$\sigma$其实是“不保真”的。那么有没有什么办法可以让其预测的$\sigma$是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。">
+<meta property="og:description" content="​    在NeRF中，我们知道最后MLP预测的体密度其实是“不保真”的。那么有没有什么办法可以让其预测的体密度是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/neus_volsdf_1.png">
 <meta property="og:image" content="http://example.com/images/neus_volsdf_2.png">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://example.com/images/neus_volsdf_8.png">
 <meta property="og:image" content="http://example.com/images/neus_volsdf_end.png">
 <meta property="article:published_time" content="2023-10-22T02:22:58.000Z">
-<meta property="article:modified_time" content="2023-10-22T13:28:56.265Z">
+<meta property="article:modified_time" content="2023-10-22T21:32:34.833Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
@@ -215,7 +215,7 @@
 	  
 		
 	  
-        <p>​    在NeRF中，我们知道最后MLP预测的$\sigma$其实是“不保真”的。那么有没有什么办法可以让其预测的$\sigma$是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。</p>
+        <p>​    在NeRF中，我们知道最后MLP预测的体密度其实是“不保真”的。那么有没有什么办法可以让其预测的体密度是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。</p>
 <span id="more"></span>
 <p>​    针对这个问题，有两篇同一时期的工作给出了圆满的答案。<a target="_blank" rel="noopener" href="https://lingjie0206.github.io/papers/NeuS/">NeuS</a>和<a target="_blank" rel="noopener" href="https://lioryariv.github.io/volsdf/">VolSDF</a>，他们解决的问题比较类似，但切入的视角并不一样。</p>
 <p>​    由于他们都是基于NeRF所构造的“可微+体渲染”框架下的改进，所以这篇blog可能并不会去分析代码和具体实验，主要捋清这两篇工作推导的逻辑（形式与数学上）。</p>
