@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://example.com/images/neus_volsdf_8.png">
 <meta property="og:image" content="http://example.com/images/neus_volsdf_end.png">
 <meta property="article:published_time" content="2023-10-22T02:22:58.000Z">
-<meta property="article:modified_time" content="2023-10-22T21:32:34.833Z">
+<meta property="article:modified_time" content="2023-11-11T08:35:08.627Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
@@ -525,10 +525,10 @@ O\left( t \right) =1-T\left( t \right)
 </blockquote>
 <p>​    这基本就是VolSDF的内容了。可以看见，VolSDF只是对NeRF的框架进行了很小的修改，然后就是“对麻瓜使用魔法”版的做了数学推导，改进了采样的过程。整个推导走完，观感比NeuS要舒适很多，因为没有很多“天外飞仙”般的“硬植入”的操作。</p>
 <p>​    但VolSDF也确实是“有偏的”，这里的有偏是相对NeuS所提出的无偏来说的，但这不影响整个框架的和谐。然而，由于VolSDF其较为复杂的工序，后面的工作还是以NeuS作为魔改的对象居多。但不得不说，VolSDF的解决方案确实很漂亮。但也属实是学不来，数学功底确实扎实，通篇其实没有用到什么出格的数学工具。只能说是“如听仙乐耳暂明”。</p>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    但其实，这两篇工作里，最为神奇的是，变换函数（无论是$\phi_s(\cdot)$还是$\varPhi_s(\cdot)$）所带来的奇迹般的巧合。在这两篇工作的数学推导里，这两个概率密度函数，无论是单调性还是积分和为1，还是单纯的导函数或原函数形式上的巧合，都成为推导能进行下去的必要因素。有些“妙手偶得之”的意思了。</p>
-<blockquote>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><blockquote>
 <p>“我好想看芙利莲第八集。”——佚名</p>
 </blockquote>
+<p>​    但其实，这两篇工作里，最为神奇的是，变换函数（无论是$\phi_s(\cdot)$还是$\varPhi_s(\cdot)$）所带来的奇迹般的巧合。在这两篇工作的数学推导里，这两个概率密度函数，无论是单调性还是积分和为1，还是单纯的导函数或原函数形式上的巧合，都成为推导能进行下去的必要因素。有些“妙手偶得之”的意思了。</p>
 <center>
     <img src='/images/neus_volsdf_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>

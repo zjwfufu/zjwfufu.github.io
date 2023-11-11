@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/math_3dgs_1.png">
 <meta property="og:image" content="http://example.com/images/math_3dgs_end.png">
 <meta property="article:published_time" content="2023-11-11T04:49:27.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:32:37.815Z">
+<meta property="article:modified_time" content="2023-11-11T08:35:24.006Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="3DV">
 <meta name="twitter:card" content="summary">
@@ -607,13 +607,13 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 <script type="math/tex; mode=display">
 \mathbf{p}=\frac{1}{\left\| \mathbf{q} \right\|}\cdot \mathbf{q}
 \\
-\frac{\partial p_n}{\partial q_n}=\frac{1}{\left\| \mathbf{q} \right\|}-\frac{q_{n}^{2}}{\left\| \mathbf{q} \right\| ^3}\quad n\in \left\{ r,i,j,k \right\}</script><h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    3DGS需要的数学推导基本就是这些了，上文中没有具体提的球谐系数和四元数，一是我自己也不是很熟悉，二是弄懂这个对理解3DGS来说帮助不是很大，所以就不写了。关于四元数，感兴趣的可以观看3blue1brown的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1SW411y7W1/?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=770437002a403fccdaf0ff2a150cee20">这个视频</a>。关于球谐系数，感兴趣的可以看一下<a target="_blank" rel="noopener" href="https://alexyu.net/plenoxels/">Plenoxels</a>。在捋清3DGS那两处矩阵梯度的误会时，我查阅了不少相关资料，感觉其中比较精华的是<a target="_blank" rel="noopener" href="http://home.ustc.edu.cn/~wyx_mail/references_and_resources_of_linear_algebra.html/10.pdf">《矩阵分析与应用（第二版）》</a>，以及一个<a target="_blank" rel="noopener" href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">Matrix Cookbook</a>。还有一个<a target="_blank" rel="noopener" href="https://www.matrixcalculus.org/">在线矩阵微积分计算器</a>，也很方便。</p>
+\frac{\partial p_n}{\partial q_n}=\frac{1}{\left\| \mathbf{q} \right\|}-\frac{q_{n}^{2}}{\left\| \mathbf{q} \right\| ^3}\quad n\in \left\{ r,i,j,k \right\}</script><h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><blockquote>
+<p>“可嫌金风玉露，兼程久。灵犀心念，便相谋。前路崎岖，躞蹀攀援亦同守。”</p>
+</blockquote>
+<p>​    3DGS需要的数学推导基本就是这些了，上文中没有具体提的球谐系数和四元数，一是我自己也不是很熟悉，二是弄懂这个对理解3DGS来说帮助不是很大，所以就不写了。关于四元数，感兴趣的可以观看3blue1brown的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1SW411y7W1/?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=770437002a403fccdaf0ff2a150cee20">这个视频</a>。关于球谐系数，感兴趣的可以看一下<a target="_blank" rel="noopener" href="https://alexyu.net/plenoxels/">Plenoxels</a>。在捋清3DGS那两处矩阵梯度的误会时，我查阅了不少相关资料，感觉其中比较精华的是<a target="_blank" rel="noopener" href="http://home.ustc.edu.cn/~wyx_mail/references_and_resources_of_linear_algebra.html/10.pdf">《矩阵分析与应用（第二版）》</a>，以及一个<a target="_blank" rel="noopener" href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">Matrix Cookbook</a>。还有一个<a target="_blank" rel="noopener" href="https://www.matrixcalculus.org/">在线矩阵微积分计算器</a>，也很方便。</p>
 <p>​    3DGS完全不需要任何形式的neural layer，为了提升渲染的质量，它可以增加高斯点的数量，而增加高斯点数量并不会带来明显的计算负担（在显存范围内）。这得益于光栅管线和现代GPU的并行能力。这篇blog仅仅从数学角度来理解了3DGS，并没有在实现层面给出任何的提示。如果要完全理解3DGS，最好去读其cuda代码，这也是很难得的学cuda的契机。（<del>没准下一篇blog解析cuda代码</del>）</p>
 <p>​    还有一个很小的事宜，在之前的推导里我们都保留着高斯分布前面的归一化系数。在3DGS的实现中，其实这一个系数被省掉了。<a target="_blank" rel="noopener" href="https://github.com/graphdeco-inria/gaussian-splatting/issues/294">issue</a>里有人提了，但好像不怎么影响质量。我个人理解是既然代码里对$\alpha$有明显的处理（阈值，sigmoid激活），那么省掉这个系数从炼丹的角度来看是无所谓的。</p>
 <p>​    有时候我们遇到一些新概念，或者看些论文，可能了解倒一个模糊的轮廓以后就放过去了，这样囫囵吞枣多少有些自欺欺人的意思。当然，这一点是因为我现在没什么要紧的事情，没什么东西需要推进，每天用公司电脑带薪写blog。以后这样的日子可能不多了。</p>
-<blockquote>
-<p>“可嫌金风玉露，兼程久。灵犀心念，便相谋。前路崎岖，躞蹀攀援亦同守。”</p>
-</blockquote>
 <center>
     <img src='/images/math_3dgs_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
