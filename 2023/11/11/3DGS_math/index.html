@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/math_3dgs_1.png">
 <meta property="og:image" content="http://example.com/images/math_3dgs_end.png">
 <meta property="article:published_time" content="2023-11-11T04:49:27.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:28:24.461Z">
+<meta property="article:modified_time" content="2023-11-11T08:31:03.995Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="3DV">
 <meta name="twitter:card" content="summary">
@@ -109,7 +109,7 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: ">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -230,7 +230,7 @@
 <p>​    首先，我们回忆一下体渲染的这个事情。假设读者跟我一样是从NeRF才接触体渲染的，那么回顾一下NeRF中，沿着一个像素，发出一条射线，然后这条射线“射向体数据”（在NeRF里就是沿着光线进行采样，然后查询采样点的属性）的过程。这个过程可以归结为一种<code>backward mapping</code>。</p>
 <p>​    所以很自然的，会有一种<code>forward mapping</code>的办法。形式上，就是将整个“体数据”投影到此时位姿所对应的图像平面。这种办法的前提就不能是用NeRF那种隐式表达了，需要一些显式的表达才能支持这样直接的投影。例如以三个顶点长成的三角面基元（primitive），然后将这些许多的三角面直接投影到成像平面上，判断哪些像素是什么颜色，当有多个三角形投影时，根据他们的“深度”来判断前后顺序，然后进行熟悉的alpha compositing。当然也会有其他基元，例如小的平面表示等等。</p>
 <p>​    无论是<code>backward mapping</code>还是<code>forward mapping</code>，这个过程都涉及到将连续的表示变成离散的。在<code>backward mapping</code>里，是对场进行采样；在<code>forward mapping</code>里，是需要直接生成出基元，这也是一种连续化为离散。为了理解在这个过程中，高斯分布为什么重要，我们需要牵扯到信号与系统中的概念。与混过数字信号处理考试不同的是，我们要清楚此时引入信号与系统里的工具的目的是什么。回想刚才三角面基元的情景，在实际情境中，我们其实都接触不到“连续”的表达，比如三角面，我们只会记录它的三个顶点。当投影完成后，我们只能做一些有限的操作来阻止“锯齿”，例如对结果进行一个模糊操作，这些操作一般都是局部的。我们这样做的目的，本质是“希望用离散的表达来重建原来的信号，进一步在重建好的信号上进行“resampling”。如果我们对处理后的结果，视觉上看起来没什么混叠或者锯齿上的问题，那就说明我们“resampling”是成功的。</p>
-<h3 id="Derivative-Sampling"><a href="#Derivative-Sampling" class="headerlink" title="Derivative Sampling"></a>Derivative Sampling</h3><p>​    我们回顾一些数字信号处理上的知识，可以在稍后帮助我们理解一些概念。考虑采样率$f_s=1/T$，那么考虑一个连续信号$x_a(t)$的离散采样$\hat{x}_a(t)$：</p>
+<h3 id="Derivation-of-Sampling"><a href="#Derivation-of-Sampling" class="headerlink" title="Derivation of Sampling"></a>Derivation of Sampling</h3><p>​    我们回顾一些数字信号处理上的知识，可以在稍后帮助我们理解一些概念。考虑采样率$f_s=1/T$，那么考虑一个连续信号$x_a(t)$的离散采样$\hat{x}_a(t)$：</p>
 <script type="math/tex; mode=display">
 \hat{x}_a\left( t \right) =\sum_{n=-\infty}^{\infty}{x_a\left( t \right) \delta \left( t-nT \right)}</script><p>​    我们知道，时域采样等价于频谱延拓，我们直接给出$\hat{x}_a(t)$的频谱$\hat{X}_a(j\varOmega)$：</p>
 <script type="math/tex; mode=display">
@@ -272,7 +272,7 @@ g_{c}^{\prime}\left( \mathbf{x} \right) =\int_{\mathbb{I} \mathbb{R} ^2}{\left\{
 =\sum_{k\in \mathbb{I} \mathbb{N}}{w_k\int_{\mathbb{I} \mathbb{R} ^2}{p_k\left( \boldsymbol{\eta } \right) h\left( \mathbf{x}-\boldsymbol{\eta } \right) \mathrm{d}\boldsymbol{\eta }}}
 \\
 =\sum_{k\in \mathbb{I} \mathbb{N}}{w_k\rho _k\left( \mathbf{x} \right)}</script><p>​    这里$\rho _k\left( \mathbf{x} \right) =\left( p_k\otimes h \right) \left( \mathbf{x} \right) $，说明我们可以像刚才投影时候一样，先计算此时$p_k(\cdot)$预滤波后的结果，再带入计算。所以框架构造到这里，可能之所以选择“高斯分布”就已经呼之欲出了，因为高斯分布有个很好的性质，两个高斯分布的卷积仍然是高斯分布。上面几行看起来什么都没说的公式，其实就想说明一点：<strong>对采样后整个场景的操作，都可以归结为对重建核进行操作。</strong></p>
-<h3 id="Derivative-Splatting"><a href="#Derivative-Splatting" class="headerlink" title="Derivative Splatting"></a>Derivative Splatting</h3><p>​    接下来我们需要将上面构造的这三步操作，结合到体渲染的具体情景中。接下来我们会看到一段很类似于NeRF里所用到的推导，但与NeRF不同的是，这里涉及的变换会略微复杂。如果我们回忆NeRF中单纯的渲染过程，不考虑NeRF中的NDC transformation，那整个NeRF的框架里就只有这一个旋转变换和平移变换。一个矩阵就够了。后面我们会发现，在这里我们需要两个矩阵。</p>
+<h3 id="Derivation-of-Splatting"><a href="#Derivation-of-Splatting" class="headerlink" title="Derivation of Splatting"></a>Derivation of Splatting</h3><p>​    接下来我们需要将上面构造的这三步操作，结合到体渲染的具体情景中。接下来我们会看到一段很类似于NeRF里所用到的推导，但与NeRF不同的是，这里涉及的变换会略微复杂。如果我们回忆NeRF中单纯的渲染过程，不考虑NeRF中的NDC transformation，那整个NeRF的框架里就只有这一个旋转变换和平移变换。一个矩阵就够了。后面我们会发现，在这里我们需要两个矩阵。</p>
 <p>​    然而如上面所说，splatting的过程是反过来的，我们希望将物体投影到平面上。第一步我们仍然将源空间（世界坐标系）下的坐标转换到相机空间里，这是一步仿射变换。然后，与其计算相机空间里的每个基元关于平面的投影，然后计算哪些部分属于哪些像素，不如直接应用一个投影变换，将从相机原点发射的光线，映射为平行光。<a name="1"></a>这样，被变换后的坐标，就可以很方便的进行体渲染了。变换后得到的空间我们称为“光线空间”。这个投影变换并不显然，因为如果直接这么应用一个投影变换，会带来一些问题，我们放在后面讨论。我们将从源空间映射到相机空间的仿射变换记作$\varphi(\cdot)$，将相机空间映到光线空间的投影变换记作$\phi(\cdot)$。</p>
 <p>​    接下来，我们从体渲染的公式出发，推导出通常意义下的splatting算法。在EWA splatting这篇里，所用的体渲染公式和NeRF里的相比，说法上更加严谨，是传统意义上的体渲染公式的写法——“low albedo approximation”，即低反照近似，大概是指得这个式子本身不考虑颜色随角度变化，于是不怎么拟合那种non-Lambertian的东西。但数学形式上是完全一样的。下面这一部分的内容其实有两个目的，<strong>一个是给出splatting框架下做体渲染的方法，另一个是将刚才“连续-离散”的框架在这个例子里“实例化”。</strong></p>
 <p>​    这里，EWA splatting的作者为了后面的一个方便（将3D积分掉一维变成2D）以及“光线空间”的引入，修改了一下符号意义。对于<strong>光线空间</strong>里的坐标$\mathbf{x}=(x_0,x_1,x_2)^T$，由于$x_2$在的那个维度，会经常被积分掉，所以他们这样标记了一下：$(\mathbf{x},x_2)^T$，只能说……行吧。</p>
@@ -313,7 +313,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 =\sum_k{w_kc_ko_k\left( q_k\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) \right)}
 \\
 =\sum_k{w_kc_ko_k\rho _k\left( \mathbf{x} \right)}</script><p>​    经过两次关于$c_k(\cdot)$的假设，现在第$k$个基元的颜色是与坐标位置（无论是二维平面还是积分的那一维）都是无关的，这正好对应了在3DGS中设定每个高斯椭球的颜色为一不随距离变化的定值。</p>
-<h3 id="Derivative-Gaussian"><a href="#Derivative-Gaussian" class="headerlink" title="Derivative Gaussian"></a>Derivative Gaussian</h3><p>​    到现在为止，从上述的步骤中，我们是可以觉察到，我们想要的重建核函数，如果有特定的形式，会带来很多方便。假如这个重建核函数和预滤波器作卷积（当然预滤波器也是我们可以选择的）后仍然有和原来一样的表达，假如这个重建核函数经过线性变换后，其函数参数也可以被线性的变化，假如这个重建函数，沿某个维度积分后，也能保持类似的函数结构，那不就是一个天大的好事？</p>
+<h3 id="Derivation-of-Gaussian"><a href="#Derivation-of-Gaussian" class="headerlink" title="Derivation of Gaussian"></a>Derivation of Gaussian</h3><p>​    到现在为止，从上述的步骤中，我们是可以觉察到，我们想要的重建核函数，如果有特定的形式，会带来很多方便。假如这个重建核函数和预滤波器作卷积（当然预滤波器也是我们可以选择的）后仍然有和原来一样的表达，假如这个重建核函数经过线性变换后，其函数参数也可以被线性的变化，假如这个重建函数，沿某个维度积分后，也能保持类似的函数结构，那不就是一个天大的好事？</p>
 <blockquote>
 <p>“神说要有高斯函数，于是就有了高斯函数。“</p>
 </blockquote>
@@ -389,7 +389,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 <p>“多元高斯分布的边缘分布仍是高斯分布。”</p>
 </blockquote>
 <p>​    高斯函数的这些性质，完美符合了我们对重建核函数要求。</p>
-<h3 id="Derivative-Transformation"><a href="#Derivative-Transformation" class="headerlink" title="Derivative Transformation"></a>Derivative Transformation</h3><p>​    最后要处理的是投影变换，在NeRF中我们也处理过投影变换，但那时候我们站在的角度是一个点如何打在相机的成像平面上。换句话说当时我们更关心相机内参这一表征投影变换的东西本身，而这次我们关心的是同一条光线上的不同点，被投影变换作用后的结果。</p>
+<h3 id="Derivation-of-Transformation"><a href="#Derivation-of-Transformation" class="headerlink" title="Derivation of Transformation"></a>Derivation of Transformation</h3><p>​    最后要处理的是投影变换，在NeRF中我们也处理过投影变换，但那时候我们站在的角度是一个点如何打在相机的成像平面上。换句话说当时我们更关心相机内参这一表征投影变换的东西本身，而这次我们关心的是同一条光线上的不同点，被投影变换作用后的结果。</p>
 <p>​    在这里我们可以不关心投影变换的矩阵形式，考虑相机空间里的坐标$\mathbf{t}=(t_0,t_1,t_2)^T$，其中$t_2$所在的维度是我们理解上的$z$轴，即相机镜头的方向。记变换后坐标$\mathbf{x}=(x_1,x_2,x_3)^T$，那么整个变换可以写成：</p>
 <script type="math/tex; mode=display">
 \left( \begin{array}{c}
@@ -439,7 +439,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 \mathcal{G} _{\mathbf{p},\mathbf{\Sigma }}^{\left( n \right)}\left( \mathbf{x} \right) =\left| \mathbf{J}_k\mathbf{M} \right|\mathcal{G} _{\mathbf{m}_k\left( \mathbf{p} \right) ,\mathbf{\Sigma }^{\prime}}^{\left( n \right)}\left( \mathbf{m}_k\left( \mathbf{u} \right) \right)</script><p>​    变换后的协方差矩阵满足：</p>
 <script type="math/tex; mode=display">
 \mathbf{\Sigma }^{\prime}=\mathbf{J}_k\mathbf{M\Sigma M}^T\mathbf{J}_{k}^{T}</script><p>​    这是一个非常重要的结论，用这样的矩阵变换，可以直接得到一个高斯椭球在光线空间的表示。也就是说，对于一个位置在$\mathbf{p}$，协方差为$\mathbf{\Sigma}$的高斯椭球，我们可以直接通过$\mathbf{m}_k(\mathbf{p})$计算出在光线空间里椭球的位置，然后直接用$\mathbf{\Sigma }^{\prime}=\mathbf{J}_k\mathbf{M\Sigma M}^T\mathbf{J}_{k}^{T}$来得到投影后的协方差$\mathbf{\Sigma }^{\prime}$。然后我们用splatting的那个公式进行渲染，对投影后的三维的高斯函数（重建核）进行积分，借助高斯函数的性质我们可以直接跳过协方差矩阵的第三行和第三列，<strong>于是最终，整个流程被归结为从这些三维椭球投影到二维椭圆里，进行alpha compositing。</strong></p>
-<h3 id="Derivative-Gradient"><a href="#Derivative-Gradient" class="headerlink" title="Derivative Gradient"></a>Derivative Gradient</h3><p>​    但这里有些小问题，在3DGS中，每个高斯基元的$\mathbf{p}$和$\mathbf{\Sigma}$都是借助PyTorch的自动微分框架来进行随机梯度下降的。其中颜色$c$是靠优化RGB三个通道上的球谐系数（Spherical Harmonics）得到的，不透明度$\alpha$是通过将当前像素点带入此时的高斯基元中计算得到的。优化$\mathbf{p},c,\alpha$都是比较平凡的，但优化$\mathbf{\Sigma}$其实是通过优化$\mathbf{\Sigma }^{\prime}$反传回去的。如果直接丢给PyTorch的计算图，追踪$\mathbf{J}_k\mathbf{M\Sigma M}^T\mathbf{J}_{k}^{T}$这几个矩阵连乘里的乘法操作可不是个很令人满意的事情。所以有必要显式的给出$\mathbf{\Sigma}$的梯度。</p>
+<h3 id="Derivation-of-Gradient"><a href="#Derivation-of-Gradient" class="headerlink" title="Derivation of Gradient"></a>Derivation of Gradient</h3><p>​    但这里有些小问题，在3DGS中，每个高斯基元的$\mathbf{p}$和$\mathbf{\Sigma}$都是借助PyTorch的自动微分框架来进行随机梯度下降的。其中颜色$c$是靠优化RGB三个通道上的球谐系数（Spherical Harmonics）得到的，不透明度$\alpha$是通过将当前像素点带入此时的高斯基元中计算得到的。优化$\mathbf{p},c,\alpha$都是比较平凡的，但优化$\mathbf{\Sigma}$其实是通过优化$\mathbf{\Sigma }^{\prime}$反传回去的。如果直接丢给PyTorch的计算图，追踪$\mathbf{J}_k\mathbf{M\Sigma M}^T\mathbf{J}_{k}^{T}$这几个矩阵连乘里的乘法操作可不是个很令人满意的事情。所以有必要显式的给出$\mathbf{\Sigma}$的梯度。</p>
 <p>​    协方差矩阵是有物理意义的，我们不能随机初始化一组3×3的数组就当$\mathbf{\Sigma}$，前面我们已经用过它实对称矩阵的性质了$\mathbf{\Sigma }=\mathbf{Q}^T\mathbf{\Lambda }^{\frac{1}{2}}\mathbf{\Lambda }^{\frac{1}{2}}\mathbf{Q}$。我们将这里的对角阵和正交阵赋予一组实际的意义：缩放和旋转。即可重参数化一下$\mathbf{\Sigma}$：</p>
 <script type="math/tex; mode=display">
 \mathbf{\Sigma }=\mathbf{RSS}^T\mathbf{R}^T</script><p>​    与通常使用欧拉角来描述旋转不同，3DGS里使用归一化后的四元数$\mathbf{q}$来表示旋转，这样可以显式的将待优化的参数从9个变为4个：</p>
@@ -1233,20 +1233,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
