@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://example.com/images/try_nerf_7.gif">
 <meta property="og:image" content="http://example.com/images/nerf_end.jpg">
 <meta property="article:published_time" content="2023-08-04T01:37:14.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:33:05.505Z">
+<meta property="article:modified_time" content="2023-11-26T10:12:23.839Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
@@ -127,7 +127,7 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: ">
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -348,6 +348,9 @@ I\left( s \right) =I_0e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}</script
 T\left( s \right) =e^{\int_0^s{-\sigma \left( t \right) \mathrm{d}t}}</script><p>​    所以“不透明度”可以记作$1-T(s)$，它指的是从0到$s$被吸收的（用于反射产生颜色部分）系数，也就是一个分布函数。对其求导可以得到密度函数$T(s)\sigma(t)$，于是最后的颜色可以直接积分$\int_0^{\infty}{T\left( s \right) \sigma \left( s \right) c\left( s \right) \mathrm{d}s}$。由于在实际中积分上限不可能真的从0到无穷远，所以会设定一个下限$t_n$和上限$t_f$，取near和far之意。所以给定一个光线$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$，这条光线最后取得的颜色$C(\mathbf{r})$可以写作：</p>
 <script type="math/tex; mode=display">
 C\left( \mathbf{r} \right) =\int_{t_n}^{t_f}{T\left( t \right) \sigma \left( \mathbf{r}\left( t \right) \right) c\left( \mathbf{r}\left( t \right) ,\mathbf{d} \right) \mathrm{d}t} \\ T\left( t \right) =\exp \left( -\int_{t_n}^{t}{\sigma \left( \mathbf{r}\left( s \right) \right) \mathrm{d}s} \right)</script><p>​    于是就有了NeRF原文中的渲染方程。现在，我们已经知道了一根光线通过一个三维粒子场后，所产生的颜色。由于我们不可能得到上述过程的解析解，我们需要考虑它的离散化情形。</p>
+<blockquote>
+<p>到这里，可能有人会觉得这种技术和现在一些游戏里很流行的“光线追踪”（ray tracing）技术有点像。确实他们都是基于光路可逆的背景下的技术，但NeRF里并不涉及反射，折射的模拟，所以用“光线步进”（ray marching）来形容更加合适。</p>
+</blockquote>
 <h4 id="离散化"><a href="#离散化" class="headerlink" title="离散化"></a>离散化</h4><p>​    我们将积分区间分成$N-1$等份：$\left[ t_n+\frac{i-1}{N}\left( t_f-t_n \right) ,t_n+\frac{i}{N}\left( t_f-t_n \right) \right] $，然后进行朴素的离散化：</p>
 <script type="math/tex; mode=display">
 C\left( \mathbf{r} \right) =\sum_{i=1}^N{C_i\left( \mathbf{r} \right)}</script><p>​    对于每一个$C_i(\mathbf{r})$，$\sigma(\cdot),c(\cdot)$可以直接近似为常数。而由于$T(\cdot)$​由于存在一个变上限积分，其导数：</p>
@@ -414,7 +417,7 @@ C\left( \mathbf{r} \right) =\alpha _1c_1+\left( 1-\alpha _1 \right) \left( \alph
 </center>
 
 
-<p>​    首先，体素所在的（整个场）有一个默认坐标系，称为世界坐标系$O-x_wy_wz_w$。不同的相机可能会从不同的角度进行拍摄，即不同的$\phi,\theta$，以及此时小孔位置的三维坐标。即我们可以通过绕$z_w$轴和绕$x_z$轴旋转坐标系，然后再对坐标系进行平移，来将世界坐标系上的一个点转移到相机坐标系下的表示。假设此时相机的位置是$(x,y,z)$，那么可以绕$z_w$轴旋转$\theta$，再绕$x_w$轴旋转$\phi$：</p>
+<p>​    首先，体素所在的（整个场）有一个默认坐标系，称为世界坐标系$O-x_wy_wz_w$。不同的相机可能会从不同的角度进行拍摄，即不同的$\phi,\theta$，以及此时小孔位置的三维坐标。即我们可以通过绕$z_w$轴和绕$x_z$轴旋转坐标系，然后再对坐标系进行平移，来将世界坐标系上的一个点转移到相机坐标系下的表示。假设此时相机的位置是$(x,y,z)$，那么可以先绕$x_w$轴旋转$\phi$，再绕$z_w$轴旋转$\theta$：</p>
 <script type="math/tex; mode=display">
 R_{\theta}=\left[ \begin{matrix}
     \cos \theta&        -\sin \theta&        0\\
@@ -437,7 +440,7 @@ R=R_{\theta}R_{\phi}=\left[ \begin{matrix}
 C=\left[ \begin{matrix}
     \underset{3\times 3}{R}&        \underset{3\times 1}{T}\\
     \mathbf{0}&        1\\
-\end{matrix} \right]</script><p>​    矩阵$C$又叫相机外参。这样就能通过左乘将世界坐标转换成相机坐标：</p>
+\end{matrix} \right]</script><p>​    矩阵$C$又叫相机外参。这样就能通过左乘将世界坐标转换成相机坐标(w2c)：</p>
 <script type="math/tex; mode=display">
 \left[ \begin{array}{c}
     x_c\\
@@ -797,7 +800,7 @@ t=\frac{u-\mathrm{cdf}\_\mathrm{g[}...,0]}{\mathrm{cdf}\_\mathrm{g[}...,1]-\math
 <p>​    之后no_batching选项会导引光线的生成，如果为true，那么每次都只是随机抽一张图片，然后计算这一张图片发出的光线；如果是false，那么会在正式训练前先遍历所有位姿矩阵，得到所有的rays，然后在训练时从rays里切片得到每个batch。</p>
 <p>​    生成光线，其实生成的是$\mathbf{r}\left( t \right) =\mathbf{o}+t\mathbf{d}$中的$\mathbf{o}$和$\mathbf{d}$。用到的函数为get_rays_np()和get_rays()，后者是torch实现，前者是numpy实现，逻辑都是一样的。这里选取前者：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_rays_np</span>(<span class="params">H, W, K, c2w</span>):</span><br><span class="line">    i, j = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32), indexing=<span class="string">&#x27;xy&#x27;</span>)</span><br><span class="line">    dirs = np.stack([(i-K[<span class="number">0</span>][<span class="number">2</span>])/K[<span class="number">0</span>][<span class="number">0</span>], -(j-K[<span class="number">1</span>][<span class="number">2</span>])/K[<span class="number">1</span>][<span class="number">1</span>], -np.ones_like(i)], -<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># Rotate ray directions from camera frame to the world frame</span></span><br><span class="line">    rays_d = np.<span class="built_in">sum</span>(dirs[..., np.newaxis, :] * c2w[:<span class="number">3</span>,:<span class="number">3</span>], -<span class="number">1</span>)  <span class="comment"># dot product, equals to: [c2w.dot(dir) for dir in dirs]</span></span><br><span class="line">    <span class="comment"># Translate camera frame&#x27;s origin to the world frame. It is the origin of all rays.</span></span><br><span class="line">    rays_o = np.broadcast_to(c2w[:<span class="number">3</span>,-<span class="number">1</span>], np.shape(rays_d))</span><br><span class="line">    <span class="keyword">return</span> rays_o, rays_d</span><br></pre></td></tr></table></figure>
-<p>​    我们发现输入为图像高H，宽W，相机内参K和相机外参c2w（camera to world）。所以get_rays_np()的流程相当于上文“相机与变换”的逆过程。i, j = np.meshgrid()首先生成像素平面上的索引，即：</p>
+<p>​    我们发现输入为图像高H，宽W，相机内参K和相机外参的逆c2w（camera to world）。所以get_rays_np()的流程相当于上文“相机与变换”的逆过程。i, j = np.meshgrid()首先生成像素平面上的索引，即：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">i = [[0., 1., ..., W-1.],</span><br><span class="line">     [0., 1., ..., W-1.],</span><br><span class="line">     ...</span><br><span class="line">     [0., 1., ..., W-1.]]</span><br><span class="line"></span><br><span class="line">j = [[0., 0., 0., 0.],</span><br><span class="line">     [1., 1., 1., 1.],</span><br><span class="line">     ...</span><br><span class="line">     [H-1., H-1., H-1., H-1.]]</span><br></pre></td></tr></table></figure>
 <p>​    然后就像推导相机内参时那样，投影到平面上的点$(x,y,1)$可以按如下计算：</p>
 <script type="math/tex; mode=display">
@@ -1248,6 +1251,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">明信片</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">信号处理</a>
               </li>
              
@@ -1545,5 +1552,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>

@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/images/inversion/eg3d_asian3.png">
 <meta property="og:image" content="http://example.com/images/eg3d_end.jpg">
 <meta property="article:published_time" content="2023-10-09T02:39:52.000Z">
-<meta property="article:modified_time" content="2023-11-22T03:33:41.040Z">
+<meta property="article:modified_time" content="2023-11-22T03:37:08.840Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
@@ -128,7 +128,7 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: ">
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -675,15 +675,14 @@ L_D=-\left[ \mathbb{E} _{x\sim p_{data}}\log \left[ D\left( x \right) \right] +\
 </center>
 ​    这个稀奇的结果其实揭示了一件事情，EG3D之所以可以这样不用像NeRF一样重新synthesis，是因为GAN的backbone里隐含了对”人脸“的理解（如果是猫猫头的ckpt，那就是猫脸）。显然模型并不理解动漫图片上那俩那么大的在眼睛位置上的东西是什么，于是将其演化为了”墨镜“。
 
-### Appendix
-
 ​    后来出于一些原因，我多做了一些inversion的结果，探索了一些有的没的。这些inversion的结果比之前写这篇blog时质量要高一些：
 
 <center>
-    <img src='/images/inversion/eg3d_foreign1.png' style="width: 250px; height: 250px;">
-     <img src='/images/inversion/eg3d_foreign2.png' style="width: 250px; height: 250px;">
-    <img src='/images/inversion/eg3d_foreign3.png' style="width: 250px; height: 250px;">
+    <img src='/images/inversion/eg3d_foreign1.png' style="width: 300px; height: 300px;">
+     <img src='/images/inversion/eg3d_foreign2.png' style="width: 300px; height: 300px;">
+    <img src='/images/inversion/eg3d_foreign3.png' style="width: 300px; height: 300px;">
 </center>
+
 
 <center>
 <video id="video" controls style="max-width: 300px; max-height: 600px; width: auto; height: auto;">
@@ -696,12 +695,12 @@ L_D=-\left[ \mathbb{E} _{x\sim p_{data}}\log \left[ D\left( x \right) \right] +\
     <source id="mp4" src="/images/inversion/eg3d_foreign3.mp4" type="video/mp4" >
   </video>  
 </center>
-
 <center>
-    <img src='/images/inversion/eg3d_asian1.png' style="width: 250px; height: 250px;">
-     <img src='/images/inversion/eg3d_asian2.png' style="width: 250px; height: 250px;">
-    <img src='/images/inversion/eg3d_asian3.png' style="width: 250px; height: 250px;">
+    <img src='/images/inversion/eg3d_asian1.png' style="width: 300px; height: 300px;">
+     <img src='/images/inversion/eg3d_asian2.png' style="width: 300px; height: 300px;">
+    <img src='/images/inversion/eg3d_asian3.png' style="width: 300px; height: 300px;">
 </center>
+
 
 <center>
 <video id="video" controls style="max-width: 300px; max-height: 600px; width: auto; height: auto;">
@@ -1174,6 +1173,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">明信片</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">信号处理</a>
               </li>
              
@@ -1471,5 +1474,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
