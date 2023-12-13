@@ -11,12 +11,12 @@
   <meta name="description" content="​    今天试了下在blog里整一个Gaussian Splatting的Viewer，所以突发奇想搞了这么个系列。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="明信片#1">
-<meta property="og:url" content="http://example.com/2023/12/13/postcard#1/index.html">
+<meta property="og:url" content="http://example.com/2023/12/13/postcard_1/index.html">
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    今天试了下在blog里整一个Gaussian Splatting的Viewer，所以突发奇想搞了这么个系列。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-13T10:49:27.000Z">
-<meta property="article:modified_time" content="2023-12-13T11:03:33.580Z">
+<meta property="article:modified_time" content="2023-12-13T11:11:58.634Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="明信片">
 <meta name="twitter:card" content="summary">
@@ -168,7 +168,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-postcard#1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-postcard_1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -191,7 +191,7 @@
 		
 		<!--显示阅读次数完毕-->
         
-        <a href="/2023/12/13/postcard#1/" class="archive-article-date">
+        <a href="/2023/12/13/postcard_1/" class="archive-article-date">
   	<time datetime="2023-12-13T10:49:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-12-13</time>
 </a>
         
@@ -208,8 +208,9 @@
 <p>​    事情是这样的，我甲流刚好，然后看不动代码论文什么的，然后就想起来整了个这个玩意。</p>
 <p>​    起因有很多，其中一个是前几天跟一个学长聊天，他跟我说读研的那边好多吃的都没有，于是我才意识到很多东西不是理所应当的，比如益禾堂，烤冷面。以及估计马上就要离开西电，以后可能也吃不上了，萌发了下学期回去以后把他们都“录像一圈—&gt;训出高斯点云”这样来收集起来。</p>
 <p>​    其二是想起来之前Apple Vision Pro里说的那个空间视频，那个就跟一个4D的Gaussian Splatting很像（当然在出这个产品的宣传的时候还没有3DGS）。我当然不可能做这么好，但是用3DGS做个丐版也是不错的。人人都有一些想记录下来的场景，但无论如何你怎么改进成像本身，把拍出来的照片分辨率拉的再高再细致，洗出来裱起来等等，它终究是一“张”纸或者手机里的一个二维数组。所以做出一个可以交互的场景还是有意义的，哪怕这个场景现在仍然充满着监督不够产生的石棉一般的针刺。</p>
-<p>​    在网页上实现这么一个高斯点云的viewer，依托于<a target="_blank" rel="noopener" href="https://github.com/dylanebert/gsplat.js">gsplat.js</a>，我只是单纯的把它缝进我的blog里了。</p>
-<p>​    用鼠标可以拖拽旋转，WASD可以前进后退（某种意义上的），Q和E也可以旋转。</p>
+<p>​    但不管怎么说，维护回忆的最好办法还是在能创造回忆的时候尽量多创造回忆，但只不过大部分时候人们都不会意识到当下稀疏平常的东西会是以后的“回忆”。</p>
+<p>​    在网页上实现这么一个高斯点云的viewer，依托于<a target="_blank" rel="noopener" href="https://github.com/dylanebert/gsplat.js">gsplat.js</a>，我只是单纯的把它缝进我的blog里了。本来我是想一个页面里放若干个这样的viewer，然后每个是不同的场景，做成一种博物馆/画廊一样的感觉，但整了一会儿没整出来，而且发现本地用浏览器渲染一个场景，电脑风扇就开始转了，所以感觉多张放一个html感觉可能要寄。</p>
+<p>​    用鼠标可以拖拽旋转，WASD可以前进后退（某种意义上的），Q和E也可以旋转。我加了个事件监视器，所以鼠标如果移出去了画面就会暂停，某种程度上节约资源吧。</p>
 <p>​    这个场景是我在最开始学NeRF的时候，大概是暑假在学校的时候在宿舍拍的。当时只对着正面拍了拍，以及我手机的摄像头本来就不大行了，所以效果不是很好。</p>
 <html lang="en">
     <head>
@@ -346,7 +347,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/12/13/postcard#1/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/12/13/postcard_1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -545,11 +546,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
