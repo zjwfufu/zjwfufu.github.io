@@ -42,10 +42,10 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/head_next3d.jpg">
 <meta property="og:image" content="https://zjwfufu.github.io/images/head_end.jpg">
 <meta property="article:published_time" content="2023-12-27T11:47:52.000Z">
-<meta property="article:modified_time" content="2023-12-27T12:59:46.414Z">
+<meta property="article:modified_time" content="2023-12-31T14:23:46.503Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zjwfufu.github.io/images/head_para_head.jpg">
   
@@ -315,7 +315,7 @@ V_{3d}\left( \mathbf{p} \right) =\mathbf{R}\left( \bar{\mathbf{S}}+\mathcal{A} _
 </blockquote>
 <p>​    至于PAF说的什么柱面采样之类的，我没有在一些别的任务里见过了，此处就不讨论了。</p>
 <h3 id="FLAME"><a href="#FLAME" class="headerlink" title="FLAME"></a>FLAME</h3><p>​    刚才提到的BFM并不能复原出整个人头，同时，对于旋转它其实没有做特殊的处理。也就是说BFM只有一个全局的旋转，但一个人头，有一部分当然是可以发生局部旋转的，比如眼球，下颚等。然后马普所的研究人员就发力了！有了<a target="_blank" rel="noopener" href="https://flame.is.tue.mpg.de/">FLAME</a>。直观来看，FLAME有了一整个人头，而且还支持一些部分的局部旋转，但它本身没有提供纹理（如果你愿意，你可以把BFM里的纹理转换过来）。但是FLAME其实相比于BFM要复杂了一些，为了理解FLAME的这盘醋，得包一大盘饺子：要看懂<a target="_blank" rel="noopener" href="https://smpl.is.tue.mpg.de/">SMPL</a>。</p>
-<p>​    SMPL本身是一个用于表征整个人身体的参数化模型，我们下面需要尽力的从零开始理解SMPL。但有些同学可能像我一样，只能非常羞怯的承认，因为读本科期间好吃懒做忙于看冻鳗小人，没有接触过图形学，没去看过GAMES系列，也没有上过Blender，Maya之类的选修课，连个交互式的viewer都不会写，甚至还没能捋清楚过渡矩阵是从谁变换到谁就要本科毕业了，但依然还想了解一些3D vision和computer graphic的东西。他们翻遍了图书馆里什么虎书黑皮书，上来一堆什么“蒙皮”，“BlendShape”，“Rigging”，都没能找到自己可以看得懂的资料。<strong>但上天被他们的努力感动</strong>，于是GitHub上出现了<a target="_blank" rel="noopener" href="https://github.com/mkocabas/body-model-visualizer">这个项目</a>，在这个项目提供的UI下，我们可以对SMPL和FLAME等模型进行可视化，从而将公式与具体实际相结合。</p>
+<p>​    SMPL本身是一个用于表征整个人身体的参数化模型，我们下面需要尽力的从零开始理解SMPL。但有些同学可能像我一样，只能非常羞怯的承认，因为读本科期间好吃懒做忙于看冻鳗小人，没有接触过图形学，没去看过GAMES系列，也没有上过Blender，Maya之类的选修课，连个交互式的viewer都不会写，甚至还没能捋清楚过渡矩阵是从谁变换到谁就要本科毕业了，但依然还想了解一些3D vision和computer graphic的东西。翻遍了图书馆里什么虎书黑皮书，上来一堆什么“蒙皮”，“BlendShape”，“Rigging”，都没能找到自己可以看得懂的资料。<strong>但上天被这愚公移山的努力感动</strong>，于是GitHub上出现了<a target="_blank" rel="noopener" href="https://github.com/mkocabas/body-model-visualizer">这个项目</a>，在这个项目提供的UI下，我们可以对SMPL和FLAME等模型进行可视化，从而将公式与具体实际相结合。</p>
 <p>​    首先我们要明确，在我们讨论比较“现代”的数字人时，其实分为两个对象：骨骼（“skeleton”）和表面（“surface”），我们一定听闻过诸如“人体姿态估计”这样的任务，我们会用若干个结点（“joints”）来表达一个人，比如HumanEva-I数据集里是14个结点，Human3.6M里是17个结点。这些结点构成的树就是骨骼，而表面指的就是图形学里的“mesh”。</p>
 <blockquote>
 <p>之前BFM的例子里，有一个事情没能体现出来。可能由于时代原因，BFM模型的数据以.mat的形式储存的。而一般来说这种数据是用一些更通用的3D文件格式，如.obj格式储存的。对于.obj文件，你甚至可以用记事本打开它。打开以后一般会遇到：</p>
@@ -425,7 +425,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <center>
 <img src='/images/head_ada_1.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
-​    这里为了帮助判断几何的一致性，用了一个现成的关键点检测器[FAN](https://github.com/1adrianb/2D-and-3D-face-alignment)。所以我们看出对于此时偏着的头，有些部分重建的关键点没有跟源图的匹配上，这是正常的。
+​    这里为了帮助判断几何的一致性，用了一个现成的关键点检测器。所以我们看出对于此时偏着的头，有些部分重建的关键点没有跟源图的匹配上，这是正常的。这个地方至于landmark怎么来的其实一句两句说不清楚，我们放在后面再聊。
 
 <p></p>
 
@@ -509,6 +509,29 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>有些可能偏商用的工作里，可能会有专门的人对FLAME的模板进行编辑，来把牙齿补出来。</p>
 </blockquote>
 <p>​    在最后，通过调整FLAME模板的表情和形状系数，就可以达到控制了。那么在训练时，对于每个输入的图片，正是用前文的DECA来估计这张图片的FLAME系数作为输入，由于DECA并不会估计FLAME模板里左右眼球的旋转，所以由用了<a target="_blank" rel="noopener" href="https://developers.google.com/mediapipe">mediapipe</a>来aug了一下。</p>
+<h3 id="DECA-amp-NHA"><a href="#DECA-amp-NHA" class="headerlink" title="DECA &amp; NHA"></a>DECA &amp; NHA</h3><p>​    在这个部分我想记录一些DECA和<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2022/papers/Grassal_Neural_Head_Avatars_From_Monocular_RGB_Videos_CVPR_2022_paper.pdf">NHA</a>的代码实现，这里前者的代码里涉及FLAME里纹理和顶点怎么结合起来，后者则是一个从template FLAME进行“deformation”得到有头型表示的mesh的典型范例。</p>
+<p>​    我们先来看第一点，这里有许多繁杂的细节。我们先从<code>./decalib/deca.py</code>里看，第一眼就是类内实现的<code>_create_model</code>和<code>_setup_renderer</code>。然后我们观察其他脚本里用到<code>DECA()</code>时，一般都是用的<code>deca.decode()</code>这个函数，所以我们就看这个<code>decode()</code>的实现。首先是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verts, landmarks2d, landmarks3d = self.flame(shape_params=codedict[<span class="string">&#x27;shape&#x27;</span>], expression_params=codedict[<span class="string">&#x27;exp&#x27;</span>], pose_params=codedict[<span class="string">&#x27;pose&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>​    这里输入的<code>shape_params</code>，<code>expression_params</code>，<code>pose_params</code>都是从输入图像里<code>encode</code>出来的，但返回的值里又包含了<code>landmarks2d</code>和<code>landmarks3d</code>，这在之前的讨论里是不涉及的。我们一步步看，顺藤摸瓜找<code>FLAME()</code>的类实现，我们会在其<code>__init__()</code>方法里发现这样的几行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Static and Dynamic Landmark embeddings for FLAME</span></span><br><span class="line">lmk_embeddings = np.load(config.flame_lmk_embedding_path, allow_pickle=<span class="literal">True</span>, encoding=<span class="string">&#x27;latin1&#x27;</span>)</span><br><span class="line">lmk_embeddings = lmk_embeddings[()]</span><br><span class="line">self.register_buffer(<span class="string">&#x27;lmk_faces_idx&#x27;</span>, torch.from_numpy(lmk_embeddings[<span class="string">&#x27;static_lmk_faces_idx&#x27;</span>]).long())</span><br><span class="line">self.register_buffer(<span class="string">&#x27;lmk_bary_coords&#x27;</span>, torch.from_numpy(lmk_embeddings[<span class="string">&#x27;static_lmk_bary_coords&#x27;</span>]).to(self.dtype))</span><br><span class="line">self.register_buffer(<span class="string">&#x27;dynamic_lmk_faces_idx&#x27;</span>, lmk_embeddings[<span class="string">&#x27;dynamic_lmk_faces_idx&#x27;</span>].long())</span><br><span class="line">self.register_buffer(<span class="string">&#x27;dynamic_lmk_bary_coords&#x27;</span>, lmk_embeddings[<span class="string">&#x27;dynamic_lmk_bary_coords&#x27;</span>].to(self.dtype))</span><br><span class="line">self.register_buffer(<span class="string">&#x27;full_lmk_faces_idx&#x27;</span>, torch.from_numpy(lmk_embeddings[<span class="string">&#x27;full_lmk_faces_idx&#x27;</span>]).long())</span><br><span class="line">self.register_buffer(<span class="string">&#x27;full_lmk_bary_coords&#x27;</span>, torch.from_numpy(lmk_embeddings[<span class="string">&#x27;full_lmk_bary_coords&#x27;</span>]).to(self.dtype))</span><br></pre></td></tr></table></figure>
+<p>​    这里load的<code>.npy</code>文件，是马普所研究人员的另一个项目<a target="_blank" rel="noopener" href="https://zhangtemplar.github.io/ringnet/">RingNet</a>的结果，这里的<code>.npy</code>是RingNet中的<code>flame_dynamic_embedding.npy</code>和<code>flame_static_embedding.pkl</code>二者二合一的结果。</p>
+<blockquote>
+<p><code>self.register_buffer()</code>是继承自<code>nn.Module</code>里的方法，这个方法回将指定的变量注册为模型的一部分，在模型保存和加载时会带着这些变量一起，但这些变量并不会被认定为是<code>parameters()</code>，也就是说在优化时他们不会被计算梯度。</p>
+</blockquote>
+<p>​    这里所谓的<code>static</code>，指的是鼻子眼睛嘴巴这种互相相对位置比较固定的landmark。然后<code>dynamic</code>就是脸的轮廓上标注的那些landmark。在很早些时候，人脸关键点检测这个任务就规定了68个landmark，所以这里其实也是要整出68个landmark。</p>
+<p>​    但这里的情况比较复杂，在一些单纯的关键点检测的任务里，关键点往往只是对一个图片预测出一组坐标。这里这个模板的关键点实际上是通过指定该关键点所在的面索引，然后在这个索引上用一组重心坐标插值来合成出来的。例如这里的<code>lmk_embeddings[&#39;static_lmk_faces_idx&#39;]</code>，它是这样的一个长为51的一维张量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(Pdb) <span class="built_in">print</span>(lmk_embeddings[<span class="string">&#x27;static_lmk_faces_idx&#x27;</span>])</span><br><span class="line">[<span class="number">6365</span> <span class="number">3772</span> <span class="number">2857</span> <span class="number">8839</span> <span class="number">8777</span> <span class="number">3822</span> <span class="number">8905</span> <span class="number">2262</span> <span class="number">8891</span> <span class="number">5249</span> <span class="number">8626</span> <span class="number">1180</span> <span class="number">3742</span> <span class="number">8800</span></span><br><span class="line"> <span class="number">2238</span> <span class="number">7341</span> <span class="number">8803</span> <span class="number">5920</span> <span class="number">6229</span> <span class="number">6768</span> <span class="number">7532</span> <span class="number">3729</span> <span class="number">8731</span> <span class="number">1582</span> <span class="number">8542</span> <span class="number">6409</span> <span class="number">8231</span> <span class="number">6080</span></span><br><span class="line">  <span class="number">268</span> <span class="number">3695</span> <span class="number">5739</span> <span class="number">7423</span> <span class="number">7390</span> <span class="number">2354</span> <span class="number">8768</span> <span class="number">5997</span>  <span class="number">885</span>  <span class="number">917</span> <span class="number">6026</span> <span class="number">6069</span> <span class="number">8799</span> <span class="number">2452</span></span><br><span class="line"> <span class="number">7446</span> <span class="number">7418</span> <span class="number">3575</span> <span class="number">8635</span>  <span class="number">509</span>  <span class="number">917</span> <span class="number">6052</span> <span class="number">8668</span> <span class="number">7493</span>]</span><br></pre></td></tr></table></figure>
+<p>​    比如我们考虑<code>lmk_embeddings[&#39;static_lmk_faces_idx&#39;][2]</code>，它是2857，那么在后续的程序里，我们会找到第2857片三角形对应的三个顶点，然后通过<code>lmk_embeddings[&#39;static_lmk_bary_coords&#39;][2,:]</code>，我们可以看到重心坐标下的系数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(Pdb) <span class="built_in">print</span>(lmk_embeddings[<span class="string">&#x27;static_lmk_bary_coords&#x27;</span>][<span class="number">2</span>,:])</span><br><span class="line">[<span class="number">0.22336893</span> <span class="number">0.03614211</span> <span class="number">0.74048896</span>]</span><br></pre></td></tr></table></figure>
+<p>​    这样，我们就可以用第2857片三角形的顶点合成出一个坐标了，这个坐标就是这个landmark。</p>
+<p>​    然后我们会发现，在这里<code>lmk_embeddings[&#39;static_lmk_faces_idx&#39;]</code>形状为<code>(51,)</code>，<code>lmk_embeddings[&#39;full_lmk_faces_idx&#39;]</code>形状为<code>(1, 68)</code>，但<code>lmk_embeddings[&#39;dynamic_lmk_faces_idx&#39;]</code>的形状却为<code>(79, 17)</code>，这就是所谓“dynamic”的原因。因为随着人脸的旋转，脸边缘的那些地方的landmark变化幅度比鼻子眼睛嘴巴等landmark要大得多。以及考虑正常人脸的拍照并不会太低头或者抬头，所以只关注其左右偏转。于是就通过从-40°旋转到40°，逐角度建立了79个不同角度时的landmark模板。在这里<code>FLAME()</code>的<code>forward</code>代码里，会有通过之前<code>DECA</code>中估计出的相机位姿来计算landmark的过程，这里并不是重点，所以我们只是简单的提一下这神奇的landmark是怎么来的。</p>
+<p>​    我们回到<code>decode</code>的部分，跳过对landmark的re-projection，我们来到了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ops = self.render(verts, trans_verts, albedo, h=h, w=w, background=background)</span><br></pre></td></tr></table></figure>
+<p>​    为了理解这个部分，我们需要调头回<code>_setup_render()</code>那里，在那儿：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.render = SRenderY(self.image_size, obj_filename=model_cfg.topology_path, uv_size=model_cfg.uv_size, rasterizer_type=self.cfg.rasterizer_type).to(self.device)</span><br></pre></td></tr></table></figure>
+<p>​    我们结合这个<code>SRenderY</code>的实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SRenderY</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, image_size, obj_filename, uv_size=<span class="number">256</span>, rasterizer_type=<span class="string">&#x27;pytorch3d&#x27;</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(SRenderY, self).__init__()</span><br><span class="line">        self.image_size = image_size</span><br><span class="line">        self.uv_size = uv_size</span><br><span class="line">        <span class="keyword">if</span> rasterizer_type == <span class="string">&#x27;pytorch3d&#x27;</span>:</span><br><span class="line">            self.rasterizer = Pytorch3dRasterizer(image_size)</span><br><span class="line">            self.uv_rasterizer = Pytorch3dRasterizer(uv_size)</span><br><span class="line">            verts, faces, aux = load_obj(obj_filename)</span><br><span class="line">            uvcoords = aux.verts_uvs[<span class="literal">None</span>, ...]      <span class="comment"># (N, V, 2)</span></span><br><span class="line">            uvfaces = faces.textures_idx[<span class="literal">None</span>, ...] <span class="comment"># (N, F, 3)</span></span><br><span class="line">            faces = faces.verts_idx[<span class="literal">None</span>,...]</span><br><span class="line">        <span class="keyword">elif</span> rasterizer_type == <span class="string">&#x27;standard&#x27;</span>:</span><br><span class="line">            ...</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            NotImplementedError</span><br><span class="line">            </span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>​    我们可以注意到<code>load_obj(obj_filename)</code>读入了一个挺重要的东西，通过查<code>utils/config.py</code>，我们可以知道其load的是<code>/data/head_template.obj</code>。那么<code>load_obj()</code>其实是一个来自PyTorch3D库的函数，专门用于读取<code>.obj</code>的。</p>
 <h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>​    在补充了FLAME，BFM等必要的前置知识，以及走马观花了一下一些相关工作。我们可以做一个小小的总结：当我们考虑表征一个人头的时候，我们可以依次思考，输出的是只有一个人脸还是有一个完整的人头，输出的结果是不是“photo-realistic”的，输出的结果能不能做二次编辑（换表情，换姿态），以及输出的结果具不具有泛化性，我们可以比较笼统的做出如下的判断：</p>
 <div class="table-container">
 <table>
@@ -614,11 +637,11 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -705,7 +728,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
   
   
     <a href="/2023/12/13/postcard_1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">明信片#1</div>
+      <div class="article-nav-title">Gaussian-Splatting-Gallery</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -780,7 +803,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2023 张嘉伟
+    		&copy; 2024 张嘉伟
     	</div>
       	<div class="footer-right">
       	</div>
@@ -888,11 +911,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
+                <a href="javascript:void(0)" class="js-tag color4">3DV</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -904,7 +931,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">明信片</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">人工智能</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -920,15 +963,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">有限差分</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">傅里叶变换</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数值方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">有限差分</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">元胞自动机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -940,10 +987,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">元胞自动机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
               </li>
              
@@ -952,11 +995,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -984,10 +1027,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
@@ -1004,27 +1043,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">人工智能</a>
+                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1036,7 +1055,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">故障诊断</a>
               </li>
             
             <div class="clearfix"></div>

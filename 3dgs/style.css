@@ -18,7 +18,7 @@ dialog {
     color: white;
     background-color: #000;
     border: none;
-    position: relative;
+    position: fixed;
     transform: translate(-50%, -50%);
 }
 
@@ -29,10 +29,11 @@ dialog {
 }
 
 progress {
-    width: 100%;
+    position: absolute;
+    width: 150%;
     height: 1em;
     border: none;
-    background-color: #fff;
+    background-color: rgba(0,0,0,0);
     color: #eee;
 }
 
@@ -47,3 +48,19 @@ progress::-webkit-progress-value {
 progress::-moz-progress-bar {
     background-color: #eee;
 }
+.modal {
+    display: none;
+    position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0);
+    color: white;
+    padding: 20px;
+    z-index: 1000; /* 确保在最顶层 */
+	max-width: 80%;
+}
+.modal p {
+    text-align: center;
+}
+
