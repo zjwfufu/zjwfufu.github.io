@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/postcard_1.jpg">
 <meta property="og:image" content="https://zjwfufu.github.io/images/postcard_end.gif">
 <meta property="article:published_time" content="2023-12-13T10:49:27.000Z">
-<meta property="article:modified_time" content="2024-01-01T13:29:21.243Z">
+<meta property="article:modified_time" content="2024-01-06T01:55:31.603Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary">
@@ -240,6 +240,12 @@
         <li role="presentation">
         <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/shark.splat">Blåhaj</a>
         </li>
+        <li role="presentation">
+        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/park.splat">YanJiao Park</a>
+        </li>
+        <li role="presentation">
+        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/school.splat">My High School</a>
+        </li>
         <!-- Add more options as needed -->
         </div>
     </div>
@@ -268,6 +274,9 @@
 
 <blockquote>
 <p>用鼠标可以拖拽旋转，WASD可以前进后退（某种意义上的），Q和E也可以旋转。我加了个事件监视器，所以鼠标如果移出去了画面就会暂停，某种程度上节约资源吧。</p>
+<p><strong>训练好的3DGS被寄存在huggingface中，所以在导入时需要科学上网。</strong></p>
+<p><strong>技术力有限，只能支持PC端。</strong></p>
+<p><strong>为了提高渲染效率，<code>.ply</code>格式被压制成了<code>.splat</code>格式，所以质量有所降低。</strong></p>
 </blockquote>
 <p>​    事情是这样的，我甲流刚好，然后看不动代码论文什么的，然后就想起来整了个这个玩意。</p>
 <p>​    起因有很多，其中一个是前几天跟一个学长聊天，他跟我说读研的那边好多吃的都没有，于是我才意识到很多东西不是理所应当的，比如益禾堂，烤冷面。以及估计马上就要离开西电，以后可能也吃不上了，萌发了下学期回去以后把他们都“录像一圈—&gt;训出高斯点云”这样来收集起来。</p>
@@ -601,15 +610,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,19 +630,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,15 +662,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">有限差分</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">傅里叶变换</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数值方法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">有限差分</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,15 +694,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">大学物理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">课外学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,10 +718,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">拉普拉斯变换</a>
               </li>
              
@@ -717,7 +726,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
+                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">概率分布</a>
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
+                <a href="javascript:void(0)" class="js-tag color5">概率分布</a>
               </li>
              
               <li class="article-tag-list-item">
