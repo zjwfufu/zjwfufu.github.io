@@ -43,10 +43,10 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/head_uv.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/head_end.jpg">
 <meta property="article:published_time" content="2023-12-27T11:47:52.000Z">
-<meta property="article:modified_time" content="2024-01-06T05:40:09.331Z">
+<meta property="article:modified_time" content="2024-01-27T09:11:12.237Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="3DV">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="3DV">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zjwfufu.github.io/images/head_para_head.jpg">
   
@@ -626,7 +626,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 </table>
 </div>
 <p>​    上表只是一个笼统的判断，因为各种流派之间互相借鉴，例如<a target="_blank" rel="noopener" href="https://gafniguy.github.io/4D-Facial-Avatars/">NerFACE</a>虽然是朴素的基于NeRF-based的方法，但同时输入了3DMM的表情系数做condition，所以也是可以编辑的。</p>
-<p>​    但如果将其中可微渲染的部件从MLP换成3D Gaussian Splatting，那这又是另一回事了。因为不管是3D-awares GAN还是NeRF-based还是Neural Implicit方法里，能取得成功最终收敛，很大程度上都是MLP翩若惊鸿宛若游龙般的拟合连续边界的能力。但3DGS并没有那么强的能力，3DGS拟合连续边界是靠砸雪球砸出来的。这就导致一个像素的颜色会受许多个椭球的影响，同时这些椭球又影响到更多的像素点。这种优化的难度比ray marching可大多了。（3DGS里的scale需要$\exp \left( \cdot \right) $，训练时需要有clone and prune，需要比较精密的lr scheduler）。这就导致像3D-awares GAN那里，从2D image datasets里，用对抗训练这么弱的监督去想整出一个“zero-shot”的3DGS，是困难的。</p>
+<p>​    但如果将其中可微渲染的部件从MLP换成3D Gaussian Splatting，那这又是另一回事了。因为不管是3D-awares GAN还是NeRF-based还是Neural Implicit方法里，能取得成功最终收敛，很大程度上都是MLP翩若惊鸿宛若游龙般的拟合连续边界的能力。但3DGS并没有那么强的能力，3DGS拟合连续边界是靠砸雪球砸出来的。这就导致一个像素的颜色会受许多个椭球的影响，同时这些椭球又影响到更多的像素点。这种优化的难度比ray casting可大多了。（3DGS里的scale需要$\exp \left( \cdot \right) $，训练时需要有clone and prune，需要比较精密的lr scheduler）。这就导致像3D-awares GAN那里，从2D image datasets里，用对抗训练这么弱的监督去想整出一个“zero-shot”的3DGS，是困难的。</p>
 <p>​    目前有且仅有一个从2D数据集里来generative 3DGS的工作<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2311.17857">GaussianShellMaps</a>，由于作者列表过于重量级，不开源根本follow不动。还有许多针对personalized avatars的工作，<a target="_blank" rel="noopener" href="https://shenhanqian.github.io/gaussian-avatars">GaussianAvatars</a>，<a target="_blank" rel="noopener" href="https://shunsukesaito.github.io/rgca/">Relightable Gaussian Codec Avatars</a>，<a target="_blank" rel="noopener" href="https://yufan1012.github.io/MonoGaussianAvatar">MonoGaussianAvatar</a>，<a target="_blank" rel="noopener" href="https://ustc3dv.github.io/FlashAvatar/">FlashAvatar</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.01632">GaussianHead</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.02902">HeadGaS</a>。这些都是最近高斯井喷时的工作，现在都没开源。但看下来，感觉UV map结合一下应该是最靠谱的。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “花开花落花开了又一遍，年年岁岁盼过了又一年。”</p>
 <center>
@@ -673,11 +673,11 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		
 		</ul>
@@ -761,6 +761,15 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 
   
 <nav id="article-nav">
+  
+    <a href="/2024/01/19/Head2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Look Closely at Head 2
+        
+      </div>
+    </a>
   
   
     <a href="/2023/12/13/postcard_1/" id="article-nav-older" class="article-nav-link-wrap">
@@ -947,15 +956,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -967,19 +976,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,15 +1052,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1067,15 +1076,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
