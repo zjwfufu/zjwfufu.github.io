@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/head4_soubhik.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/head4_end.jpg">
 <meta property="article:published_time" content="2024-06-22T06:22:02.000Z">
-<meta property="article:modified_time" content="2024-06-22T07:37:58.513Z">
+<meta property="article:modified_time" content="2024-06-22T14:21:47.031Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="3DV">
 <meta name="twitter:card" content="summary">
@@ -560,7 +560,7 @@ f_p=\underset{f\in F}{\mathrm{arg}\min}m\left( p,f \right)</script><p>​    这
 <p>​    至此，我们就了解了如何从多视角图片中，处理出人脸的mesh。在写这篇blog的时候，这一章节是写起来最为困难的。因为整个pipeline涉及到的内容太多，有些也比较早，网上不太能搜得到，其中的有些工作也不存在“开源代码”这种说法，所以只能比较粗浅的进行理解。但实际上，可以有其他的采集方式，例如结构光，ToF。数据集<a target="_blank" rel="noopener" href="http://kunzhou.net/zjugaps/facewarehouse/">FaceWarehouse</a>就是用Kinect深度相机采集的，只不过这种相机的精度肯定了差了一些。下面将讨论如何让人脸/头mesh可以被驱动。</p>
 <p><details>
     <summary>[点击以查看一些废话]</summary>
-    历史的车轮滚滚向前，揪着上面的那些环节的细节也意义不大。不如相忘于江湖，抓紧时间多快好省的炼丹。滚雪球的效应是恐怖的：比如有同学选择上大模型的车，已经猛发机器学习三大会了；有的同学早早就知道去找外校intern，然后猛搓螺旋丸了；你还搁这儿横竖转置、透视变换看不明白，那只能一步错步步错，到时候一路生花的名单里就没有你。不过如果你和我一样一开始就从名单里被除名了，那你至少获得了几年的“追求自己喜欢的事情”的豁免。毕竟卷也卷不赢，躺也躺不平，总得找点精神寄托。至少对于我，多年以后，确认接单骑上电动车后，我会想起遥远的大三暑假的某天下午，我把fufu放在椅子上，拿着手机拍了一圈，然后在autodl上跑出了个NeRF新视角的`fufu.mp4`。
+    历史的车轮滚滚向前，揪着上面的那些环节的细节也意义不大。不如相忘于江湖，抓紧时间多快好省的炼丹。滚雪球的效应是恐怖的：比如有同学选择上大模型的车，已经猛发机器学习三大会了；有的同学早早就知道去找外校intern，然后猛搓螺旋丸了；你还搁这儿横竖转置、透视变换看不明白，那只能一步错步步错，到时候一路生花的名单里就没有你。不过如果你和我一样一开始就从名单里被除名了，那你至少获得了几年的“追求自己喜欢的事情”的豁免。毕竟卷也卷不赢，躺也躺不平，总得找点精神寄托。至少对于我，多年以后，确认接单骑上电动车后，我会想起遥远的大三暑假的某天下午，我把fufu放在椅子上，拿着手机拍了一圈，然后在autodl上跑出了个NeRF新视角的fufu.mp4。
 </details></p>
 <h3 id="Blendshape"><a href="#Blendshape" class="headerlink" title="Blendshape"></a>Blendshape</h3><p>​    我第一次遇到这个词是在阅读FLAME中，冷不丁就来这么一个“blendshape”（FLAME中其实指的是corrective blendshape），我当时并不理解他什么意思，他被翻译成什么“混合变形”，我其实后来也不是很理解他为什么要叫“blendshape”。然后我看他们都在用这个词，我也就跟着用这个词了。如果非要给blendshape下定义，那大概是：</p>
 <blockquote>
