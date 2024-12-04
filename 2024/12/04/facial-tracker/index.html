@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/vhap_init.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/xiaohan.png">
 <meta property="article:published_time" content="2024-12-04T11:47:52.000Z">
-<meta property="article:modified_time" content="2024-12-04T08:34:27.438Z">
+<meta property="article:modified_time" content="2024-12-04T08:40:26.363Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="3DV">
 <meta property="article:tag" content="深度学习">
@@ -590,10 +590,11 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
 <p>这个对齐是为了将平均相机位姿与世界坐标系对齐。另一个直观的解释是，在真实采集中，每个相机虽然都朝向受试者，但一定不可避免地存在误差。通过上述对齐，所有相机的“朝向”都将变得一致，即有着相同的“lookat point”。</p>
 <p>​    整个tracker写的“开箱即用”，将数据集按路径准备好了就可以一键启动了。</p>
 <center>
-<video id="video" controls style="max-width: 300px; max-height: 600px; width: auto; height: auto;">
+<video id="video" controls style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
     <source id="mp4" src="/images/tracking.mp4" type="video/mp4" >
 </video>
 </center>
+
 
 <p>总的来说，整个tracker实现了针对人头来说非常惊艳的效果。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    整个项目的实现，完全就像一场“<em>对见习炼丹师进行的指导课</em>”。标准的type hint，规范的doc-string，可扩展性好，方便修改，甚至可以媲美一些由许多人维护的开源炼丹仓库（例如diffuser，transformer）。我起初只是以为我不会做科研，看完了以后我发现我其实连代码也不写，哪怕是Python。自从入门3D Vision，已经有一年半了，科研上颗粒无收，多少有点麻；然后看了这个项目，我的内心：</p>
