@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/ddpm_128.jpg">
 <meta property="og:image" content="https://zjwfufu.github.io/images/DDPM_2.jpeg">
 <meta property="article:published_time" content="2022-11-23T11:15:21.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:56:04.896Z">
+<meta property="article:modified_time" content="2024-09-13T12:10:07.128Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@ q\left( \mathbf{x}_1,\mathbf{x}_2,...,\mathbf{x}_T|\mathbf{x}_0 \right) =\frac{q
 <script type="math/tex; mode=display">
 q\left( \mathbf{x}_1,\mathbf{x}_2,...,\mathbf{x}_T|\mathbf{x}_0 \right) =\frac{q\left( \mathbf{x}_T|\mathbf{x}_{T-1} \right) q\left( \mathbf{x}_{T-1}|\mathbf{x}_{T-2} \right) ...q\left( \mathbf{x}_0 \right)}{q\left( \mathbf{x}_0 \right)}
 \\
-=\prod_{t=1}^T{q\left( \mathbf{x}_t,\mathbf{x}_{t-1} \right)}</script><p>​    加噪的过程，并不需要一步步迭代相乘。并且，注意到：如果需要从一般的高斯分布$\mathcal{N} \left( \mu ,\sigma ^2 \right) $可以由标准正态分布$\mathcal{N} \left( 0,1 \right)$作仿射变换得到。这一操作被称为“重整化”。所以，之前的加噪过程可以写为：</p>
+=\prod_{t=1}^T{q\left( \mathbf{x}_t|\mathbf{x}_{t-1} \right)}</script><p>​    加噪的过程，并不需要一步步迭代相乘。并且，注意到：如果需要从一般的高斯分布$\mathcal{N} \left( \mu ,\sigma ^2 \right) $可以由标准正态分布$\mathcal{N} \left( 0,1 \right)$作仿射变换得到。这一操作被称为“重整化”。所以，之前的加噪过程可以写为：</p>
 <script type="math/tex; mode=display">
 \mathbf{x}_t=\sqrt{1-\beta _t}\mathbf{x}_{t-1}+\sqrt{\beta _t}\mathbf{\epsilon }_{t-1}
 \\
@@ -245,7 +245,7 @@ D\left( kX \right) =k^2D\left( X \right)
 <script type="math/tex; mode=display">
 \mathbf{x}_t=\sqrt{\bar{\alpha}_t}\mathbf{x}_0+\sqrt{1-\bar{\alpha}_t}\mathbf{\epsilon }
 \\
-q\left( \mathbf{x}_t|\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_t,\sqrt{\bar{\alpha}_t}\mathbf{x}_0,\left( 1-\bar{\alpha}_t \right) \mathbf{I} \right)</script><p>​    即给定一个初始图片，就能算出第$t$步的$\mathbf{x}_t$。</p>
+q\left( \mathbf{x}_t|\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_t|\sqrt{\bar{\alpha}_t}\mathbf{x}_0,\left( 1-\bar{\alpha}_t \right) \mathbf{I} \right)</script><p>​    即给定一个初始图片，就能算出第$t$步的$\mathbf{x}_t$。</p>
 <h3 id="Reverse-Process"><a href="#Reverse-Process" class="headerlink" title="Reverse Process"></a>Reverse Process</h3><p>​    加噪是简单的，问题的关键在于从噪声中恢复原图像，即反向扩散。我们在此处停顿一下：虽然印象里，我们说：给图像加噪，然后去噪。但是实际上我们现在并没有引入任何的参数。到目前为止我们只是推出了一个一阶马尔科夫链的加噪过程。</p>
 <p>​    对于反向扩散$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) $,它的分布是未知的。但理论分析证明，连续扩散过程的逆转过程当扩散率（也就是这里的$\beta_t$）很小的时候，逆转过程的分布与正向分布时同分布。（这一定程度上也解释了为什么扩散模型要“forward”很多次）。</p>
 <p>​    $q\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right)$很难得到，但从训练的角度来看。我们总是会输入一张原始图片$\mathbf{x}_{0}$，我们对于中间的隐变量的了解完全是由后验给出的。所以后验概率$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right)$由贝叶斯公式：</p>
@@ -256,7 +256,7 @@ q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\frac{q\left( \mathb
 \\
 =\frac{q\left( \mathbf{x}_t|\mathbf{x}_{t-1} \right) q\left( \mathbf{x}_{t-1}|\mathbf{x}_0 \right)}{q\left( \mathbf{x}_t|\mathbf{x}_0 \right)}</script><p>​    最后的等号是由马尔科夫链的性质得到的。另一方面，由马尔可夫性，加入$\mathbf{x}_{0}$并不影响概率。由上述的在很小的$\beta_t$时的性质：</p>
 <script type="math/tex; mode=display">
-q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_{t-1},\tilde{\mu}\left( \mathbf{x}_t,\mathbf{x}_0 \right) ,\tilde{\beta}_t\mathbf{I} \right)</script><p>​    所以看起来我们只需要估计逆向时每一步的均值和方差即可。我们将上面用贝叶斯公式展开的式子直接代入前向扩散时的分布，我们知道高斯分布：</p>
+q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_{t-1}|\tilde{\mu}\left( \mathbf{x}_t,\mathbf{x}_0 \right) ,\tilde{\beta}_t\mathbf{I} \right)</script><p>​    所以看起来我们只需要估计逆向时每一步的均值和方差即可。我们将上面用贝叶斯公式展开的式子直接代入前向扩散时的分布，我们知道高斯分布：</p>
 <script type="math/tex; mode=display">
 f\left( x \right) =\frac{1}{\sqrt{2\pi}\sigma}\exp \left( -\frac{\left( x-\mu \right) ^2}{2\sigma ^2} \right)</script><p>​    我们忽略掉前面的归一化系数，这在计算时不影响均值和指数上的方差：</p>
 <script type="math/tex; mode=display">
@@ -277,7 +277,7 @@ q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\frac{q\left( \mathb
 \tilde{\mu}\left( \mathbf{x}_t,\mathbf{x}_0 \right) =\frac{1}{\sqrt{\bar{\alpha}_t}}\left( \mathbf{x}_t-\frac{1-\bar{\alpha}_t}{\sqrt{1-\bar{\alpha}_t}}\mathbf{\epsilon } \right)</script><p>​    上面的一番化简，其实只传达了一个信息：当给出$\mathbf{x}_{0}$时如何估计后验概率$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right)$。这要求的是，我得有$\mathbf{x}_{0}$，如果没有$\mathbf{x}_{0}$，我们还是不知道如何处理$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right)$。但一个很好的视角是：如果我们从炼丹的角度看，给出$\mathbf{x}_{0}$时相当于在训练。没有$\mathbf{x}_{0}$时表示在推断。</p>
 <p>​    那么形式化上，我们学习一个模型$p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) $来逼近$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) $。因为$q\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) $是高斯的，所以：</p>
 <script type="math/tex; mode=display">
-p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) =\mathcal{N} \left( \mathbf{x}_{t-1},\tilde{\mu}_{\theta}\left( \mathbf{x}_t,t \right) ,\varSigma _{\theta}\left( \mathbf{x}_t,t \right) \mathbf{I} \right)</script><p>​    那么根据全概率公式：</p>
+p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) =\mathcal{N} \left( \mathbf{x}_{t-1}|\tilde{\mu}_{\theta}\left( \mathbf{x}_t,t \right) ,\varSigma _{\theta}\left( \mathbf{x}_t,t \right) \mathbf{I} \right)</script><p>​    那么根据全概率公式：</p>
 <script type="math/tex; mode=display">
 p_{\theta}\left( \mathbf{x}_0 \right) =\int{p_{\theta}\left( \mathbf{x}_0,\mathbf{x}_1,...,\mathbf{x}_T \right) \mathrm{d}\left( \mathbf{x}_1,...,\mathbf{x}_T \right)}</script><p>​    同时注意到，根据贝叶斯公式：</p>
 <script type="math/tex; mode=display">
@@ -357,9 +357,9 @@ q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right)
 \mathcal{L} _{VLB}=\mathbb{E} _q\left[ -\log p_{\theta}\left( \mathbf{x}_0|\mathbf{x}_1 \right) \right] +\sum_{t=2}^T{D_{KL}\left( q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) ||p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) \right)}+
 \\D_{KL}\left( q\left( \mathbf{x}_T|\mathbf{x}_0 \right) ||p_{\theta}\left( \mathbf{x}_T \right) \right)</script><p>​    最后一项是常数，我们不用管它。先关注最复杂的第二项。我们前面给出过：</p>
 <script type="math/tex; mode=display">
-q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_{t-1},\tilde{\mu}\left( \mathbf{x}_t,\mathbf{x}_0 \right) ,\tilde{\beta}_t\mathbf{I} \right)
+q\left( \mathbf{x}_{t-1}|\mathbf{x}_t,\mathbf{x}_0 \right) =\mathcal{N} \left( \mathbf{x}_{t-1}|\tilde{\mu}\left( \mathbf{x}_t,\mathbf{x}_0 \right) ,\tilde{\beta}_t\mathbf{I} \right)
 \\
-p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) =\mathcal{N} \left( \mathbf{x}_{t-1},\tilde{\mu}_{\theta}\left( \mathbf{x}_t,t \right) ,\varSigma _{\theta}\left( \mathbf{x}_t,t \right) \mathbf{I} \right)</script><p>​    高斯分布下的KL散度存在解析解，这里不再计算了，直接给出解析式：</p>
+p_{\theta}\left( \mathbf{x}_{t-1}|\mathbf{x}_t \right) =\mathcal{N} \left( \mathbf{x}_{t-1}|\tilde{\mu}_{\theta}\left( \mathbf{x}_t,t \right) ,\varSigma _{\theta}\left( \mathbf{x}_t,t \right) \mathbf{I} \right)</script><p>​    高斯分布下的KL散度存在解析解，这里不再计算了，直接给出解析式：</p>
 <script type="math/tex; mode=display">
 D_{KL}\left( p_1||p_2 \right) =\frac{1}{2}\left( \ln \frac{\left| \varSigma _2 \right|}{\left| \varSigma _1 \right|}-d+\mathrm{tr}\left( \varSigma _{2}^{-1}\varSigma _1 \right) +\left( \boldsymbol{\mu }_2-\boldsymbol{\mu }_1 \right) ^T\varSigma _{2}^{-1}\left( \boldsymbol{\mu }_2-\boldsymbol{\mu }_1 \right) \right)</script><p>​    我们知道，方差是被调度器所固定的，只需关注均值构成的二次型：</p>
 <script type="math/tex; mode=display">
@@ -743,19 +743,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,6 +756,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">大二暑假</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线性代数</a>
               </li>
              
               <li class="article-tag-list-item">
