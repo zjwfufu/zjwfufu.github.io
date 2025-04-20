@@ -50,7 +50,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/avatar/206.jpg">
 <meta property="og:image" content="https://zjwfufu.github.io/images/avatar/end.jpg">
 <meta property="article:published_time" content="2025-04-19T13:01:27.000Z">
-<meta property="article:modified_time" content="2025-04-20T16:03:57.050Z">
+<meta property="article:modified_time" content="2025-04-20T23:25:59.288Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
@@ -415,7 +415,7 @@ p\left( x \right) =\int{p\left( x|z_{\mathrm{id}},z_{\mathrm{c}},z_{\mathrm{e}},
 <p>这个工作很新颖，他首先在静态数据集（THuman和Twindom）上训练人体的先验。他想训的先验其实只有几何（下面的深度估计模块以及上面的高斯协方差），而高斯的颜色完全来自输入的两个视角。这其实就直接回避了人体数据集在外貌上不够多样的困境。而高斯的位置就来自于双目深度的直接估计。当然，这种办法其实只能做free-view rendering，驱动本身还是得靠拍摄的人实时做动作。</p>
 <p>​    但本质上，采集的人体数据集在外貌多样性上的不足，使得人们只能构造关于几何的可泛化模型。而解决外貌泛化性的有力手段，就是下面要说的引入强力的先验模型。</p>
 <h2 id="Prior-guided"><a href="#Prior-guided" class="headerlink" title="Prior-guided"></a>Prior-guided</h2><p>​    上述的工作可以说已经从已有数据集里尽数探索了效果，而后来，大规模预训练模型的出现其实重塑了人们的工作流。</p>
-<h3 id="Stable-Diffusion"><a href="#Stable-Diffusion" class="headerlink" title="Stable Diffusion"></a>Stable Diffusion</h3><p>​    其中影响最大的就是预训练的文生图模型，将其结合得分蒸馏采样损失，有许多从文本中生成avatar的工作。人头上有Sig’2024的<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.07539">JHeadArtist</a>和ECCV’2024的<a target="_blank" rel="noopener" href="https://github.com/ZhenglinZhou/HeadStudio">HeadStudio</a>，人体上有3DV‘2024的<a target="_blank" rel="noopener" href="https://github.com/TingtingLiao/TADA">TADA</a>，CVPR‘2024的<a target="_blank" rel="noopener" href="https://humannorm.github.io/">HumanNorm</a>和<a target="_blank" rel="noopener" href="https://alvinliu0.github.io/projects/HumanGaussian">HumanGaussian</a>。这些工作的趋势后面逐渐变成了微调SD模型，使其能监督深度，法线，语义等。例如CVPR’2024的<a target="_blank" rel="noopener" href="https://yukangcao.github.io/DreamAvatar/">DreamAvatar</a>，AAAI’2024的<a target="_blank" rel="noopener" href="https://avatarverse3d.github.io/">AvatarVerse</a>和<a target="_blank" rel="noopener" href="https://github.com/magic-research/avatarstudio/tree/main">AvatarStudio</a>。</p>
+<h3 id="Stable-Diffusion"><a href="#Stable-Diffusion" class="headerlink" title="Stable Diffusion"></a>Stable Diffusion</h3><p>​    其中影响最大的就是预训练的文生图模型，将其结合得分蒸馏采样损失，有许多从文本中生成avatar的工作。人头上有Sig’2024的<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.07539">HeadArtist</a>和ECCV’2024的<a target="_blank" rel="noopener" href="https://github.com/ZhenglinZhou/HeadStudio">HeadStudio</a>，人体上有3DV‘2024的<a target="_blank" rel="noopener" href="https://github.com/TingtingLiao/TADA">TADA</a>，CVPR‘2024的<a target="_blank" rel="noopener" href="https://humannorm.github.io/">HumanNorm</a>和<a target="_blank" rel="noopener" href="https://alvinliu0.github.io/projects/HumanGaussian">HumanGaussian</a>。这些工作的趋势后面逐渐变成了微调SD模型，使其能监督深度，法线，语义等。例如CVPR’2024的<a target="_blank" rel="noopener" href="https://yukangcao.github.io/DreamAvatar/">DreamAvatar</a>，AAAI’2024的<a target="_blank" rel="noopener" href="https://avatarverse3d.github.io/">AvatarVerse</a>和<a target="_blank" rel="noopener" href="https://github.com/magic-research/avatarstudio/tree/main">AvatarStudio</a>。</p>
 <center>
     <img src='/images/avatar/avatar_20.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
