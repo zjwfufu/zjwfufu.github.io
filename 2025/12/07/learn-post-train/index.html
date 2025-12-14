@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/learn_post_train/decoupled_dmd_2.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/learn_post_train/end.jpg">
 <meta property="article:published_time" content="2025-12-07T09:18:05.000Z">
-<meta property="article:modified_time" content="2025-12-14T13:36:31.645Z">
+<meta property="article:modified_time" content="2025-12-14T13:49:55.272Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -111,7 +111,7 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: ">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -467,7 +467,7 @@ s_{\mathrm{cfg}}^{\mathrm{real}}\left( x_{\tau} \right) =s_{\mathrm{uncond}}^{\m
 
 <p>这时$G_\theta$的结果有一些棋盘伪影，$s^\mathrm{fake}$也有，但$s^\mathrm{real}$没有。这说明如果在训练时启用$s^\mathrm{real}-s^\mathrm{fake}$，就能自然得到一个消去伪影的方向，这说明DMD Loss确实起到了正则化的效果。</p>
 <p>​    还有一篇工作是DMDR，其将强化学习引入了这个过程中。如果将这个部分也用这篇blog的递归深度来记录的话，那这篇blog就太长了，所以这一部分就先暂且按下不表。我们只需知道：我们可以在这个过程中引入一些额外的loss，他们会根据生成的结果来打分，打分的结果反传回来可以让网络沿着打分偏好的方向优化。</p>
-<h3 id="Pix2Pix"><a href="#Pix2Pix" class="headerlink" title="Pix2Pix"></a>Pix2Pix</h3><p>​    最后一部分我们留给一个关键的技巧，这一技巧最早来自Pix2Pix，可以概括为在成对的重建/回归损失纸上，引入GAN Loss，可以得到更高质量的图像。这个技巧后来在许许多多的任务里都有用过。比如对于有些任务，会用L1 Loss，VGG Loss，GAN Loss来联合优化：</p>
+<h3 id="Pix2Pix"><a href="#Pix2Pix" class="headerlink" title="Pix2Pix"></a>Pix2Pix</h3><p>​    最后一部分我们留给一个关键的技巧，这一技巧最早来自Pix2Pix，可以概括为在成对的重建/回归损失之上，引入GAN Loss，可以得到更高质量的图像。这个技巧后来在许许多多的任务里都有用过。比如对于有些任务，会用L1 Loss，VGG Loss，GAN Loss来联合优化：</p>
 <script type="math/tex; mode=display">
 \mathcal{L} =\lambda _{L1}\mathcal{L} _{L1}+\lambda _{VGG}\mathcal{L} _{VGG}+\lambda _{GAN}\mathcal{L} _{GAN},</script><p>直觉上这很应该取得更好的结果。在有了上文的前置知识后，我们要对这样做为什么能取得更好的效果进行论证。对于重建/回归任务，我们往往有一个$p_{data}$，我们希望能最小化正向KL：</p>
 <script type="math/tex; mode=display">
@@ -1137,20 +1137,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
