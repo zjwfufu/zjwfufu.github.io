@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://zjwfufu.github.io">
   <title>From Diffusion Model to Flow Matching | 我起初心向明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="“遥想当年愿，终也只成念，无非梦醒言成谶。“">
+  <meta name="description" content="”遥想当年愿，终也只成念，无非梦醒言成谶。“">
 <meta property="og:type" content="article">
 <meta property="og:title" content="From Diffusion Model to Flow Matching">
 <meta property="og:url" content="https://zjwfufu.github.io/2025/01/18/sde/index.html">
 <meta property="og:site_name" content="我起初心向明月">
-<meta property="og:description" content="“遥想当年愿，终也只成念，无非梦醒言成谶。“">
+<meta property="og:description" content="”遥想当年愿，终也只成念，无非梦醒言成谶。“">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zjwfufu.github.io/images/sde/sde_1.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/sde/sde_2.png">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/sde/sde_9.gif">
 <meta property="og:image" content="https://zjwfufu.github.io/images/sde/end.jpg">
 <meta property="article:published_time" content="2025-01-18T11:47:52.000Z">
-<meta property="article:modified_time" content="2025-01-19T02:45:50.266Z">
+<meta property="article:modified_time" content="2025-12-14T13:59:56.525Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -114,7 +114,7 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: ">
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -219,7 +219,7 @@
 		  </div>
 		
 	  
-        <p>“遥想当年愿，终也只成念，无非梦醒言成谶。“</p>
+        <p>”遥想当年愿，终也只成念，无非梦醒言成谶。“</p>
 <span id="more"></span>
 <p>​    很久以来我就想写一篇关于更先进的扩散模型的blog，但其发展速度实在是太快了。我上次动手训扩散模型甚至都是2年前了，2年过去，有了翻天覆地的变化。在现在的数据规模下，我们已经知道一个高质量的生成模型，可能更取决于构造的latent。而至于DDPM还是流匹配，可能没那么重要。所以这篇blog其实只是想借着学习这一套东西的由头，复健一下看公式的感觉。</p>
 <h3 id="Continuous-Diffusion"><a href="#Continuous-Diffusion" class="headerlink" title="Continuous Diffusion"></a>Continuous Diffusion</h3><p>​    对扩散模型最直接的理解就是”一步一步的加噪，一步一步的去噪。“，在加噪时，从第$i-1$步加噪到第$i$步的过程为：</p>
@@ -1438,5 +1438,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
 </body>
 </html>
