@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zjwfufu.github.io">
-  <title>Understanding Divergence | 我起初心向明月</title>
+  <title>From Divergences to Distillation | 我起初心向明月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="“天门中断楚江开，碧水东流至此回。”">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Understanding Divergence">
+<meta property="og:title" content="From Divergences to Distillation">
 <meta property="og:url" content="https://zjwfufu.github.io/2025/12/07/learn-post-train/index.html">
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="“天门中断楚江开，碧水东流至此回。”">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://zjwfufu.github.io/images/learn_post_train/decoupled_dmd_2.png">
 <meta property="og:image" content="https://zjwfufu.github.io/images/learn_post_train/end.jpg">
 <meta property="article:published_time" content="2025-12-07T09:18:05.000Z">
-<meta property="article:modified_time" content="2025-12-14T09:36:55.675Z">
+<meta property="article:modified_time" content="2025-12-14T13:36:31.645Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -183,7 +183,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Understanding Divergence
+      From Divergences to Distillation
     </h1>
   
 
@@ -212,14 +212,13 @@
 		
 		  <div id="custom-toc" class="custom-toc-article">
 			<strong class="toc-title">文章目录</strong>
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wasserstein-GAN"><span class="toc-text">Wasserstein GAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pix2Pix"><span class="toc-text">Pix2Pix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-text">End</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wasserstein-GAN"><span class="toc-text">Wasserstein GAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-policy-Distillation"><span class="toc-text">On-policy Distillation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distribution-Matching-Distillation"><span class="toc-text">Distribution Matching Distillation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pix2Pix"><span class="toc-text">Pix2Pix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-text">End</span></a></li></ol>
 		  </div>
 		
 	  
         <p>“天门中断楚江开，碧水东流至此回。”</p>
 <span id="more"></span>
-<p>​    最近换了方向，正在学习一系列前置知识。鼓捣camera，projection，往mesh上贴3DGS久了，再看这些，有一种朦胧的初恋感。这篇blog主要是对诸多内容进行的复健，毕竟很久不接触，确实很生疏。</p>
-<p>​    故事要从经典的Wasserstein GAN说起，我们很快会发现“优秀的作品往往都在讲同一件事”。</p>
+<p>​    前段时间一直没时间写blog，最近换了方向，正在学习一系列前置知识，就有空写一写了。先前鼓捣camera，projection，往mesh上贴3DGS久了，再看这些新方向的内容，有一种朦胧的初恋感。这篇blog主要是对诸多内容进行的复健，毕竟很久不接触，确实很生疏。这篇blog的目的是为了给理解现在的文生图模型的后训练来补充前置知识，故事要从经典的Wasserstein GAN说起，而我们很快会发现“优秀的作品往往都在讲同一件事”。</p>
 <h3 id="Wasserstein-GAN"><a href="#Wasserstein-GAN" class="headerlink" title="Wasserstein GAN"></a>Wasserstein GAN</h3><p>​    Wasserstein GAN（下文简称W-GAN）现在看来已经很早了，我第一次知道这个词的时候，还在本科，那个时候我显然没能看懂它。W-GAN原文里没什么图，有代表性的感觉是这张：</p>
 <center>
     <img src='/images/learn_post_train/wgan.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
@@ -248,7 +247,6 @@ D^{\ast}\left( x \right) =\frac{p\left( x \right)}{p\left( x \right) +q\left( x 
 \\
 =2JS\left( p\parallel q \right) -2\log 2,</script><p>W-GAN指出，由于在最优判别器的条件下，$\mathbb{E} _{x\sim p}\left[ \log \left( D^{\ast}\left( x \right) \right) \right]$相对生成器的优化来说是个常数，这导致如果在计算某些处于$p(x)$和$q(x)$完全不重合的区域的样本时，JS散度会直接为接近零，不提供有效的梯度。</p>
 <blockquote>
-<p>[!NOTE]</p>
 <p>KL散度（Kullback–Leibler Divergence）和JS散度的定义为：</p>
 <script type="math/tex; mode=display">
 KL\left( p_1\parallel p_2 \right) =\mathbb{E} _{x\sim p_1}\log \frac{p_1\left( x \right)}{p_2\left( x \right)}=\int{p_1\left( x \right)}\log \frac{p_1\left( x \right)}{p_2\left( x \right)}\mathrm{d}x,
@@ -303,147 +301,92 @@ e^{\lambda s}=1+\lambda s+O\left( \lambda ^2 \right) ,</script><p>带入原式�
 <center>
     <img src='/images/learn_post_train/kl_forward_vs_reverse.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
-可以看到，在反向KL下，模型倾向于找到高概率的固定的模式，这对应到GAN里就是模式坍塌。其实到这里，提W-GAN的目的已经达到了，应该进行其他部分了。但都写到这儿了，干脆把W-GAN给不严谨的推导一下，算是某种callback一下几年前看不懂的自己。
 
-​    W-GAN的观点在于，KL散度和JS散度都不能作为很好的距离度量，因为在$p$和$q$完全不重合时，他们的问题都很大。例如考虑在二维平面上的线分布，我们考虑真实分布为：
-$$
-X=0,\quad Y=U\left( 0,1 \right) ,
-$$
-而待拟合的分布为：
-$$
-X=\theta ,\quad Y=U\left( 0,1 \right) ,
-$$
-在这种情况下，KL散度和JS散度都不连续，而且没有有意义的监督信号。而如果用Wasserstein距离：
-$$
+<p>可以看到，在反向KL下，模型倾向于找到高概率的固定的模式，这对应到GAN里就是模式坍塌。其实到这里，提W-GAN的目的已经达到了，应该进行其他部分了。但都写到这儿了，干脆把W-GAN给不严谨的推导一下，算是某种callback一下几年前看不懂的自己。</p>
+<p>​    W-GAN的观点在于，KL散度和JS散度都不能作为很好的距离度量，因为在$p$和$q$完全不重合时，他们的问题都很大。例如考虑在二维平面上的线分布，我们考虑真实分布为：</p>
+<script type="math/tex; mode=display">
+X=0,\quad Y=U\left( 0,1 \right) ,</script><p>而待拟合的分布为：</p>
+<script type="math/tex; mode=display">
+X=\theta ,\quad Y=U\left( 0,1 \right) ,</script><p>在这种情况下，KL散度和JS散度都不连续，而且没有有意义的监督信号。而如果用Wasserstein距离：</p>
+<script type="math/tex; mode=display">
 W_k\left( p,q \right) =\underset{\gamma \sim \Pi \left( p,q \right)}{\mathrm{inf}}\mathbb{E} _{\left( x,y \right) \sim \gamma}\left[ \left\| x-y \right\| ^k \right] ^{1/k},
 \\
-W_1\left( p,q \right) =\left| \theta \right|,
-$$
-这时候的度量就是连续且有界的了，W-GAN的推导正是在$k=1$的情况下进行的。Wasserstein距离（推土机距离）说的是找到两个集合之间的距离期望的下确界，常在最优传输等问题里也出现。但我们是想用这个距离来进行GAN的训练，而这个形式显然很不好计算。我们可以从离散化时的情形入手，这样会看到一个在推导支持向量机时的很熟悉的形式。
-
-​    假设真实分布$p(x)$有$m$个离散点$\{x_i\}^m_{i=1}$，概率密度值或者更形象的说“沙子的质量”为$\mu_i$。为了不至于混淆我们记生成分布$q(x)$为$q(y)$，有$n$个离散点$\{y_j\}^n_{j=1}$，概率密度值为$\nu_j$。记运输计划$\gamma_{ij}$为从$x_i$搬运到$y_i$，这要求$\gamma_{ij}$必须大于等于0。而搬运有对应的成本（最常见的就是距离）为$c_{ij}$。所以这时候得到了一个线性规划问题：
-$$
+W_1\left( p,q \right) =\left| \theta \right|,</script><p>这时候的度量就是连续且有界的了，W-GAN的推导正是在$k=1$的情况下进行的。Wasserstein距离（推土机距离）说的是找到两个集合之间的距离期望的下确界，常在最优传输等问题里也出现。但我们是想用这个距离来进行GAN的训练，而这个形式显然很不好计算。我们可以从离散化时的情形入手，这样会看到一个在推导支持向量机时的很熟悉的形式。</p>
+<p>​    假设真实分布$p(x)$有$m$个离散点$\{x_i\}^m_{i=1}$，概率密度值或者更形象的说“沙子的质量”为$\mu_i$。为了不至于混淆我们记生成分布$q(x)$为$q(y)$，有$n$个离散点$\{y_j\}^n_{j=1}$，概率密度值为$\nu_j$。记运输计划$\gamma_{ij}$为从$x_i$搬运到$y_i$，这要求$\gamma_{ij}$必须大于等于0。而搬运有对应的成本（最常见的就是距离）为$c_{ij}$。所以这时候得到了一个线性规划问题：</p>
+<script type="math/tex; mode=display">
 \min _{\gamma _{ij}\ge 0}\quad \sum_{i,j}{c_{ij}\gamma _{ij}}
 \\
 s.t.\quad \sum_j{\gamma _{ij}}=\mu _i,\quad \forall i
 \\
-\quad \quad \quad \sum_i{\gamma _{ij}}=\nu _j,\quad \forall j
-$$
-就像在推导SVM时那样，我们可以写出其拉格朗日函数：
-$$
+\quad \quad \quad \sum_i{\gamma _{ij}}=\nu _j,\quad \forall j</script><p>就像在推导SVM时那样，我们可以写出其拉格朗日函数：</p>
+<script type="math/tex; mode=display">
 \begin{equation}
 \begin{aligned}
 \mathcal{L}(\gamma, \alpha, \beta) & =\sum_{i, j} c_{i j} \gamma_{i j}+\sum_i \alpha_i\left(\mu_i-\sum_j \gamma_{i j}\right)+\sum_j \beta_j\left(\nu_j-\sum_i \gamma_{i j}\right) \\
 & =\sum_{i, j} c_{i j} \gamma_{i j}-\sum_{i, j} \alpha_i \gamma_{i j}-\sum_{i, j} \beta_j \gamma_{i j}+\sum_i \alpha_i \mu_i+\sum_j \beta_j \nu_j \\
 & =\sum_i \alpha_i \mu_i+\sum_j \beta_j \nu_j+\sum_{i, j} \gamma_{i j}\left(c_{i j}-\alpha_i-\beta_j\right),
 \end{aligned}
-\end{equation}
-$$
-接下来要求$\mathcal{L} (\gamma ,\alpha ,\beta )$的极大值，由于$\gamma_{ij}$是非负的，所以极大值一定在$c_{ij}-\alpha _i-\beta _j\ge 0$时取，所以对偶问题其实就是：
-$$
+\end{equation}</script><p>接下来要求$\mathcal{L} (\gamma ,\alpha ,\beta )$的极大值，由于$\gamma_{ij}$是非负的，所以极大值一定在$c_{ij}-\alpha _i-\beta _j\ge 0$时取，所以对偶问题其实就是：</p>
+<script type="math/tex; mode=display">
 \underset{\alpha ,\beta}{\max}\quad \sum_i{\alpha _i\mu _i}+\sum_j{\beta _j\nu _j}
 \\
-s.t.\quad \alpha _i+\beta _j\le c_{ij}
-$$
-而这个对偶形式看起来像$\mu_i$和$\nu_j$关于$\alpha_i$和$\beta_j$的期望。我们不严谨的用$f(x_i)$来连续化$\alpha_i$，用$g(y_j)$来连续化$g_y$，将求和换成积分，就得到了连续情形下的对偶形式：
-$$
+s.t.\quad \alpha _i+\beta _j\le c_{ij}</script><p>而这个对偶形式看起来像$\mu_i$和$\nu_j$关于$\alpha_i$和$\beta_j$的期望。我们不严谨的用$f(x_i)$来连续化$\alpha_i$，用$g(y_j)$来连续化$g_y$，将求和换成积分，就得到了连续情形下的对偶形式：</p>
+<script type="math/tex; mode=display">
 \underset{f,g}{\max}\left( \mathbb{E} _{x\sim p}\left[ f\left( x \right) \right] +\mathbb{E} _{y\sim q}\left[ g\left( y \right) \right] \right), 
 \\
-s.t.\quad f\left( x \right) +g\left( y \right) \le c\left( x,y \right) ,\quad \forall x,y
-$$
-$f(\cdot)$和$g(\cdot)$的选取没有要求，在这里我们直接选取$f^\ast=-g^\ast$的形式，实际上我们是可以说明并保证在这个形式下确实是有更好的解的，但这里我们就不管了。然后选取1-范数作为距离度量：
-$$
+s.t.\quad f\left( x \right) +g\left( y \right) \le c\left( x,y \right) ,\quad \forall x,y</script><p>$f(\cdot)$和$g(\cdot)$的选取没有要求，在这里我们直接选取$f^\ast=-g^\ast$的形式，实际上我们是可以说明并保证在这个形式下确实是有更好的解的，但这里我们就不管了。然后选取1-范数作为距离度量：</p>
+<script type="math/tex; mode=display">
 \underset{\left\| f \right\| _{\mathrm{Lip}}\leqslant 1}{\max}\left( \mathbb{E} _{x\sim p}\left[ f\left( x \right) \right] -\mathbb{E} _{y\sim q}\left[ f\left( y \right) \right] \right) ,
 \\
-s.t.\quad f\left( x \right) -f\left( y \right) \le \left| x-y \right|,\quad \forall x,y
-$$
-这就得到了W-GAN里的配置，也就是说只需要给损失函数摘掉$\log$，同时保证鉴别器是Lipschitz连续的，就能更稳定。这一点也很好实现，只要保证鉴别器每次更新时，其参数更新有个截断就好。W-GAN非常经典，但从事后看来，这样稳健的做法其实会降低一些生成质量。以及W-GAN本身是说度量空间性质不好，所以要找更好的度量；但后面我们知道，StyleGAN本身用mapping network去调制latent space，也是一种隐式的来获得更好的度量的方式。而且这一过程是纯data-driven的，而W-GAN就显得是人为的归纳偏置了，StyleGAN加上关于鉴别器的R1正则项，收敛的往往也还好。看样子learning再次打败了inductive bias。
-
-### On-policy Distillation
-
-推导W-GAN的练习热身了足够的预备知识，我们现在来关注一个用在自回归的语言模型里的一个经典工作：On-policy Distillation。自回归的语言模型是说，我们将一段序列$x$喂进这个模型，他会输出另一段序列$y$。模型里有一个tokenizer，tokenizer有一个固定的词汇表，词汇表里有$M$个数据（大概是几万的样子）。记$y_{\le n+1}=(y_1,y_2,...,y_n)$为模型生成的到第$n$个token之前的句子，那么自回归的逻辑就是估计$p(\cdot | y_n,x)\in (0,1)^M$这样的一个分布，这个分布往往是通过将网络输出的logits，用拿温度系数调制的softmax来归一化得到的。为了便于叙述，我们记$p\left( y_n|x \right) \coloneqq p\left( y_n|y_{<n},x \right)$。
-
-​    这篇工作关注的事情是想让一个学生语言模型$p_S^\theta$，其中$\theta$为可学习参数，尽量能复制教师语言模型$p_T$的行为—即蒸馏。学生模型的容量肯定比教师模型是要低的，在这个settings下，我们往往有一个数据集$X$，如果可以，我们有其配对的下文$Y$组成$(X,Y)$；如果没有，$Y$可以由教师模型生成。在这样一个定义的很好的问题下，我们有许多种直接的策略：
-
-**Supervised FT**（Supervised Finetuning），即如果有真值的$(X,Y)$，我们直接用这样的高质量数据去训学生模型就好了：
-$$
-L_{SFT}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ -\log p_{S}^{\theta}\left( y|x \right) \right],
-$$
-**Sequence-Level KD**（Sequence-Level Knowledge Distillation），是说如果没有配对的$(X,Y)$，可以用教师网络的输出作为$Y$，形式和SFT是一样的：
-$$
-L_{SeqKD}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ -\log p_{S}^{\theta}\left( y|x \right) \right] ,
-$$
-**Supervised KD**（Supervised Knowledge Distillation），在自回归的语言模型中，这种方法是说利用正向KL来对齐token-level的分布：
-$$
-L_{SD}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \mathcal{D} _{KL}\left( p_T\parallel p_{S}^{\theta} \right) \left( y|x \right) \right] ,
-$$
-我们需要指出，SFT和SeqKD的优化目标本质上也是正向KL，只是没有要求要对齐token-level的logits。
-$$
+s.t.\quad f\left( x \right) -f\left( y \right) \le \left| x-y \right|,\quad \forall x,y</script><p>这就得到了W-GAN里的配置，也就是说只需要给损失函数摘掉$\log$，同时保证鉴别器是Lipschitz连续的，就能更稳定。这一点也很好实现，只要保证鉴别器每次更新时，其参数更新有个截断就好。W-GAN非常经典，但从事后看来，这样稳健的做法其实会降低一些生成质量。以及W-GAN本身是说度量空间性质不好，所以要找更好的度量；但后面我们知道，StyleGAN本身用mapping network去调制latent space，也是一种隐式的来获得更好的度量的方式。而且这一过程是纯data-driven的，而W-GAN就显得是人为的归纳偏置了，StyleGAN加上关于鉴别器的R1正则项，收敛的往往也还好。看样子learning再次打败了inductive bias。</p>
+<h3 id="On-policy-Distillation"><a href="#On-policy-Distillation" class="headerlink" title="On-policy Distillation"></a>On-policy Distillation</h3><p>推导W-GAN的练习热身了足够的预备知识，我们现在来关注一个用在自回归的语言模型里的一个经典工作：On-policy Distillation。自回归的语言模型是说，我们将一段序列$x$喂进这个模型，他会输出另一段序列$y$。模型里有一个tokenizer，tokenizer有一个固定的词汇表，词汇表里有$M$个数据（大概是几万的样子）。记$y_{\le n+1}=(y_1,y_2,…,y_n)$为模型生成的到第$n$个token之前的句子，那么自回归的逻辑就是估计$p(\cdot | y_n,x)\in (0,1)^M$这样的一个分布，这个分布往往是通过将网络输出的logits，用拿温度系数调制的softmax来归一化得到的。为了便于叙述，我们记$p\left( y_n|x \right) = p\left( y_n|y_{&lt; n},x \right)$。</p>
+<p>​    这篇工作关注的事情是想让一个学生语言模型$p_S^\theta$，其中$\theta$为可学习参数，尽量能复制教师语言模型$p_T$的行为—即蒸馏。学生模型的容量肯定比教师模型是要低的，在这个settings下，我们往往有一个数据集$X$，如果可以，我们有其配对的下文$Y$组成$(X,Y)$；如果没有，$Y$可以由教师模型生成。在这样一个定义的很好的问题下，我们有许多种直接的策略：</p>
+<p><strong>Supervised FT</strong>（Supervised Finetuning），即如果有真值的$(X,Y)$，我们直接用这样的高质量数据去训学生模型就好了：</p>
+<script type="math/tex; mode=display">
+L_{SFT}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ -\log p_{S}^{\theta}\left( y|x \right) \right],</script><p><strong>Sequence-Level KD</strong>（Sequence-Level Knowledge Distillation），是说如果没有配对的$(X,Y)$，可以用教师网络的输出作为$Y$，形式和SFT是一样的：</p>
+<script type="math/tex; mode=display">
+L_{SeqKD}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ -\log p_{S}^{\theta}\left( y|x \right) \right] ,</script><p><strong>Supervised KD</strong>（Supervised Knowledge Distillation），在自回归的语言模型中，这种方法是说利用正向KL来对齐token-level的分布：</p>
+<script type="math/tex; mode=display">
+L_{SD}\left( \theta \right) =\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \mathcal{D} _{KL}\left( p_T\parallel p_{S}^{\theta} \right) \left( y|x \right) \right] ,</script><p>我们需要指出，SFT和SeqKD的优化目标本质上也是正向KL，只是没有要求要对齐token-level的logits。</p>
+<script type="math/tex; mode=display">
 \mathcal{D} _{KL}\left( p_T\parallel p_{S}^{\theta} \right) \left( y|x \right) =\int{p_T\left( y|x \right) \log \frac{p_T\left( y|x \right)}{p_{S}^{\theta}\left( y|x \right)}\mathrm{d}y}
 \\
-=\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \log p_T\left( y|x \right) -\log p_{S}^{\theta}\left( y|x \right) \right],
-$$
-而$\log p_T\left( y|x \right)$与$\theta$无关，所以优化前向KL等价于优化负对数似然。
-
-**On-policy KD**（On-policy Knowledge Distillation），这个方法是让学生网络进行输出，然后用教师网络的logits进行打分，这种方法很像强化学习，有助于最小化训练和推理时的分布不匹配。
-$$
-L_{OD}\left( \theta \right) =\mathbb{E} _{x\sim X}\left[ \mathbb{E} _{y\sim p_S\left( \cdot |x \right)}\left[ \mathcal{D} _{KL}\left( p_T\parallel p_{S}^{\theta} \right) \left( y|x \right) \right] \right] ,
-$$
-**Generalized KD**（Generalized Knowledge Distillation），是论文提出的一种推广形式：    
-$$
-L_{GKD}\left( \theta \right) =\left( 1-\lambda \right) \mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \mathcal{D} \left( p_T,p_{S}^{\theta} \right) \left( y|x \right) \right] +\lambda \mathbb{E} _{x\sim X}\left[ \mathbb{E} _{y\sim p_S\left( \cdot |x \right)}\left[ \mathcal{D} \left( p_T,p_{S}^{\theta} \right) \left( y|x \right) \right] \right] ,
-$$
-其中$\lambda$用于调整其中“学生数据”的比例，$\mathcal{D} \left( p_T,p_{S}^{\theta} \right) $可以是各种散度度量，例如正向KL，反向KL，JS散度。可以看到，如果$\lambda$取0，散度取正向KL，那么这一项就是Supervised KD；如果$\lambda$取1，散度取正向KL，那么就是On-policy KD。
-
-JS散度也存在一种广义形式，即：
-$$
-JS_{\beta}\left( p_1\parallel p_2 \right) =\beta KL\left( p_1\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) +\left( 1-\beta \right) KL\left( p_2\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) ,
-$$
-当$\beta=0.5$时，就是我们熟悉的JS散度。我们发现如果我们直接取$\beta$为0或1，那么这个散度会直接是0。以及在这种形式下：
-$$
-JS_{\beta}\left( p_1\parallel p_2 \right) =JS_{1-\beta}\left( p_2\parallel p_1 \right),
-$$
-这说明这种度量是满足某种对称性的。我们现在关注于当$\beta$趋近0时，这个散度的行为：
-$$
+=\mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \log p_T\left( y|x \right) -\log p_{S}^{\theta}\left( y|x \right) \right],</script><p>而$\log p_T\left( y|x \right)$与$\theta$无关，所以优化前向KL等价于优化负对数似然。</p>
+<p><strong>On-policy KD</strong>（On-policy Knowledge Distillation），这个方法是让学生网络进行输出，然后用教师网络的logits进行打分，这种方法很像强化学习，有助于最小化训练和推理时的分布不匹配。</p>
+<script type="math/tex; mode=display">
+L_{OD}\left( \theta \right) =\mathbb{E} _{x\sim X}\left[ \mathbb{E} _{y\sim p_S\left( \cdot |x \right)}\left[ \mathcal{D} _{KL}\left( p_T\parallel p_{S}^{\theta} \right) \left( y|x \right) \right] \right] ,</script><p><strong>Generalized KD</strong>（Generalized Knowledge Distillation），是论文提出的一种推广形式：    </p>
+<script type="math/tex; mode=display">
+L_{GKD}\left( \theta \right) =\left( 1-\lambda \right) \mathbb{E} _{\left( x,y \right) \sim \left( X,Y \right)}\left[ \mathcal{D} \left( p_T,p_{S}^{\theta} \right) \left( y|x \right) \right] +\lambda \mathbb{E} _{x\sim X}\left[ \mathbb{E} _{y\sim p_S\left( \cdot |x \right)}\left[ \mathcal{D} \left( p_T,p_{S}^{\theta} \right) \left( y|x \right) \right] \right] ,</script><p>其中$\lambda$用于调整其中“学生数据”的比例，$\mathcal{D} \left( p_T,p_{S}^{\theta} \right) $可以是各种散度度量，例如正向KL，反向KL，JS散度。可以看到，如果$\lambda$取0，散度取正向KL，那么这一项就是Supervised KD；如果$\lambda$取1，散度取正向KL，那么就是On-policy KD。</p>
+<p>JS散度也存在一种广义形式，即：</p>
+<script type="math/tex; mode=display">
+JS_{\beta}\left( p_1\parallel p_2 \right) =\beta KL\left( p_1\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) +\left( 1-\beta \right) KL\left( p_2\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) ,</script><p>当$\beta=0.5$时，就是我们熟悉的JS散度。我们发现如果我们直接取$\beta$为0或1，那么这个散度会直接是0。以及在这种形式下：</p>
+<script type="math/tex; mode=display">
+JS_{\beta}\left( p_1\parallel p_2 \right) =JS_{1-\beta}\left( p_2\parallel p_1 \right),</script><p>这说明这种度量是满足某种对称性的。我们现在关注于当$\beta$趋近0时，这个散度的行为：</p>
+<script type="math/tex; mode=display">
 \underset{\beta \rightarrow 0}{\lim}\frac{JS_{\beta}\left( p_1\parallel p_2 \right)}{\beta}=\underset{\beta \rightarrow 0}{\lim}\left\{ KL\left( p_1\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) +\frac{1-\beta}{\beta}KL\left( p_2\parallel \beta p_1+\left( 1-\beta \right) p_2 \right) \right\} 
 \\
 =KL\left( p_1\parallel p_2 \right) +\underset{\beta \rightarrow 0}{\lim}\left\{ \frac{1-\beta}{\beta}KL\left( p_2\parallel p_2+\beta \left( p_1-p_2 \right) \right) \right\} 
-,
-$$
-我们不确定第二项极限的阶数，但大概感觉是趋近于0。严谨的证明非常复杂，可能需要对这个泛函做变分，不好理解。我们可以尝试性的用离散情形下的：
-$$
+,</script><p>我们不确定第二项极限的阶数，但大概感觉是趋近于0。严谨的证明非常复杂，可能需要对这个泛函做变分，不好理解。我们可以尝试性的用离散情形下的：</p>
+<script type="math/tex; mode=display">
 KL\left( P\parallel P+E \right) =\sum_i{p_i\log \frac{p_i}{p_i+\epsilon _i}}
 \\
-=\sum_i{p_i\left[ \log p_i-\log \left( p_i+\epsilon _i \right) \right]},
-$$
-注意我们其实是对一个概率密度函数做扰动，在离散情形下需要满足$\sum_i{\epsilon _i}=0$。然后我们对$\log$做泰勒展开：
-$$
+=\sum_i{p_i\left[ \log p_i-\log \left( p_i+\epsilon _i \right) \right]},</script><p>注意我们其实是对一个概率密度函数做扰动，在离散情形下需要满足$\sum_i{\epsilon _i}=0$。然后我们对$\log$做泰勒展开：</p>
+<script type="math/tex; mode=display">
 \log \left( p_i+\epsilon _i \right) =\log p_i+\log \left( 1+\frac{\epsilon _i}{p_i} \right) 
 \\
-=\log p_i+\frac{\epsilon _i}{p_i}-\frac{\epsilon _{i}^{2}}{2p_{i}^{2}}+o\left( \frac{\epsilon _{i}^{2}}{p_{i}^{2}} \right) ,
-$$
-带入：
-$$
+=\log p_i+\frac{\epsilon _i}{p_i}-\frac{\epsilon _{i}^{2}}{2p_{i}^{2}}+o\left( \frac{\epsilon _{i}^{2}}{p_{i}^{2}} \right) ,</script><p>带入：</p>
+<script type="math/tex; mode=display">
 KL\left( P\parallel P+E \right) =\sum_i{\left[ -\epsilon _i+\frac{\epsilon _{i}^{2}}{2p_i}-o\left( \frac{\epsilon _{i}^{2}}{p_i} \right) \right]}
 \\
 \approx \frac{1}{2}E^THE,
 \\
-H=\mathrm{diag}\left( \frac{1}{p_1},...,\frac{1}{p_n} \right) ,
-$$
-我们取$P=p_2,E=\beta(p_1-p_2)$，得到：
-$$
+H=\mathrm{diag}\left( \frac{1}{p_1},...,\frac{1}{p_n} \right) ,</script><p>我们取$P=p_2,E=\beta(p_1-p_2)$，得到：</p>
+<script type="math/tex; mode=display">
 \underset{\beta \rightarrow 0}{\lim}\frac{JS_{\beta}\left( p_1\parallel p_2 \right)}{\beta}=KL\left( p_1\parallel p_2 \right) +\underset{\beta \rightarrow 0}{\lim}\frac{\left( 1-\beta \right) \beta}{2}\left( p_1-p_2 \right) ^TH\left( p_1-p_2 \right) 
 \\
-=KL\left( p_1\parallel p_2 \right) ,
-$$
-这说明在$\beta$很小时，可以近似认为$JS_{\beta}\left( p_1\parallel p_2 \right) \approx \beta KL\left( p_1\parallel p_2 \right) $，而当$\beta$接近1时，根据对称性，$JS_{\beta}\left( p_1\parallel p_2 \right) =\left( 1-\beta \right) KL\left( p_2\parallel p_1 \right) $。这说明广义的JS散度在$\beta$接近0和1时，有着正向和反向KL的性质。
-
-而这篇工作的主要结论是说，在许多NLP任务下，on-policy，mode-seeking的监督信号，在丧失一些多样性下，会有更好的质量。当我们联系大语言模型的实际后，会发现这个结论非常合理并且具有指导意义。有时候与其用额外的计算去囊括一些质量不一定好的多样性，不如mode-seeking到一些高概率分布的高质量模式。
-
-### Distribution Matching Distillation
-
-这个部分是想学习Distribution Matching Distillation系列的工作（DMD，DMD2，Decoupled DMD，DMDR），其中最后的DMDR是最近的一个文本生成图像模型—Z-image能大放异彩的重要设计。但故事的一开始，要先回忆一段往事：
-
+=KL\left( p_1\parallel p_2 \right) ,</script><p>这说明在$\beta$很小时，可以近似认为$JS_{\beta}\left( p_1\parallel p_2 \right) \approx \beta KL\left( p_1\parallel p_2 \right) $，而当$\beta$接近1时，根据对称性，$JS_{\beta}\left( p_1\parallel p_2 \right) =\left( 1-\beta \right) KL\left( p_2\parallel p_1 \right) $。这说明广义的JS散度在$\beta$接近0和1时，有着正向和反向KL的性质。</p>
+<p>而这篇工作的主要结论是说，在许多NLP任务下，on-policy，mode-seeking的监督信号，在丧失一些多样性下，会有更好的质量。当我们联系大语言模型的实际后，会发现这个结论非常合理并且具有指导意义。有时候与其用额外的计算去囊括一些质量不一定好的多样性，不如mode-seeking到一些高概率分布的高质量模式。</p>
+<h3 id="Distribution-Matching-Distillation"><a href="#Distribution-Matching-Distillation" class="headerlink" title="Distribution Matching Distillation"></a>Distribution Matching Distillation</h3><p>这个部分是想学习Distribution Matching Distillation系列的工作（DMD，DMD2，Decoupled DMD，DMDR），其中最后的DMDR是最近的一个文本生成图像模型—Z-image能大放异彩的重要设计。但故事的一开始，要先回忆一段往事：</p>
 <center>
     <img src='/images/learn_post_train/dreamfusion.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
@@ -532,11 +475,8 @@ KL\left( p_{data}\parallel p_{\theta} \right) =\int{p_{data}\left( x \right) \lo
 \\
 =\int{p_{data}\left( x \right) \log p_{data}\left( x \right) \mathrm{d}x}-\int{p_{data}\left( x \right) \log p_{\theta}\left( x \right) \mathrm{d}x},</script><p>而第一项是一个跟$\theta$无关的常数，所以：</p>
 <script type="math/tex; mode=display">
-\underset{\theta}{\mathrm{arg}\min}KL\left( p_{data}\parallel p_{\theta} \right) =\underset{\theta}{\mathrm{arg}\min}\mathbb{E} _{x\sim p_{data}}\left[ \log p_{\theta}\left( x \right) \right] ,</script><p>当我们选取高斯分布作为$p_\theta(\cdot)$，那么就会得到L2 Loss，当选取拉普拉斯分布作为$p_\theta (\cdot)$，就会得到L1 Loss。但这些都等价于最小化正向KL，即mode-covering，所以容易产出模糊和平均化的解。而引入GAN Loss，就是引入了一个mode-seeking的项，驱使模型的分布不要那么平均，同时找到一些模式能让像素和特征级别的损失最小。</p>
-<blockquote>
-<p>在这样的上下文里，VGG Loss中的VGG可以看作一个奖励模型（Reward Model）。</p>
-</blockquote>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>非常感慨，这里的很多概念当时都搞不懂，现在回过头来感觉也没那么复杂。或许是一直以来往mesh上贴3DGS，就像习武之人练蹲马步一样，可能产生了某种“沉淀”基本功的效果。事物之间是存在广泛的联系的，比如象棋里出横車，可能短期内没什么效果，但很多步后可能就可以出奇制胜。但好在，终于不用再往mesh上贴3DGS了。</p>
+\underset{\theta}{\mathrm{arg}\min}KL\left( p_{data}\parallel p_{\theta} \right) =\underset{\theta}{\mathrm{arg}\min}\mathbb{E} _{x\sim p_{data}}\left[ \log p_{\theta}\left( x \right) \right] ,</script><p>当我们选取高斯分布作为$p_\theta(\cdot)$，那么就会得到L2 Loss，当选取拉普拉斯分布作为$p_\theta (\cdot)$，就会得到L1 Loss。但这些都等价于最小化正向KL，即mode-covering，所以容易产出模糊和平均化的解。而引入GAN Loss，就是引入了一个mode-seeking的项，驱使模型的分布不要那么平均，同时找到一些模式能让像素和特征级别的损失最小。特别地，在这样的上下文下，我们可以认为预训练的VGG网络起到了一个奖励模型（Reward Model）的角色，更全面的叙述我们在下一篇blog再展开。</p>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>非常感慨，这里的很多概念当时都搞不懂，现在回过头来感觉也没那么复杂。或许是一直以来往mesh上贴3DGS，就像习武之人练蹲马步一样，可能产生了某种“沉淀”基本功的效果。乍一看这记录几个部分，GAN的变式，LLM的蒸馏，text-to-3D，文生图的扩散模型的加速，毫无关系，但他们其实都在讲同一件事。事物之间是存在广泛的联系的，比如象棋里出横車，可能短期内没什么效果，但很多步后可能就可以出奇制胜。但即使一开始理解这个道理，也很难躬行。因为许多关键部分仍然需要仙人指路般提点一手，不然很难串起来；或者找不到合适的切入点，毕竟对着PRML啃的效率确实太低了。但不管怎么说，终于不用往mesh上贴3DGS了。</p>
 <center>
     <img src='/images/learn_post_train/end.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
@@ -691,7 +631,7 @@ KL\left( p_{data}\parallel p_{\theta} \right) =\int{p_{data}\left( x \right) \lo
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wasserstein-GAN"><span class="toc-number">1.</span> <span class="toc-text">Wasserstein GAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pix2Pix"><span class="toc-number">2.</span> <span class="toc-text">Pix2Pix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-number">3.</span> <span class="toc-text">End</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Wasserstein-GAN"><span class="toc-number">1.</span> <span class="toc-text">Wasserstein GAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-policy-Distillation"><span class="toc-number">2.</span> <span class="toc-text">On-policy Distillation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distribution-Matching-Distillation"><span class="toc-number">3.</span> <span class="toc-text">Distribution Matching Distillation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pix2Pix"><span class="toc-number">4.</span> <span class="toc-text">Pix2Pix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End"><span class="toc-number">5.</span> <span class="toc-text">End</span></a></li></ol>
                     </div>
                 </span>
             </div>
