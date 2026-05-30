@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    本篇介绍模拟退火算法的同时，同时引入一下机器学习中的玻尔兹曼机和逻辑斯蒂回归">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/SA_1.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/SA_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/SA_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/SA_4.jpg">
-<meta property="article:published_time" content="2021-08-07T04:53:18.944Z">
-<meta property="article:modified_time" content="2023-08-27T03:06:48.709Z">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic2/SA_1.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic2/SA_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic2/SA_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic2/SA_4.jpg">
+<meta property="article:published_time" content="2021-08-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T01:42:49.761Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="启发式算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/SA_1.gif">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/heuristic2/SA_1.gif">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-启发式算法2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-启发式算法2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -198,7 +209,7 @@
 		<!--显示阅读次数完毕-->
         
         <a href="/2021/08/07/%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%952/" class="archive-article-date">
-  	<time datetime="2021-08-07T04:53:18.944Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
+  	<time datetime="2021-08-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
 </a>
         
       </header>
@@ -233,13 +244,13 @@ p\left( T \right) =\left\{ \begin{array}{c}
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>=<span class="title">val</span><span class="params">(x)</span></span></span><br><span class="line">    y=<span class="number">9</span>*<span class="built_in">sin</span>(<span class="number">5</span>*x)+<span class="number">8</span>*<span class="built_in">cos</span>(<span class="number">4</span>*x);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flag</span>=<span class="title">judge</span><span class="params">(dE,t)</span></span></span><br><span class="line">  <span class="keyword">if</span>(dE&lt;<span class="number">0</span>)</span><br><span class="line">    flag=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    p=<span class="built_in">exp</span>(-(dE/t));</span><br><span class="line">    <span class="keyword">if</span>(p&gt;<span class="built_in">rand</span>)</span><br><span class="line">      flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      flag=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>​    代码运行得到的效果符合我们的预期：</p>
 <center>
-    <img src='/images/SA_1.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic2/SA_1.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    自然，在多维情况下运行，也是可以的，只需要产生多个方向的扰动即可，下面我们举一个组合优化的问题，（不是TSP，天天TSP都腻了）考虑一所学校40个新生宿舍分配的问题，调查取得了40位新生的兴趣爱好，分为“运动，音乐，游戏，书画，美食，其他”，我们希望找出一种方案，使得4个人一宿舍后，不同寝室间同寝室的两两同学的共同爱好数量分布尽可能的均匀。自然考虑“其他”这个爱好过于宽泛，这里我们就对其不作考虑了。</p>
 <center>
-    <img src='/images/SA_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic2/SA_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -251,13 +262,13 @@ p\left( T \right) =\left\{ \begin{array}{c}
 <p>​    ③倒置法：确定两个坐标，将序列在这两个坐标间的元素逆序。</p>
 <p>​    编程求解后得到最优解的迭代情况：</p>
 <center>
-    <img src='/images/SA_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic2/SA_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    此时确实有最优方案使得方差为0：</p>
 <center>
-    <img src='/images/SA_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic2/SA_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -309,6 +320,7 @@ p_{on}=\frac{1}{1+\exp \left( -\frac{\varDelta E_i}{T} \right)}</script><p>​  
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -458,8 +470,7 @@ p_{on}=\frac{1}{1+\exp \left( -\frac{\varDelta E_i}{T} \right)}</script><p>​  
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -529,19 +540,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -599,15 +632,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,15 +724,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,15 +748,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -932,20 +965,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,19 +23,19 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    将近两个月不学大学物理，现在突击不完了。这一篇也不捋知识点了，直接整理一些有针对性的题目，来进行“Few-shot learning”。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg2_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg4_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Physical_eg5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg2_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg4_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg5.png">
 <meta property="article:published_time" content="2022-02-28T10:23:44.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:21:57.301Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.468Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/Physical_eg1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/physics5/Physical_eg1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -35,10 +43,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -47,10 +58,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -60,9 +71,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -111,7 +119,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -176,7 +187,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-大学物理5" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-大学物理5" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -215,7 +226,7 @@
 <span id="more"></span>
 <p>​    一、考虑宽为$b$长度无限长的导体薄板，点$P$在通过板的中线并与板面垂直的直线距离$h$处。</p>
 <center>
-    <img src='/images/Physical_eg1.png'>
+    <img src='/images/physics5/Physical_eg1.png'>
 </center>
 
 <p>​    1）当平面薄板的电荷面密度为$\sigma$时，求$P$处电场强度：</p>
@@ -238,13 +249,13 @@ E=\int_{-\frac{b}{2}}^{\frac{b}{2}}{\mathrm{d}E\cdot \cos \theta}=\int_{-\frac{b
 B=\int_{-\frac{b}{2}}^{\frac{b}{2}}{\frac{\mu _0Ih}{2\pi b\left( x^2+h^2 \right)}\mathrm{d}x}=\frac{\mu _0I}{2\pi b}\left[ \mathrm{arc}\tan \left( \frac{x}{h} \right) \right] _{-\frac{b}{2}}^{\frac{b}{2}}=\frac{\mu _0I}{\pi b}\mathrm{arc}\tan \left( \frac{b}{2h} \right)</script><p>​    在计算时都需要注意微分算子是否对上了，如果出现了微分算子突然跳跃了，最好检查步骤，一定是哪里列错了。</p>
 <p>​    二、考虑空心单层密绕长直螺线管，总匝数$N$，长为$l$，半径为$R$，$l$远远大于$R$。求螺线管自感$L$</p>
 <center>
-    <img src='/images/Physical_eg2.png'>
+    <img src='/images/physics5/Physical_eg2.png'>
 </center>
 
 <p>​    为求自感$L$，先求穿过回路的总磁通量。这样会先求磁感应强度$B$</p>
 <p>​    首先要声明，对于螺线管，不管是圆形还是长直的，我们都将磁场线平行于轴线，管内外磁场均匀，管外磁场为零作为已知结论。这些结论的证明我们就不管了。我们这里要给出两种求解的方法：</p>
 <center>
-    <img src='/images/Physical_eg2_2.png'>
+    <img src='/images/physics5/Physical_eg2_2.png'>
 </center>
 
 <p>​    对于①，我们直接利用安培环路定理，因为我们知道管外磁场强度为0，且管内均匀并平行于轴线。此时选取矩形区域即可，设矩形区域长为$\varDelta l$：</p>
@@ -271,7 +282,7 @@ B=\frac{\mu _0NI}{2l}\int_{\theta _1}^{\theta _2}{\cos \theta \mathrm{d}\theta}=
 L=\frac{\varPsi}{I}=\mu _0\frac{N^2}{l\cdot l}l\pi R^2=\mu _0n^2V</script><p>​    这个式子的意义在于告诉我们，自感系数与单位长度的匝数的平方成正比，与螺线管体积成正比。值得一提的是当插入磁介质时，自感系数可以增大$\mu_r$倍。所以当插入的介质是顺磁质$\mu_r &gt; 1$，那么自感系数增大。插入的是抗磁质，$\mu_r&lt;1$，自感系数减小。插入铁磁质，自感系数会大大增大（$\mu_r \gg 1$）</p>
 <p>三、考虑如下图所示的圆环，圆环带电量$+q$，点$P$在圆环轴线距离中心$h$处。</p>
 <center>
-    <img src='/images/Physical_eg3.png'>
+    <img src='/images/physics5/Physical_eg3.png'>
 </center>
 
 <p>​    1）计算$P$处电场强度</p>
@@ -334,7 +345,7 @@ p_m=\int_{R_1}^{R_2}{\pi \omega r^3\sigma \mathrm{d}r}=\frac{\pi \omega \sigma}{
 </div>
 <p>​    四、分布电容和分布电感，如同所示为两根无限长的圆柱形导线，半径为$r_0$，轴线相距为$d$。$d \gg r_0$</p>
 <center>
-    <img src='/images/Physical_eg4.png'>
+    <img src='/images/physics5/Physical_eg4.png'>
 </center>
 
 <p>​    1）设单位长度带电量分别为$+\lambda,-\lambda$。求单位长度上的分布电容。</p>
@@ -350,7 +361,7 @@ U=\varPhi -\left( -\varPhi \right) =\frac{\lambda}{\pi \varepsilon _0}\ln \left(
 C=\frac{Q}{U}=\frac{\lambda}{\frac{\lambda}{\pi \varepsilon _0}\ln \left( \frac{d-r_0}{r_0} \right)}=\frac{\pi \varepsilon _0}{\ln \left( \frac{d-r_0}{r_0} \right)}\approx \frac{\pi \varepsilon _0}{\ln \left( \frac{d}{r_0} \right)}</script><p>​    这里要穿插一个类似的问题，来对电容器有更清晰的认识：</p>
 <p>​    取两块平行平板，相距为$d$，总面积均为$S$，分别均匀带电$+q,-q$，两板线度远大于$d$，则它们的相互作用力大小为$(\frac{q^2}{2\varepsilon _0S})$。这里要注意分母的那个2，原理可以简述成：两块平行平板，实际上是四个带电平面，分别做高斯定理，由静电平衡条件可知中间两个面所带电量必然等量异号。而此时高斯定理是$E \cdot 2S$。所以求解相互作用力时有个$2$。</p>
 <center>
-    <img src='/images/Physical_eg4_2.png'>
+    <img src='/images/physics5/Physical_eg4_2.png'>
 </center>
 
 <p>​    对于2），要先计算出两个导线间的总磁通，之后即可求出分布电感：</p>
@@ -364,7 +375,7 @@ C=\frac{Q}{U}=\frac{\lambda}{\frac{\lambda}{\pi \varepsilon _0}\ln \left( \frac{
 L=\frac{\varPhi}{I\cdot l}=\frac{\mu _0}{\pi}\ln \left( \frac{d-r_0}{r_0} \right) \approx \frac{\mu _0}{\pi}\ln \left( \frac{d}{r_0} \right)</script><p>​    五、地心游记</p>
 <p>​    半径为$R_1$的导体球带有电荷$+q$，球外有一个内，外半径分别为$R_2,R_3$的同心导体球壳，壳上带有电荷$+Q$。</p>
 <center>
-    <img src='/images/Physical_eg5.png'>
+    <img src='/images/physics5/Physical_eg5.png'>
 </center>
 
 <p>​    1）计算系统的静电能量</p>
@@ -427,6 +438,7 @@ V_2=\frac{Q}{4\pi \varepsilon _0}\cdot \frac{R_2-R_1}{R_1R_2+R_2R_3-R_1R_3}</scr
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -572,8 +584,7 @@ V_2=\frac{Q}{4\pi \varepsilon _0}\cdot \frac{R_2-R_1}{R_1R_2+R_2R_3-R_1R_3}</scr
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -643,19 +654,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -713,15 +746,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,15 +838,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -829,15 +862,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1046,20 +1079,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

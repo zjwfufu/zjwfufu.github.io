@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    事情是因为我看了一篇关于故障诊断（fault diagnosis）的综述，我看完了大受震撼，于是进行了一部分整理，那里面的相当多的内容对我来说还是太难了qwq。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Reading1_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Reading1_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Reading1_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Reading1_4.jpg">
-<meta property="article:published_time" content="2021-08-03T13:06:21.770Z">
-<meta property="article:modified_time" content="2023-08-27T03:23:26.824Z">
+<meta property="og:image" content="https://zjwfufu.github.io/images/paper1/Reading1_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/paper1/Reading1_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/paper1/Reading1_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/paper1/Reading1_4.jpg">
+<meta property="article:published_time" content="2021-08-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T01:42:49.191Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="故障诊断">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/Reading1_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/paper1/Reading1_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-读文献1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-读文献1" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -198,7 +209,7 @@
 		<!--显示阅读次数完毕-->
         
         <a href="/2021/08/03/%E8%AF%BB%E6%96%87%E7%8C%AE1/" class="archive-article-date">
-  	<time datetime="2021-08-03T13:06:21.770Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-03</time>
+  	<time datetime="2021-08-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-03</time>
 </a>
         
       </header>
@@ -213,7 +224,7 @@
 <span id="more"></span>
 <p>​    查阅资料发现，故障诊断可分为定性和定量两类，随着现在对精细化的进一步要求，定量应该会称为主流，而这篇综述正全是关于定量的，该综述的骨架是：</p>
 <center>
-    <img src='/images/Reading1_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/paper1/Reading1_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -223,7 +234,7 @@
 <p>​    硬件冗余说的是，对于一个系统，我们只需要再备份一个和其完全一致的系统，通过给定相同的输入侦测变化，就能找到问题。这个办法很有效，但是成本很高。因为这种方法很多时候都需要有充足的关键部分的冗余副本。并且结合一些流水线上的实际，安装也是一个困难。</p>
 <p>​    软件（分析性）冗余是依据现代控制理论的成熟而产生的一种故障诊断的方法。他是基于我们对正确数据的前有经验，来设计一套特定的算法来进行故障诊断的推理。</p>
 <center>
-    <img src='/images/Reading1_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/paper1/Reading1_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -270,7 +281,7 @@ P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形�
 <p>​    （<del>这个玩意用在小车里估计挺好的，它迭代速度快而且不怎么占空间</del>）</p>
 <h4 id="for-Discrete-Events-and-Hybrid-Systems"><a href="#for-Discrete-Events-and-Hybrid-Systems" class="headerlink" title="for Discrete-Events and Hybrid Systems"></a>for Discrete-Events and Hybrid Systems</h4><p>​    这里主要指的是对于一些动态变化的离散系统，以及一些复杂的工业系统，一方面他们既有基于时间的连续动力学模型，又有事件驱动的离散动力学模型，哎我怎么在哪里看见过这个。</p>
 <center>
-    <img src='/images/Reading1_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/paper1/Reading1_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -281,7 +292,7 @@ P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形�
 <h4 id="Frequency-Domain"><a href="#Frequency-Domain" class="headerlink" title="Frequency-Domain"></a>Frequency-Domain</h4><p>​    频域方法是说利用频谱分析工具来进行检测变化和故障，例如离散傅里叶变换，这里特别地提及了一种诊断电机故障的电机电流特征分析法（MCSA），考虑到这个以后可能要用到，我对其进行了一下查阅，找到了一个用MCSA法测量异步电机转速的方法，来简单了解一下这种方法。</p>
 <p>​    它的原理说的是电机运转时由于结构组成，转子电流感应产生一个有效的转子磁场，会在定子绕组中感应产生很小的电流，并形成一个高次谐波旋转磁场，因此转子频率可以通过检测定子电流频谱得到：</p>
 <center>
-    <img src='/images/Reading1_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/paper1/Reading1_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -324,6 +335,7 @@ P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形�
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -473,8 +485,7 @@ P_k=\left[ I-H_k*C_k \right] *\hat{P}_{k/k-1}</script><p>​    这是一般形�
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -544,19 +555,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -614,15 +647,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,15 +739,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +763,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -947,20 +980,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,23 +23,23 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    在NeRF中，我们知道最后MLP预测的体密度其实是“不保真”的。那么有没有什么办法可以让其预测的体密度是符合客观几何的呢？这样就可以满心欢喜的达成事实上的“重建”了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_varphi.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_8.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_varphi.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_8.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_end.png">
 <meta property="article:published_time" content="2023-10-22T02:22:58.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:35:08.627Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.667Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/neus_volsdf_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/neus_volsdf/neus_volsdf_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -39,10 +47,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -51,10 +62,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -64,9 +75,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -115,7 +123,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -180,7 +191,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-neus_and_volsdf" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-neus_and_volsdf" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -272,7 +283,7 @@ w\left( t \right) =T\left( t \right) \sigma \left( \mathbf{r}\left( t \right) \r
 </blockquote>
 <p>​    这里的$s$，作用是为了调整$\phi_s(x)$的带宽：</p>
 <center>
-    <img src='/images/neus_volsdf_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    可以看到，$s$越大，$\phi_s(x)$越接近尖峰函数。实际上，我们可以直接推导出$\phi_s(x)$的标准差，NeuS中说“is given by $1/s$”，但作者应该是把常数因子给省略了，或者在书写时混淆了参数化前后的逻辑斯蒂分布。我们这里重新推导一下，注意到由于对称性，$\mathbb{E} \left[ X \right] =0$，那么由方差的定义：</p>
@@ -312,7 +323,7 @@ Var\left[ X \right] =\frac{1}{s^2}\left( 2-4+\frac{\pi ^2}{3}+2 \right) =\frac{\
 <script type="math/tex; mode=display">
 f\left( \mathbf{r}\left( t \right) \right) =-\left| \cos \left( \theta \right) \right|\cdot \left( t-t^{\ast} \right)</script><p>​    如下图所示：</p>
 <center>
-    <img src='/images/neus_volsdf_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    注意到随着光线从外部射入内部，再从内部远离交面，符号距离函数的梯度方向会发生变化。然后如果我们此时直接用$\phi_s(f(\mathbf{r}(t)))$来替代先前的体密度$\sigma(f(\mathbf{r}(t)))$（下文中我们直接将$\mathbf{r}(t)$略写为$t$，这在分析其导数性态时没有影响，因为$\mathbf{r}(t)=\mathbf{o}+t\cdot\mathbf{n}$只是一个简单的线性函数。）：</p>
@@ -331,7 +342,7 @@ w\left( t \right) =T\left( t \right) \sigma \left( t \right) , T\left( t \right)
 <script type="math/tex; mode=display">
 \frac{\mathrm{d}w}{\mathrm{d}t}\left( t^{\ast} \right) =-{\phi _s}^2(0)T\left( t^{\ast} \right) <0</script><p>​    所以，在SDF取极值的时候，$w(t)$不能取极值。</p>
 <center>
-    <img src='/images/neus_volsdf_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    所以NeuS怎么做了呢？他们说：“想让$f\left( \mathbf{r}(t) \right)$取到极值的时候$w(t)$也取极值很简单，我直接：”</p>
@@ -367,7 +378,7 @@ T\left( t \right) =\varPhi _s\left( f\left( \mathbf{r}(t) \right) \right)</scrip
 <p>​    这其实非常离经叛道，无论是过程还是结果。过程上，我们是直接选择了一种无偏的$w(t)$，然后反推出能支持这个$w(t)$的“渲染方式”。结果上，$\rho(t)$的分子涉及$\varPhi _s\left( f\left( \mathbf{r}(t) \right) \right) $的一阶导，这说明这个$\rho(t)$还会被其邻域内的$\rho \left( t\pm \delta t \right) $所影响，然而在传统体渲染中，这些不应该是相关的。</p>
 <p>​    然而这只是解决了单个平面，当遇到多个平面时会遇到这样的问题：</p>
 <center>
-    <img src='/images/neus_volsdf_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    当有两个平面时，$\rho(t)$可能会变成负的，原因是这样的，$\rho(t)$的分母是恒正的，分子，在光线射入一个平面时，SDF从正数逐渐减小到0。所以$\varPhi(t)$的导数值是负的，加上前面那个负号，$\rho(t)$是正的了；当光线远离第一个平面时，SDF从0继续减小到负的，所以没什么问题。但当光线继续前进，距离第二个平面的距离比第一个近时，由于SDF的定义，此时SDF会从一个负数（因为我们此时在一个物体内部）逐渐增大成0，这样就会导致$\varPhi(t)$导数值是正的，导致$\rho(t)$是负的，这可能会产生些问题。</p>
@@ -401,7 +412,7 @@ T\left( t \right) =\varPhi _s\left( f\left( \mathbf{r}(t) \right) \right)</scrip
     1-\frac{1}{2}\exp \left( -\frac{s}{\beta} \right) , s>0\\
 \end{array} \right.</script><p>​    拉普拉斯分布的标准差是$\sqrt{2}\beta$，所以$\beta$越大，曲线越扁平。</p>
 <center>
-    <img src='/images/neus_volsdf_varphi.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_varphi.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    然后，不同于NeuS的是，VolSDF的思路非常直接！“体渲染出的体密度不好？体渲染没问题，是对体渲染进行离散化时产生的误差所致。我先给你推个误差界。”</p>
@@ -413,7 +424,7 @@ T\left( t \right) =\exp \left( -\int_0^t{\sigma \left( x\left( s \right) \right)
 <script type="math/tex; mode=display">
 O(t)=1-T(t)</script><p>​    我们关心，连续下的$O(t)$和离散估计出的$\hat{O}\left( t \right) $的误差。这很合理，注意此时的$\sigma(x(t))$代表一个尖峰函数，所以容易出现这样的情况：</p>
 <center>
-    <img src='/images/neus_volsdf_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    即，由于离散，从而等间距采样，是很难得到尖峰分布的极值点的。也就是说我们关心的是误差$E(t)$：</p>
@@ -446,12 +457,12 @@ E\left( t \right) =\int_0^t{\sigma \left( x\left( s \right) \right) \mathrm{d}s}
 K_i\leqslant \frac{\alpha}{2\beta}\exp \left( -\frac{d_{i}^{\ast}}{\beta} \right)</script><p>​    $d_{i}^{\ast}$是可以求解的，即使它在后面的推导里并不会显式的代入进来，求解$d_{i}^{\ast}$其实很像一道高中数学题。问题的表述是，我们已知$f\left( x\left( t_i \right) \right) $和$f\left( x\left( t_{i+1} \right) \right) $，也就是说对于$t_i$和$t_{i+1}$，我们知道其到曲面的最短距离$d_i$和$d_{i+1}$，那么在已知$d_i$和$d_{i+1}$的情况下，如何求解$[t_i,t_{i+1}]$内的点到曲面的最短距离$d_{i}^{\ast}$的下界？</p>
 <p>​    我们可以进行分类讨论：</p>
 <center>
-    <img src='/images/neus_volsdf_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    此时，$|d_i|+|d_{i+1}|\leqslant \delta_i$，可以直接看出，如果有曲面恰好能过红点处，那么$d_{i}^{\ast}$下界即为0。如果继续增加$|d_i|$和$|d_{i+1}|$：</p>
 <center>
-    <img src='/images/neus_volsdf_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    两点的最短距离张成的球面（在图里就是圆了）会有交集，那么会形成一个三角形，这个三角形关于$\delta_i$那条边的高，就是距离下界。结合海伦公式和等面积法，我们可以推导出高$h_i$为：</p>
@@ -463,7 +474,7 @@ S=\sqrt{p\left( p-\delta _i \right) \left( p-|d_i| \right) \left( p-|d_{i+1}| \r
 h_i=\frac{2}{\delta _i}\sqrt{p\left( p-\delta _i \right) \left( p-|d_i| \right) \left( p-|d_{i+1}| \right)}</script><p>​    此时$h_i$就是下界。</p>
 <p>​    如果进一步增加，形成的三角形可能变为钝角三角形，这样高的垂足就落不进$[t_i,t_{i+1}]$了：</p>
 <center>
-    <img src='/images/neus_volsdf_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    这种时候，距离下界就是$\min \left\{ |d_i|,|d_{i+1}| \right\} $，这种情况的判定，可以由余弦定理，判断$\delta_i$边上的两个角是否为锐角，即：$\left| |d_i|^2-|d_{i+1}|^2 \right|\geqslant \delta _{i}^{2}$，所以，综合三种情况，可以给出$d_{i}^{\ast}$下界：</p>
@@ -530,7 +541,7 @@ O\left( t \right) =1-T\left( t \right)
 </blockquote>
 <p>​    但其实，这两篇工作里，最为神奇的是，变换函数（无论是$\phi_s(\cdot)$还是$\varPhi_s(\cdot)$）所带来的奇迹般的巧合。在这两篇工作的数学推导里，这两个概率密度函数，无论是单调性还是积分和为1，还是单纯的导函数或原函数形式上的巧合，都成为推导能进行下去的必要因素。有些“妙手偶得之”的意思了。</p>
 <center>
-    <img src='/images/neus_volsdf_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/neus_volsdf/neus_volsdf_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -569,16 +580,17 @@ O\left( t \right) =1-T\left( t \right)
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -590,11 +602,11 @@ O\left( t \right) =1-T\left( t \right)
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -720,8 +732,7 @@ O\left( t \right) =1-T\left( t \right)
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -791,19 +802,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -861,15 +894,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -953,15 +986,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -977,15 +1010,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,20 +1227,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

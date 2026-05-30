@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    在这篇blog里，我综合PPT，教材，课外教辅整理一些笔试考试可能考出来的点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_exam_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_exam_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_exam_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr3/pr_exam_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr3/pr_exam_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr3/pr_exam_2.jpg">
 <meta property="article:published_time" content="2023-02-27T12:45:50.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:18:28.374Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.505Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="模式识别">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr_exam_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr3/pr_exam_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-模式识别3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-模式识别3" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -348,7 +359,7 @@ J_f=\sum_{j=1}^C{\sum_{\mathbf{x}_i\in G_j}^{}{\left[ \mu _j\left( \mathbf{x}_i 
 <script type="math/tex; mode=display">
 \underset{N\rightarrow \infty}{\lim}\left( 1-\frac{1}{N} \right) ^N=\frac{1}{e}=0.367879</script><p>​    放回抽样后的数据集，不包含原数据集中约三分之一的数据。用这些数据集构建具有差异的模型：</p>
 <center>
-    <img src='/images/pr_exam_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr3/pr_exam_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -406,7 +417,7 @@ b=1-\left[ \begin{array}{c}
 <script type="math/tex; mode=display">
 g\left( x \right) =\mathrm{sign}\left( \frac{1}{2}x_1+\frac{1}{2}x_2-2 \right)</script><p>​    我们可以发现，$\alpha_2=0$，其实就是因为它被松弛了。如果我们把$x_1,x_2$画成二维的坐标：</p>
 <center>
-    <img src='/images/pr_exam_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr3/pr_exam_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -457,7 +468,7 @@ g_i\left( x \right) =\ln p\left( x|\omega _i \right) +\ln p\left( \omega _i \rig
 \\
 \left( x_1-3 \right) ^2+x_{2}^{2}=8+2\ln 4</script><h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    吸收掉上面的这些内容，模式识别大概率就不会挂了。接下来要一晚上速通操作系统。</p>
 <center>
-    <img src='/images/pr_exam_2.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr3/pr_exam_2.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -494,6 +505,7 @@ g_i\left( x \right) =\ln p\left( x|\omega _i \right) +\ln p\left( \omega _i \rig
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -647,8 +659,7 @@ g_i\left( x \right) =\ln p\left( x|\omega _i \right) +\ln p\left( \omega _i \rig
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -718,19 +729,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -788,15 +821,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -880,15 +913,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -904,15 +937,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1121,20 +1154,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

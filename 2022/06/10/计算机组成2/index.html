@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,23 +23,23 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    这一篇整理一下计组的作业题，能学多少学多少。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_9.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_8.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_10.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CS_2_11.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_9.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_8.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_10.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cs2/CS_2_11.png">
 <meta property="article:published_time" content="2022-06-10T13:44:19.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:23:11.432Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.522Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/CS_2_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/cs2/CS_2_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -39,10 +47,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -51,10 +62,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -64,9 +75,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -115,7 +123,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -180,7 +191,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-计算机组成2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-计算机组成2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -221,7 +232,7 @@
 <p>​    首先，我们得知道什么是6264芯片，简单来说它有8位数据位，13位地址位。而要实现的主存区域是00000H~03FFFH，我们化成二进制，然后得到主存范围是$2^{14}$，也就是32K。这个时候，数据位8位对8位对上了，我们只需要考虑字，也就是进行字扩展。此时我们需要扩大2倍，所以一个1-2译码器就够了。</p>
 <p>​    注意到所给的主存区域，则总线上应有20位。我们直接作出：</p>
 <center>
-    <img src='/images/CS_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -229,7 +240,7 @@
 <p>​    当系统总线的数据位增多时，第二块芯片数据线的连法就可以发生变化，如上图所示，即位扩展。</p>
 <h1 id="quiz2"><a href="#quiz2" class="headerlink" title="quiz2:"></a>quiz2:</h1><p>​    某CPU地址总线为$A_0$~$A_{19}$，数据总线为$D_0$~$D_7$，主存读信号为$\overline{MEMR}$，主存写信号为$\overline{MEMW}$。某SRAM连接电路如图：</p>
 <center>
-    <img src='/images/CS_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -238,7 +249,7 @@
 <p>​    这道题就清晰的阐述了上面的思想，我们注意到，片选线是否激活由下面的组合逻辑电路决定，只有在$A_{13}=0$,$A_{14}$~$A_{19}=1$时才能被激活，所以地址范围是1111 110x xxxx xxxx xxxx，换算得FC000H~FDFFFH。</p>
 <p>​    注意到30000H=0011 0000 0000 0000 0000，33FFF=0011 0011 1111 1111 1111，我们发现了范围是0011 00xx xxxx xxxx xxxx，所以按照这个逻辑控制$A_{14}$~$A_{19}$即可。就与前面的quiz1呼应了。</p>
 <h1 id="quiz3"><a href="#quiz3" class="headerlink" title="quiz3:"></a>quiz3:</h1><center>
-    <img src='/images/CS_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -248,7 +259,7 @@
 <p>​    直接映射：主存物理地址=标记+Cache行号+块内地址</p>
 <p>​    在这里写一下我的理解：Cache是把主存的某一块拿过来，存着，为了提速。</p>
 <center>
-    <img src='/images/CS_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -260,7 +271,7 @@
 <p>​    我们再看一种经典的找位数分区的题目：</p>
 <p>​    某计算机采用页式虚拟存储管理方式，按字节编址，虚拟地址为32位，物理地址为26位，页大小为4KB，TLB采用全相联映射；Cache数据区大小为64KB，按2路组相联方式组织，主存块大小为64B。</p>
 <center>
-    <img src='/images/CS_2_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -273,7 +284,7 @@
 <p>​    定长操作码，显然只需4位即可。平均操作码长度也为4。</p>
 <p>​    霍夫曼编码，我们构造霍夫曼树。</p>
 <center>
-    <img src='/images/CS_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -286,13 +297,13 @@
 <h1 id="quiz5"><a href="#quiz5" class="headerlink" title="quiz5:"></a>quiz5:</h1><p>​    寻址方式</p>
 <p>​    一条指令中，地址码的解读方式可能有很多，所以会加入寻址特征，数据寻址的种类如下，其中EA表示effective address。形式地址为A。</p>
 <center>
-    <img src='/images/CS_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    我们会在习题中看见他们的复合，但是只要按照上图捋清楚，都是很直接的。例如：</p>
 <center>
-    <img src='/images/CS_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -323,7 +334,7 @@ T=h\times T_C+\left( 1-h \right) \times T_M</script><p>​    磁盘指标：</p
 \text{非格式化容量}=\text{位密度}\times \frac{\text{内圈磁道周长}+\text{外圈磁道周长}}{2}\times \text{每盘面磁道数}\times \text{盘面数}
 \\
 \text{数据传输率}=\text{每扇区字节数}\times \text{每道扇区数}\times \text{磁盘转速}</script><center>
-    <img src='/images/CS_2_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -348,7 +359,7 @@ S_n\left( m \right) =\frac{mn\tau}{\left( m+n-1 \right) \tau}=\frac{m}{1+\frac{m
 E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h1 id="quiz7"><a href="#quiz7" class="headerlink" title="quiz7:"></a>quiz7:</h1><p>​    第六章考核上给我一种波将金村的感觉，遂记录一下。</p>
 <p>​    某计算机系统简化的CPU结构如下图：</p>
 <center>
-    <img src='/images/CS_2_10.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_10.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -359,7 +370,7 @@ E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h
 <p>​    实际上我们可以发现，这一定程度考察了前面的寻址方式。</p>
 <p>​    我们都是先取指令(fetch)，在我们这里是直接执行(execute)，即二级时序。注意不同寻址方式下的差别。</p>
 <center>
-    <img src='/images/CS_2_11.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cs2/CS_2_11.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -397,6 +408,7 @@ E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -542,8 +554,7 @@ E=\frac{mn\tau}{m\left( m+n-1 \right) \tau}=\frac{1}{1+\frac{m-1}{n}}</script><h
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -613,19 +624,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -683,15 +716,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,15 +808,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,15 +832,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1016,20 +1049,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

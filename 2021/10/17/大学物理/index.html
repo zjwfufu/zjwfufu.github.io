@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,16 +23,16 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    为了应付期中考试，要预习大学物理了。由于大物只是个凑学分的课，所以不会纠的太深，能过个考试就得了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/r_physic_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/r_physic_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/r_physic_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/r_physic_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics1/r_physic_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics1/r_physic_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics1/r_physic_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/physics1/r_physic_3.png">
 <meta property="article:published_time" content="2021-10-17T15:30:34.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:08:15.732Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.462Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="大学物理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/r_physic_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/physics1/r_physic_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -32,10 +40,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -44,10 +55,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -57,9 +68,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -108,7 +116,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -173,7 +184,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-大学物理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-大学物理" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -217,7 +228,7 @@
 <p>​    电场强度的定义与高中完全相同，这里引入一种说法：电偶极子。</p>
 <p>​    说的是高中时经常遇到的两个大小相等的异号点电荷$+q,-q$相距$l$,要计算的电场强度的各场点相对这一对电荷的距离$r\gg l$时，这样一对点电荷称为电偶极子。这个定义十分的形象，</p>
 <center>
-    <img src='/images/r_physic_0.png' style="zoom: 33%;">
+    <img src='/images/physics1/r_physic_0.png' style="zoom: 33%;">
 </center>
 
 <p>​        利用平行四边形法则可以计算出：</p>
@@ -229,7 +240,7 @@ E_p=\frac{1}{4\pi \varepsilon _0}\frac{ql}{r^3\left( 1+\frac{l^2}{4r^2} \right) 
 <script type="math/tex; mode=display">
 \boldsymbol{E}=\frac{1}{4\pi \varepsilon _0}\frac{\boldsymbol{p}}{r^3}</script><p>​        但对于很多时候的带电体，电场强度都需要利用矢量积分来求解，将矢量积分转化为标量积分然后求解。下面举一个可以延伸到很多种情形的例子。&lt;下面不加特殊说明，$q$代表带电体总电量，$\lambda ,\sigma ,\rho $依次代表电荷的线密度，面密度，体密度&gt;</p>
 <center>
-    <img src='/images/r_physic_1.png' style="zoom: 33%;">
+    <img src='/images/physics1/r_physic_1.png' style="zoom: 33%;">
 </center>
 
 <p>​        首先要处理右边的细圆环时的情形，由于对称性，$zOy$平面的电场强度分量互相抵消，只需计算$Ox$方向。在下面的介绍中我们均认为带电体电荷分布均匀，这是一个理想化的做法。那么对于圆环，可以得：</p>
@@ -262,7 +273,7 @@ g\left( R \right) =\frac{1}{\sqrt{R^2+x^2}},g'\left( R \right) =-\frac{R}{\left(
 E=\frac{x}{2\varepsilon _0}\frac{q}{2\pi R_1\varDelta R}\frac{R_1\varDelta R}{\left( R_{1}^{2}+x^2 \right) ^{\frac{3}{2}}}=\frac{1}{4\pi \varepsilon _0}\frac{qx}{\left( R_{1}^{2}+x^2 \right) ^{\frac{3}{2}}}</script><p>​        和之前的结果是一致的。</p>
 <p>​        还有一个比较重要的理想模型是均匀带电直线杆</p>
 <center>
-    <img src='/images/r_physic_2.png' style="zoom: 33%;">
+    <img src='/images/physics1/r_physic_2.png' style="zoom: 33%;">
 </center>
 
 <p>​            由于$\theta_1,\theta_2$并没有给出特殊关系，所以对称性不能得到保证。所以要分$x,y$​方向计算。</p>
@@ -283,7 +294,7 @@ E_y=\int_{\theta _1}^{\theta _2}{\frac{1}{4\pi \varepsilon _0a}\lambda \cos \the
 <script type="math/tex; mode=display">
 E_x=\frac{\lambda}{2\pi \varepsilon _0a},E_y=0</script><p>​            以圆环和直杆的结果出发可以求解多种几何体的电场强度，后面还会有另一种简洁的求电场强度的方法，在此就从略了。</p>
 <center>
-    <img src='/images/r_physic_3.png'>
+    <img src='/images/physics1/r_physic_3.png'>
 </center>
 
 <p>​        今天先写到这里，以后有空把一些可以可视化的作出来，上面是等量同种电荷和不等量同种电荷的图像，我希望我的高中老师在我上高中的时候也能画出这个来给我们看，但很遗憾他没有。</p>
@@ -322,6 +333,7 @@ E_x=\frac{\lambda}{2\pi \varepsilon _0a},E_y=0</script><p>​            以圆�
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -467,8 +479,7 @@ E_x=\frac{\lambda}{2\pi \varepsilon _0a},E_y=0</script><p>​            以圆�
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -538,19 +549,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -608,15 +641,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,15 +733,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,15 +757,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -941,20 +974,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

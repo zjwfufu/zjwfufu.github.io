@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,40 +23,40 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “说书人或许会留恋，但故事毕竟有终点。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_2.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_4.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_3.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_3_.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_5.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_nerfpose.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_nerfpose.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_avgpose.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_avgpose.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_recenter.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_recenter.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_spherify.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_spherify.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_renderpose_z.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_renderpose_z.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_renderpose_zflat.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_renderpose_zflat.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_3ddfa.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_keypoints.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_bfm.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_t3d.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_proj_fov.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_proj_znear.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_proj_zfar.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_su2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_2.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_4.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_3.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_3_.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_5.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_nerfpose.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_nerfpose.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_avgpose.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_avgpose.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_recenter.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_recenter.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_spherify.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_spherify.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_renderpose_z.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_renderpose_z.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_renderpose_zflat.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_renderpose_zflat.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_3ddfa.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_keypoints.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_bfm.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_t3d.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_proj_fov.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_proj_znear.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_proj_zfar.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_su2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_end.png">
 <meta property="article:published_time" content="2024-04-07T11:22:42.000Z">
-<meta property="article:modified_time" content="2024-04-07T15:04:24.159Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.653Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/cam_pose_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/cam_pose/cam_pose_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -56,10 +64,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -68,10 +79,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -81,9 +92,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -132,7 +140,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -197,7 +208,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-cam-pose" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-cam-pose" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -261,7 +272,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>cam2world = LookAtPoseSampler.sample(math.pi/<span class="number">4</span>, math.pi/<span class="number">4</span>, torch.tensor([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]), radius=<span class="number">2.5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tensor([[[ <span class="number">0.7071</span>, -<span class="number">0.3536</span>,  <span class="number">0.6124</span>, -<span class="number">1.5309</span>],</span><br><span class="line">             [ <span class="number">0.0000</span>, -<span class="number">0.8660</span>, -<span class="number">0.5000</span>,  <span class="number">1.2500</span>],</span><br><span class="line">             [ <span class="number">0.7071</span>,  <span class="number">0.3536</span>, -<span class="number">0.6124</span>,  <span class="number">1.5309</span>],</span><br><span class="line">             [ <span class="number">0.0000</span>,  <span class="number">0.0000</span>,  <span class="number">0.0000</span>,  <span class="number">1.0000</span>]]])</span><br></pre></td></tr></table></figure>
 <p>​    现在我们关心<code>LookAtPoseSampler.sample</code>的实现，这个实现展示了一个很经典的用look, at, up构造相机外参的方法。EG3D中，整套代码是在这样的一个settings下：</p>
 <center>
-    <img src='/images/cam_pose_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -329,8 +340,8 @@
 \end{array} \right]</script><p>​    可以看到，这个变换将原点平移到了相机位置，将$x$轴方向的单位向量旋转到<code>right_vector</code>的方向，并且也平移了一个相机位置。所以实际上$\vec{r}$就是$x$轴被旋转后的样子，$\vec{u}$是$y$轴，$\vec{f}$是$z$轴。真是一个有用的矩阵。</p>
 <p>​    相机外参实际上是这个矩阵的逆，即w2c。从坐标系变换来理解c2w和w2c，总是有些困难的。更倾向于用这种方法理解了c2w，然后将相机外参当作这个矩阵的逆就好了。可以做一些简单的可视化来加深印象，下图画一个对于人头前半部分和整个部分的相机：</p>
 <center>
-    <img src='/images/cam_pose_2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_4.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_4.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -361,8 +372,8 @@ FoV_y=2\mathrm{arctan} \left( \frac{1}{2f_{y}^{_{normalized}}} \right)</script><
 \frac{y_{lift}}{z}=\frac{\left( uv\left[ :,:,1 \right] -c_y \right)}{f_y}</script><p>​    大多数时候，平面$z$都是1。然后这些相机坐标系下的点左乘刚才的<code>c2w</code>，就可以变换到世界坐标系。继而求出<code>ray_dirs</code>。</p>
 <p>​    求出每个像素上光线的方向后，下面就是要考虑沿光线方向采样。在EG3D中，其对于FFHQ数据集，经验性质的选择了<code>ray_start=2.25</code>，<code>ray_end=3.3</code>。不同的数据集这个采样的上下限不一样，我推测是试+大概齐估计的。所以对于一个相机，它发出的光线大概就是下面这样：</p>
 <center>
-    <img src='/images/cam_pose_3.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_3_.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_3.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_3_.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -371,7 +382,7 @@ FoV_y=2\mathrm{arctan} \left( \frac{1}{2f_{y}^{_{normalized}}} \right)</script><
 <p>​    以及<code>ray_start=2.25</code>，<code>ray_end=3.3</code>也和相机半径$r$在EG3D训练FFHQ被指定为2.75有关，可以看到图中的坐标基本是在<code>-0.5~0.5</code>，因为后续需要在triplane里去插值。</p>
 <p>​    最后画一个多个相机发出光线的样子：</p>
 <center>
-    <img src='/images/cam_pose_5.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_5.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -390,13 +401,13 @@ FoV_y=2\mathrm{arctan} \left( \frac{1}{2f_{y}^{_{normalized}}} \right)</script><
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">viewmatrix</span>(<span class="params">z, up, pos</span>):</span><br><span class="line">    vec2 = normalize(z)</span><br><span class="line">    vec1_avg = up</span><br><span class="line">    vec0 = normalize(np.cross(vec1_avg, vec2))</span><br><span class="line">    vec1 = normalize(np.cross(vec2, vec0))</span><br><span class="line">    m = np.stack([vec0, vec1, vec2, pos], <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poses_avg</span>(<span class="params">poses</span>):</span><br><span class="line"></span><br><span class="line">    hwf = poses[<span class="number">0</span>, :<span class="number">3</span>, -<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    center = poses[:, :<span class="number">3</span>, <span class="number">3</span>].mean(<span class="number">0</span>)</span><br><span class="line">    vec2 = normalize(poses[:, :<span class="number">3</span>, <span class="number">2</span>].<span class="built_in">sum</span>(<span class="number">0</span>))</span><br><span class="line">    up = poses[:, :<span class="number">3</span>, <span class="number">1</span>].<span class="built_in">sum</span>(<span class="number">0</span>)</span><br><span class="line">    c2w = np.concatenate([viewmatrix(vec2, up, center), hwf], <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> c2w</span><br></pre></td></tr></table></figure>
 <p>​    这个是很直接的，我们求取了每个轴方向向量的平均，相机位置的平均，最后得到一个表示相机平均位置的<code>c2w</code>，如下图所示：</p>
 <center>
-    <img src='/images/cam_pose_nerfpose.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_nerfpose.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_nerfpose.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_nerfpose.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <center>
-    <img src='/images/cam_pose_avgpose.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_avgpose.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_avgpose.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_avgpose.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -404,8 +415,8 @@ FoV_y=2\mathrm{arctan} \left( \frac{1}{2f_{y}^{_{normalized}}} \right)</script><
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">recenter_poses</span>(<span class="params">poses</span>):</span><br><span class="line"></span><br><span class="line">    poses_ = poses+<span class="number">0</span></span><br><span class="line">    bottom = np.reshape([<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1.</span>], [<span class="number">1</span>,<span class="number">4</span>])</span><br><span class="line">    c2w = poses_avg(poses)</span><br><span class="line">    c2w = np.concatenate([c2w[:<span class="number">3</span>,:<span class="number">4</span>], bottom], -<span class="number">2</span>)</span><br><span class="line">    bottom = np.tile(np.reshape(bottom, [<span class="number">1</span>,<span class="number">1</span>,<span class="number">4</span>]), [poses.shape[<span class="number">0</span>],<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">    poses = np.concatenate([poses[:,:<span class="number">3</span>,:<span class="number">4</span>], bottom], -<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    poses = np.linalg.inv(c2w) @ poses</span><br><span class="line">    poses_[:,:<span class="number">3</span>,:<span class="number">4</span>] = poses[:,:<span class="number">3</span>,:<span class="number">4</span>]</span><br><span class="line">    poses = poses_</span><br><span class="line">    <span class="keyword">return</span> poses</span><br></pre></td></tr></table></figure>
 <p>​    这么说可能有点抽象，下面是图示：</p>
 <center>
-    <img src='/images/cam_pose_recenter.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_recenter.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_recenter.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_recenter.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -433,8 +444,8 @@ D\left( \mathbf{p};\mathbf{o},\mathbf{d} \right) =\left\| \left( \mathbf{o}-\mat
 \\
 \mathbf{b}=\sum_{i=1}^N{\left( \mathbf{I}-\mathbf{d}_i\mathbf{d}_{i}^{T} \right) \mathbf{o}_i}</script><p>​    于是就有了上面代码里的子函数。接下来，这个函数用不同的叉乘顺序计算了一个类似<code>c2w</code>的矩阵，其位置是刚才估计的直线中心。然后对所有位姿左乘其逆阵，这样就让位姿的<code>lookat</code>对准原点了。同时将相机位置的半径缩放为1，完成“球化”：</p>
 <center>
-    <img src='/images/cam_pose_spherify.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_spherify.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_spherify.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_spherify.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    （但这个“球化”并不意味着相机姿态真的处理成了一个球面上均匀分布的样子，不要混淆。）</p>
@@ -450,13 +461,13 @@ D\left( \mathbf{p};\mathbf{o},\mathbf{d} \right) =\left\| \left( \mathbf{o}-\mat
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">    c2w = poses_avg(poses)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;recentered&#x27;</span>, c2w.shape)</span><br><span class="line">    <span class="built_in">print</span>(c2w[:<span class="number">3</span>,:<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment">## Get spiral</span></span><br><span class="line">    <span class="comment"># Get average pose</span></span><br><span class="line">    up = normalize(poses[:, :<span class="number">3</span>, <span class="number">1</span>].<span class="built_in">sum</span>(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find a reasonable &quot;focus depth&quot; for this dataset</span></span><br><span class="line">    close_depth, inf_depth = bds.<span class="built_in">min</span>()*<span class="number">.9</span>, bds.<span class="built_in">max</span>()*<span class="number">5.</span></span><br><span class="line">    dt = <span class="number">.75</span></span><br><span class="line">    mean_dz = <span class="number">1.</span>/(((<span class="number">1.</span>-dt)/close_depth + dt/inf_depth))</span><br><span class="line">    focal = mean_dz</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Get radii for spiral path</span></span><br><span class="line">    shrink_factor = <span class="number">.8</span></span><br><span class="line">    zdelta = close_depth * <span class="number">.2</span></span><br><span class="line">    tt = poses[:,:<span class="number">3</span>,<span class="number">3</span>] <span class="comment"># ptstocam(poses[:3,3,:].T, c2w).T</span></span><br><span class="line">    rads = np.percentile(np.<span class="built_in">abs</span>(tt), <span class="number">90</span>, <span class="number">0</span>)</span><br><span class="line">    c2w_path = c2w</span><br><span class="line">    N_views = <span class="number">120</span></span><br><span class="line">    N_rots = <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> path_zflat:</span><br><span class="line">        <span class="comment">#             zloc = np.percentile(tt, 10, 0)[2]</span></span><br><span class="line">        zloc = -close_depth * <span class="number">.1</span></span><br><span class="line">        c2w_path[:<span class="number">3</span>,<span class="number">3</span>] = c2w_path[:<span class="number">3</span>,<span class="number">3</span>] + zloc * c2w_path[:<span class="number">3</span>,<span class="number">2</span>]</span><br><span class="line">        rads[<span class="number">2</span>] = <span class="number">0.</span></span><br><span class="line">        N_rots = <span class="number">1</span></span><br><span class="line">        N_views/=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Generate poses for spiral path</span></span><br><span class="line">    render_poses = render_path_spiral(c2w_path, up, rads, focal, zdelta, zrate=<span class="number">.5</span>, rots=N_rots, N=N_views)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>​    通过场景的界限<code>bds</code>，我们可以知道一个类似近远平面的度量，将两者进行倒数线性插值，作为一个估计，来给出<code>focal</code>，<code>focal</code>在<code>def render_path_spiral</code>用于计算<code>lookat</code>的那个固定点。当<code>path_zflat</code>为真时，计算出的<code>rads</code>的$z$值会归0，于是刚才的螺旋线将退化为圆。</p>
 <center>
-    <img src='/images/cam_pose_renderpose_z.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_renderpose_z.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_renderpose_z.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_renderpose_z.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <center>
-    <img src='/images/cam_pose_renderpose_zflat.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_renderpose_zflat.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_renderpose_zflat.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_renderpose_zflat.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -464,7 +475,7 @@ D\left( \mathbf{p};\mathbf{o},\mathbf{d} \right) =\left\| \left( \mathbf{o}-\mat
 <h3 id="3DDFA"><a href="#3DDFA" class="headerlink" title="3DDFA"></a>3DDFA</h3><p>​    在这个部分，我们其实关心的是EG3D中对人脸图片的预处理。这个预处理在处理2D人脸数据时常用的“FFHQ alignment”上更进了一步。但由于EG3D给的预处理代码写的比较分散，不太适合作为“教具”。而基于EG3D的工作PanoHead里提供了一个更自洽和规整的脚本，来让我们可以体会对齐这一步。</p>
 <p>​    PanoHead的预处理用到了3DDFA，这篇工作的全称是Face Alignment in Full Pose Range: A 3D Total Solution，它的本意是为了为了提升大角度偏转情况下人脸对齐的效果，在这个预处理中用到它的目的其实和它的本意有点出入，但这个问题不大，我们也可以把这个当作一个熟悉陌生工作中相机settings的例子。我这里用一张3DDFA GitHub仓库里的teaser来图示一下这个工作具体做了什么事情。</p>
 <center>
-    <img src='/images/cam_pose_3ddfa.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_3ddfa.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -496,7 +507,7 @@ V=f\ast \mathbf{Pr}\ast \mathbf{R}\ast \left( \bar{\mathbf{S}}+\mathbf{A}_{id}\m
 <p>​    意识到这些以后，我们可以看一下代码了。</p>
 <p>​    在<code>recrop_images.py</code>之前，其实每张输入的人脸图片是通过dlib库检测了一波人脸关键点的。如下图所示：</p>
 <center>
-    <img src='/images/cam_pose_keypoints.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_keypoints.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -515,7 +526,7 @@ V=f\ast \mathbf{Pr}\ast \mathbf{R}\ast \left( \bar{\mathbf{S}}+\mathbf{A}_{id}\m
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(Pdb) print(s_relative)</span><br><span class="line">0.0004781045136041939</span><br><span class="line">(Pdb) print(R)</span><br><span class="line">[[ 0.9992211   0.00787572  0.03866785]</span><br><span class="line"> [ 0.00239068  0.9995937   0.02840398]</span><br><span class="line"> [-0.03842843 -0.02828942  0.9987962 ]]</span><br><span class="line">(Pdb) print(t3d)</span><br><span class="line">[ 58.91281   69.05477  -66.671005]</span><br></pre></td></tr></table></figure>
 <p>​    然后，需要调整一下<code>t3d</code>，在代码中称为”Adjust z-translation in object space”，我推测这么做的原因是3DDFA估计出的结果，是隐含在BFM标准人头的那个坐标系下的：</p>
 <center>
-    <img src='/images/cam_pose_bfm.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_bfm.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -532,7 +543,7 @@ V=f\ast \mathbf{Pr}\ast \mathbf{R}\ast \left( \bar{\mathbf{S}}+\mathbf{A}_{id}\m
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sx, sy, ex, ey = roi_box_lst[<span class="number">0</span>]</span><br><span class="line">scale_x = (ex - sx) / tddfa.size</span><br><span class="line">scale_y = (ey - sy) / tddfa.size</span><br></pre></td></tr></table></figure>
 <p>​    由于<code>t3d</code>的坐标系和图像坐标系的$y$轴是反的（如下图）：</p>
 <center>
-    <img src='/images/cam_pose_t3d.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_t3d.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -670,9 +681,9 @@ P=M_{\mathrm{ortho}}M_{persp\rightarrow ortho}
 \end{matrix} \right]</script><p>​    你或许发现第一行的第三个元素和第二行的第三个元素，跟代码实现不符。这应该是代码实现的BUG，但由于函数内定义的视锥是对称的（$r=-l,t=-b$），所以这一项为0，不会影响结果。</p>
 <p>​    为了对这个过程有更加透彻的理解，这里展示了一个透视矩阵视场角，近平面，远平面变化时，视锥体（黑）和canonical（红）的样子：</p>
 <center>
-    <img src='/images/cam_pose_proj_fov.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_proj_znear.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/cam_pose_proj_zfar.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_proj_fov.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_proj_znear.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_proj_zfar.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -754,7 +765,7 @@ R\left( t \right) =\exp \left( {\phi _0}^{\land}t \right)</script><p>​    这�
 \mathrm{SO(}n)=\left\{ R\in \mathbb{R} ^{n\times n}\mid RR^{\mathrm{T}}=\mathbf{I},\det\mathrm{(}R)=1 \right\}</script><p>​    我们关心的往往是二维和三维上的旋转，即$\mathrm{SO}(2),\mathrm{SO}(3)$。更重要的是，旋转是可以连续变化的。这种具有连续（光滑）性质的群，称为李群。我们可以简单的认为，由于李群的连续性，使得我们比较熟悉的微积分可以作为分析李群的工具。</p>
 <p>​    事实上，每个李群都对应一个李代数，李代数反应了李群在幺元附近的性质，即描述了幺元附近的正切空间。我们可以以二维时的情景举例，考虑复平面上的旋转$e^{i\theta}$，它满足群的定义，同时是光滑的，所以是李群。其幺元为$e^{i0}=1$，我们可以画出：</p>
 <center>
-    <img src='/images/cam_pose_su2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_su2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -965,7 +976,7 @@ Y_{j}^{m}\left( \theta ^{\prime},\varphi ^{\prime} \right) =\sum_{m^{\prime}=-j}
 </blockquote>
 <p>​    这篇blog选取了若干先进的与相机系统有关的深度学习项目进行了分析，最后从理论角度讨论了代码中常用的旋转操作的一些性质。</p>
 <center>
-    <img src='/images/cam_pose_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cam_pose/cam_pose_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -1004,16 +1015,17 @@ Y_{j}^{m}\left( \theta ^{\prime},\varphi ^{\prime} \right) =\sum_{m^{\prime}=-j}
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -1025,11 +1037,11 @@ Y_{j}^{m}\left( \theta ^{\prime},\varphi ^{\prime} \right) =\sum_{m^{\prime}=-j}
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -1168,8 +1180,7 @@ Y_{j}^{m}\left( \theta ^{\prime},\varphi ^{\prime} \right) =\sum_{m^{\prime}=-j}
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -1239,19 +1250,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -1309,15 +1342,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1401,15 +1434,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1425,15 +1458,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1642,20 +1675,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,18 +23,18 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    军训结束了，迎来了上大学以后的第二个暑假。这个暑假意义十分重大，就夹杂着写日记的成份记录一下吧。五月份左右，当时玩了一下渐进生成的GAN，觉得很有意思，比单纯无脑的model.py直球forward更精巧，就记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/summer_practice_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/summer_practice_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/summer_practice_3.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/summer_practice_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pggan/summer_practice_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pggan/summer_practice_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pggan/summer_practice_3.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pggan/summer_practice_4.png">
 <meta property="article:published_time" content="2022-07-06T07:06:08.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:58:28.240Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.409Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="杂记">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大二暑假">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/summer_practice_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pggan/summer_practice_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -34,10 +42,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -46,10 +57,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -59,9 +70,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -110,7 +118,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -175,7 +186,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Progressive Growing GAN" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Progressive Growing GAN" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -216,7 +227,7 @@
 <p>​    重点就是这个乐观，道理谁都懂，比如中学考试考差了，道理都是“吸取教训”“走出来”。但是放自己身上就未必能行了。上次我被这么震惊的时候，是大一下学期，看见一个同学努力的在操场上跑步，宛如摩西分海。这种来自身边例子的身体力行，才能带来真正的质变。</p>
 <p>​    然后，我就整理一下之前偷偷用老师的机器生成anime girl的这个小demo吧，最简单的那种GAN生成的质量不太行，所以一种优雅的progressive growing GAN(PGGAN)就被我采用了，由于最后显卡的资源限制，只能生成到128×128的了，而且当时的训练时间也长到无法承受了，但是至少能看了。（这也没办法啊，别人开源的上来就4联Tesla V100我这儿就两块快报废的2080ti，动不动就显存溢出，我后面尝试了一个trick，然后失败了，这个后面说。）</p>
 <center>
-    <img src='/images/summer_practice_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pggan/summer_practice_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -236,7 +247,7 @@
 <p>​    它的意思是，最开始所有参数都用正态分布(0,1)生成，在每一次forward的时，都用一个常数（这个常数在Kaiming初始化中也提到了）来进行缩放，（注意是每一次）个人认为这个操作在后面进行Fading in New Layers操作时十分重要，如果不这样对权重进行约束，后续的训练很可能会因为新layer的加入而崩掉。总之这种方法也像梯度截断一样，是对梯度的一个约束，GAN毕竟靠的是balance，不像简单对着ground truth一顿overfit的任务，即使突然梯度飞了，只要不是太离谱，就还有救。</p>
 <h3 id="Progressive-Growing"><a href="#Progressive-Growing" class="headerlink" title="Progressive Growing"></a>Progressive Growing</h3><p>​    另外两个在论文里提及的trick是GAN多年以来的研究经验的直接结果，这里我就略过了，直接进入我觉得最神奇的Fading in阶段：</p>
 <center>
-    <img src='/images/summer_practice_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pggan/summer_practice_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -254,7 +265,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self</span>):</span><br><span class="line">    global_step = <span class="number">0</span></span><br><span class="line">    global_epoch = <span class="number">0</span></span><br><span class="line">    total_stages = <span class="built_in">int</span>(math.log2(self.size / self.init_size)) + <span class="number">1</span></span><br><span class="line">    fixed_z = torch.FloatTensor(<span class="number">32</span>, self.nz).normal_(<span class="number">0.0</span>, <span class="number">1.0</span>).to(<span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> stage <span class="keyword">in</span> <span class="built_in">range</span>(self.init_stage, total_stages + <span class="number">1</span>):</span><br><span class="line">        eps = self.unit_epoch <span class="keyword">if</span> stage == self.init_stage <span class="keyword">else</span> self.unit_epoch * <span class="number">2</span></span><br><span class="line">        current_size = self.init_size * (<span class="number">2</span> ** (stage - <span class="number">1</span>))</span><br><span class="line">        <span class="keyword">if</span> stage == self.init_stage:</span><br><span class="line">            ticker = self.tickers + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ticker = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(eps):</span><br><span class="line">            torch.cuda.empty_cache()</span><br><span class="line">            <span class="keyword">with</span> tqdm(total=<span class="built_in">len</span>(self.dataloader),</span><br><span class="line">                      desc=<span class="string">f&#x27;Stage<span class="subst">&#123;stage&#125;</span>/<span class="subst">&#123;total_stages&#125;</span>, Epoch<span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;eps&#125;</span>&#x27;</span>, postfix=<span class="built_in">dict</span>,</span><br><span class="line">                      mininterval=<span class="number">0.3</span>) <span class="keyword">as</span> pbar:</span><br><span class="line">                total_lossG = <span class="number">0.0</span></span><br><span class="line">                total_lossD = <span class="number">0.0</span></span><br><span class="line">                <span class="keyword">for</span> i, data <span class="keyword">in</span> <span class="built_in">enumerate</span>(self.dataloader):</span><br><span class="line">                    current_alpha = self.update_trainer(stage, ticker)</span><br><span class="line">                    real_data_current, _ = data</span><br><span class="line">                    real_data_current = F.adaptive_avg_pool2d(real_data_current, current_size)</span><br><span class="line">                    <span class="keyword">if</span> stage &gt; <span class="number">1</span> <span class="keyword">and</span> current_alpha &lt; <span class="number">1</span>:</span><br><span class="line">                        real_data_previous = F.interpolate(F.avg_pool2d(real_data_current, <span class="number">2</span>), scale_factor=<span class="number">2.</span>,</span><br><span class="line">                                                           mode=<span class="string">&#x27;nearest&#x27;</span>)</span><br><span class="line">                        real_data = (<span class="number">1</span> - current_alpha) * real_data_previous + current_alpha * real_data_current</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        real_data = real_data_current</span><br><span class="line">                    real_data = real_data.mul(<span class="number">2.</span>).sub(<span class="number">1.</span>)  <span class="comment"># [0,1] --&gt; [-1,1]</span></span><br><span class="line">                    real_data = real_data.to(self.device)</span><br><span class="line">                    G_loss, D_loss = self.update_network(real_data)</span><br><span class="line"></span><br><span class="line">                    total_lossD += D_loss</span><br><span class="line">                    total_lossG += G_loss</span><br><span class="line"></span><br><span class="line">                    self.update_moving_average()</span><br><span class="line"></span><br><span class="line">                    global_step += <span class="number">1</span></span><br><span class="line">                    ticker += <span class="number">1</span></span><br><span class="line">                    pbar.set_postfix(**&#123;<span class="string">&#x27;total_lossD&#x27;</span>: total_lossD / (i + <span class="number">1</span>), <span class="string">&#x27;total_lossG&#x27;</span>: total_lossG / (i + <span class="number">1</span>)&#125;)</span><br><span class="line">                    pbar.update(<span class="number">1</span>)</span><br><span class="line">            global_epoch += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> epoch % <span class="number">10</span> == <span class="number">9</span>:</span><br><span class="line">                <span class="comment"># log image</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;log images...&#x27;</span>)</span><br><span class="line">                <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">                    self.G_EMA.<span class="built_in">eval</span>()</span><br><span class="line">                    fake_data = self.G_EMA(fixed_z)</span><br><span class="line">                    vutils.save_image(fake_data,</span><br><span class="line">                                      <span class="string">&#x27;%s/fake_samples_stage_%03d_epoch_%03d.png&#x27;</span> % (self.outf, stage, epoch))</span><br><span class="line">                <span class="comment"># save checkpoints</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;saving checkpoints...&#x27;</span>)</span><br><span class="line">                checkpoint = &#123;</span><br><span class="line">                    <span class="string">&#x27;G_state_dict&#x27;</span>: self.G.module.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;G_EMA_state_dict&#x27;</span>: self.G_EMA.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;D_state_dict&#x27;</span>: self.D.module.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;opt_G_state_dict&#x27;</span>: self.opt_G.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;opt_D_state_dict&#x27;</span>: self.opt_D.state_dict(),</span><br><span class="line">                    <span class="string">&#x27;stage&#x27;</span>: stage,</span><br><span class="line">                    <span class="string">&#x27;ticker&#x27;</span>: ticker</span><br><span class="line">                &#125;</span><br><span class="line">                torch.save(checkpoint, os.path.join(self.outf, <span class="string">&#x27;stage&#123;&#125;.tar&#x27;</span>.<span class="built_in">format</span>(stage)))  <span class="comment"># overwrite if exist</span></span><br></pre></td></tr></table></figure>
 <p>​    fixed_z是一个固定的随机生成的向量，高端的说法是从latent space里的采样。它可以用来可视化训练过程，例如：</p>
 <center>
-    <img src='/images/summer_practice_3.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pggan/summer_practice_3.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -286,7 +297,7 @@
 \theta _{t+1}=\theta _t-\frac{\eta}{n}\sum_{x\in \mathscr{B}}{\nabla l\left( x,\theta _t \right)}</script><p>​    其中$\eta$是学习率，$n$是batchsize，所以我试图在不同的stage里，用不同的batchsize，同理等比例改变learning rate。然后，训练崩了，成功败北。我后来也没怎么再次实验，埋个坑吧。</p>
 <p>​    这一篇捋完了让我对pytorch有了更深的理解，暑期留在学校效率倒是不低。这一学期，均分寄了，真的不想当做题家了，就当跟恶魔做交易了。继续努力，争取暑假有publication，后面去到自己想去的地方。</p>
 <center>
-    <img src='/images/summer_practice_4.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pggan/summer_practice_4.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    </p>
@@ -325,6 +336,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -478,8 +490,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -549,19 +560,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -619,15 +652,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -711,15 +744,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,15 +768,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -952,20 +985,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

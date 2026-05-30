@@ -818,12 +818,12 @@ body,button,input,select,textarea {
 	line-height: 1.75
 }
 
-body {
-	overflow-y: hidden;
-/*background:#eaeaea*/
+body,html {
+	height: 100%;
+	overflow: hidden;
 }
 
-#container,body,html {
+#container {
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto
@@ -874,7 +874,7 @@ body {
 	/*background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
     url('http://bucket836.oss-cn-shenzhen.aliyuncs.com/wallpaper/381535373.jpeg') no-repeat 0% 20%/ cover;*/
     /*background: linear-gradient(120deg,#6699ff,#48D1CC) no-repeat 0% 0%/ cover;*/
-	background: rgba(255, 255, 255, 0.1) no-repeat 0% 0%/ cover;
+	background: transparent;
 	width: 300px;
 	position: fixed;
 	/* opacity: 1; */
@@ -2170,10 +2170,11 @@ pre .css~* .id,pre .id {
 }
 
 .article img {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 10);
-    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 10);
-    -moz-box-shadow: 0 0 15px rgba(0,0,0,10);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     border: 1px solid #e0dfcc;
+    border-radius: 6px;
 }
 
 .article-inner h1.article-title,.article-title {
@@ -4407,4 +4408,556 @@ a.pswp__share--download:hover {
     color: #979292;
   }
 /* 评论框》 */
+
+/* === Mobile reading experience fixes === */
+
+/* Display math: scrollable wrapper injected by mathjax.ejs callback */
+.article-entry .math-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+
+/* Tables: horizontal scroll for wide tables */
+.article-entry .table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 800px) {
+  /* Images: override inline max-width:800px */
+  .article-entry img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* Hide empty article-info bar on index cards (tag/category/read-more removed) */
+.article-index .article-info-index {
+  min-height: 0;
+  padding-top: 0;
+  border-top: none;
+  margin-top: 10px;
+}
+
+/* === Post page: sidebar hidden by default, toggle button === */
+
+.sidebar-hidden .left-col {
+  transform: translateX(-300px);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-hidden .mid-col {
+  left: 0;
+  transition: left 0.3s ease;
+}
+
+/* When sidebar is shown (page-post class removed by toggle) */
+body:not(.sidebar-hidden) .left-col {
+  transform: translateX(0);
+}
+
+/* Toggle button */
+.sidebar-toggle {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 24px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.3s ease, background 0.2s;
+  opacity: 0.6;
+}
+
+.sidebar-toggle:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.sidebar-toggle-arrow {
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* When sidebar is hidden (page-post active), arrow points right (show sidebar) */
+.sidebar-hidden .sidebar-toggle {
+  left: 0;
+}
+
+.sidebar-hidden .sidebar-toggle .sidebar-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+/* When sidebar is visible (page-post removed), button sits at edge of sidebar */
+body:not(.sidebar-hidden) .sidebar-toggle {
+  left: 300px;
+}
+
+/* Mobile: always hide sidebar toggle (mobile has its own nav) */
+@media screen and (max-width: 800px) {
+  .sidebar-toggle {
+    display: none;
+  }
+  .sidebar-hidden .left-col {
+    display: none;
+  }
+  .sidebar-hidden .mid-col {
+    left: 0;
+  }
+}
+
+/* === Soft gradient visual style === */
+
+/* --- Mesh gradient background on #container --- */
+#container {
+  background-color: #99ddff;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 5% 5%, rgba(102, 160, 255, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 90% 5%, rgba(130, 210, 255, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 55% at 50% 0%, rgba(102, 204, 255, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 50% at 0% 60%, rgba(120, 220, 240, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 45% 45% at 80% 70%, rgba(140, 180, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 65% 40% at 40% 90%, rgba(100, 210, 240, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 35% at 70% 40%, rgba(150, 200, 255, 0.35) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 50% at 20% 35%, rgba(110, 195, 250, 0.4) 0%, transparent 55%);
+  position: relative;
+}
+
+body {
+  background: #99ddff;
+}
+
+#container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 15%, rgba(102, 153, 255, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 55% at 85% 10%, rgba(72, 209, 204, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 50% 85%, rgba(120, 170, 230, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 8% 80%, rgba(72, 209, 204, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(230, 242, 248, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Subtle noise overlay for paper/air texture */
+#container::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.025;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Hide mobile btnctn on desktop even when sidebar is hidden */
+.btnctn {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .btnctn {
+    display: block;
+  }
+}
+.mid-col {
+  background: transparent;
+}
+
+/* --- Article cards: frosted glass with unique linear gradient --- */
+.article {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.article-index[style*="--ci"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.article-index .article-inner,
+.article-index .article-info {
+  position: relative;
+  z-index: 1;
+}
+
+.article-index[style="--ci: 0"]::before { background: linear-gradient(37deg, #66ccff, #99aaff); }
+.article-index[style="--ci: 1"]::before { background: linear-gradient(248deg, #77ddee, #88bbff); }
+.article-index[style="--ci: 2"]::before { background: linear-gradient(103deg, #55ccee, #aabbff); }
+.article-index[style="--ci: 3"]::before { background: linear-gradient(315deg, #66bbdd, #7799ff); }
+.article-index[style="--ci: 4"]::before { background: linear-gradient(72deg, #88ddff, #99bbee); }
+.article-index[style="--ci: 5"]::before { background: linear-gradient(191deg, #66ccee, #aaccff); }
+.article-index[style="--ci: 6"]::before { background: linear-gradient(284deg, #77ccdd, #88aaff); }
+.article-index[style="--ci: 7"]::before { background: linear-gradient(156deg, #55bbee, #99ccff); }
+.article-index[style="--ci: 8"]::before { background: linear-gradient(22deg, #77ddcc, #7799ee); }
+.article-index[style="--ci: 9"]::before { background: linear-gradient(339deg, #66ddee, #88bbdd); }
+
+body.dark .article-index[style*="--ci"]::before {
+  opacity: 0.15;
+}
+
+/* --- Slider panel (所有文章/友链/关于我): transparent, inherits container gradient --- */
+.tools-col {
+  background: transparent;
+}
+
+/* --- Sidebar toggle: match sidebar --- */
+.sidebar-toggle {
+  background: rgba(50, 80, 120, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.sidebar-toggle:hover {
+  background: rgba(50, 80, 120, 0.55);
+}
+
+/* --- Mobile: disable blur for performance --- */
+@media screen and (max-width: 800px) {
+  .article {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.88);
+  }
+}
+
+/* ============================================================
+   Dark Mode
+   ============================================================ */
+
+/* Toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: center;
+  transition: background 0.3s, border-color 0.3s;
+  user-select: none;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Dark mode colors --- */
+
+body.dark {
+  background: #1a1c2e;
+}
+
+body.dark #container {
+  background-color: #1a1c2e;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 5% 5%, rgba(40, 60, 120, 0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 90% 5%, rgba(50, 80, 130, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 55% at 50% 0%, rgba(40, 70, 120, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 50% at 0% 60%, rgba(30, 80, 100, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 45% 45% at 80% 70%, rgba(55, 50, 100, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 65% 40% at 40% 90%, rgba(30, 75, 95, 0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 35% at 70% 40%, rgba(55, 70, 120, 0.35) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 50% at 20% 35%, rgba(40, 70, 110, 0.4) 0%, transparent 55%);
+}
+
+/* Text */
+body.dark,
+body.dark button,
+body.dark input,
+body.dark select,
+body.dark textarea {
+  color: #d4d4d8;
+}
+
+/* Article card */
+body.dark .article {
+  background: rgba(30, 32, 50, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Article content */
+body.dark .article-entry {
+  color: #d4d4d8;
+}
+
+body.dark .article-entry p,
+body.dark .article-entry li {
+  color: #d4d4d8;
+}
+
+/* Headings */
+body.dark .article-entry h1,
+body.dark .article-entry h2,
+body.dark .article-entry h3,
+body.dark .article-entry h4,
+body.dark .article-entry h5,
+body.dark .article-entry h6 {
+  color: #e4e4e8;
+}
+
+body.dark .article-entry h1,
+body.dark .article-entry h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Article title */
+body.dark .article-inner h1.article-title,
+body.dark .article-title {
+  color: #e4e4e8;
+}
+
+body.dark .article-title:hover {
+  color: #7eb8f0;
+}
+
+/* Links */
+body.dark .article-entry a {
+  color: #7eb8f0;
+}
+
+body.dark .article-entry a:hover {
+  color: #a0ccf5;
+}
+
+/* Inline code */
+body.dark .article-entry code {
+  background: #2a2d3e;
+  color: #d4d4d8;
+}
+
+/* Code block — already dark, just ensure consistency */
+body.dark .article-entry .highlight,
+body.dark .article-entry pre {
+  background: #1a1c2e;
+}
+
+body.dark .article-entry .highlight pre {
+  background: #1a1c2e;
+}
+
+/* Blockquote */
+body.dark .article-entry blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: #5588cc;
+  color: #b0b0b8;
+}
+
+/* Tables */
+body.dark .article-entry table th {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #d4d4d8;
+}
+
+body.dark .article-entry table td {
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #d4d4d8;
+}
+
+body.dark .article-entry table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Images — slight dim */
+body.dark .article img {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Article info bar */
+body.dark .article-info-index.article-info {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Date */
+body.dark .article-meta time {
+  color: #888;
+}
+
+/* Sidebar */
+body.dark .left-col {
+  background: transparent;
+}
+
+/* Sidebar toggle */
+body.dark .sidebar-toggle {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+body.dark .sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Theme toggle in dark mode */
+body.dark .theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #e4e4e8;
+}
+
+body.dark .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Slider panel */
+body.dark .tools-col {
+  background: rgba(26, 28, 46, 0.85);
+}
+
+body.dark .tools-col .tools-section .search-wrap .search-ipt {
+  color: #d4d4d8;
+}
+
+/* Pagination */
+body.dark #page-nav .page-number {
+  color: #d4d4d8;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark #page-nav .current {
+  background: rgba(126, 184, 240, 0.3);
+  border-color: transparent;
+  color: #e4e4e8;
+}
+
+/* Post nav (prev/next) */
+body.dark #article-nav {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark #article-nav .article-nav-link-wrap {
+  color: #7eb8f0;
+}
+
+/* TOC */
+body.dark #custom-toc {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark #custom-toc .toc-title {
+  color: #999;
+}
+
+/* Valine comments */
+body.dark .comments {
+  background: rgba(30, 32, 50, 0.5) !important;
+}
+
+/* hr */
+body.dark .article-entry hr {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Selection */
+body.dark .article-entry ::selection {
+  background: rgba(126, 184, 240, 0.3);
+}
+
+/* Busuanzi counter */
+body.dark #busuanzi_container_page_pv {
+  color: #7eb8f0 !important;
+}
+
+/* Tag cloud & category page */
+body.dark .tag-cloud-title,
+body.dark .category-all-title {
+  color: #888;
+}
+
+body.dark .tag-cloud-tags a {
+  color: #b0b0b8 !important;
+}
+
+body.dark .tag-cloud-tags a:hover {
+  color: #e4e4e8 !important;
+}
+
+body.dark .category-all-page .category-list-item a {
+  color: #b0b0b8;
+}
+
+body.dark .category-all-page .category-list-item a:hover {
+  color: #e4e4e8;
+}
+
+body.dark .category-all-page .category-list-count {
+  color: #666;
+}
+
+/* Archive page */
+body.dark .archive-article-title {
+  color: #d4d4d8;
+}
+
+body.dark .archive-article-title:hover {
+  color: #7eb8f0;
+}
+
+body.dark .archive-year-wrap a {
+  color: #e4e4e8;
+}
+
+/* Mobile dark mode adjustments */
+@media screen and (max-width: 800px) {
+  body.dark .article {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(30, 32, 50, 0.9);
+  }
+}
+
+/* --- Sidebar: Noto Sans SC --- */
+.left-col {
+  font-family: "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+}
+
+.left-col #header .header-menu {
+  font-family: "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+}
+
+.left-col #header .header-smart-menu {
+  font-family: "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+}
 

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,21 +23,21 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    这一篇是整理一下刚看到的第7章，第10章，主要是常用接口技术和8255A。中断系统由于众所周知的原因，先继续放着；8253下次整理。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_4.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_5.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_6.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_7.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_8.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_5_9.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_5.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_6.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_7.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_8.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_9.jpg">
 <meta property="article:published_time" content="2023-01-29T11:38:29.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:12:33.874Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.479Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/microcomputer_5_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/mc5/microcomputer_5_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -37,10 +45,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -49,10 +60,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -62,9 +73,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -113,7 +121,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -178,7 +189,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-微机原理与接口设计5" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微机原理与接口设计5" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -223,7 +234,7 @@
 <p>​    74LS373是通过电平控制来锁存信号，74LS374是上升沿来锁存。</p>
 <p>​    现在我们开始依次介绍，第一个是无条件传送，它之所以叫无条件，就是因为它只传送数据信息，不传送状态和控制信息。</p>
 <center>
-    <img src='/images/microcomputer_5_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -233,7 +244,7 @@
 <p>​    所以这种方式，只适合很简单的情况，如果CPU在快速的输出一些数据，那用这个机制就会出大问题。例如，当打印机接口为“忙”时，如果还把数据传给打印机接口，会直接覆盖掉这些没有及时接收的数据，造成数据丢失。</p>
 <p>​    这就引出了第二种方法，程序查询方式。道理很简单，我只需要等到打印机什么时候不忙了，我再把数据传给它，在这之前我等待就好了。输入的时候也是同理：</p>
 <center>
-    <img src='/images/microcomputer_5_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -282,7 +293,7 @@
 </div>
 <p>​    就算没有直接连接接口的题，上面5个系统也会出现在后面8253，8255A的应用题里。简单的一些例子即上面的无条件传输，其实只需要编一个译码电路。这里我记录一个书上比较复杂的例子。（其实在8086里还要注意奇偶地址的事情，但是我写的时候我忘了……这个在后面连那俩可编程芯片时还会提到）</p>
 <center>
-    <img src='/images/microcomputer_5_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -304,7 +315,7 @@
 <h3 id="并行接口芯片8255A"><a href="#并行接口芯片8255A" class="headerlink" title="并行接口芯片8255A"></a>并行接口芯片8255A</h3><p>​    显然，在实际操作中，我们不可能一个电路一个电路的去构造接口。我们希望一些即插即用的方式，并且具有良好的封装。8255A就是这个东西，它是一个并行接口芯片，它可以取代上面的例子中的由74LS273，74LS244自己手搓出的电路。</p>
 <p>​    然后，我们就被迫学（纸面上的）8255A的应用。</p>
 <center>
-    <img src='/images/microcomputer_5_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -415,7 +426,7 @@
 <p>​    方式0时，对应之前的无条件传输。此时$D_0,D_1,D_3,D_4$决定各个端口的输入输出。例如$1\underset{A\text{组}}{\underbrace{00}}\underbrace{01}\underset{B\text{组}}{\underbrace{0}}\underbrace{10}$，这时，端口A与端口C的低4位是输出，端口B和端口C的高4位是输入。方式0其实可以理解为一个很好的封装的无条件传输，我们拉来一道标靶打一下：</p>
 <p>​    某可编程逻辑电路构成的芯片可以完成16位数据的八选一功能，输入$x(i,j)$其中$(i\in0\sim7,j\in0\sim15)$，输出信号为$y(j)$，选择信号为$S_2,S_1,S_0$，真值表在下图。在IBM PC系统中开发一片8255A，端口地址为260H~263H，用于分时采集这8组16位数据（无符号数），找出当前数据的最大值，并通过C口的高三位（PC7~PC5）连接的LED灯指示其序号。连接下图的硬件电路（红色部分，我先连了，懒得仔细画了）并编写程序实现功能。</p>
 <center>
-    <img src='/images/microcomputer_5_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -424,7 +435,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">MOV	DX,263H</span><br><span class="line">MOV	AL,10010010 ;A组B组方式0，A口B口输入，C口输出。</span><br><span class="line">OUT	DX,AL</span><br><span class="line">ST2:</span><br><span class="line">	MOV	CX,8</span><br><span class="line">	XOR	BX,BX ;把BX设成全0</span><br><span class="line">	MOV	SI,0 ;SI记录序号</span><br><span class="line">ST1:</span><br><span class="line">	MOV	DX,262H ;把序号送入C口</span><br><span class="line">	MOV	AX,SI</span><br><span class="line">	OUT	DX,AL</span><br><span class="line">	MOV	DX,260H ;将y的低八位写入AL</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	MOV	AH,AL ;但是后面还要写入高8位还要AL，所以先存到AH，待会儿XCHG</span><br><span class="line">	MOV	DX,261H</span><br><span class="line">	IN	AL,DX</span><br><span class="line">	XCHG AL,AH</span><br><span class="line">	CMP	BX,AX</span><br><span class="line">	JA	NEXT ;BX大于AX，直接跳NEXT；不然把AX赋给BX，同时更新序号</span><br><span class="line">	MOV	BX,AX</span><br><span class="line">	PUSH SI</span><br><span class="line">NEXT:</span><br><span class="line">	INC	SI</span><br><span class="line">	LOOP ST1 ;循环8次，把外设里的数据全过完</span><br><span class="line">	POP	SI ;最大值的序号出栈</span><br><span class="line">	XOR	AX,AX</span><br><span class="line">	MOV	AX,SI</span><br><span class="line">	MOV	CL,5</span><br><span class="line">	ROL	AL,CL ;把最大值的序号移到PC5,PC6,PC7</span><br><span class="line">	MOV	DX,262H</span><br><span class="line">	OUT	DX,AL ;输出序号，点亮LED灯</span><br><span class="line">	JMP	ST2</span><br></pre></td></tr></table></figure>
 <p>​    接下来是方式1，方式1是用来条件传输的。正如前面“程序查询式”中举的例子一样。在有条件时，我们需要关心外设的状态。而使用中断来进行接口之间交换，使得可以并行，在先前我们没能给出一个中断的例子，现在可以依靠8255A的封装，来初步理解一个（例子）。以及理解前面的“联络”。</p>
 <center>
-    <img src='/images/microcomputer_5_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -444,7 +455,7 @@
 <p>​    实际上，上面的例子生动的站视了一个机制“握手”。通过“握手”信号，来协调数据的传输。“握手”信号至少要有两位信号线，其中一位由接口电路发给外设，另一位由外设发给接口。例如输入时的$\overline{\mathrm{STBA}}$和IBFA。$\overline{\mathrm{STBA}}$是外设所发，其有效时，通知接口A“我给了你一个数据”；IBFA是接口发出的，当其有效时，通知外设“你的数据我收到了”。在输出时，$\overline{\mathrm{OBFA}}$和$\overline{\mathrm{ACKA}}$也是一对握手信号，$\overline{\mathrm{OBFA}}$是接口发出的，当其有效时，通知外设“我这里有个新数据”，$\overline{\mathrm{ACKA}}$是外设所发，当其有效时，通知接口“我已经把你的新数据取走了”。这个机制对于复杂的外设，例如打印机，非常重要。</p>
 <p>​    显然，在方式1中，接口C奉献了自我，充当了联络信号，这也是为什么置位控制字只针对C口的原因。应试角度上，我们得能分辨那一对握手信号谁是谁，以及理解前面①②③④⑤的过程（他们反应在汇编里就几行），而他们具体的$PC_x$可能没那么重要，因为题目会给（但最好还是背下来）。</p>
 <center>
-    <img src='/images/microcomputer_5_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -455,7 +466,7 @@
 <p>（2）为满足系统设计要求，8255A的端口A和端口B应工作在哪种方式？</p>
 <p>（3）已知数码管数据引脚a,b,c,d,ef,g,Dp依次连接8255A的PB0…PB7，请写出编号0~9对应的段码数据，并编写程序实现该系统的功能。</p>
 <center>
-    <img src='/images/microcomputer_5_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -521,7 +532,7 @@
 <p>​    如果是8086，其最小方式和最大方式，区别只是读写信号的名字。真正要注意的是，如果8086采用奇地址，需将$A_0$换成$\overline{\mathrm{BHE}}$，并将数据总线从$D_7\sim D_0$换成$D_{15}\sim D_8$。如果是在IBM PC系统中，其采用的是8088最大方式，由于其系统包含了DMA，因此需要保证AEN=0。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    本来，是想和8253一块整理的，后来发现，这个一章要记的太多了。快开学了，希望一切顺利，毕竟现在能做的已经很有限了。要是一年前做，大概就来得及了。不过，谁知道呢？</p>
 <center>
-    <img src='/images/microcomputer_5_9.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc5/microcomputer_5_9.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -558,6 +569,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -703,8 +715,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -774,19 +785,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -844,15 +877,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -936,15 +969,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -960,15 +993,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,20 +1210,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

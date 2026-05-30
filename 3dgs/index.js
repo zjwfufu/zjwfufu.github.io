@@ -1,96 +1,66 @@
-import * as SPLAT from "https://cdn.jsdelivr.net/npm/gsplat@latest";
+import * as SPLAT from "https://cdn.jsdelivr.net/npm/gsplat@1.2.9";
 
 const canvas = document.getElementById("canvas");
 const progressDialog = document.getElementById("progress-dialog");
 const progressIndicator = document.getElementById("progress-indicator");
+const modelDropdown = document.getElementById("modelDropdown");
 
 const renderer = new SPLAT.WebGLRenderer(canvas);
 const scene = new SPLAT.Scene();
 const camera = new SPLAT.Camera();
 const controls = new SPLAT.OrbitControls(camera, canvas);
 
-let isInSpecialArea = false;
+// 只在 canvas 可见时渲染，节省 GPU
+let isVisible = false;
+const observer = new IntersectionObserver(
+    ([entry]) => { isVisible = entry.isIntersecting; },
+    { threshold: 0.1 }
+);
+observer.observe(canvas);
 
-canvas.addEventListener("mouseenter", () => {
-    isInSpecialArea = true;
-});
-
-canvas.addEventListener("mouseleave", () => {
-    isInSpecialArea = false;
-});
-
-// 显示模态框
 function showModal() {
-    const modal = document.getElementById("progress-dialog");
-    modal.style.display = "block";
+    progressDialog.style.display = "block";
 }
 
-// 关闭模态框
 function closeModal() {
-    const modal = document.getElementById("progress-dialog");
-    modal.style.display = "none";
+    progressDialog.style.display = "none";
+    progressIndicator.value = 0;
+}
+
+async function loadModel(url) {
+    showModal();
+    await SPLAT.Loader.LoadAsync(url, scene, (progress) => {
+        progressIndicator.value = progress * 100;
+    });
+    closeModal();
 }
 
 async function main() {
-    //const url = "https://huggingface.co/datasets/dylanebert/3dgs/resolve/main/bonsai/bonsai-7k.splat";
-	//const url = "/3dgs/bonsai-7k.splat";
-	//const url = "https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/fufu.splat";
-	//const url = "https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/point_cloud.ply"
-	
-	const modelDropdown = document.getElementById("modelDropdown");
-
-    // Set the initial model URL
-    const url = modelDropdown.querySelector('.dropdown-item').getAttribute('data-model-url');	
-	showModal();
-    await SPLAT.Loader.LoadAsync(url, scene, (progress) => progressIndicator.value = progress * 100);
-	//await SPLAT.PLYLoader.LoadAsync(url, scene, (progress) => progressIndicator.value = progress * 100);
-    // progressDialog.close();
-	closeModal();
-	progressIndicator.value = 0;
+    // 加载下拉框中的第一个模型
+    await loadModel(modelDropdown.options[0].value);
 
     const handleResize = () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     };
 
     const frame = () => {
-        if (isInSpecialArea) {
+        if (isVisible) {
             controls.update();
             renderer.render(scene, camera);
         }
-
         requestAnimationFrame(frame);
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
-	
-	// Update scene when model is changed
-modelDropdown.addEventListener("click", async (event) => {
-    if (event.target.tagName === 'A') {
-		scene.reset();
-        //progressDialog.classList.add('centered-modal'); // 添加类
-        // progressDialog.showModal();
-		showModal();
 
-        // Clear the scene before loading the new model
-        
-        const newSelectedModelUrl = event.target.getAttribute('data-model-url');
-        
-        await loadAndRenderModel(newSelectedModelUrl);
-
-        // progressDialog.close();
-		closeModal();
-		progressIndicator.value = 0;
-        //progressDialog.classList.remove('centered-modal'); // 移除类
-    }
-});
+    // 切换模型
+    modelDropdown.addEventListener("change", async (event) => {
+        scene.reset();
+        await loadModel(event.target.value);
+    });
 
     requestAnimationFrame(frame);
-}
-
-async function loadAndRenderModel(modelUrl) {
-    await SPLAT.Loader.LoadAsync(modelUrl, scene, (progress) => progressIndicator.value = progress * 100);
-    // You can perform additional rendering or setup logic here if needed
 }
 
 main();

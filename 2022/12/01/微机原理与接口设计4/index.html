@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,22 +23,22 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    这一篇blog是关于存储器设计那一章，据我的速成，发现这一章还是比较有条理的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_8.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_9.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/mc_4_10.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_8.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_9.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc4/mc_4_10.png">
 <meta property="article:published_time" content="2022-12-01T06:28:59.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:12:02.223Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.478Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/mc_4_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/mc4/mc_4_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -38,10 +46,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -50,10 +61,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -63,9 +74,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -114,7 +122,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -179,7 +190,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-微机原理与接口设计4" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微机原理与接口设计4" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -248,13 +259,13 @@
 </div>
 <p>​    位扩展是简单的，只需数据线对应连接，这其实相当于芯片的并联。</p>
 <center>
-    <img src='/images/mc_4_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    字扩展就稍微复杂一些了，此时依靠片选信号来决定启动哪块芯片，同时这种操作也使每个芯片占据不同的地址范围。</p>
 <center>
-    <img src='/images/mc_4_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -264,7 +275,7 @@
 <p>​    使用SRAM Intel 6264扩充设计8KB的片选信号电路，使用全地址译码方式。分配给该芯片的起始地址为62000H~63FFFH。</p>
 <p>​    Intel 6264本身就是8K×8，所以只需一片。此时20位地址线需要全部参加译码，62000H~63FFFH写成二进制是0110 0010 0000 0000 0000B~0110 0011 1111 1111 1111B，所以我们发现前面的0110 001是固定的，一位一位读下来，其实就要求$A_{18},A_{17},A_{13}$全是1，$A_{19},A_{16},A_{15},A_{14}$全是0。所以译码电路即：（注意片选信号低电平有效）</p>
 <center>
-    <img src='/images/mc_4_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -274,7 +285,7 @@
 <p>​    使用SRAM Intel 6264扩充设计8KB的片选信号电路，使用部分地址译码方式。分配给该芯片的范围为00000H~0FFFFH。</p>
 <p>​    6264的字数是8K，即$2^{13}$，题目给出的地址范围是连续的，共$2^{16}$，这说明一块6264占了$2^{16-13}$即8块重叠区，所以3条高位地址线不参与译码。这3条显然是从$A_{13}$开始由低到高的三位，否则分配给芯片的范围就会是相互分离的区域，译码电路即为：</p>
 <center>
-    <img src='/images/mc_4_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -283,14 +294,14 @@
 <p>​    从这里可以看出，部分译码是全译码和线选择码的混合。</p>
 <h4 id="译码器译码"><a href="#译码器译码" class="headerlink" title="译码器译码"></a>译码器译码</h4><p>​    使用封装好的专用译码器，如74LS138，可以更方便的设计片选电路。用译码器，可以方便的实现上述的各种译码方式，我们先给出74LS138的管脚图和真值表：</p>
 <center>
-    <img src='/images/mc_4_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    注意到$A,B,C$二进制转十进制后恰好就是激活的$Y$端口，至于Y端口指向哪些地址，就要看输入了。所以一种简洁可行的译码方式，就是少许的组合逻辑电路+74LS138。</p>
 <p>​    例如，用8片6264构成一个64KB的存储器，地址分配在00000H~0FFFFH，地址译码采取全译码方式，使用74LS138的话，只需让$A_{16}\sim A_{19}$控制74LS138的一个使能端即可，整体的连接即：</p>
 <center>
-    <img src='/images/mc_4_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -299,7 +310,7 @@
 <h3 id="8086-amp-8088"><a href="#8086-amp-8088" class="headerlink" title="8086&amp;8088"></a>8086&amp;8088</h3><p>​    在上面的论述中我们一直使用的是一个地址线$A_0\sim A_{19}$，数据线$D_0 \sim D_7$的模型。实际上，8088CPU的地址总线正好就是20条，数据总线正好就是8条。而8086就不是了，所以如果考试考存储器扩展，均默认在8088最小系统下扩展设计。我们前面介绍的，正是对于一般的8位微机系统的存储器接口设计方法。</p>
 <p>​    8086的不同之处在于，它是16位数据线的。在8086系统中，1MB的存储空间被分为两个存储体，偶地址存储体和奇地址存储体，各自为512KB，如下图所示：</p>
 <center>
-    <img src='/images/mc_4_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -339,7 +350,7 @@
 </div>
 <p>​    这同样要将记忆拉回初学汇编语言时，那时候因为是从8086学习，所以都会用DoubleByte，往往会画成一个长条网格，在学习到例如[SI]等操作时，我们会非常自然的认为，[SI]一次次INC，然后遍历数据，进行读写。然而因为奇偶地址的设计，导致事实并不是这样的。</p>
 <center>
-    <img src='/images/mc_4_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -347,7 +358,7 @@
 <p>​    现在我们考虑一个8086时的存储器的连接：扩充设计16KB的EPROM和SRAM电路，SRAM选用Intel 6264，地址从00000H开始，EPROM芯片选用Intel 2764，地址从FC000H开始，作出连接图：</p>
 <p>​    先读地址，16KB是$2^{14}$，且8086有16位，这两种RAM和ROM芯片都是8KB，所以不需字扩展，只需位扩展即可，各自用2块芯片。所以地址可直接被高六位控制，SRAM从00000H开始，那高六位显然都是0；EPROM从FC000H开始，即1111 1100 0000 0000 0000B，所以高六位全是1，那这就好办了。</p>
 <center>
-    <img src='/images/mc_4_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -356,7 +367,7 @@
 <p>​    更多的例题可以参照课本，这里就不再给出了（主要是画图太累了）。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这一章基本就是掌握扩展方法和接电路的方法，大部分情况下都是连8088，当然8086的连法也要掌握，以及记住那三种常见的芯片，这一章就没啥问题啦。</p>
 <center>
-    <img src='/images/mc_4_10.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc4/mc_4_10.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -393,6 +404,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -538,8 +550,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -609,19 +620,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -679,15 +712,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,15 +804,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,15 +828,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1012,20 +1045,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

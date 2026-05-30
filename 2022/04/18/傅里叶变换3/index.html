@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,20 +23,20 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    前两篇已经介绍了傅里叶变换的一些基础内容，下面我们进一步结合实践延申到短时傅里叶变换，来为最后的小波变换作铺垫。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FFT_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ft3/FFT_7.png">
 <meta property="article:published_time" content="2022-04-18T15:21:36.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:04:40.335Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.442Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="傅里叶变换">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/FFT_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/ft3/FFT_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -36,10 +44,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -48,10 +59,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -61,9 +72,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -112,7 +120,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -177,7 +188,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-傅里叶变换3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-傅里叶变换3" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -217,7 +228,7 @@
 <p>​    由于前面我们已经推导出了傅里叶变换的数学表达式，以及阐述了在实际情况下我们用的是离散形式的傅里叶变换，所以下文对这两个概念不作区分，同时也尽量避免数学表达式的出现，多和例子相结合。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">fs = <span class="number">100</span>;<span class="comment">%采样频率</span></span><br><span class="line">t = <span class="number">0</span>:(<span class="number">1</span>/fs):(<span class="number">10</span><span class="number">-1</span>/fs);</span><br><span class="line">t_1 = <span class="number">0</span>:(<span class="number">1</span>/fs):(<span class="number">5</span><span class="number">-1</span>/fs);</span><br><span class="line">t_2 = <span class="number">5</span>:(<span class="number">1</span>/fs):(<span class="number">10</span><span class="number">-1</span>/fs);</span><br><span class="line">S_1 = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1</span>*t_1);</span><br><span class="line">S_2 = <span class="built_in">cos</span>(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">5</span>*t_2);</span><br><span class="line"></span><br><span class="line">S = [S_1 S_2];</span><br><span class="line">S_cp = [S_2 S_1];</span><br><span class="line"></span><br><span class="line">n = <span class="built_in">length</span>(S);</span><br><span class="line">X = fft(S);</span><br><span class="line">X_2 = fft(S_cp);</span><br><span class="line">f = (<span class="number">0</span>:n<span class="number">-1</span>)*(fs/n);</span><br><span class="line">fshift = (-n/<span class="number">2</span>:n/<span class="number">2</span><span class="number">-1</span>)*(fs/n);<span class="comment">%zero-center化后的频率</span></span><br><span class="line"></span><br><span class="line">subplot(<span class="number">221</span>);</span><br><span class="line"><span class="built_in">plot</span>(t,S)</span><br><span class="line">xlabel(<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line">Y = fftshift(X);<span class="comment">%重新排列</span></span><br><span class="line">powershift = <span class="built_in">abs</span>(Y).^<span class="number">2</span>/n;<span class="comment">%计算频率幅度</span></span><br><span class="line">subplot(<span class="number">222</span>);</span><br><span class="line"><span class="built_in">plot</span>(fshift,powershift)</span><br><span class="line">xlabel(<span class="string">&#x27;f&#x27;</span>);</span><br><span class="line">subplot(<span class="number">223</span>);</span><br><span class="line"><span class="built_in">plot</span>(t,S_cp)</span><br><span class="line">xlabel(<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line">Y_2 = fftshift(X_2);</span><br><span class="line">powershift_2 = <span class="built_in">abs</span>(Y_2).^<span class="number">2</span>/n;</span><br><span class="line">subplot(<span class="number">224</span>);</span><br><span class="line"><span class="built_in">plot</span>(fshift,powershift_2)</span><br><span class="line">xlabel(<span class="string">&#x27;f&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <center>
-    <img src='/images/FFT_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -227,7 +238,7 @@
 <p>​    首先我们选取经典的$Sinc$函数在时域的波形用于下面的可视化：</p>
 <script type="math/tex; mode=display">
 \mathrm{Sinc}\left( x \right) =\frac{\sin \pi x}{\pi x}</script><center>
-    <img src='/images/FFT_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -251,7 +262,7 @@
 <script type="math/tex; mode=display">
 \mathcal{F} \left[ f\left( at \right) \right] =\frac{1}{\left| a \right|}F\left( j\frac{\omega}{a} \right)</script><p>​    被称为尺度变换。这个式子表明，当信号$f(t)$被时域压缩$1/a$的时候，频域将展宽，但频率分量的幅度也被削弱，这是能量守恒的体现。比如当快放视频时，会觉得声音发尖，这就是频率展宽后高频分量的作用。我们将上面的$Sinc$函数开个刀试一下：</p>
 <center>
-    <img src='/images/FFT_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -260,7 +271,7 @@
 <script type="math/tex; mode=display">
 \mathcal{F} \left[ f\left( t\pm t_0 \right) \right] =e^{\pm jt_0\omega}F\left( j\omega \right)</script><p>​    容易看出这个变换不会使得幅度谱发生改变，只会改变相位。这个例子就不能靠$Sinc$函数了，我们找一个平移后的门函数来验证一下：</p>
 <center>
-    <img src='/images/FFT_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -270,7 +281,7 @@
 \mathcal{F} \left[ f\left( t \right) e^{\pm j\omega _0t} \right] =\int_{-\infty}^{+\infty}{f\left( t \right) e^{\pm j\omega _0t}\cdot e^{-j\omega t}\mathrm{d}\omega}=\int_{-\infty}^{+\infty}{f\left( t \right) \cdot e^{-j\left( \omega \mp \omega _0 \right) t}\mathrm{d}\omega}=F\left( j\omega \mp j\omega _0 \right) 
 \\
 f\left( t \right) e^{\pm j\omega _0t}\longleftrightarrow F\left( j\omega \mp j\omega _0 \right)</script><center>
-    <img src='/images/FFT_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -293,7 +304,7 @@ f\left( t \right) \longleftrightarrow F\left( j\omega \right)
 \\
 F\left( jt \right) \longleftrightarrow 2\pi f\left( -\omega \right)</script><p>​    特别地，当$f$具有奇偶性质时，该性质十分好用。注意常数因子$2\pi$，这个因子其实是为了能量守恒，如果我们最初定义傅里叶正变换需要乘一个$\sqrt{1/2\pi}$，那对称性就不需要标出常数了。对于这个性质有一个比较high-level的解释方法：</p>
 <center>
-    <img src='/images/FFT_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -352,7 +363,7 @@ tf\left( t \right) \longleftrightarrow j\frac{\mathrm{d}}{\mathrm{d}\omega}F\lef
 <script type="math/tex; mode=display">
 \int_{-\infty}^{\omega}{F\left( j\omega \right)}\mathrm{d}\omega \longleftrightarrow \left( \pi \delta \left( t \right) -\frac{1}{jt} \right) f\left( t \right)</script><p>​    最后的时域和频域卷积定理我们以后再说，利用上述性质可以推出一系列函数的傅里叶变换：</p>
 <center>
-    <img src='/images/FFT_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ft3/FFT_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -461,6 +472,7 @@ g\left( t \right) \longleftrightarrow j\omega F\left( j\omega \right) =G\left( j
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -610,8 +622,7 @@ g\left( t \right) \longleftrightarrow j\omega F\left( j\omega \right) =G\left( j
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -681,19 +692,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -751,15 +784,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,15 +876,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -867,15 +900,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1084,20 +1117,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

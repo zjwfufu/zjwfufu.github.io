@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,16 +23,16 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    大概几个月前，我从零开始上手了一个生成任务。那个任务用到了风头正盛的扩散模型，我当时对此知之甚少，简单入门以后就去做了，边做边学。这篇blog便是对扩散模型的一些更全面的梳理。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion_plus_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion_plus_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion_plus_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion_plus_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion2/diffusion_plus_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion2/diffusion_plus_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion2/diffusion_plus_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/diffusion2/diffusion_plus_3.png">
 <meta property="article:published_time" content="2023-03-19T03:24:14.000Z">
-<meta property="article:modified_time" content="2023-10-09T10:46:50.415Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.373Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/diffusion_plus_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/diffusion2/diffusion_plus_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -32,10 +40,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -44,10 +55,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -57,9 +68,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -108,7 +116,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -173,7 +184,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Dive Deeper To Diffusion Model" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Dive Deeper To Diffusion Model" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -241,7 +252,7 @@ L_{\mathrm{hybrid}}=L_{\mathrm{simple}}+\lambda L_{\mathrm{vlb}}</script><p>​ 
 <p>​    当然，为什么人们一开始就不用$L_{\mathrm{vlb}}$，因为其很难优化。IDDPM中展示直接优化这种loss，梯度噪声极大。所以他们引入重要性采样来缓解，这也是一种方法。</p>
 <h5 id="Improved-scheduler"><a href="#Improved-scheduler" class="headerlink" title="Improved scheduler"></a>Improved scheduler</h5><p>​    同时，这篇论文给出了一种新的噪声调度器，即“余弦”式的，相比于线性调度器，他直观上不会让信息消逝的那么快。具体到个人的实验上有哪个好，主要靠试。典型的除了Linear, Cosine，其实还有Sqrt, Sigmoid等调度器，只不过比较小众。一般用Cosine就挺合适的了。</p>
 <center>
-    <img src='/images/diffusion_plus_0.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/diffusion2/diffusion_plus_0.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -298,7 +309,7 @@ q\left( \boldsymbol{x}_{t-1}|\boldsymbol{x}_t,\boldsymbol{x}_0 \right) =\sqrt{\b
 \epsilon _{\theta}\left( \boldsymbol{x}_t,t \right) =\frac{\boldsymbol{x}_t-\sqrt{\bar{\alpha}_t}\boldsymbol{x}_0}{\sqrt{1-\bar{\alpha}_t}}</script><p>​    它是这样相互估计来的。$\boldsymbol{x}_0$和$\epsilon _{\theta}\left( \boldsymbol{x}_t,t \right)$是模型的两种输出，模型本身抑或估计噪声抑或估计$\boldsymbol{x}_0$。我们之所以换算成这种形式，是因为这会带来一种很好的视角（注意公式下面的三个文字注解）：</p>
 <p>​    我们接下来用一种更直观的图示来理解一下上面的那个式子，就像中学时的尺规作图一样，我们约定刚才的$\boldsymbol{x}, \epsilon…$都发生在二维平面里：</p>
 <center>
-    <img src='/images/diffusion_plus_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/diffusion2/diffusion_plus_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -307,7 +318,7 @@ q\left( \boldsymbol{x}_{t-1}|\boldsymbol{x}_t,\boldsymbol{x}_0 \right) =\sqrt{\b
 <p>​    当$\sigma _t=\sqrt{1-\bar{\alpha}_{t-1}}$时，指向$\boldsymbol{x}_t$的向量就消失了。此时就是朴素的DDPM。</p>
 <p>​    当然，如图上所示，我们相加时的三个向量，其中第一个是$\sqrt{\bar{\alpha}_{t-1}}\boldsymbol{\hat{x}}_0$，并不是$\boldsymbol{\hat{x}}_0$本身。自然，这是公式整理出的直接结果。其实，在后面如果有机会，我介绍score-based model时，我们会发现，从这个角度来理解，会对这个$\sqrt{\bar{\alpha}_{t-1}}$有更深的理解。现在我们可以给出一个直接的直觉：考虑用朴素的线性调度器时$\sqrt{\bar{\alpha}_{t-1}}$的曲线：</p>
 <center>
-    <img src='/images/diffusion_plus_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/diffusion2/diffusion_plus_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -441,7 +452,7 @@ q\left( \boldsymbol{x}_m|\boldsymbol{x}_n \right) =\sqrt{\bar{\alpha}_m}\boldsym
 <p>​    所以其实在实际训练时，都是只优化随机抽取到的时间$t$。这个求和符号只是数学上的意义。这在只用$L_{\mathrm{simple}}$时很直接，我取一个$\boldsymbol{x}_0$，加噪到$\boldsymbol{x}_t$，预测噪声，计算预测噪声和真实噪声的二范数，然后优化。当loss多加一项$L_{\mathrm{vlb}}$，就像IDDPM里一样时，我们也是只计算$t$时的那一项，即$L_{t}$。</p>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    通过理解DDIM和IDDPM，现在我们对扩散模型有了更进一步的认识，但这还不够。他们的背后可以用更统一的框架来实现，等到有时间的时候再仔细学一下。除去一些理论上的启发和理解外，openAI开源的gaussian_diffusion.py写的也很规范和工整，值得我们学习。</p>
 <center>
-    <img src='/images/diffusion_plus_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/diffusion2/diffusion_plus_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -478,6 +489,7 @@ q\left( \boldsymbol{x}_m|\boldsymbol{x}_n \right) =\sqrt{\bar{\alpha}_m}\boldsym
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -623,8 +635,7 @@ q\left( \boldsymbol{x}_m|\boldsymbol{x}_n \right) =\sqrt{\bar{\alpha}_m}\boldsym
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -694,19 +705,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -764,15 +797,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -856,15 +889,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -880,15 +913,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1097,20 +1130,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

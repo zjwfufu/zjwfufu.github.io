@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,19 +23,19 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “听闻江湖五绝名士，我于之怕只是天地蜉蝣。心想若我哪日亦如此番，那此生再无欲无求。”关于这种类型的模型讨论的较少，但它本身在一些地方又显示出了不错的性能，同时还有一些可以探索的地方。所以在这里整理一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/dawn_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/wavelet/dawn_6.png">
 <meta property="article:published_time" content="2022-08-18T07:24:21.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:58:54.121Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.420Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="杂记">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/dawn_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/wavelet/dawn_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -35,10 +43,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -47,10 +58,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -60,9 +71,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -111,7 +119,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -176,7 +187,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Wavelet Neural Network" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Wavelet Neural Network" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -227,7 +238,7 @@ WT\left( a,\tau \right) =\frac{1}{\sqrt{a}}\int_{-\infty}^{+\infty}{f\left( t \r
 <script type="math/tex; mode=display">
 \mathrm{scale}\times f=F_s\times \omega _{cf}</script><p>​    我找个例子演示一下，这里面时间和频率（尺度）都作了归一化，采样率直接归一化为1。</p>
 <center>
-    <img src='/images/dawn_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -240,7 +251,7 @@ a=a_{0}^{m},\tau =n\tau _0a_{0}^{m}
 <script type="math/tex; mode=display">
 DWT\left( m,n \right) =2^{-\frac{m}{2}}\sum_{k=-\infty}^{\infty}{f\left( k \right) \psi \left( 2^{-m}k-n \right)}</script><p>​    离散小波变换的过程相当于将信号与一个特殊的滤波器组进行作用，这与接下来要给出的多分辨率分析有着密切关系。<strong>很遗憾的是，确实没有什么很浅显的方法能把这一块说清楚，我建议是如有需要找相关参考资料，因为那些内容在这篇blog里其实并不是重点。</strong></p>
 <center>
-    <img src='/images/dawn_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -283,13 +294,13 @@ A_j=X_{even}+U\left( D_j \right)</script><p>​    理论可以证明，这种�
 <p>​    一些具体的个性化进度条的方案这里就不赘述了，基本功能就已经够用了。</p>
 <h2 id="More-discussion"><a href="#More-discussion" class="headerlink" title="More discussion"></a>More discussion</h2><p>​    DAWN的想法有些许novel，但是作者的实现上多少有点草率，而且实验不是那么的充分？下面我开始胡言乱语一波，一部分内容是结合ICLR2022的一篇文章总结的。这个<em>lifting scheme</em>的具体细节，很难考证了，原文是很久以前的影印版数学论文，够呛看得懂，只能大概体会一下。首先我们对一个信号使用传统的<em>harr</em>小波试一试，这里我为了演示是直接从matlab里load的内置含噪心电图数据。</p>
 <center>
-    <img src='/images/dawn_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    左边是低频（近似），右边是高频（细节），实际上，它们只是低频系数和高频系数，但后面叙述时不作区分。我们注意到每次分解，长度都折半。这是传统的分解方法，实际上这种方法在几年前的计算机视觉中已经被讨论过了。用这种方式替代池化层等等，是不错的故事。而现在考虑<em>lifting scheme</em>的三个步骤：</p>
 <center>
-    <img src='/images/dawn_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -313,7 +324,7 @@ U\left[ x_o\left( k \right) \right] =-0.0312d\left( k-2 \right) +0.2813d\left( k
     \gamma _j\left( z \right)\\
 \end{array} \right)}</script><p>​    具体的理论分析这里就不给了，涉及到数字信号处理，一些代数，感兴趣的可以在一些硕士毕业论文里查，我们还是重点关心这个$U(\cdot),P(\cdot)$的刻画，这确实就像一个滤波器组……所以，这么看来…论文原文提供的解决方案：</p>
 <center>
-    <img src='/images/dawn_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -324,7 +335,7 @@ d=X_{odd}\odot \exp \left( \phi \left( X_{even} \right) \right) -\rho \left( X_{
 <p>​    Now, everything I have to say has already cross my mind…</p>
 <h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>​    当我彻底写完的时候，是8月24号，今天竹园停电，麻了。我对此改进这个dawn萌生了一个比较成熟的想法，打算去试试。不过快要开学了捏，如果写的这个有人看的话，那就祝你新年快乐吧。</p>
 <center>
-    <img src='/images/dawn_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/wavelet/dawn_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -361,6 +372,7 @@ d=X_{odd}\odot \exp \left( \phi \left( X_{even} \right) \right) -\rho \left( X_{
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -510,8 +522,7 @@ d=X_{odd}\odot \exp \left( \phi \left( X_{even} \right) \right) -\rho \left( X_{
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -581,19 +592,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -651,15 +684,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,15 +776,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,15 +800,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -984,20 +1017,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,19 +23,19 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    考试又推回去了，也不知道能不能回家，结果最先考的从概率论变成了复变函数，整理一些复变函数的知识加以理解，由于考核主要考计算，所以会略去大部分的理论内容，着重于直观理解。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/complex_function_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/complex1/complex_function_5.png">
 <meta property="article:published_time" content="2021-12-20T07:34:39.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:07:26.585Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.458Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="复变函数">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/complex_function_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/complex1/complex_function_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -35,10 +43,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -47,10 +58,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -60,9 +71,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -111,7 +119,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -176,7 +187,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-复变函数" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-复变函数" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -215,7 +226,7 @@
 <span id="more"></span>
 <p>​    复数的前置知识高中都学过了，这里补充并强调下面几点，我们经常习惯把复数看成一个二维向量，实际上可以证明，复数域$\mathbf{C}$作为实数域$\mathbf{R}$上的维数为2的向量空间。</p>
 <center>
-    <img src='/images/complex_function_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -294,19 +305,19 @@ e^{bLna}=e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}=e^{b\left( \ln |a|+i\
 <p>​    自然，对于一元函数，我们所说的映射，将一组数单值的映射给了另一组数，可以绘制成一个图像，但当我们用一组复数映射给另一个复数时，由于表示一个复数就需要一个平面了，这样往往会有一些奇妙的几何性质。</p>
 <p>​    下图中红色线段表示过某点的切线，就是在复平面上符合我们直接理解的切线。而蓝色线段表示$(x,y)$与原点的连线，我们知道，这实际上是模长。我们即将看到它带来的神奇的性质，对于$f(z)=1/z$可能看起来不是很方便，我们先选取一个更为简单的$f(z)=2z$。</p>
 <center>
-    <img src='/images/complex_function_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​        蓝色线段是有两条的，但是它俩重叠了，我们发现映射后蓝色线段的长度恰好是原来的两倍，而红色线段的斜率没有变化，下面我们将映射改为稍微复杂的$f(z)=(1+i)z$。</p>
 <center>
-    <img src='/images/complex_function_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    此时我们发现，红色线段的夹角为$45°$，而蓝色线段的长度变为了原来的$\sqrt 2$倍。这与$1+i$的系数和辐角吻合。下面我们考虑映射$f(z)=1/z$。</p>
 <center>
-    <img src='/images/complex_function_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -315,13 +326,13 @@ e^{bLna}=e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}=e^{b\left( \ln |a|+i\
 <p>​    而更神奇的是，实际上上面那个结论并不局限于“切线”，“切线”只是引入时的一个例子，实际上它是指通过$z_0$的任何曲线，都会有相同的转动角和伸缩率，这被记作保角性和伸缩率的不变性。</p>
 <p>​    这样就进一步引出了共形映射的概念，书上清晰的给出了相关内容，这里不再赘述，书上最后给了一个例子，我现在将这个例子作出来来便于理解：</p>
 <center>
-    <img src='/images/complex_function_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    直观上，共形映射将一个三角形，旋转缩放成了另一个相似的三角形。同理，如果作用的是一个圆，它可以进一步缩放，旋转这个圆。</p>
 <center>
-    <img src='/images/complex_function_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/complex1/complex_function_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -361,6 +372,7 @@ e^{bLna}=e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}=e^{b\left( \ln |a|+i\
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -510,8 +522,7 @@ e^{bLna}=e^{b\ln |a|+ib\left( \mathrm{arg}a+2k\pi \right)}=e^{b\left( \ln |a|+i\
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -581,19 +592,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -651,15 +684,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,15 +776,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,15 +800,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -984,20 +1017,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

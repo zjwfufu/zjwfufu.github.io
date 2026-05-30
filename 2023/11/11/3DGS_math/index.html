@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “微露点滴，沾衿落袖。丽日绰约，轻解莲舟。蒹葭荣茂，燕雀啁啾。白石溪畔，斜阳逐流。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/math_3dgs_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/math_3dgs_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/math_3dgs_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/math_3dgs_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/math_3dgs_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_end.png">
 <meta property="article:published_time" content="2023-11-11T04:49:27.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:35:24.006Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.343Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="3DV">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/math_3dgs_3.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/3dgs_math/math_3dgs_3.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-3DGS_math" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-3DGS_math" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -228,7 +239,7 @@
 <li>于是可以得到整个图片，再和ground truth比较，得到损失，然后梯度反传，随机梯度下降，进行优化。</li>
 </ul>
 <center>
-    <img src='/images/math_3dgs_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/3dgs_math/math_3dgs_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    这是对3DGS工作流程最直观和通俗的解释，然而这会产生大量的疑问：”为什么非要是高斯分布？怎么在投影得到的椭圆（分布）上度量距离关于不透明度的分布？“等等，所以这篇blog会整理并推导一下3DGS里相关的数学概念，并不会涉及代码的解析。要了解事情的原委，最好的途径是切入那篇2001年TVCG上的论文<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/1021576">EWA Splatting</a>，这里的EWA是Elliptical Weighted Average，其中Elliptical（椭圆）就有点“钦定”高斯的意思了。</p>
@@ -259,7 +270,7 @@ y\left( t \right) =\hat{x}_a\left( t \right) \ast g\left( t \right)
 \\
 =\sum_{n=-\infty}^{\infty}{x_a\left( nT \right) \frac{\sin \left( \frac{\pi}{T}t-n\pi \right)}{\left( \frac{\pi}{T}t-n\pi \right)}}</script><p>​    在这篇blog的情境下，我们需要给最后的式子里的$\frac{\sin \left( \frac{\pi}{T}t-n\pi \right)}{\left( \frac{\pi}{T}t-n\pi \right)}$赋予一个新的意义：“重建核”（reconstruction kernel）。我们很熟悉Sa函数的性态，它沿着左右方向都会逐渐递减到0。这个性质可以说是“局部支撑”（local support）。从这个角度上看，$y(t)$是由重建核和离散数据重新“张”成的连续函数。</p>
 <center>
-    <img src='/images/math_3dgs_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/3dgs_math/math_3dgs_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    在复习了采样定理和插值后，我们继续回到EWA splatting的框架里。为了方便（如果有）读者和原文对照，这里沿用原文的符号标记。EWA里将要处理的整个图形模型看作对一个连续函数进行不规则的采样的结果，这是一个很自然的假设，例如3DGS里的点云，传统的三角面片表示，NeRF的渲染过程，确实是采样的结果。我们可以像前面推导理想情况下的插值函数一样，用一个重建核来重建这个连续函数$f_c(\mathbf{u})$：</p>
@@ -407,7 +418,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
     \left\| \left( t_0,t_1,t_2 \right) \right\| ^T\\
 \end{array} \right)</script><p>​    可能有人会突然反应不过来为什么这里要有所谓的投影变换，或者这个变换到底是做什么的。前文的<a href="#1">这里</a>简单一笔带过了一次，这里对着$\phi(\mathbf{t})$来介绍一下。具体来说，我们不应忘记，我们仍然是处于针孔相机模型这一假设下的。所以其实是存在一个视体（frustum）的，在这个截锥体里我们发射的光线并不是平行的。</p>
 <center>
-    <img src='/images/math_3dgs_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/3dgs_math/math_3dgs_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    在原始的NeRF中这并不是问题，因为我们本来就是从每条不同方向的光线上进行采样，然后查这些坐标的属性的。但在这里每次都计算不同方向的光线可能和哪些高斯椭球是“接触”（在绘制高斯椭球时我们往往会用其协方差矩阵作为轴的长度，类似一维时熟悉的$\mu \pm \sigma $，其实在这个椭球之外的函数值就已经很小了。）是比较麻烦的，所以我们希望能在一个对于不同光线都是“平行”的空间里完成这件事。注意$\phi(\mathbf{t})$的形式，对于同一条直线上的$\mathbf{t}_i$和$\mathbf{t}_j$，$t_{i,0}/t_{i,2}$和$t_{j,0}/t_{j,2}$，还有$t_{i,1}/t_{i,2}$和$t_{j,1}/t_{j,2}$会是相同的，只有第三行的$\left| \left( t_0,t_1,t_2 \right) \right| ^T$不同。这样的处理会在并行实现上带来方便。</p>
@@ -427,7 +438,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 \end{matrix} \right)</script><p>​    这里$\mathbf{J}_k$需要特别注明角标$k$，因为当给定一个在相机空间内坐标为$\mathbf{t}_k$的高斯椭球后，整个雅可比矩阵就唯一确定了。</p>
 <p>​    所以观察这里的$\mathbf{J}_k$，我们可以用一个二维的例子，来可视化一下，如果$\phi _k\left( \mathbf{t} \right)$第三行储存的是$t_1$而不是$\left| \left( t_0,t_1 \right) \right| ^T$会怎么样：</p>
 <center>
-    <img src='/images/math_3dgs_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/3dgs_math/math_3dgs_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    上图左侧，我以原点出发，在$t_1=1$右侧生成了若干极坐标式的采样点，用于模拟沿不同角度的光线进行均匀采样。右上是储存$t_1$的情况，右下是储存$\left| \left( t_0,t_1 \right) \right| ^T$的情况。没有小圆圈标记的网格是沿着红点处进行二阶泰勒展开的近似，我们可以清晰的看出，储存$\left| \left( t_0,t_1 \right) \right| ^T$的情况下，二阶近似拟合误差更好，而且雅可比矩阵的性态也更正常。</p>
@@ -615,7 +626,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
 <p>​    还有一个很小的事宜，在之前的推导里我们都保留着高斯分布前面的归一化系数。在3DGS的实现中，其实这一个系数被省掉了。<a target="_blank" rel="noopener" href="https://github.com/graphdeco-inria/gaussian-splatting/issues/294">issue</a>里有人提了，但好像不怎么影响质量。我个人理解是既然代码里对$\alpha$有明显的处理（阈值，sigmoid激活），那么省掉这个系数从炼丹的角度来看是无所谓的。</p>
 <p>​    有时候我们遇到一些新概念，或者看些论文，可能了解倒一个模糊的轮廓以后就放过去了，这样囫囵吞枣多少有些自欺欺人的意思。当然，这一点是因为我现在没什么要紧的事情，没什么东西需要推进，每天用公司电脑带薪写blog。以后这样的日子可能不多了。</p>
 <center>
-    <img src='/images/math_3dgs_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/3dgs_math/math_3dgs_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -652,6 +663,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -810,8 +822,7 @@ g_c\left( \mathbf{x} \right) \otimes h\left( \mathbf{x} \right) =\sum_k{w_kc_ko_
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -881,19 +892,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -951,15 +984,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,15 +1076,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1067,15 +1100,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1284,20 +1317,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

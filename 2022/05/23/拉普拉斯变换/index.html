@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    我们即将看到，拉普拉斯变换是傅里叶变换的一种推广，这里有个乐子，有一次我做梦，梦见我是个调和分析大师，然后我就醒了，然后我发现我自己孑然一身P都不会。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Laplace_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Laplace_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Laplace_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Laplace_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/laplace1/Laplace_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/laplace1/Laplace_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/laplace1/Laplace_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/laplace1/Laplace_4.png">
 <meta property="article:published_time" content="2022-05-23T08:33:31.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:13:27.752Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.483Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta property="article:tag" content="拉普拉斯变换">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/Laplace_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/laplace1/Laplace_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-拉普拉斯变换" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-拉普拉斯变换" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -283,7 +294,7 @@ u\left( t \right) =L\frac{\mathrm{d}i\left( t \right)}{\mathrm{d}t}\leftrightarr
 \\
 i\left( t \right) =C\frac{\mathrm{d}u\left( t \right)}{\mathrm{d}t}\leftrightarrow I\left( s \right) =sCU\left( s \right) -Cu_C\left( 0_- \right) \leftrightarrow U\left( s \right) =\frac{1}{sC}I\left( s \right) +\frac{u_C\left( 0_- \right)}{s}</script><p>​    我们通过时域微分性质，就得到了在$s$域电容和电感的表达，现在我们将这个技术应用一下，在我们所学的青春版模电的第三章讲过一些无源滤波器，我们现在着手计算一个Butterworth三阶低通滤波器：已知$L=1H,C=2F,R=1\varOmega$ ，求系统的$H(s)=U_2(s)/U_1(s)$ 。</p>
 <center>
-    <img src='/images/Laplace_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/laplace1/Laplace_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -297,13 +308,13 @@ U_2\left( s \right) =\frac{R}{Z_0\left( s \right) +R}U_{OC}\left( s \right) =\fr
 \\
 H\left( s \right) =\frac{U_2\left( s \right)}{U_1\left( s \right)}=\frac{1}{2\left( s^3+2s^2+2s+1 \right)}</script><p>​    如果把$s$换成$j\omega$ ,那么就是之前电路分析里学的相量法，只不过写在$s$域对于更复杂的问题有更好的效果，我们取$s$为纯实数，作出$H(s)$我们会发现一些有用的事实：</p>
 <center>
-    <img src='/images/Laplace_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/laplace1/Laplace_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    左边三维曲面的高度代表$H_s$的幅度，其中一个坐标轴代表实部另一个代表虚部。根据上面的叙述我们知道其实实部就是$\sigma$ (我坐标轴写成delta了)虚部就是频率$\omega$ 。左侧图非常直观的告诉我们，其实除了极点处以外，$s$域的其他区域大部分都是平凡的。以及通过分析极点的位置，在不进行复杂计算的前提下，我们即可知道原函数含有的一定信息。而模电教材里的滤波器曲线是怎么来的呢？实际上只需要取实部为0，观察那个切片即可（正是傅里叶变换）：</p>
 <center>
-    <img src='/images/Laplace_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/laplace1/Laplace_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -344,7 +355,7 @@ y=y_g+y_p=\frac{g}{\omega _{0}^{2}}\left( 1-\cos \omega _0t \right)</script><p>�
 <p>​    当然我还没有整理一些偏向应试内容，比如那些性质和$s$域分析，再说吧。</p>
 <p>​    2022-6-12，现在整理一下常用的拉普拉斯变换性质（单边），这些性质对理解变换本身和期末考试都很重要。</p>
 <center>
-    <img src='/images/Laplace_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/laplace1/Laplace_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -409,6 +420,7 @@ F\left( s \right) =\int_0^{\infty}{f\left( t \right)}e^{-st}\mathrm{d}t
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -558,8 +570,7 @@ F\left( s \right) =\int_0^{\infty}{f\left( t \right)}e^{-st}\mathrm{d}t
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -629,19 +640,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -699,15 +732,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,15 +824,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,15 +848,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1032,20 +1065,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

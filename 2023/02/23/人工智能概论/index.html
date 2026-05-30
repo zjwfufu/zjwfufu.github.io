@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,22 +23,22 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    第一天考人工智能概论，这门课我根本就没学过。但是我在突击的时候发现，这门课实际上是传统意义的人工智能，对，那些在IJCAI&#x2F;AAAI运筹分会场头发花白的学者们研究的内容。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_8.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AI_tutorial_9.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/miku_0.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_8.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_9.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/ai_tutorial/miku_0.jpg">
 <meta property="article:published_time" content="2023-02-23T08:59:20.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:01:30.508Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.429Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/AI_tutorial_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/ai_tutorial/AI_tutorial_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -38,10 +46,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -50,10 +61,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -63,9 +74,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -114,7 +122,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -179,7 +190,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-人工智能概论" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-人工智能概论" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -219,7 +230,7 @@
 <p>​    所以，秉持着对传统运筹，博弈的尊敬。以及，我要期末考试了。我决定对着每一章的PPT整理一下例题，好记性不如烂笔头。</p>
 <h3 id="图搜索策略"><a href="#图搜索策略" class="headerlink" title="图搜索策略"></a>图搜索策略</h3><p>​    这里引入了一个通用的图搜索过程，用OPEN表记录还没有扩展的点，CLOSED表记录已经扩展的点。（选择最左支最先访问，节点12是目标节点）</p>
 <center>
-    <img src='/images/AI_tutorial_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -345,7 +356,7 @@
 <p>​    可以看到，是一样的逻辑。</p>
 <p>​    还存在一些变式，例如代价图。每次探测一个分支是需要考虑代价的。</p>
 <center>
-    <img src='/images/AI_tutorial_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -436,7 +447,7 @@
 \end{matrix} \right]</script><p>​    搜索树的估价函数是$F(n)=D(n)+H(n)$，$D(n)$表示初始状态的深度，$H(n)$表示不在对应位置上的数码的个数，</p>
 <p>​    所以整个代价图可以画作：</p>
 <center>
-    <img src='/images/AI_tutorial_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -488,14 +499,14 @@
 <p>​    而具体搜索的过程，和前面的搜索是一样的。有一点不同，终叶结点没必要储存在closed表里（因为它们不会被探索），在OPEN表里的那些代表可解or不可解的结点，一旦可以判断一个具体的逻辑，就会从OPEN表里移除。</p>
 <h3 id="Max-Min搜索和-alpha-beta-剪枝"><a href="#Max-Min搜索和-alpha-beta-剪枝" class="headerlink" title="Max-Min搜索和$\alpha-\beta$剪枝"></a>Max-Min搜索和$\alpha-\beta$剪枝</h3><p>​    这一部分其实是博弈树的搜索，分为极大极小搜索和$\alpha-\beta$剪枝两个部分，其实道理很简单。</p>
 <center>
-    <img src='/images/AI_tutorial_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    我们先直接看题目，1）计算各节点的倒推值。2）利用$\alpha-\beta$剪枝来剪去不必要的分支。</p>
 <p>​    这个树，描述的是一个博弈的过程。倒数第二层，是MIN，往上是MAX，再往上是MIN。所有带着与的分支，其实都是对手做出的选择，因为我们需要处理对手可能做出的所有的选择，所以是与。最底下的分数是此时的估值。那么倒退的意思其实就是根据“对手想让估值变越小越好，我想要估值变越大越好”来理解。这样就会产生一些不必要的分支。</p>
 <center>
-    <img src='/images/AI_tutorial_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -509,7 +520,7 @@
 <p>​    3）如果$x$的父结点已经有取值范围了，那么如果$x$的取值范围和$x$的父结点的取值范围没有交集（或只有一个元素），则剪掉此时$x$还没有探测的那些子结点。</p>
 <p>​    所以整个过程为：</p>
 <center>
-    <img src='/images/AI_tutorial_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -612,7 +623,7 @@ P\lor \left( Q\land R \right) \Leftrightarrow \left( P\lor Q \right) \land \left
 \\
 \left\{ \lnot I\left( z \right), M\left( y \right) , S\left( x,y \right), H\left( x \right)\right\}</script><p>​    饺子包完了，该上醋了。（上述依次记作子句(1), (2), (3),…)</p>
 <center>
-    <img src='/images/AI_tutorial_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -626,13 +637,13 @@ P\lor \left( Q\land R \right) \Leftrightarrow \left( P\lor Q \right) \land \left
 <p>​    CF的计算公式（就是个故事）考试会给，所以只要知道怎么算就好。命题的合取和析取，就对应着去最小值还是最大值。</p>
 <p>​    这个考题的变式还有，如果给知识加权（由于不确定度），以及给知识的可信度一个阈值$\lambda$。这里我直接把PPT上的题贴上来，通俗易懂。</p>
 <center>
-    <img src='/images/AI_tutorial_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <h4 id="模糊推理-1"><a href="#模糊推理-1" class="headerlink" title="模糊推理"></a>模糊推理</h4><p>​    模糊推理中，用一个0到1上的隶属函数来表达模糊性。就一个“精心设计”的函数罢了，从而在这个模糊的设定下，更新了一系列的简单运算：</p>
 <center>
-    <img src='/images/AI_tutorial_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/AI_tutorial_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -784,7 +795,7 @@ q_i=\sum_{j=1}^i{P\left( x_j \right)}</script><p>​    这不就轮盘赌了。
 <p>​    人工智能概论和模式识别一天考，所以还是比较紧张的。实在不行，上面那些几项抛弃掉，看懂正文的，也能及格。</p>
 <p>​    得梳理微机原理了，不然该寄了！</p>
 <center>
-    <img src='/images/miku_0.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/ai_tutorial/miku_0.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -821,6 +832,7 @@ q_i=\sum_{j=1}^i{P\left( x_j \right)}</script><p>​    这不就轮盘赌了。
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -966,8 +978,7 @@ q_i=\sum_{j=1}^i{P\left( x_j \right)}</script><p>​    这不就轮盘赌了。
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -1037,19 +1048,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -1107,15 +1140,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1199,15 +1232,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1223,15 +1256,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1440,20 +1473,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

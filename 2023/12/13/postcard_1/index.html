@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,14 +23,14 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    今天试了下在blog里整一个Gaussian Splatting的Viewer，所以突发奇想搞了这么个系列。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/postcard_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/postcard_end.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/postcard/postcard_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/postcard/postcard_end.gif">
 <meta property="article:published_time" content="2023-12-13T10:49:27.000Z">
-<meta property="article:modified_time" content="2024-01-06T01:55:31.603Z">
+<meta property="article:modified_time" content="2026-05-29T16:18:07.859Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/postcard_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/postcard/postcard_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -30,10 +38,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -42,10 +53,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -55,9 +66,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -106,7 +114,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -171,7 +182,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-postcard_1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-postcard_1" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -208,69 +219,26 @@
 	  
         <p>​    今天试了下在blog里整一个Gaussian Splatting的Viewer，所以突发奇想搞了这么个系列。</p>
 <span id="more"></span>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="/3dgs/style.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>gsplat.js - Viewer Demo</title>
-    </head>
-
-    <body style="margin: 0; padding: 0; overflow: hidden; background-color: #000;">
-        <div id="viewer-container" style="max-width: 90%; margin: 0 auto;">
-
-    <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="modelDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        点击下方链接以选择
-    </button>
-    <div class="dropdown-menu" aria-labelledby="modelDropdownButton" id="modelDropdown">
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/dylanebert/3dgs/resolve/main/bonsai/bonsai-7k-mini.splat">Bonsai</a>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/fufu.splat">Hatsune Miku fufu</a>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/toy_trex.splat">Toy trex skeleton</a>
-        </li>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/bird.splat">Cockatiel</a>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/shark.splat">Blåhaj</a>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/park.splat">YanJiao Park</a>
-        </li>
-        <li role="presentation">
-        <a class="dropdown-item" href="#" data-model-url="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/school.splat">My High School</a>
-        </li>
-        <!-- Add more options as needed -->
-        </div>
-    </div>
-
-            <canvas id="canvas" style="max-width: 100%; height: auto;"></canvas>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <script src="/3dgs/index.js" type="module"></script>
-        </div>
-
-        <div id="progress-container">
-            <div id="progress-dialog" class="modal">
-                <p>
-                    <label for="progress-indicator">Loading...</label>
-                </p>
-                <progress max="100" id="progress-indicator"></progress>
-            </div>
-        </div>
+<link rel="stylesheet" href="/3dgs/style.css" />
 
 
-​        
-​    </body>
-
-</html>
+<div id="viewer-container">
+<select id="modelDropdown">
+<option value="https://huggingface.co/datasets/dylanebert/3dgs/resolve/main/bonsai/bonsai-7k-mini.splat">Bonsai</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/fufu.splat">Hatsune Miku fufu</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/toy_trex.splat">Toy trex skeleton</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/bird.splat">Cockatiel</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/shark.splat">Blåhaj</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/park.splat">YanJiao Park</option>
+<option value="https://huggingface.co/datasets/zjwfufu/gsplat_view/resolve/main/school.splat">My High School</option>
+</select>
+<canvas id="canvas"></canvas>
+<div id="progress-dialog" class="gs-modal">
+<p><label for="progress-indicator">Loading...</label></p>
+<progress max="100" id="progress-indicator"></progress>
+</div>
+</div>
+<script src="/3dgs/index.js" type="module"></script>
 
 <blockquote>
 <p>用鼠标可以拖拽旋转，WASD可以前进后退（某种意义上的），Q和E也可以旋转。我加了个事件监视器，所以鼠标如果移出去了画面就会暂停，某种程度上节约资源吧。</p>
@@ -285,13 +253,13 @@
 <p>​    在网页上实现这么一个高斯点云的viewer，依托于<a target="_blank" rel="noopener" href="https://github.com/dylanebert/gsplat.js">gsplat.js</a>，我只是单纯的把它缝进我的blog里了。本来我是想一个页面里放若干个这样的viewer，然后每个是不同的场景，做成一种博物馆/画廊一样的感觉，但整了一会儿没整出来，而且发现本地用浏览器渲染一个场景，电脑风扇就开始转了，所以感觉多张放一个html感觉可能要寄。</p>
 <h3 id="Supplement-material"><a href="#Supplement-material" class="headerlink" title="Supplement material"></a>Supplement material</h3><p>​    “Cockatiel”那个模型拍摄于一只<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%9B%9E%E5%B0%BE%E9%B8%9A%E9%B5%A1">玄凤鹦鹉</a>，但鸡不可能那么配合，所以拍摄的时候他有在左动右动，于是产生了模糊。这是他的照片：</p>
 <center>
-    <img src='/images/postcard_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/postcard/postcard_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “小巷里，让细雨，穿成线。”</p>
 <p>​    “浸透在，海棠色，的华年。”</p>
 <center>
-    <img src='/images/postcard_end.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/postcard/postcard_end.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -328,6 +296,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -473,8 +442,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -544,19 +512,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -614,15 +604,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,15 +696,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +720,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -947,20 +937,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

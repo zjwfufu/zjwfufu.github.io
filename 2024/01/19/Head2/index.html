@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,25 +23,25 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “沿着风的轨迹，乱舞蹁跹，困于死水之间。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_arcface.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_convention.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_8.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_9.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_implict_morphing.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head2_end.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_arcface.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_convention.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_8.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_9.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_implict_morphing.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head2/head2_end.jpg">
 <meta property="article:published_time" content="2024-01-19T14:06:11.000Z">
-<meta property="article:modified_time" content="2024-01-27T09:50:33.000Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.663Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/head2_arcface.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/head2/head2_arcface.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -41,10 +49,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -53,10 +64,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -66,9 +77,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -117,7 +125,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -182,7 +193,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Head2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Head2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -244,7 +255,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python demo.py -i ./demo/input -o ./demo/output</span><br></pre></td></tr></table></figure>
 <p>​    这个操作是为了得到一个<code>identity.npy</code>，具体来说，这个<code>identity.npy</code>是先将输入图片，送入一个预训练好的ArcFace，ArcFace是一个很成熟的用于人脸识别的模型，ArcFace是用一种辅助度量的loss来进一步帮助以ResNet-50为backbone的分类网络来分类，它已经是2017~2018年时候的事情了，我们现在已经不用关心其本身了。不过那时候是一个很好的年代，不仅是因为炼丹的刀耕火种在如火如荼的进行，还因为那时候我还能和女同学言笑晏晏。</p>
 <center>
-    <img src='/images/head2_arcface.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_arcface.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    总之它是一个成熟的分类网络，那样对于任意一张“wild-image”的人脸输入，它会有不同的“响应”。MICA里继续用几层layers将ArcFace计算出的特征向量再映成FLAME里的形状系数：</p>
@@ -270,7 +281,7 @@
 <p>​    实际上，我们更习惯的<code>face_alignment</code>库也可以检测上下眼皮（eyelids），但不能检测虹膜（iris）。以及<code>face_alignment</code>可能检测上下眼皮的准确度稍逊于Mediapipe（Google力大砖飞的操作在MoveNet里我已经体会过了，他们为了让做瑜伽时候的姿态估计准一些，爬了YouTube上几乎所有的瑜伽视频），所以在整个管线里整合来自三处的landmark进行监督（Mediapipe，<code>face_alignment</code>，RingNet）可热闹极了，下面我们会提到。</p>
 <p>​    首先，Mediapipe在dense模式下，是预测478个关键点。后10个分别就是左眼虹膜和右眼虹膜，即<code>left_iris_mp</code>和<code>right_iris_mp</code>。由于他们是Mediapipe版本更新后追加的，所以是后10个：</p>
 <center>
-    <img src='/images/head2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    上图的五个绿色点，就是对虹膜的定位。</p>
@@ -296,7 +307,7 @@ R=\left[ \begin{matrix}
 \\
 t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyTorch3D的坐标系规定下，世界坐标系转相机坐标系有一个沿Y轴顺时针转90°的事情，右手定则一下可知方向为负，所以有两个-1。</p>
 <center>
-    <img src='/images/head2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    </p>
@@ -352,7 +363,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">albedos = self.flametex(tex)</span><br><span class="line">ops = self.diff_renderer(vertices, albedos, sh, self.cameras)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Photometric dense term</span></span><br><span class="line">grid = ops[<span class="string">&#x27;position_images&#x27;</span>].permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>)[:, :, :, :<span class="number">2</span>]</span><br><span class="line">sampled_image = F.grid_sample(flipped, grid * aspect_ratio, align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 <p>​    这样获得的，<code>F.grid_sample</code>在之前的blog里已经用过许多次了，我们这里是要探明一下这个<code>self.flametex(tex)</code>。这个机制其实是FLAME后续更新的，我们可以在FLAME官网里下到一个叫<code>TextureSpace.zip</code>的东西，里面有一个1.2GB的文件<code>FLAME_texture.npz</code>。这个文件是通过用FLAME拟合FFHQ数据集，从而得到一个纹理空间，也就是我们想要的UV map。和处理表情，形状时一样，也进行了主成分分析，得到了表示纹理空间的各个基。用Python打开这个文件，可以看到里面压缩着<code>[&#39;vt.npy&#39;, &#39;ft.npy&#39;, &#39;tex_dir.npy&#39;, &#39;mean.npy&#39;]</code>这四个数组，<code>vt</code>就是我们熟悉的作UV映射的纹理坐标，形状是[5118, 2]；<code>ft</code>用于描述一个面的三个点，对应着哪些纹理坐标，大小为[9976, 3]；<code>tex_dir</code>就是得到的关于纹理空间的基向量，大小为[512, 512, 3, 200]，200即是主成分的数量，在Metrical-tracker这个项目里只取了前140个。然后<code>mean</code>就是所谓平均脸，大小是[512, 512, 3]。</p>
 <center>
-    <img src='/images/head2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -364,12 +375,12 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    文件后缀为<code>.frame</code>，以及在该帧下的FLAME拓扑（用LBS计算出的顶点们）也会被存下来，存成<code>.ply</code>。同时还会存一些杂七杂八的东西，不过不是很重要。</p>
 <p>​    注意在存的时候，还多存了一份opencv约定下的相机，实际上后面最后用到INSTA里的也是opencv版的，很多框架之间的相机坐标系并不一样，有时候会很烦：（<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/593204605/">图源自</a>）</p>
 <center>
-    <img src='/images/head2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    据此，在一些民间群里延申出了一张梗图：</p>
 <center>
-    <img src='/images/head2_convention.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_convention.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    因为很多时候，比坐标系变换更迷的事情是：“我根本不知道我所在的仓库用的是哪个coordinate systems！”</p>
@@ -378,7 +389,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    最后的那个<code>video.avi</code>是tracking结果的可视化：</p>
 <center>
 <video id="video" controls style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
-    <source id="mp4" src="/images/head2_4.mp4" type="video/mp4" >
+    <source id="mp4" src="/images/head2/head2_4.mp4" type="video/mp4" >
 </video>
 </center>
 
@@ -392,7 +403,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    要注意到最后存下来的是相机外参的逆（c2w），相机内参由另外一个函数来储存，用第一帧中相机内参的结果来代表所有帧下的相机内参。最后外参连同内参划分训练，验证，测试集后储存成<code>.json</code>。</p>
 <p>​    到这一步，所有关于相机系统，FLAME系数的预处理已经完成了。接下来就是处理对齐（切割和裁剪）后的图像，一般来说是要把人头从背景里抠图（matting）出来，然后有时候想去掉脖子以下（下至肩膀）的部分，所以会用语义分割（semantic segmentation）得到哪个部位在哪，然后作“解析”（parsing）：</p>
 <center>
-    <img src='/images/head2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    将人从视频的每一帧里扣出来的用的是<a target="_blank" rel="noopener" href="https://github.com/PeterL1n/RobustVideoMatting">RobustVideoMatting(RVM)</a>，然后语义分割是通过一个在CelebA-HQ上训练BiSeNet的<a target="_blank" rel="noopener" href="https://github.com/zllrunning/face-parsing.PyTorch">仓库</a>实现的。这两篇工作都来自于那个还能叠积木的时代，大概是经过了马普所人员的检验，所以就这么用了。</p>
@@ -406,7 +417,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    首先，用ffmpeg抽帧，然后用一个现成的抠图网络<a target="_blank" rel="noopener" href="https://github.com/ZHKKKe/MODNet">MODNet</a>来分割出人头来。有趣的是MODNet实际上是刚才提到的RVM正文里的baseline。</p>
 <p>​    其主体是用DECA来估计一整套参数。DECA在上一篇blog里提到了，用Encode-Decode的范式实现了从单张图片里估计FLAME系数和相机参数。这里我们着重剖析一些细节：</p>
 <center>
-    <img src='/images/head2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -417,7 +428,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    以及通过考察<code>lbs.py</code>，可以知道这里pose就是用的轴角式表达。</p>
 <p>​    这里还剩一下一个比较奇怪的camera pose $c\in\mathbb{R}^3$，如果我们检视大多数$c$，一般第一个值是9.0~10.0，然后第二个和第三个值很接近0。这个说起来比较复杂。我们注意到在前面的$\theta$里，我们是建模了根结点的旋转，或者叫全局旋转的。这是符合我们想法的，所以相机外参的旋转默认为一个单位阵。但这并不意味着$c$就是相机内参，但它确实也和相机内参有关。事情是这样的，我们输入给DECA时的图像并不是对齐的，一般情况下：</p>
 <center>
-    <img src='/images/head2_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_8.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -428,7 +439,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <p>​    然后变换和裁剪的过程会由<code>skimage.transform</code>里的<code>warp</code>完成，就得到了右图。</p>
 <p>​    所以DECA对latent code的获得是从右图来得，而FLAME模板里的坐标，范围一般在±0.1周围。然后，$c$的目的在于对这些坐标进行变换，使其变换后可以贴到原来的那个图上。我们以<code>landmark2d</code>为例，最终的目的是让得到的<code>landmark2d</code>和原图可以像下图那样匹配：</p>
 <center>
-    <img src='/images/head2_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -447,7 +458,7 @@ t=\left[ 0,0,1 \right] ^T</script><p>​    $R$里的负号大概是因为在PyT
 <script type="math/tex; mode=display">
 x_d=\mathrm{LBS}\left( x_c+B_P\left( \theta ;\mathcal{P} \right) +B_E\left( \psi ;\mathcal{E} \right) ,J\left( \psi \right) ,\theta ,\mathcal{W} \right)</script><p>​    $x_c$在IMAvatar中是用Ray Marching技术，找到的点；而在PointAvatar里，则就是点的坐标本身。$\theta,\psi$分别是FLAME的姿态和表情系数，这些是显式的输入，在训练时可以通过预处理后的数据中获得，在测试时可以手动设定新视角和表情。$\mathcal{P},\mathcal{E}$是用MLP计算出的blendshape，$\mathcal{W}$在这里专指对某个特定的$x_c$而言的关于不同结点的权重，也是用MLP学到的。$J(\psi)$指的是在有$B_E\left( \psi ;\mathcal{E} \right) $修正下估计出的结点位置，这一步在实现上是通过维护一个标准FLAME模板得到的。相比于INSTA的那种做法，我个人更喜欢这种方式来实现变形。虽然这种变形本质上也是炼丹炼出来，但就是个人情感上更好接受。</p>
 <center>
-    <img src='/images/head2_implict_morphing.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_implict_morphing.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    这个操作相比于标准FLAME的变形（Morphing），可以称其为“Implicit Morphing”，因为相比于标准的，回归出来的$\mathcal{E},\mathcal{P},\mathcal{W}$，我们在这里需要用learning-based的方法来给FLAME中没有的点“reassign”那些属性。</p>
@@ -471,7 +482,7 @@ x_d=\mathrm{LBS}\left( x_c+B_P\left( \theta ;\mathcal{P} \right) +B_E\left( \psi
 <p>​    这大概就是全部了。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “若是从未启程的故事，能够有结局的话，残留枯枝也会绽放吧。”</p>
 <center>
-    <img src='/images/head2_end.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/head2/head2_end.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -510,16 +521,17 @@ x_d=\mathrm{LBS}\left( x_c+B_P\left( \theta ;\mathcal{P} \right) +B_E\left( \psi
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -531,11 +543,11 @@ x_d=\mathrm{LBS}\left( x_c+B_P\left( \theta ;\mathcal{P} \right) +B_E\left( \psi
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -661,8 +673,7 @@ x_d=\mathrm{LBS}\left( x_c+B_P\left( \theta ;\mathcal{P} \right) +B_E\left( \psi
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -732,19 +743,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -802,15 +835,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -894,15 +927,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -918,15 +951,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,20 +1168,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,21 +23,21 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​        与微分方程一样，偏微分方程也有解析解和数值解之分，但它的解析解有时不是很方便，我们先介绍它的数值解，在后面再对一些解析解进行补充。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2-xtimest.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2_eg1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2_eg2.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2_eg3PDEtool.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2_eg3PDEtool2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDE2_eg4.jpg">
-<meta property="article:published_time" content="2021-07-31T03:14:40.861Z">
-<meta property="article:modified_time" content="2023-08-27T03:02:31.744Z">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2-xtimest.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2_eg1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2_eg2.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2_eg3PDEtool.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2_eg3PDEtool2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde2/PDE2_eg4.jpg">
+<meta property="article:published_time" content="2021-07-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T01:42:49.411Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="PDE">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="有限差分">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/PDE2-xtimest.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pde2/PDE2-xtimest.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -37,10 +45,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -49,10 +60,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -62,9 +73,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -113,7 +121,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -178,7 +189,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-偏微分方程2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-偏微分方程2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -202,7 +213,7 @@
 		<!--显示阅读次数完毕-->
         
         <a href="/2021/07/31/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B2/" class="archive-article-date">
-  	<time datetime="2021-07-31T03:14:40.861Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
+  	<time datetime="2021-07-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-31</time>
 </a>
         
       </header>
@@ -222,7 +233,7 @@
     u\left( x,0 \right) =\varphi \left( x \right)\\
 \end{array} \right.</script><p>​        其中$f\left( x,t \right) $表示热源，不失一般性，我们将$x,t$的取值设为从0到$x_m,t_m$,建立二维平面网格$x\times t$</p>
 <center>
-    <img src='/images/PDE2-xtimest.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2-xtimest.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -293,7 +304,7 @@
 \end{array} \right.</script><p>​        我们用上面的思路进行编程求解：</p>
 <p>​        作出温度关于时间和空间演变的曲面：</p>
 <center>
-    <img src='/images/PDE2_eg1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2_eg1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -322,15 +333,15 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
     u\left( 0,y,t \right) =u\left( 1,y,t \right) =0\\
 \end{array} \right.</script><p>​        由于完整展现二维热传导需要四维，所以我们只可视化它随时间的动态过程：</p>
 <center>
-    <img src='/images/PDE2_eg2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2_eg2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <h3 id="更复杂的情况-PDEtool"><a href="#更复杂的情况-PDEtool" class="headerlink" title="更复杂的情况/PDEtool"></a>更复杂的情况/PDEtool</h3><p>​        上面的两个例子只是很简单的应用，实际上边界条件可能并不像例子里一样是第一类的，并且边界可能是圆，甚至是周期性的；且上面例子的维数不超过二维，当维数为3时，再归结出一套矩阵之间的迭代公式是很麻烦的，如果真的遇到了三维的偏微分问题，建议列出各元素的迭代关系后无脑写$for$​循环。</p>
 <p>​        但，如果我们已经知道了某个偏微分方程的全部信息，可以直接用matlab中的PDEtool来进行解方程，这个操作起来相当的简单，只要知道方程的格式，点几个按钮就能得到数值解。</p>
 <center>
-    <img src='/images/PDE2_eg3PDEtool.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/PDE2_eg3PDEtool2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2_eg3PDEtool.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2_eg3PDEtool2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -347,7 +358,7 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
     u_{1}^{n}=u_{2}^{n}-\varDelta xu_{1}^{n-1}\\
     u_{i_{\max}}^{n}=u_{i_{\max}-1}^{n}-\varDelta xu_{i_{\max}}^{n-1}\\
 \end{array} \right.</script><center>
-    <img src='/images/PDE2_eg4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde2/PDE2_eg4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​        现在我们已经可以简单的用数值方法来求解一些偏微分方程了，但是要注意，我们实际上用的都是最简单的差分格式，在调整步长作实验时我们常会遇到一些“奇怪的现象”，这些会在后面介绍不同种差分格式和稳定性时解释到。</p>
@@ -386,6 +397,7 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -543,8 +555,7 @@ U^{n+1}=a^2\varDelta t\left( \frac{1}{\varDelta ^2x}A_xU^n+\frac{1}{\varDelta ^2
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -614,19 +625,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -684,15 +717,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -776,15 +809,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,15 +833,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,20 +1050,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

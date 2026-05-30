@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,19 +23,19 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    本篇继续整理模电，记录一下关于基本放大电路和差分放大器的知识。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/analog_2_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/analog2/analog_2_7.png">
 <meta property="article:published_time" content="2022-06-06T11:29:11.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:19:11.258Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.509Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="电路分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/analog_2_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/analog2/analog_2_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -35,10 +43,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -47,10 +58,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -60,9 +71,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -111,7 +119,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -176,7 +187,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-模拟电子技术2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-模拟电子技术2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -215,7 +226,7 @@
 <span id="more"></span>
 <p>​    在了解这一片内容之前，要先对三极管有一个必要的认识，也就是引入少许先验：三极管工作时，发射结正篇，集电结反偏。为了使得三极管达到这个状态来放大小信号，需要引入偏置电路：</p>
 <center>
-    <img src='/images/analog_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -244,7 +255,7 @@ R_B=R_{B1}//R_{B2}</script><p>​    所以基极电流在这个电路中写作�
 I_{BQ}=\frac{U_{BB}-U_{BEQ}}{R_B+\left( 1+\beta \right) R_E}</script><p>​    另外两式子与电流反馈型时的相同。</p>
 <p>​    实际上我们现在就已经完成了对放大电路的静态分析，然后就是动态分析了。我们要明确一下，对于一个放大电路，我们做静态分析，画直流通路时，是将电容断路；画交流通路时，是将电容短路，并且将加的直流电源置0（一般是$U_{CC}$） 。我们以一个共射放大电路为例：</p>
 <center>
-    <img src='/images/analog_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -262,7 +273,7 @@ U_{CEQ}\approx 12-1.9\mathrm{mA}\times 4\mathrm{k}\Omega \approx 8.2\mathrm{V}</
 <script type="math/tex; mode=display">
 r_{be}\approx 200\Omega +\left( 1+\beta \right) \frac{26\left( \mathrm{mV} \right)}{I_{BQ}\left( \mathrm{mA} \right)}</script><p>​    后面的图我就直接从教材上截了，画的话太花时间了，着重理解一下指标的推法，那么刚才的电路经过小信号等效，就变成了：</p>
 <center>
-    <img src='/images/analog_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -279,7 +290,7 @@ R_i=\frac{U_i}{I_i}=R_{B1}//R_{B2}//r_{be}</script><p>​    而有时基极偏�
 <script type="math/tex; mode=display">
 R_o=\frac{U_o}{I_o}=r_{ce}//R_c\approx R_c</script><p>​    然后……我们就分析完了，共射放大电路，然后我们再看书上的共集电极放大电路：</p>
 <center>
-    <img src='/images/analog_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -293,7 +304,7 @@ A_u=\frac{U_o}{U_i}=\frac{\left( 1+\beta \right) I_b\times \left( R_E//R_L \righ
 \\
 R_i=\frac{U_i}{I_i}=R_{B1}//R_{B2}//\left[ r_{be}+\left( 1+\beta \right) \left( R_E//R_L \right) \right]</script><p>​    注意由于电流变化发生的电阻等效，这种情况下的输出电阻有些复杂，容易画出它的等效电路是：</p>
 <center>
-    <img src='/images/analog_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -307,7 +318,7 @@ R_{o}^{'}=\frac{U_o}{I_{o}^{'}}=\frac{r_{be}+R_s//R_{B1}//R_{B2}}{1+\beta}
 \\
 R_o=R_E//R_{o}^{'}\approx R_{o}^{'}</script><p>​    对于共基极电路，情况比较抽象：</p>
 <center>
-    <img src='/images/analog_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -364,7 +375,7 @@ R_i=R_E//R_{i}^{'}</script><p>​    这三种放大电路各有各的特点，�
 </div>
 <p>​    然后是一种长尾式差分放大电路，它很重要，实际上它的精髓在于那个$R_E$。这种电路可以有效抑制零点漂移。这个电路可以进行双端输入和双端输出，首先，输入方式对它是无所谓的，因为不管怎么输入都可以被拆成一对共模信号和一对差模信号，再运用叠加定理。不会影响什么。输出方式可以从两个输出端输出（双端输出），也可以从单端接地输出（单端输出）：</p>
 <center>
-    <img src='/images/analog_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/analog2/analog_2_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -446,6 +457,7 @@ U_{CE1Q}=U_{CE2Q}=U_{CEQ}=U_{CQ}-U_{EQ}=\left( U_{CC}-I_{CQ}R_C \right) -U_{BEQ}
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -591,8 +603,7 @@ U_{CE1Q}=U_{CE2Q}=U_{CEQ}=U_{CQ}-U_{EQ}=\left( U_{CC}-I_{CQ}R_C \right) -U_{BEQ}
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -662,19 +673,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -732,15 +765,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +857,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,15 +881,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1065,20 +1098,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

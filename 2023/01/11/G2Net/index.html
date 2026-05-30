@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,27 +23,27 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    这篇blog来记录一下从Kaggle:G2Net Detecting Continuous Gravitational Waves中学到的一些知识，对我来说非常大开眼界。我充分认识到自己的局限性，尤其是在实验管理方面。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_4.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_5.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_6.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_7.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_8.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_9.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_13.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_10.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_11.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_12.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_14.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/G2Net_15.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_5.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_6.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_7.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_8.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_9.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_13.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_10.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_11.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_12.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_14.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/g2net/G2Net_15.jpg">
 <meta property="article:published_time" content="2023-01-11T04:26:32.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:57:26.008Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.383Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/G2Net_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/g2net/G2Net_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -43,10 +51,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -55,10 +66,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -68,9 +79,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -119,7 +127,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -184,7 +195,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-G2Net" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-G2Net" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -224,14 +235,14 @@
 <p>​    这个竞赛旨在搜寻频谱图中有无连续引力波（Continuous gravitational-wave）存在，相比于在各种科普短视频中看到的由双星碰撞产生的引力波，这种连续引力波更加微弱。</p>
 <h3 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h3><p>​    主办方提供了pyfstat库使得我们可以扩充训练集，生成不同深度下的信号。下面是一个在近乎无噪声情况下的频谱（幅度）图：</p>
 <center>
-    <img src='/images/G2Net_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    而根据物理学的表达式，引力波应该只是简单的一个正弦曲线。正弦曲线的幅度谱显然不应该是上图这样。通过颜色不一的幅度和发生变化的频率，可以看出引力波信号经过了“调制”。</p>
 <p>​    幅度调制是由于因为地球的旋转，探测器根据接收方向的不同有不同的敏感度。频率的调制一方面是其天体随着引力波的发射，其能量减少，发射的频率降低（这由一个参数$F_1$描述），另一方面是由于地球公转而产生的多普勒频移。有时会发现竞赛所用的频谱图，引力波的频率向上漂变，这可能是一个“周期”中的上升部分，如果再将生成的时间设长一些可以看到：</p>
 <center>
-    <img src='/images/G2Net_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -262,28 +273,28 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <script type="math/tex; mode=display">
 \sigma ^2=\frac{1}{4}T_{SFT}S_n</script><p>​    运行pyfstat验证一下：</p>
 <center>
-    <img src='/images/G2Net_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    上述推导在实际探索中其实不大重要，因为可以二分出合适的$S_n$，使得自己生成数据的标准差和测试集的一致。只是为了复习一下信号与系统。</p>
 <p>​    如果要模拟一个有引力波的样本，只需要将信号注入噪声背景中，如之前所说，当$\mathcal{D}=20$时，就已经丧失视觉特征了：</p>
 <center>
-    <img src='/images/G2Net_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    我们的目的就是对样本进行分类，判断这里是否存在引力波。实际上对于用机器学习方法来处理的方案，这同时隐含着“容易拟合噪声”。</p>
 <h3 id="Further-Analysis"><a href="#Further-Analysis" class="headerlink" title="Further Analysis"></a>Further Analysis</h3><p>​    在上面的演示中，绘制的都是绝对值，数量级在10的负21次方左右。为了让引力波在频谱图中显示的更明显，结合实部和虚部是必要的。以一个朴素的正弦波为例：</p>
 <center>
-    <img src='/images/G2Net_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    因为短时傅里叶变换的本质是加窗，可以理解成一个频移因子$e^{j\omega}$在作用，我们知道$\mathrm{sin}x$的傅里叶变换应该是一个冲激函数，不应该有虚部，而在$e^{j\omega}$的作用下，可以看到实部和虚部交替出现“涟漪”，而幅度谱就很一致。从这一点出发，结合实部和虚部非常必要。</p>
 <p>​    然而除了幅度谱，还有功率谱，这两个的差别只有一个根号。这在数据预处理中也常见，比如语音的频谱时，我们经常用$\mathrm{log}(\cdot)$来缩放频率值的尺度。在这里，具体是使用幅度谱$\sqrt{\mathrm{Re ^2}+\Im ^2}$还是使用功率谱$\mathrm{Re ^2}+\Im ^2$要根据情况而定，我们进行一波可视化：</p>
 <center>
-    <img src='/images/G2Net_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -293,21 +304,21 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <p>​    一个很简单的解决方法，对其频谱数据进行astype(‘complex128’)即可。这就是一个小陷阱，它可能会使人感到困惑。</p>
 <p>​    接下来对测试集进行EDA，把训练集和测试集样本中的H1和L1的标准差画出来，会发现如下的事实：</p>
 <center>
-    <img src='/images/G2Net_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    训练集中大部分数据都是使用同一个$S_n$生成的，虽然可以看出，距离中心越远，越可能是注入了信号的（标准差发生了偏移）。然而这是一个很糟糕的估计，因为在测试集里，分布的标准差变得极其广泛。标准差的偏移大概率不是注入信号的原因。</p>
 <p>​    原因是测试集中大约80%是pyfstat库模拟的样本，剩下的20%是比赛官方使用观测站历史数据随机注入的，旨在模拟真实环境下的样本。真实数据中的数据，有着广泛的各种干扰。</p>
 <center>
-    <img src='/images/G2Net_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    上图中的时间单位以32步取平均，这种操作类似于平滑滤波，实践上可以使得引力波更加可见。上图的样本中，有许多是由仪器产生的伪影，以及由于仪器停机，导致记录的时间戳不齐，使得噪声不均匀。</p>
 <h3 id="Normalization"><a href="#Normalization" class="headerlink" title="Normalization"></a>Normalization</h3><p>​    然后就是每个任务都要用到的归一化，前面分析了噪声的性质，其实部和虚部都是服从零均值正态分布的，所以对于功率谱$\xi _{\mathrm{Re}}^{2}+\xi _{\mathrm{Im}}^{2}$其服从$\chi ^2\left( 2 \right) $。我们可以用直方图来check一下：</p>
 <center>
-    <img src='/images/G2Net_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -319,7 +330,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <p>​    对于之前图中的各种仪器谱线和干扰（他们的值非常的大，使得画出来的图其余部分都是蓝黑色），可以使用sklearn中提供的RobustScaler，它在缩放时会抛弃那些异常值，但我没有用过。</p>
 <p>​    对于一些伪影和仪器谱线，可以从测试集文件中简单地提取出来（检测sigma值）然后写入训练集中，来训练模型对其的鲁棒性。</p>
 <center>
-    <img src='/images/G2Net_13.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_13.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -333,7 +344,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <script type="math/tex; mode=display">
 \frac{\left| w_{i,j} \right|}{L_1},L_1=\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{\left| w_{i,j} \right|}}</script><p>​    然后将这两组卷积核拼在一起，和输入finput做卷积。记由正常卷积核算出来的部分是output，target变量指的卷积核算出来的是power。然后，这里冗长的reals，是用来创造一个除去padding部分全为1的张量：</p>
 <center>
-    <img src='/images/G2Net_10.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_10.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -341,7 +352,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <script type="math/tex; mode=display">
 \frac{\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{w_{i,j}}}}{\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{\frac{\left| w_{i,j} \right|}{L_1}}}}=L_1\frac{\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{w_{i,j}}}}{\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{\left| w_{i,j} \right|}}}=\sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{w_{i,j}}}</script><p>​    算这个的作用是什么？我们先可视化一个其分母（上）和随机初始化权重后的ratio（下）：</p>
 <center>
-    <img src='/images/G2Net_11.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_11.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -362,7 +373,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 \\
 \sum_{i=0}^{H-1}{\sum_{j=0}^{W-1}{\left( w_{i,j}\left( 1-\frac{\left| w_{i,j} \right|}{L_1} \right) -\frac{\left| w_{i,j} \right|}{L_1}\sum_{m\ne i}^{H-1}{\sum_{n\ne j}^{W-1}{w_{m,n}}} \right) d_{i,j}}}</script><p>​    如此，就实现了某种意义上的权重衰减。我们可以可视化这个H=31，W=255的大卷积核：</p>
 <center>
-    <img src='/images/G2Net_12.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_12.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -378,14 +389,14 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
 <p>④这或许是最重要的，“the intuition task by task”，比如观察到测试集里的timesteps_GPS并不等距，要进行对齐；这种可以生成数据集的比赛里，尽量实现在线生成数据（将噪声和信号随机注入）这样可以天然的防止过拟合。这些小事情不需要4×V100，只是需要“观察到”。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​     大概就写到这里草草结束了，因为事情确实很多。通过这个比赛确实学到很多，最终拿到银牌（Top5%）确实非常开心。至少，它虽然不加分，但我会很自豪的把它写进CV里（相比于一些其他的……）。</p>
 <center>
-    <img src='/images/G2Net_14.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_14.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    与此同时我结识了，不对，我很早就认识的很可靠的伙计，所以我也不能在这里停留太久了。这一篇blog虽然短但是写了很久，因为一直在check和verify一些想法，等等……</p>
 <p>​     提前新年快乐吧！</p>
 <center>
-    <img src='/images/G2Net_15.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/g2net/G2Net_15.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -422,6 +433,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -567,8 +579,7 @@ P_{xx}\left( f \right) =\int_{-\infty}^{\infty}{R_{xx}\left( \tau \right) e^{-j2
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -638,19 +649,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -708,15 +741,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,15 +833,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +857,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1041,20 +1074,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

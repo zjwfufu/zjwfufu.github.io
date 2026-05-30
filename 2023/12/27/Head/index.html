@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,40 +23,40 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “闻听说书人也曾将故事杜撰，听罢取壶酒踏歌去醉意阑珊。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_para_head.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_sherlock.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_sherlock.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_ella.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_ella.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_deepfacerecon.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_4.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_lock.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_b_p_pose.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_b_p_with.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_b_p_without.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_flame.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_deca.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_ada_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_ada_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_imface.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_i3dmm.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_nphm.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_nphm.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_marching_cube.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_pano.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_next3d.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_uv.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/head_end.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_para_head.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_sherlock.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_sherlock.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_ella.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_ella.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_deepfacerecon.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_lock.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_b_p_pose.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_b_p_with.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_b_p_without.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_flame.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_deca.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_ada_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_ada_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_imface.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_i3dmm.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_nphm.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_nphm.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_marching_cube.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_pano.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_next3d.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_uv.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/head/head_end.jpg">
 <meta property="article:published_time" content="2023-12-27T11:47:52.000Z">
-<meta property="article:modified_time" content="2024-01-27T09:11:12.237Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.662Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/head_para_head.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/head/head_para_head.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -56,10 +64,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -68,10 +79,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -81,9 +92,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -132,7 +140,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -197,7 +208,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Head" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Head" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -237,7 +248,7 @@
 <p>​    事情是这样的，我毕业设计打算做三维人脸合成，但其实在2023年的语境下，把“三维”和“人脸”放在一起，其实目的就是整出一个完整的“三维人头”。但当我试图在炼丹里像女巫魔法一样“synthesis”出一个人头的时候，我发现我设想的pipeline里需要一个很强的先验或者约束，以及本着要写开题报告和后面related work的因素，我就打算先整理这么个blog，把人头的这个事情说清楚。</p>
 <p>​    表征一个人头是几十年来图形学和计算机视觉里的不懈追求，从方法论上来看，做到这点其实就是实现“参数化模型”（parameterized model），如果我们可以用一组参数和一些映射关系来表达人体的几何和外观，那么我们也就实现了对人头和人脸的表征。这个过程就像很多游戏里捏人系统一样，希望通过调整一些数值的大小，来得到不同的人脸：</p>
 <center>
-    <img src='/images/head_para_head.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_para_head.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <h3 id="Basel-Face-Model"><a href="#Basel-Face-Model" class="headerlink" title="Basel Face Model"></a>Basel Face Model</h3><p>​    基于表示现实人脸的参数化人脸模型的最早尝试应该就是<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/311535.311556">3DMM</a>（3D Morphable Model）。3DMM是一个很经典的方法了，最早可以追溯到1996年。但在当下，当提到3DMM的时候，往往指的是巴塞尔大学的研究人员提出的<a target="_blank" rel="noopener" href="https://faces.dmi.unibas.ch/bfm/">Basel Face Model</a>，简称BFM。这一部分我想用先用3DMM来引出一些东西，然后用BFM结合一些具体例子，聊作记录。</p>
@@ -254,13 +265,13 @@
 <script type="math/tex; mode=display">
 \hat{\mathbf{S}}=\bar{\mathbf{S}}+\sum_{i=1}^{M-1}{\alpha _i\mathbf{S}_i}+\sum_{i=1}^{M-1}{\alpha _i\mathbf{E}_i}</script><p>​    我们可以在BFM的网站上下载训练好的模型（也就是那些基，平均脸什么的），里面提供了一些matlab脚本可以玩，我们可以画出里面的标准人脸：</p>
 <center>
-    <img src='/images/head_1.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_1.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
 <p>​    画出这张图，用到的是matlab里的一个trimesh函数，上面的这张图是将<code>01_MorphableModel.mat</code>里的<code>shapeMU</code>，<code>texMU</code>画出来的样子，就是那张“平均脸”。<code>shapeMU</code>和<code>texMU</code>只是单纯的散点，如果不用trimesh，用scatter看作三维点单纯的画的话，是这样的：</p>
 <center>
-    <img src='/images/head_2.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_2.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
@@ -272,18 +283,18 @@
 </blockquote>
 <p>​    比如，我们用卷福试一下：</p>
 <center>
-    <img src='/images/head_sherlock.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_sherlock.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <center>
-    <img src='/images/head_sherlock.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_sherlock.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
 <p>​    这个结果勉强看着还行，但如果换成一个稍微难一点的case，换成《生化危机：IV》重制版中阿什利的脸模小姐姐：</p>
 <center>
-    <img src='/images/head_ella.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
-    <img src='/images/head_ella.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_ella.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_ella.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
@@ -291,7 +302,7 @@
 <p>​    说到底，这种方式的表达能力还是很有限的，一眼就能看出是那种零几年的电脑游戏里的感觉，而且只能有一张脸皮，没办法有整个头。感觉确实不是那么的“amusing”。</p>
 <p>​    有一篇结合了BFM的工作比较重要：<a target="_blank" rel="noopener" href="https://github.com/sicxu/Deep3DFaceRecon_pytorch">Deep3DFaceRecon</a>，这篇工作在EG3D里被用于预处理FFHQ数据集，EG3D的目的是要每张图片拍摄时的相机位姿$\mathbf{p}$。除此以外，这篇工作的核心是利用可微分渲染，估计出BFM参数后重建人脸，然后渲染，然后用渲染后的图像和原图做损失。应该是最先把可微渲染引入这个过程的工作。它输入是RGB图像，输出是一组向量$\mathbf{x}=\left( \boldsymbol{\alpha },\boldsymbol{\beta },\boldsymbol{\delta },\boldsymbol{\gamma },\boldsymbol{p} \right) \in \mathbb{R} ^{239} $，其中$\boldsymbol{\alpha }\in \mathbb{R} ^{80},\boldsymbol{\beta }\in \mathbb{R} ^{64},\boldsymbol{\delta }\in \mathbb{R} ^{80}$分别是形状，表情，纹理的基系数，$\boldsymbol{\gamma }\in \mathbb{R} ^9$是三阶的球谐系数，用于拟合光照，$\boldsymbol{p}\in \mathbb{R} ^6$是三个角度Yaw, Pitch, Roll和一个平移分量$\mathbf{t}\in \mathbb{R} ^3$。</p>
 <center>
-    <img src='/images/head_deepfacerecon.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_deepfacerecon.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    所以这个最后实现的效果还是很“麻雀虽小五脏俱全”的，输入一张图片就可以预测出这么多的东西。</p>
@@ -306,7 +317,7 @@ V_{3d}\left( \mathbf{p} \right) =\mathbf{R}\left( \bar{\mathbf{S}}+\mathcal{A} _
 <script type="math/tex; mode=display">
 \mathrm{NCC}=\frac{\bar{\mathbf{S}}-\min \left( \bar{\mathbf{S}} \right)}{\max \left( \bar{\mathbf{S}} \right) -\min \left( \bar{\mathbf{S}} \right)}</script><p>​    那么这个$\mathrm{NCC}$就能保证在$[0,1]^3$之间，所以叫它“Normalized Coordinate Code”。这里面的每个$[0,1]^3$中的点，都可以“指认”（assign）一个RGB的颜色。这一点其实蛮有趣的，如果你用一些画图工具，matlab也好python也好，你画出一个$[0,1]^3$的立方体，然后用这种办法来上色，会得到一个挺有意思的正方体，其体对角线可以看出表示了亮度的变化（这就是数字图像处理里的另一种图像空间YCrCb了）。</p>
 <center>
-    <img src='/images/head_3.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_3.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
@@ -328,7 +339,7 @@ V_{3d}\left( \mathbf{p} \right) =\mathbf{R}\left( \bar{\mathbf{S}}+\mathcal{A} _
 <p>​    在姿态估计的范式下，每一个结点代表的是一个二维或者三维的坐标；但在数字人驱动的角度上，这种表达不太好“animation”。一种更合适的做法，是我们预先设定好骨骼里相邻结点之间的距离（即“骨头”的长度），然后我们规定根结点（这个结点一般对应在人体的胯骨附近）为父节点，通过指出父节点的子结点相对父节点的旋转，我们可以链式的计算当给定一组旋转后，此时骨骼上各结点的位置。</p>
 <p>​    我们可以用一个平面上的链杆来说明这件事：</p>
 <center>
-    <img src='/images/head_4.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_4.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
@@ -352,7 +363,7 @@ P_2=Q_1l_1+P_1
 <p>​    我们需要具体的讨论一下SMPL中的“旋转”。与常见的欧拉角描述旋转不同，在SMPL里采用的是“轴角式”（axis-angle）来描述旋转的，这种描述顾名思义，是指给定一个向量$u$和一个角度$\theta$，所作用的旋转就是沿这个向量$u$旋转$\theta$度，方向由右手定则确定。那么为什么要采用这种表示方法呢？因为这种方法避免了在表达人体时出现“万向节死锁”。</p>
 <p>​    我们可以用下面这个例子来体会“万向节死锁”，我们先按Y轴旋转90°，然后再旋转X和Z轴，会发现：</p>
 <center>
-    <img src='/images/head_lock.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_lock.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
@@ -390,9 +401,9 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>​    于是我们就对SMPL有了一个圆满的解释，所谓SMPL模型，就是从一个大量的人体测量数据集里估计$\Phi =\left\{ \bar{\mathbf{T}},\mathcal{W} ,\mathcal{S} ,\mathcal{J} ,\mathcal{P} \right\} $，最终在输入$\vec{\beta},\vec{\theta}$，通过$\mathcal{J}$估计在$\vec{\beta}$下的静止结点$J$，然后用$\vec{\theta}$计算姿态的变换$G_{k}^{\prime}\left( \overrightarrow{\theta },\mathbf{J} \right)$。最终利用其改进的加入了$B_S\left( \vec{\beta};\mathcal{S} \right) ,B_P\left( \vec{\theta};\mathcal{P} \right) $的线性蒙皮混合算法，得到此时的顶点坐标。</p>
 <p>​    眼见为实，我们可以可视化一下$B_S\left( \vec{\beta};\mathcal{S} \right) ,B_P\left( \vec{\theta};\mathcal{P} \right) $的影响。</p>
 <center>
-    <img src='/images/head_b_p_pose.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
-    <img src='/images/head_b_p_with.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
-    <img src='/images/head_b_p_without.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
+    <img src='/images/head/head_b_p_pose.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
+    <img src='/images/head/head_b_p_with.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
+    <img src='/images/head/head_b_p_without.png' style="max-width: 400px; max-height: 400px; width: 400px; height: 400px;">
 </center>
 
 
@@ -404,27 +415,27 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>​    $B_P\left( \vec{\theta};\mathcal{P} \right)$的效果是更显著的：</p>
 <center>
 <video id="video" controls style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
-    <source id="mp4" src="/images/head_b_s.mp4" type="video/mp4" >
+    <source id="mp4" src="/images/head/head_b_s.mp4" type="video/mp4" >
 </video>
 </center>
 
 
 <p>​    终于，我们可以讨论FLAME了。FLAME和SMPL的框架是一样的，只不过结点少了很多，只有4个，只用于驱动左眼球，右眼球的转动，嘴巴张开的角度，以及脖子的旋转。但FLAME多做了关于表情的基，从而让人头更富有表现力。</p>
 <center>
-    <img src='/images/head_flame.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_flame.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    在我们之前的讨论里，都不涉及对大规模人脸数据的处理，以及人脸参数化模型的具体训练和优化，这些部分往往是难度更大的部分。因为这篇blog的目的其实是为了毕设做人脸合成打前置知识。但值得指出的是，除了类似FLAME这种对人头的参数化方式，还存在一种被称作“双线性模型”的参数化模型，如<a target="_blank" rel="noopener" href="http://kunzhou.net/zjugaps/facewarehouse/">FaceWarehouse</a>，<a target="_blank" rel="noopener" href="https://facescape.nju.edu.cn/">FaceScape</a>。这种模型采用的方式是在得到大批量人脸的初步的mesh后，对整批数据进行张量分解，来得到独立的成分（形状和表情）。这样天然的保证了形状和表情的解耦，而在FLAME中，这一点是靠大规模数据集来保证的（对同一个人采集若干表情）。从拿一个参数化模型来当先验的角度看，两者的区别不会太大。以及由于双线性模型导引出的结合形式是乘法，而不是加法，所以可能在一些下游任务里用FLAME会安全一些？（只是直觉，没有证据。）</p>
 <p>​    与FLAME结合的有一个很好的工作：<a target="_blank" rel="noopener" href="https://github.com/yfeng95/DECA">DECA</a>，可以看作是之前DeepFaceRecon的升级版。其核心仍然是“参数化人脸+可微渲染”，通过用神经网络来预测出FLAME的系数来从wild image里恢复一个人头，同时佐以描述光照，描述纹理的系数，分别用不同的组件进行解码。</p>
 <center>
-    <img src='/images/head_deca.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+    <img src='/images/head/head_deca.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
 <p>​    有趣的地方在于，我们知道FLAME本身的模型还是看着“光溜溜”的，为了让它能更贴合真实的人脸几何（一些皱纹等等），这里也有“coarse to fine”的策略。具体表现在会给出一张Displacements Map，其类似UV map，用于对顶点的位置进行微调。微调的方向大概是沿着顶点法向量的方向。</p>
 <p>​    我们可以输入一张稍微out-of-distribution的图片，一张游戏《生化危机：VI》里过场动画里的王阿姨，然后对比一下输出的几何：</p>
 <center>
-<img src='/images/head_ada_1.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_ada_1.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 ​    这里为了帮助判断几何的一致性，用了一个现成的关键点检测器。所以我们看出对于此时偏着的头，有些部分重建的关键点没有跟源图的匹配上，这是正常的。这个地方至于landmark怎么来的其实一句两句说不清楚，我们放在后面再聊。
 
@@ -433,7 +444,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 ​    DECA同样支持输出albedo map作为纹理，所以可以用一个开源软件meshlab来检视一下最终的效果：
 
 <center>
-<img src='/images/head_ada_2.png' style="max-width: 400px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_ada_2.png' style="max-width: 400px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    可以看到最后的结果还是很好的……捕捉了王阿姨的美的。</p>
@@ -459,34 +470,34 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 </blockquote>
 <p>​    同时，与之前显式模型中人为设定表情和形状的系数类似，网络的输入中还有$\left\{ \mathbf{z}_{\exp},\mathbf{z}_{\mathrm{id}} \right\} $。这里的$\mathbf{z}$虽然也被叫作“latent code”，但其实并不是类似GAN那样从高斯分布里采样的，是设定好输入输出维度，用<code>nn.Embedding()</code>学出来的。从而当训好这个网络后，可以很自然的对$\left\{ \mathbf{z}_{\exp},\mathbf{z}_{\mathrm{id}} \right\} $进行插值来产生unseen的人脸。</p>
 <center>
-<img src='/images/head_imface.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_imface.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    如上图所示，整个管线还是很复杂的，这里我们就不展开了。另一篇工作<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2011.14143.pdf">i3DMM</a>正式向头发发起了冲锋，</p>
 <center>
-<img src='/images/head_i3dmm.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_i3dmm.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    他们使用的是自建的数据集，可以看出其实结果并没有那么喜人，但至少有了头发。在<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2212.02761.pdf">NPHM</a>中，通过提高数据集的粒度以及一些组件的设计，最后呈现的效果明显变好了：</p>
 <center>
-<img src='/images/head_nphm.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_nphm.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    我们可以在NPHM的项目主页上体验一下按这种范式训练后，对$\left\{ \mathbf{z}_{\exp},\mathbf{z}_{\mathrm{id}} \right\} $插值的效果：</p>
 <center>
-<img src='/images/head_nphm.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_nphm.gif' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 
 <p>​    这几种方法都是基于数据集是大规模的人脸数据，所以其实在拟合的同时，也自然的导出了一种“generative manner”。这是由于人脸数据本身就有很好的结构性。这三种方法计算出的结果都是SDF，通过对整个空间均匀采样，计算SDF，再利用一个传统的图形学管线中的方法“<a target="_blank" rel="noopener" href="https://users.polytech.unice.fr/~lingrand/MarchingCubes/algo.html#msAmb">marching cube</a>”，可以将SDF转换为mesh：</p>
 <center>
-<img src='/images/head_marching_cube.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_marching_cube.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    实际上利用神经网络对人脸数据做参数化的方法不止SDF一种，别的也可以。例如当NeRF兴起后，用基于NeRF的范式，对单目的人头视频，或者怼着一个人不同角度拍的照片。那么NeRF-based的方法也可以给出很好的解决方案。对于人脸上的表情这样的非刚性变换，可以对应于D-NeRF那样的方法来解决。但这种方案最后给出的都是“personalized”的人脸或人头，也就是很难泛化到另一个人身上。例如<a target="_blank" rel="noopener" href="https://nerfies.github.io/">Nerfies</a>：</p>
 <center>
 <video id="video" controls style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
-    <source id="mp4" src="/images/head_nerfies.mp4" type="video/mp4" >
+    <source id="mp4" src="/images/head/head_nerfies.mp4" type="video/mp4" >
 </video>
 </center>
 
@@ -496,13 +507,13 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>​    在刚才基于“大规模数据→SDF”的范式下，我们能够实现一种类似生成式的方案。<strong>主观上并没有真的要估计出一个复杂的分布，但客观上也许确实这么做了。</strong>在另一条路线里，有人试图将3D的场景引入GAN里，于是就有了<a target="_blank" rel="noopener" href="https://marcoamonteiro.github.io/pi-GAN-website/">pi-GAN</a>，<a target="_blank" rel="noopener" href="https://m-niemeyer.github.io/project-pages/giraffe/">GIRAFFE</a>，之后就是<a target="_blank" rel="noopener" href="https://nvlabs.github.io/eg3d/">EG3D</a>。这种基于3D-aware GAN的办法，也可以实现对人头的隐式表达。这种方法的特点是从“only collection of 2D image datasets”里来学习3D的表达，相比于前面“3D结构化的数据”和“对一个人，一个物件的拍照采集”，这种数据源的监督强度可确实是弱了不少，所以真正训练出来并不容易。</p>
 <p>​    EG3D有很令人满意的视觉效果，但由于其用的FFHQ数据集只涉及正脸和部分侧脸，同时其三平面的设计会导致$(x,y,z)$和$(x,y,-z)$在投影到$XY$平面时具有相同的值。所以其实并不能完美的给出整个人头，后来字节的<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2303.13071.pdf">PanoHead</a>，通过将一个拍摄发型的数据集（K-hairstyle）和一些拍摄后脑勺的私有数据混合进来，设计一个估计后脑勺位姿的预处理管线，以及引入所谓“tri-grid”，来实现对一个人头的完整的生成。同时在管线里加入了segmentation的先验来使得人头和背景分离，所以实现的细节十分复杂，但效果确实很好：</p>
 <center>
-<img src='/images/head_pano.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_pano.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    但这种范式下，很难对生成的人头和人脸做编辑。当然，由于这个路子的核心基于StyleGAN，所以一切对StyleGAN的一些花招都可以招呼上去，例如像<a target="_blank" rel="noopener" href="https://github.com/genforce/interfacegan">InterFaceGAN</a>里通过一个现成的二元分类器，在StyleGAN的空间里用SVM找到个方向来实现对这个分类器对应的属性的编辑（PS：由于现在已经2023年了，这个二元分类器可以直接用CLIP），把这个想法发扬光大，可以得到<a target="_blank" rel="noopener" href="https://stylegan-nada.github.io/">StyleGAN-NADA</a>。</p>
 <p>​    这种编辑终归不是我们想要的，感觉跟“人头”总是还隔了一层说不清道不明的东西。但只要思想不滑坡，方法总比困难多。<a target="_blank" rel="noopener" href="https://mrtornado24.github.io/Next3D/">Next3D</a>里，引入了FLAME的先验：</p>
 <center>
-<img src='/images/head_next3d.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_next3d.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    这里引入的办法是将GAN生成器生成的特征图，指认为UV map，然后利用PyTorch3D，从三个互相正交的角度进行光栅化，得到事实意义上的tri-planes。这个部分用于产生人头，而这个部分以外用另一个生成器来生成所谓“static”部分。然而这样做会让嘴的部分空出来，因为FLAME并不涉及对口腔的建模。所以由FLAME导引出的triplane需要再送入一个网络，来“synthesis mouth”。但这里其实不涉及任何所谓牙齿的数据集或者特别设计的loss，只是单纯在那里应用了一个比较对称的结构（style-modulated U-Net），梯度信号会让这个结构学会“inpainting”牙齿那个部分。</p>
@@ -512,7 +523,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>​    在最后，通过调整FLAME模板的表情和形状系数，就可以达到控制了。那么在训练时，对于每个输入的图片，正是用前文的DECA来估计这张图片的FLAME系数作为输入，由于DECA并不会估计FLAME模板里左右眼球的旋转，所以由用了<a target="_blank" rel="noopener" href="https://developers.google.com/mediapipe">mediapipe</a>来aug了一下。</p>
 <h3 id="UV-mapping"><a href="#UV-mapping" class="headerlink" title="UV mapping"></a>UV mapping</h3><p>​    在这个部分我想记录一些DECA中用到的一些UV mapping上的内容，这个部分在实际操作中非常重要，而且在我看来，由于一些概念的缺失，这一块不是很好懂。</p>
 <center>
-<img src='/images/head_uv.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_uv.png' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 
 <p>​    上图左边是DECA输出的纹理图，右边是FLAME规定的作texture mapping的模板。只要稍微看了GAMES101相关章节，都能大概明白要做什么。比如我们希望从左边的纹理图中，得到右边的图上的各个三角面顶点们的颜色；或者希望从右边的模板里进行采样，然后得到采样的这些uv坐标对应世界坐标系下的那些坐标。如何在当前版本（PyTorch，PyTorch3D）下怎么具体来做这件事，还是得盲人摸象般的看一手函数接口。</p>
@@ -630,7 +641,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 <p>​    目前有且仅有一个从2D数据集里来generative 3DGS的工作<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2311.17857">GaussianShellMaps</a>，由于作者列表过于重量级，不开源根本follow不动。还有许多针对personalized avatars的工作，<a target="_blank" rel="noopener" href="https://shenhanqian.github.io/gaussian-avatars">GaussianAvatars</a>，<a target="_blank" rel="noopener" href="https://shunsukesaito.github.io/rgca/">Relightable Gaussian Codec Avatars</a>，<a target="_blank" rel="noopener" href="https://yufan1012.github.io/MonoGaussianAvatar">MonoGaussianAvatar</a>，<a target="_blank" rel="noopener" href="https://ustc3dv.github.io/FlashAvatar/">FlashAvatar</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.01632">GaussianHead</a>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.02902">HeadGaS</a>。这些都是最近高斯井喷时的工作，现在都没开源。但看下来，感觉UV map结合一下应该是最靠谱的。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “花开花落花开了又一遍，年年岁岁盼过了又一年。”</p>
 <center>
-<img src='/images/head_end.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
+<img src='/images/head/head_end.jpg' style="max-width: 800px; max-height: 400px; width: auto; height: auto;">
 </center>
 		
 
@@ -668,16 +679,17 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -689,11 +701,11 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -819,8 +831,7 @@ J\left( \vec{\beta};\mathcal{J} ,\bar{\mathbf{T}},\mathcal{S} \right) =\mathcal{
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -890,19 +901,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -960,15 +993,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,15 +1085,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,15 +1109,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1293,20 +1326,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

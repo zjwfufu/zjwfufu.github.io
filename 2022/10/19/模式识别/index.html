@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,19 +23,19 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    现在是2022年了，通过任何一个途径来入门炼丹的人，大多只会念叨“交叉熵损失函数”，“均方误差损失”然后筛选丹方上炉开炼。很少有人在意……那些以前的理论了…大概吧。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_5.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr1/pr_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr1/pr_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr1/pr_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr1/pr_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr1/pr_5.jpg">
 <meta property="article:published_time" content="2022-10-19T07:43:28.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:17:37.667Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.500Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="模式识别">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr1/pr_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -35,10 +43,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -47,10 +58,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -60,9 +71,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -111,7 +119,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -176,7 +187,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-模式识别" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-模式识别" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -275,7 +286,7 @@ p\left( x|\omega _1 \right) =p\left( x|\omega _2 \right)</script><p>​    得�
 <script type="math/tex; mode=display">
 \lambda _{12}p\left( x|\omega _1 \right) =\lambda _{21}p\left( x|\omega _2 \right)</script><p>​    得$x_0=(1-\mathrm{ln}2)/2$，可以发现阈值向左移动了。为了便于记忆，我们可以只记$L$的下标，$\lambda_{ij}$指的是在分类$i$时错误$j$的权重，在这里，$p\left( x|\omega _1 \right)$在$p\left( x|\omega _2 \right)$的左侧，所以$\lambda_{12}$指的就是分类$\omega_1$时错判成$\omega_{2}$的权重，我们发现这里$\lambda_{12}&lt;\lambda_{21}$，可以直观的理解成：把$\omega_2$错分成$\omega_1$更加严重。所以阈值一定会向左移，这样更不容易错分，或者“宁可把$\omega_1$分成$\omega_2$”。与计算的结果是相符的。</p>
 <center>
-    <img src='/images/pr_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr1/pr_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -338,13 +349,13 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\boldsymbol{x}^T\varSigma _{i}^{-1
 <script type="math/tex; mode=display">
 g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \frac{x_{1}^{2}}{\sigma _{i1}^{2}}+\frac{x_{2}^{2}}{\sigma _{i2}^{2}} \right) +\frac{\mu _{i1}}{\sigma _{i1}^{2}}x_1+\frac{\mu _{i2}}{\sigma _{i2}^{2}}x_2-\frac{1}{2}\left( \frac{\mu _{i1}^{2}}{\sigma _{i1}^{2}}+\frac{\mu _{i2}^{2}}{\sigma _{i2}^{2}} \right) +\ln P\left( \omega _i \right) +c_i</script><h4 id="Hyper-Plane"><a href="#Hyper-Plane" class="headerlink" title="Hyper Plane"></a>Hyper Plane</h4><p>​    我们不必研究协方差矩阵不为对角阵的情况，我们知道那只是将上式表示的二次曲线再作一下拉伸或旋转的变换。观察可得，对于决策曲线$g_i(\boldsymbol{x})-g_j({\boldsymbol{x}})=0$，二次项的符号决定了它是椭圆，还是双曲线，还是抛物线。</p>
 <center>
-    <img src='/images/pr_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr1/pr_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    实际上，我们可以画出上面三个例子的真实分布：</p>
 <center>
-    <img src='/images/pr_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr1/pr_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -382,14 +393,14 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{
 <script type="math/tex; mode=display">
 \frac{\left( x_{1}^{'}-\mu _{i1}^{'} \right) ^2}{\lambda _1}+...+\frac{\left( x_{n}^{'}-\mu _{in}^{'} \right) ^2}{\lambda _n}=c^2</script><p>​    这就得到了一个超椭球体，可以想象，这与欧式距离产生的超球体有明显的不同。当我们对$x_1,x_2,..$赋予一个实际意义时，这样往往更有意义，可以考虑到不同特征间的相互关系，以及对不同的特征施加不同的尺度。下面做了一些可视化：</p>
 <center>
-    <img src='/images/pr_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr1/pr_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    第一行展示了在协方差矩阵对角线相同时先验概率变化的情形，与我们的推断是一致的。第二行展示了非对角的协方差矩阵的情况。在这里我停留一下论述一个事实，由上图我们也能看出，非对角的协方差矩阵可以由一个旋转变换得到。实际上这已经是全部的非对角协方差的情形了，我们不该觉得其有什么特殊。实际上，还是归结于实对称矩阵的相似对角化，就像之前所说的$\varSigma =\varPhi \varLambda \varPhi ^T$，其中$ \varLambda$即拉伸变换，$\varPhi$是正交变换，它可以理解为某种旋转，而$\varPhi^T$由于满足$\varPhi \varPhi^T=I$，所以是对应的逆变换，相当于“转回来”。</p>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    在实际应用中，高斯分布被普遍的用来描述某种事物的分布，因此贝叶斯分类要不就是线性的，要不就是二次的。取决于对其协方差矩阵的假设，为了判断各自的协方差矩阵是完全相同还是不同的，常用最大似然估计。如果我们假设是线性的，那就会引入线性判别分析；如果是二次，那就是二次判别分析，这是下一篇要写的了。</p>
 <center>
-    <img src='/images/pr_5.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr1/pr_5.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -426,6 +437,7 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -579,8 +591,7 @@ g_i\left( \boldsymbol{x} \right) =-\frac{1}{2}\left( \boldsymbol{x}-\boldsymbol{
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -650,19 +661,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -720,15 +753,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -812,15 +845,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,15 +869,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1053,20 +1086,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

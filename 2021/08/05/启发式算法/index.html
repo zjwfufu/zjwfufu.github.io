@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,16 +23,16 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    有一些神棍算法在面对解空间庞大的算一天一夜都搜不出来的时候是很有效的，起码可以让我能给出一个答案，所以还是有必要整理的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Heuristic%20Algorithm_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Heuristic%20Algorithm_2.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/Heuristic%20Algorithm_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic1/Heuristic%20Algorithm_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic1/Heuristic%20Algorithm_2.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/heuristic1/Heuristic%20Algorithm_3.jpg">
 <meta property="article:published_time" content="2021-08-05T09:53:54.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:06:32.708Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.452Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学建模">
 <meta property="article:tag" content="启发式算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/Heuristic%20Algorithm_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/heuristic1/Heuristic%20Algorithm_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -32,10 +40,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -44,10 +55,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -57,9 +68,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -108,7 +116,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -173,7 +184,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-启发式算法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-启发式算法" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -216,7 +227,7 @@
 <p>​    现在有一群眼虫藻，它们分别处在不同的亮度的地方生活，但是逐渐由于相对低处的有毒物质积累而渐渐杀死了在低亮度区域的眼虫藻，在较高区域的眼虫藻繁殖变异，而有毒物质也越来越向高处蔓延，最后筛选出的眼虫藻就是在最高处的眼虫藻。这种方法就是遗传算法。</p>
 <p>​    这三种都是经典的启发式算法，下面来进行细致的介绍。</p>
 <h4 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h4><center>
-    <img src='/images/Heuristic Algorithm_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic1/Heuristic Algorithm_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -244,13 +255,13 @@ x=a+x^t\frac{\left( b-a \right)}{2^l-1}</script><p>​    在这里，$a=0,b=15,
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%交叉</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[newpop]</span>=<span class="title">crossover</span><span class="params">(pop,pc)</span></span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);</span><br><span class="line">newpop=<span class="built_in">ones</span>(<span class="built_in">size</span>(pop));</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">2</span>:px<span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">rand</span>&lt;pc)</span><br><span class="line">        cpoint=<span class="built_in">round</span>(<span class="built_in">rand</span>*py);</span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=[pop(<span class="built_in">i</span>,<span class="number">1</span>:cpoint),pop(<span class="built_in">i</span>+<span class="number">1</span>,cpoint+<span class="number">1</span>:py)];</span><br><span class="line">        newpop(<span class="built_in">i</span>+<span class="number">1</span>,:)=[pop(<span class="built_in">i</span>+<span class="number">1</span>,<span class="number">1</span>:cpoint),pop(<span class="built_in">i</span>,cpoint+<span class="number">1</span>:py)];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">        newpop(<span class="built_in">i</span>+<span class="number">1</span>,:)=pop(<span class="built_in">i</span>+<span class="number">1</span>,:);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%变异</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[newpop]</span>=<span class="title">mutation</span><span class="params">(pop,pm)</span></span></span><br><span class="line">[px,py]=<span class="built_in">size</span>(pop);</span><br><span class="line">newpop=<span class="built_in">ones</span>(<span class="built_in">size</span>(pop));</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:px</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">rand</span>&lt;pm)</span><br><span class="line">        mpoint=<span class="built_in">round</span>(<span class="built_in">rand</span>*py);</span><br><span class="line">        <span class="keyword">if</span> mpoint&lt;=<span class="number">0</span></span><br><span class="line">            mpoint=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:mpoint</span><br><span class="line">            <span class="keyword">if</span> newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)==<span class="number">0</span></span><br><span class="line">                newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                newpop(<span class="built_in">i</span>,<span class="built_in">j</span>)=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newpop(<span class="built_in">i</span>,:)=pop(<span class="built_in">i</span>,:);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>​    接下来就是迭代求解了，之后将结果给出，在这个流程中，我们可以知道，遗传算法是要根据具体问题调整的，并且其中①染色体长度②适应度函数③相关参数（pc,pm,Con等）都要根据具体问题来进行修改，上面的例子运行后的结果是：</p>
 <center>
-    <img src='/images/Heuristic Algorithm_2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic1/Heuristic Algorithm_2.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    这个效果并不是特别好，我们都发现，如果多次实验，它不一定能到达最优解，有时甚至会只是停留在一个可以“可以接受的解”，但这就是有用的地方，考虑38个坐标的TSP问题，如果用蒙特卡罗模拟100000000次，得到结果为1.6843e+04,编写遗传算法实现，可以在很短的时间得到7.681e+03的效果不错的解：</p>
 <center>
-    <img src='/images/Heuristic Algorithm_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/heuristic1/Heuristic Algorithm_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -355,6 +366,7 @@ x=a+x^t\frac{\left( b-a \right)}{2^l-1}</script><p>​    在这里，$a=0,b=15,
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -504,8 +516,7 @@ x=a+x^t\frac{\left( b-a \right)}{2^l-1}</script><p>​    在这里，$a=0,b=15,
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -575,19 +586,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -645,15 +678,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +770,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,15 +794,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -978,20 +1011,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

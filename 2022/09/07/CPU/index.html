@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,20 +23,20 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    上学期计算机组成有个线上实验平台，尤其最后补全一个单总线CPU非常好玩。当时其实不是很懂，赶紧做完了就交了，但是看那个电路动起来还是很激动，隔了两个月，这几天有点时间，查了查资料整理一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/CPU_8.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/cpu/CPU_8.gif">
 <meta property="article:published_time" content="2022-09-07T12:41:45.000Z">
-<meta property="article:modified_time" content="2023-08-27T02:55:00.859Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.363Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/CPU_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/cpu/CPU_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -36,10 +44,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -48,10 +59,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -61,9 +72,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -112,7 +120,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -177,7 +188,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CPU" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CPU" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -219,7 +230,7 @@
 <p>​    首先，CPU的一个经典的工作流程是：取指令→分析指令→执行指令→取指令，我一直对那几门课没有热情，就是因为教的时候很多内容高度概括，这导致学到这儿和那儿，联系不起来。比如学Cache，其实不需要想那么多，死学Cache八股即可；然后学到CPU，基本只能考微指令的书写，也是八股。结果两者之间建立不了什么真切的联系，抑或是和数字电路的关系，也太形而上了。而如果应对考试需求，这确实也够了。好了牢骚发完了，我开始写了。</p>
 <p>​    实验的背景设置的是RISC-V指令集，但实际上没有到那么复杂的地步。</p>
 <center>
-    <img src='/images/CPU_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -228,7 +239,7 @@
 <p>​    由于这个例子是单总线，所以各自部件都连接在总线上，各个部件间通过总线进行传输，同一个节拍内总线上只能有一个数据。</p>
 <p>​    现在，有了一个完善的指令集和一套汇编语言，来达到想要的目的。我们也能看懂每一条指令要做什么。现在我们来认识CPU是如何“执行”一条指令的。</p>
 <center>
-    <img src='/images/CPU_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -237,26 +248,26 @@
 <p>​    那么CPU如何知道在什么时候释放什么信号呢？这就是右上角黄色框的控制器的作用。这里的逻辑是当指令寄存器IR接收到指令时，经过分析产生指令译码信号ID，送入控制器就会产生操作控制信号。</p>
 <p>​    这里的实验采用的是硬布线的控制器，即纯组合逻辑电路。前面我们知道，一条指令的执行，在一个指令周期里，分为若干机器周期，每一机器周期会有若干节拍。在这里实验中模拟的是定长指令周期的三级时序，也就是三个子周期（取指令，计算/分析，执行），每个子周期有4个节拍。一旦确定了某一时刻节拍和子周期的情况，即可输出此时的控制信号。</p>
 <center>
-    <img src='/images/CPU_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    基于此，需要一个简单的时序发生器，但是和数电课本上不同的是，由于这里已经打包好了由D触发器组成的寄存器（<em>Register</em>），所以它可能外观上不太像从课本里学的经典摩尔型电路……状态转移图和真值表为：</p>
 <center>
-    <img src='/images/CPU_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    通过真值表可以使用logisim生成组合逻辑电路，最终：</p>
 <center>
-    <img src='/images/CPU_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    这里的状态机完成的是将四位二进制（0~11）每一次都+1，状态寄存器会记录下一时刻的状态，CLK连接使能端。最右边的输出函数即按上图真值表连接的组合逻辑电路。这样当$t$时刻时，状态寄存器的值会传给输出函数产生状态节拍{Mif,Mcal,Mex,T1,T2,T3,T4}，同时传给状态机将此时的状态$S$加1，然后储存给寄存器。如此往复……</p>
 <p>​    同理，有了节拍信号后，与指令译码器分析得到的指令结合，可以得到在各自子周期的节拍中的控制信号。逻辑是一样的，只不过有些复杂：</p>
 <center>
-    <img src='/images/CPU_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -264,14 +275,14 @@
 <p>​    我们可以看出，刚才的取指令Memory[PC]→IR，PC++正好使用了4个节拍。那么如果有些指令只需2个或3个节拍完成，就会导致浪费，所以就有了变长指令周期的CPU。这是后话了……</p>
 <p>​    就像取指令这一步一样，我们要考虑的lw,sw,beq等指令也会有各自的控制流。我们就不一个个分析了。总之最后的组合逻辑单元与之前的时序发生器，构成了控制器。</p>
 <center>
-    <img src='/images/CPU_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    上图是最终的硬布线组合逻辑单元。我们可以发现，这种硬布线的方法，即使只有这么有限的几个指令，线路也很复杂。所以就有了另一种微程序的设计。</p>
 <p>​    现在，我们就基本解构了最开始那张CPU的图。一些更细致的观察：例如右上角硬布线控制器周围的许多分线器，其实仔细观察不难发现他们对照的是RISC-V指令集的各种设置（func7,rs2,rs1,funct3.opcode…），之后通过硬布线控制器发出的控制信号，那些控制三态门的in,out有规律的亮起，来打通数据通路，执行各自的任务。这非常的精巧。</p>
 <center>
-    <img src='/images/CPU_8.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/cpu/CPU_8.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    这就是它动起来的样子了。我们可以看到它们按部就班的工作，控制信号有规律的亮起和暗下。</p>
@@ -314,6 +325,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -459,8 +471,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -530,19 +541,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -600,15 +633,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +725,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +749,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -933,20 +966,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

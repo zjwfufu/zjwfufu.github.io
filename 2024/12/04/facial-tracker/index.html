@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,20 +23,20 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    “再回首，读来路；少年轻狂，犹如南柯一梦。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/fa_teeth.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/gb_teeth.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/ga_teeth.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/FLAME_masks.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/draw_ga_teeth.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/vhap_init.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/xiaohan.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/fa_teeth.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/gb_teeth.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/ga_teeth.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/FLAME_masks.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/draw_ga_teeth.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/vhap_init.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/facial_tracker/xiaohan.png">
 <meta property="article:published_time" content="2024-12-04T11:47:52.000Z">
-<meta property="article:modified_time" content="2024-12-28T01:42:48.889Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.660Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/fa_teeth.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/facial_tracker/fa_teeth.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -36,10 +44,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -48,10 +59,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -61,9 +72,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -112,7 +120,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -177,7 +188,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-facial-tracker" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-facial-tracker" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -272,25 +283,25 @@
 <p>​    在不同的cfg下会触发不同的调用。我们先从单目视频的情形下入手。这样一方面是比较简单，另一方面是我们可以借助单目视频下的情形把优化项都看一遍，这样在多视角的情况下我们就不需要关心优化函数了。</p>
 <h4 id="Add-Teeth"><a href="#Add-Teeth" class="headerlink" title="Add Teeth"></a>Add Teeth</h4><p>​    <code>GlobalTracker</code>继承自<code>FlameTracker</code>，在其初始化方法中会先调用<code>FlameTracker</code>的构造方法。在<code>FlameTracker</code>中，执行了FLAME的实例化<code>FlameHead</code>以及渲染后端<code>render</code>的构造。作者这里使用的是FLAME2023，并且在常用的FLAME类的基础上进行了修改。第一个逆天操作是给FLAME增加牙齿，为什么说这是个逆天操作呢，因为我丝毫做不到这样实现。一种最简单的方法是用blender把mesh上下嘴唇部手动给连上面，然后进行UV映射，调整成合适的UV布局。这样当然并不是真的牙，但为了单纯表达牙和口腔内部也能凑合用了。</p>
 <center>
-    <img src='/images/fa_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/fa_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>在<a target="_blank" rel="noopener" href="https://github.com/zjumsj/GaussianBlendshapes/tree/main">GaussianBlendshapes</a>里，一个高年级博士生实现的方法是，先手动构造两个近似牙齿形状的面（如下图所示）</p>
 <center>
-    <img src='/images/gb_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/gb_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>然后测出一个合适的offset，在代码里把这两个面塞进mesh上合适的位置。由于GaussianBlendshapes的设计，这只是一个简单的面，没有构造UV映射。为了让其能跟着下巴的运动而动，还需要写一些代码将每次下巴的刚体变换拿出来，然后分别给这两个面用，这带来了不少麻烦。处理的已经很巧妙了但仍然有些不优雅。</p>
 <p>​    然而VHAP，也就是<a target="_blank" rel="noopener" href="https://shenhanqian.github.io/gaussian-avatars">GaussianAvatars</a>做法：</p>
 <center>
-    <img src='/images/ga_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/ga_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>是一个形状非常像牙的“牙”，而不是瓦楞纸或者一层膜，以及还构造了一个很均匀的UV坐标（哪怕按照GaussianAvatars的做法这并不是必须的）。而这个操作纯粹是在代码中实现的，不需要引入第三方的工具，这个补牙的操作的实现充满着作者对FLAME的理解。首先的起手式是FLAME提供的关于顶点的masks：</p>
 <center>
-    <img src='/images/FLAME_masks.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/FLAME_masks.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -314,7 +325,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.f = BufferContainer()</span><br><span class="line"><span class="keyword">for</span> region_name, f_mask <span class="keyword">in</span> face_masks.items():</span><br><span class="line">	self.f.register_buffer(region_name, torch.tensor(f_mask, dtype=torch.long))</span><br></pre></td></tr></table></figure>
 <p>计算纹理坐标上面片的mask与上述原理相同。做了这些准备工作以后，就可以追加牙齿了。追加牙齿的逻辑全部封装在了<code>FlameHead</code>的<code>add_teeth</code>中，首先通过之前自定义的<code>&#39;lip_outside_ring_upper&#39;</code>和<code>&#39;lip_outside_ring_lower&#39;</code>来在标准模板上构造关于牙齿的顶点，其结果如下图所示：</p>
 <center>
-    <img src='/images/draw_ga_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/draw_ga_teeth.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>其中红色是<code>v_lip_upper</code>，蓝色是<code>v_lip_lower</code>，黑色是将上下唇顶点求平均得到的<code>v_teeth_middle</code>。通过平移Y轴和Z轴，可以得到右侧所示的八排顶点。</p>
@@ -460,7 +471,7 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ---- uv-space attributes ----</span></span><br><span class="line">texc, texd = dr.interpolate(verts_uv[<span class="literal">None</span>, ...], rast_out, faces_uv, rast_db=rast_out_db, diff_attrs=<span class="string">&#x27;all&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> align_texture_except_fid <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  <span class="comment"># <span class="doctag">TODO:</span> rethink when shading with normal</span></span><br><span class="line">    fid = rast_out[..., -<span class="number">1</span>:].long()  <span class="comment"># the face index is shifted by +1</span></span><br><span class="line">    mask = torch.zeros(faces.shape[<span class="number">0</span>]+<span class="number">1</span>, dtype=torch.<span class="built_in">bool</span>, device=fid.device)</span><br><span class="line">    mask[align_texture_except_fid + <span class="number">1</span>] = <span class="literal">True</span></span><br><span class="line">    b, h, w = rast_out.shape[:<span class="number">3</span>]</span><br><span class="line">    rast_mask = torch.gather(mask.reshape(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, -<span class="number">1</span>).expand(b, h, w, -<span class="number">1</span>), <span class="number">3</span>, fid)</span><br><span class="line">    texc = torch.where(rast_mask, texc.detach(), texc)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> align_boundary_except_vid <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    verts_clip = self.detach_by_indices(verts_clip, align_boundary_except_vid)</span><br></pre></td></tr></table></figure>
 <p>被这两组索引选中的面片和顶点将会被detach。这非常的自然，在刚开始优化纹理的时候，我们不希望头发处的offset开始移动，因为此时的光度损失并不准。由于此时FLAME的位置基本是被校准的，所以<code>(&#39;hair&#39;, &#39;boundary&#39;, &#39;neck&#39;)</code>三个区域被detach，从而使<code>rgb_init_texture</code>阶段纹理图专注于拟合脸部外貌，同时顶点的<code>(&#39;hair&#39;, &#39;boundary&#39;)</code>也被屏蔽，使得此时先不要学习头发处的几何。之后在<code>rgb_init_offset</code>阶段，<code>align_boundary_except</code>中的<code>&#39;hair&#39;</code>被移除，并且<code>optimizable_params</code>追加了<code>static_offset</code>，允许顶点开始拟合头部几何。为了更好的理解整个过程，且看此图：</p>
 <center>
-    <img src='/images/vhap_init.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/vhap_init.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -591,7 +602,7 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
 <p>​    整个tracker写的“开箱即用”，将数据集按路径准备好了就可以一键启动了。</p>
 <center>
 <video id="video" controls style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <source id="mp4" src="/images/tracking.mp4" type="video/mp4" >
+    <source id="mp4" src="/images/facial_tracker/tracking.mp4" type="video/mp4" >
 </video>
 </center>
 
@@ -604,7 +615,7 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
 <p>回想当时按下推免按钮，“少年轻狂，犹如南柯一梦。”。后来只剩下调了一天camera convention，窝在出租屋蜷着被子刷着手机看见同学该实习的实习，该顶会的顶会，这下更麻了。</p>
 <p>​    算了，扯点别的吧。“我永远喜欢罗小涵！”</p>
 <center>
-    <img src='/images/xiaohan.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/facial_tracker/xiaohan.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -643,16 +654,17 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -664,11 +676,11 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -807,8 +819,7 @@ n_i=\int_{S^2}{N\cdot \omega \cdot Y_i\left( \omega \right) \mathrm{d}\omega}</s
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -878,19 +889,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -948,15 +981,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1040,15 +1073,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1064,15 +1097,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1281,20 +1314,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

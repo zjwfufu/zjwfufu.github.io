@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,23 +23,23 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    具有特殊性质的二叉树是实现某些操作的最佳容器，但维护这种特殊性质也并不简单。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/BST_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/BST_delete.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_insert.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_delete.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/tree_family.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/AVL_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/BST_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/BST_delete.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_insert.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_delete.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/tree_family.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/bt2/AVL_end.png">
 <meta property="article:published_time" content="2023-04-23T03:56:23.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:00:42.468Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.426Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/BST_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/bt2/BST_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -39,10 +47,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -51,10 +62,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -64,9 +75,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -115,7 +123,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -180,7 +191,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-二叉树2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-二叉树2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -249,7 +260,7 @@
 <p>​    我们在删除时，需要维护二叉排序树的性质。我们一步一步来思考这个问题，二叉树的中序遍历是一个单增序列。如果我们只看这样的一个线性序列，删除非常简单。我们，想删除谁就删除谁就好了。</p>
 <p>​    但唯一的区别就在于二叉树是一个非线性结构，实际上我们可以直观的把中序遍历开成它的垂直投影：</p>
 <center>
-    <img src='/images/BST_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/BST_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -275,7 +286,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             23</span><br><span class="line">             / \</span><br><span class="line">            /   \</span><br><span class="line">           /     \</span><br><span class="line">          /       \</span><br><span class="line">         /         \</span><br><span class="line">        /           \</span><br><span class="line">       /             \</span><br><span class="line">      10              25</span><br><span class="line">     / \               \</span><br><span class="line">    /   \               \</span><br><span class="line">   /     \               \</span><br><span class="line">  5       15              27</span><br><span class="line"> / \     / \</span><br><span class="line">3   7   13  17</span><br></pre></td></tr></table></figure>
 <p>​    这个过程的动态可视化：</p>
 <center>
-    <img src='/images/BST_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/BST_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -284,20 +295,20 @@
 <p>​    我们并不希望这种事情的发生，于是有了平衡二叉树的概念。AVL树是最先发明的一种自平衡二叉搜索树。在AVL树中，每个结点会额外储存一个平衡因子(balanced factor)，这个值是左子树高度和右子树高度之差，它被要求在-1，0，1中。我们称这样的性质为AVL性质。如果AVL树因为插入和删除，破坏了这样的性质。那么需要进行旋转(rotate)来恢复它。</p>
 <p>​    在前面二叉排序树的删除中，我们已经体会到，树的递归性质。由于从一个空结点开始，插入第一个元素，它一定是满足AVL性质的。插入第二个，无论是大于还是小于，也还是满足的，此时根结点的平衡因子为1。只有在此基础上，继续插入元素，才会产生AVL性质的破坏。所以，插入元素的落点只会有4种情况：</p>
 <center>
-    <img src='/images/AVL_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    对于LL型和RR型，他们可以通过一次右旋(right rotation)和一次左旋(left rotation)来实现调整：</p>
 <center>
-    <img src='/images/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    可以看到一次右旋对应的是LL型，一次左旋是RR型。所谓左/右旋，可以形象的理解为，将AVL性质破坏的那个结点，看作方向盘的中心，然后左打/右打方向盘。我们以一次右旋为例，相当于A连同其较短的右子树，统一下降一个高度；B连同其孩子，统一上升一个高度。这样，A的高度差就被填平了。由于B被抬上去成了根结点，而B不能有三个孩子，所以很自然的，B的右孩子过继到A的左孩子（因为这样不影响高度）。</p>
 <p>​    当插入结点为LR和RL型时，情况变得少许复杂：</p>
 <center>
-    <img src='/images/AVL_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -311,7 +322,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">bstnode* <span class="title function_">right_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">	bstnode* new_root = node-&gt;l_child;</span><br><span class="line">	node-&gt;l_child = new_root-&gt;r_child;</span><br><span class="line">	new_root-&gt;r_child = node;</span><br><span class="line">	node-&gt;balance_factor = balance_factor(node);</span><br><span class="line">	new_root-&gt;balance_factor = balance_factor(new_root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bstnode* <span class="title function_">left_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    bstnode* new_root = node-&gt;r_child;</span><br><span class="line">    node-&gt;r_child = new_root-&gt;l_child;</span><br><span class="line">    new_root-&gt;l_child = node;</span><br><span class="line">    node-&gt;balance_factor = balance_factor(node);</span><br><span class="line">    new_root-&gt;balance_factor = balance_factor(new_root);</span><br><span class="line">    <span class="keyword">return</span> new_root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    我们逐句的分析一下right_rotate()，因为left_rotate()的逻辑跟它完全一样。对应之前的图可以更易理解：</p>
 <center>
-    <img src='/images/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -320,7 +331,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bstnode* <span class="title function_">right_left_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    node-&gt;r_child = right_rotate(node-&gt;r_child);</span><br><span class="line">    <span class="keyword">return</span> left_rotate(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bstnode* <span class="title function_">left_right_rotate</span><span class="params">(bstnode* node)</span></span><br><span class="line">&#123;</span><br><span class="line">    node-&gt;l_child = left_rotate(node-&gt;l_child);</span><br><span class="line">    <span class="keyword">return</span> right_rotate(node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​    之前二叉排序树的插入操作，是递归实现的。每一次递归调用的函数，处理的都是根结点。所以当我们最终，找到插入的位置后。只需在完成插入函数的后面，加一步更新平衡因子和旋转的判断，即可沿着插入的路径不断调整结点：</p>
 <center>
-    <img src='/images/AVL_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -336,26 +347,26 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input -1 as key to end</span><br><span class="line">1 a 2 d 3 c 4 b 5 e 6 f -1</span><br><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2                                                                                 </span><br><span class="line">   \</span><br><span class="line">    3                                                                                      \</span><br><span class="line">      4                                                                               		 \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
 <p>​    这个插入的过程可以可视化为：</p>
 <center>
-    <img src='/images/AVL_insert.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_insert.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    同样，我们可以可视化一下删除过程：</p>
 <center>
-    <img src='/images/AVL_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_delete.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <h3 id="Other-trees"><a href="#Other-trees" class="headerlink" title="Other trees"></a>Other trees</h3><p>​    除了这两种tree，还有更多的树型结构：</p>
 <center>
-    <img src='/images/tree_family.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/tree_family.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    可是我并没有那么长的时间，像学习之前这两者一样，逐一学习，实现，可视化。如果每个都探索，也背离了我写这个blog的初衷，我还有别的事情需要做。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    “吾生也有涯，而知也无涯。”</p>
 <center>
-    <img src='/images/AVL_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/bt2/AVL_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -392,6 +403,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -537,8 +549,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -608,19 +619,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -678,15 +711,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,15 +803,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,15 +827,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1011,20 +1044,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

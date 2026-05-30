@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,26 +23,26 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    这篇blog是来记录如何理解和使用8253的！时间不多了！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w0.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_w5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_3.png%20style=">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_5.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8253_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/miku_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w0.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_w5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_5.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/8253_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc6/miku_1.jpg">
 <meta property="article:published_time" content="2023-02-26T09:57:41.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:13:06.602Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.481Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/8253_0.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/mc6/8253_0.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -42,10 +50,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -54,10 +65,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -67,9 +78,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -118,7 +126,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -183,7 +194,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-微机原理与接口设计6" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微机原理与接口设计6" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -222,7 +233,7 @@
 <span id="more"></span>
 <p>​    假设你已经掌握了如何解决8255A的题目，那么如下图所示，你应该可以很轻松的解决左侧的连接：</p>
 <center>
-    <img src='/images/8253_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -231,14 +242,14 @@
 <p>​    8253有三个通道，记作计数器0，计数器1，计数器2。紧随着可以定义每个通道的读写方式，锁存，读低8位，读高8位，读写16位（其实是先读低8位再读高8位，所以编程时需要两次调用）。但这里不是重点，大部分编程8253的时候，都采用16位读写。</p>
 <p>​    接下来的三位，用二进制定义了6种工作方式，方式0~5。最后1位定义了是否为BCD，如果是0，就是普通的2进制计数，如果是1，其实就是十进制计数。</p>
 <center>
-    <img src='/images/8253_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    将上述控制字输入控制字寄存器（和8255A一样）就可以逐个设置不同技术通道。当将端口地址换为技术通道0，1，2时，再输入的，就是计数初值，也叫时常数。另外两个信号，一个是CLK，时钟信号；一个是GATE，门信号。我们结合6种方式来依次学习。注意，我们先很快的知道，每个方式是什么意思。然后在后面，我会系统的归纳这六种方式，从而让人更容易理解和记忆。</p>
 <h4 id="方式0-计数中断"><a href="#方式0-计数中断" class="headerlink" title="方式0-计数中断"></a>方式0-计数中断</h4><p>​    方式0是最简单的方式，当设置为方式0后，OUT会变为低电平。指定一个时常数例如5，OUT会持续5个周期的低电平。然后OUT再跳回高电平。所以如果输入时常数$N$，那么会得到低电平宽度为$N+1$的计数时钟，我们这里忽略了一些细节，但对初步的理解影响不大。</p>
 <center>
-    <img src='/images/8253_w0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w0.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -247,7 +258,7 @@
 <h4 id="方式1-单稳负脉冲"><a href="#方式1-单稳负脉冲" class="headerlink" title="方式1-单稳负脉冲"></a>方式1-单稳负脉冲</h4><p>​    这里要先解释什么是单稳脉冲，即在输入的激励下产生固定宽度的脉冲。输入一个不低于规定的最小宽度的脉冲后，单稳电路就输出一个用户事先设定宽度的脉冲。输入脉冲称为触发脉冲，一般由边沿触发。我们可以想象，如果要做这样一个单稳电路，是需要较为复杂的构造电阻，电容的，不能随意更改。所以8253的方式1可以通过编程，来灵活的修改输出脉冲的宽度。</p>
 <p>​    所以，在方式1中，并不是一旦设置好方式和时常数，OUT就会有变化。（当然，写入控制字后OUT会变成高电平。）如上所说，触发是靠边沿的，这里是GATE的上升沿。所以，这其实是硬件触发的一种机制。当GATE触发一次后，下一个时间步，OUT就会进入低电平，持续时常数个周期。</p>
 <center>
-    <img src='/images/8253_w1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -255,7 +266,7 @@
 <p>​    我们可以把方式1想象成一个计数器，例如接在马路上的车辆计数器。有车经过，会产生单稳负脉冲，所以通过统计正脉冲的数量，就可以知道车辆数量。</p>
 <h4 id="方式2-分频脉冲"><a href="#方式2-分频脉冲" class="headerlink" title="方式2-分频脉冲"></a>方式2-分频脉冲</h4><p>​    分频是一个重要的功能，我们的时钟信号往往是很高频率的，不容易满足我们宏观设计的需要。在方式2中，写入控制字，OUT变为高电平。然后，写入时常数后，开始计数，当计数器到1时，OUT变为低电平。然后再变回去。</p>
 <center>
-    <img src='/images/8253_w2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -263,7 +274,7 @@
 <p>​    显然，时常数在方式2中也被自动装填了。</p>
 <h4 id="方式3-方波发生器"><a href="#方式3-方波发生器" class="headerlink" title="方式3-方波发生器"></a>方式3-方波发生器</h4><p>​    方式3与方式2几乎完全一样，但从名字可以知道，方式3可以控制分频信号的占空比近似为50%（与方波一样），近似的原因是，时常数可能是奇数，仅此而已。</p>
 <center>
-    <img src='/images/8253_w3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -274,13 +285,13 @@
 <p>​    简而言之，方式4是维持$N$个高电平，然后来一下低电平，来扮演选通信号。与方式0一样，它的时常数不能回填。（因为也不需要）</p>
 <p>​    方式4应用于启动数据传输，打印等流程中。</p>
 <center>
-    <img src='/images/8253_w4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <h4 id="方式5-硬件触发"><a href="#方式5-硬件触发" class="headerlink" title="方式5-硬件触发"></a>方式5-硬件触发</h4><p>​    与方式4对偶，方式5指的就是如何让外部触发一个事件。这里就是在GATE里做手脚了。很简单，输入控制字后，如果GATE迎来了一个上升沿，那么，OUT就开始等待$N$个周期，$N$个周期后变成低电平。</p>
 <center>
-    <img src='/images/8253_w5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_w5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -289,7 +300,7 @@
 <p>​    充当计数器类的是方式0，1，4，5。但启动计数器的方式有两种，一种是CPU把时常数写入相应通道后计数器开始工作，这称为软件启动。这种方式下，GATE需要始终保持高电平。另一种是只有GATE产生上升沿时，才开始工作，故称为硬件触发。同时， OUT的输出也分为两种，方式0和1输出的是负脉冲，方式4和5生成的是正电平。</p>
 <p>​    我们可以总结如下图：</p>
 <center>
-    <img src='/images/8253_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -345,7 +356,7 @@
 <h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>​    下面给出两道例题，以便快速抓住重点。</p>
 <p>​    晶体振荡电路输出频率为1MHz，要求利用8253的输出驱动一个发光二极管，1秒点亮，1秒熄灭的方式闪烁。设8253的通道地址为2881H-2887H的奇地址。</p>
 <center>
-    <img src='/images/8253_3.png style="max-width: 800px; max-height: 600px; width: auto; height: auto;"'>
+    <img src='/images/mc6/8253_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -353,7 +364,7 @@
 <p>​    至于8253的右侧，这里涉及到级联的考点。考虑16位的时常数，在使用方式2和3时，它分频的倍数最大只能是$2^{16}=65536$倍，然而在这里，我们希望1MHz降频成0.5Hz，倍数是$2\times10^{6}$，这大于65536，所以需要两次分频。比如第一次倍数是1000，第二次是2000。</p>
 <p>​    于是我们可以连接全部电路：</p>
 <center>
-    <img src='/images/8253_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -364,7 +375,7 @@
 <p>​    下面我们看一道较为复杂的例题，这个题应该是理解里最为复杂的了。</p>
 <p>​    在8086最大模式中，有一大功率外设，为了降低系统的整体功耗，该外设采用周期间歇性工作方式，每1s内工作50ms，即每工作50ms后自动进入休眠。因此为了确保系统正常运行，需每隔1s产生选通脉冲（选通脉冲如下图OUT2输出所示）对其进行唤醒。分配端口地址为261H，263H，265H，267H，尝试实现这一方案：</p>
 <center>
-    <img src='/images/8253_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_5.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -376,7 +387,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 0011011B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AX, 2000</span><br><span class="line">MOV	DX, 261H</span><br><span class="line">OUT	DX, AL</span><br><span class="line">XCHG AH, AL</span><br><span class="line">OUT	DX,AL</span><br><span class="line"></span><br><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 01110110B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AX, 1000</span><br><span class="line">MOV	DX, 263H</span><br><span class="line">OUT	DX, AL</span><br><span class="line">XCHG AH, AL</span><br><span class="line">OUT	DX, AL</span><br><span class="line"></span><br><span class="line">MOV	DX, 267H</span><br><span class="line">MOV	AL, 10011010B</span><br><span class="line">OUT	DX, AL</span><br><span class="line">MOV	AL, 5</span><br><span class="line">MOV	DX, 265H</span><br><span class="line">OUT	DX, AL # 最后只有一个初值5，所以只用一次</span><br></pre></td></tr></table></figure>
 <p>​    最后，我们给出两种波形，来思考如何生成他们，以及和上面凌空出现的方式5做比较。</p>
 <center>
-    <img src='/images/8253_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/8253_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -385,7 +396,7 @@
 <p>​    我们可以看到，哪怕上面用方式5的例题，其实也可以由方式2实现，但由于考察的时候，指定了8253的连接方式，于是就有了方式5的表演。如果让我们自己连，其实那个选通脉冲可以用一个很长的方式2来实现，因为显然，在不选通的时候，OUT就需要满足高电平。那方式2不就正合适？时常数也是宽裕的。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    写的非常仓促，很麻，得去学模式识别了。</p>
 <center>
-    <img src='/images/miku_1.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc6/miku_1.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -422,6 +433,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -567,8 +579,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -638,19 +649,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -708,15 +741,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,15 +833,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +857,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1041,20 +1074,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

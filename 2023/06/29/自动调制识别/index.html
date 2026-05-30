@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,24 +23,24 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    或许我应该给后来的人一些警示，关于“自动调制识别（Automatic Modulation Recognition）”。它有很多的名字，比如“自动调制分类（Automatic Modulation Classification）”，“调制样式识别（modulation identification）”。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_3.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_4.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_5.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/8ask.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/bpsk.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/2fsk.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/16qam.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_6.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_7.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/amc_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_3.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_5.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/8ask.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/bpsk.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/2fsk.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/16qam.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_6.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_7.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/amc/amc_end.png">
 <meta property="article:published_time" content="2023-06-29T15:20:41.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:22:18.777Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.519Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/amc_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/amc/amc_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -40,10 +48,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -52,10 +63,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -65,9 +76,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -116,7 +124,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -181,7 +192,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-自动调制识别" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-自动调制识别" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -242,7 +253,7 @@ I\left[ n \right] =a\left[ n \right] \cos \varphi \left[ n \right]
 \\
 Q\left[ n \right] =-a\left[ n \right] \sin \varphi \left[ n \right]</script><p>​    其中$I[n]$称为同相（<em>in-phase</em>），$Q[n]$称为正交（<em>Quadrature</em>）。所以自然的，我们可以设想这样的一种调制器：</p>
 <center>
-    <img src="/images/amc_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/amc/amc_1.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -259,7 +270,7 @@ g_{T_s}\left( t \right) =\left\{ \begin{array}{c}
 <p>​    同样，这种方式可以一次调制两个（独立）的信号，所以有一种理解的角度是：对于单路调制而言，它同时可以调制两个信号，携带的信息量翻倍，而最终调制信号的带宽不变，所以有更高的频率利用率。（这一点实际上是针对相同的调制方式说的。）</p>
 <p>​    现在我们要简单分析一下解调的这个过程：</p>
 <center>
-    <img src="/images/amc_2.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/amc/amc_2.jpg" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -310,7 +321,7 @@ a\left( t \right) =\sqrt{x^2\left( t \right) +\mathcal{H} ^2\left[ x\left( t \ri
 \\
 \omega \left( t \right) =\frac{\mathrm{d}\varphi \left( t \right)}{\mathrm{d}t}=\frac{H^{'}\left[ x\left( t \right) \right] \cdot x\left( t \right) -x^{'}\left( t \right) \cdot H\left[ x\left( t \right) \right]}{x^2\left( t \right) +\mathcal{H} ^2\left[ x\left( t \right) \right]}</script><p>​    这背后的直觉是：</p>
 <center>
-    <img src="/images/amc_3.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src="/images/amc/amc_3.gif" style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -319,7 +330,7 @@ a\left( t \right) =\sqrt{x^2\left( t \right) +\mathcal{H} ^2\left[ x\left( t \ri
 <p>​    所以现在，我们清楚了IQ调制的本质。“与其只传输一个实信号，不如传输一个解析信号。”</p>
 <h3 id="解调？整个系统？"><a href="#解调？整个系统？" class="headerlink" title="解调？整个系统？"></a>解调？整个系统？</h3><p>​    行文至此，其实我们只是对“为什么是IQ两路信号”做了回答。我们并没有给出整个系统的工作流程，虽然我们也不需要知道。但理解这整个系统，也会帮助我们加深对接下来“调制识别”的体会。</p>
 <center>
-    <img src='/images/amc_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/amc_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -363,7 +374,7 @@ g_{T_s}(t)=\sin\mathrm{c}\left( \frac{t}{T_s} \right) \frac{\cos \left( \pi \alp
 </blockquote>
 <p>​    我们这里对升余弦背后的一些技术细节和选择原理就不作讨论了。接下来记此时得到的两路信号（解析信号）为$s(t)$。最后$s(t)$与高频载波相乘，完成调制。如下图所示，我们实现了一个8ASK的调制方式：</p>
 <center>
-    <img src='/images/amc_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/amc_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -376,7 +387,7 @@ s_{\mathrm{mod}}\left( t \right) =p_{\mathrm{mod}}\left( t \right) \exp \left( j
 </ul>
 <script type="math/tex; mode=display">
 p_{ask}\left( t \right) =\sum_n{b_ng_{T_s}\left( t-nT_s \right)},\\ b_n\in \left\{ 0,1,...,M-1 \right\}</script><center>
-    <img src='/images/8ask.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/8ask.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -386,7 +397,7 @@ p_{ask}\left( t \right) =\sum_n{b_ng_{T_s}\left( t-nT_s \right)},\\ b_n\in \left
 </ul>
 <script type="math/tex; mode=display">
 p_{psk}\left( t \right) =\sum_n{\exp \left( j\varphi _n \right) g_{T_s}\left( t-nT_s \right)},\\\,\,\varphi _n\in \left\{ 0,\frac{1}{M}2\pi ,...,\frac{M-1}{M}2\pi \right\}</script><center>
-    <img src='/images/bpsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/bpsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -396,7 +407,7 @@ p_{psk}\left( t \right) =\sum_n{\exp \left( j\varphi _n \right) g_{T_s}\left( t-
 </ul>
 <script type="math/tex; mode=display">
 p_{fsk}\left( t \right) =\sum_n{\exp \left( j\left( \omega _n-\omega _c \right) t \right) g_{T_s}\left( t-nT_s \right)},\\\,\,\varphi _n\in \left\{ \omega _1,...,\omega _M \right\}</script><center>
-    <img src='/images/2fsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/2fsk.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -406,7 +417,7 @@ p_{fsk}\left( t \right) =\sum_n{\exp \left( j\left( \omega _n-\omega _c \right) 
 </ul>
 <script type="math/tex; mode=display">
 p_{qam}\left( t \right) =\sum_n{\left( a_n+jb_n \right) g_{T_s}\left( t-nT_s \right)}</script><center>
-    <img src='/images/16qam.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/16qam.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -485,13 +496,13 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
 <p>​    下载可以通过访问<a target="_blank" rel="noopener" href="https://www.deepsig.ai/">DeepSig</a>，其实除了这三个以外还有一个数据集：HisarMod2019.1，模拟了一些更复杂的情况，但我自己没有在这上面做过。关于这些数据集的各种参数之类的，网上都可以查到，这里不作赘述。</p>
 <p>​    我们可以检视一下RadioML2016.10a里的样本们：</p>
 <center>
-    <img src='/images/amc_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/amc_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    如果你在阅读完上面的内容后，自然地产生了一个疑问：“为什么这个波形和上面生成出来的相差这么多？”。其实是出于一个很自然的原因：“采样率”。在上面模拟每种调制方式时，为了看的清晰，每个符号其实是过采样的，用了甚至100个采样点来表达一个符号。而上述数据集一般都只会过采样2倍，相当于就是4倍于载频，并不会那么高。这是进行调整后的QAM16的例子：</p>
 <center>
-    <img src='/images/amc_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/amc_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -525,7 +536,7 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
 <p>​    但是，这个任务说穿了，也是一个非常基础的分类任务，实现难度并不会很大，适合初学者上手。但是，<strong>零食不能当饭吃</strong>。当得到了足够的科研训练后，应当去冲击一些更有挑战性的课题。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    这篇blog简单整理了自动调制识别任务所需要的一些背景知识，以及指出了一些接下来有希望的方向，算是给自己一个收尾。实际上就我个人经验，在升学面试时，老师基本不太关心自动调制识别（AMC）本身，老师大多关心这背后的信号分析的素养是否扎实，你对信号处理的理解是否到位。如果做AMC，做到最后，讲也讲不出来，支支吾吾就会说“两路正交信号”，“注意力机制”，“卷积神经网络”，那无疑是不合格的。</p>
 <center>
-    <img src='/images/amc_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/amc/amc_end.png'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -562,6 +573,7 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -707,8 +719,7 @@ f\left( :,\theta _0 \right) : \mathbb{R} ^{L\times 2}\rightarrow \mathbb{R} ^C</
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -778,19 +789,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -848,15 +881,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -940,15 +973,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -964,15 +997,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1181,20 +1214,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

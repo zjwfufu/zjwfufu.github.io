@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,22 +23,22 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="“所幸敝屣荣华且把酒，风雨偏洗岳阳楼。”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_1.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_2.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_3.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_4.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_5.gif">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_6.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_7.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_9.png">
-<meta property="og:image" content="https://zjwfufu.github.io/images/trellis_end.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_1.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_2.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_3.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_4.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_5.gif">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_6.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_7.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_9.png">
+<meta property="og:image" content="https://zjwfufu.github.io/images/trellis/trellis_end.png">
 <meta property="article:published_time" content="2025-03-18T13:01:27.000Z">
-<meta property="article:modified_time" content="2025-12-14T14:08:49.634Z">
+<meta property="article:modified_time" content="2026-05-30T04:28:48.669Z">
 <meta property="article:author" content="张嘉伟">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="3DV">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/trellis_1.png">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/trellis/trellis_1.png">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -38,10 +46,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -50,10 +61,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -63,9 +74,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -114,7 +122,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -179,7 +190,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-trellis" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-trellis" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -231,7 +242,7 @@
 <p>​    所以，这篇blog旨在通过分析TRELLIS，来记录和扩展一些相关知识。为了更好的理解，读者最好需要了解成熟的生成模型（如Latent Diffusion），常用的3D表达（Mesh，Voxel，NeRF，3DGS），同时对Transformer的工作流程有基础的了解。</p>
 <h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>​    在深入一些细节之前，我们先简要的给出TRELLIS的工作流程。</p>
 <center>
-    <img src='/images/trellis_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_1.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -256,14 +267,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pixel_shuffle_3d</span>(<span class="params">x: torch.Tensor, scale_factor: <span class="built_in">int</span></span>) -&gt; torch.Tensor:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    3D pixel shuffle.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    B, C, H, W, D = x.shape</span><br><span class="line">    C_ = C // scale_factor**<span class="number">3</span></span><br><span class="line">    x = x.reshape(B, C_, scale_factor, scale_factor, scale_factor, H, W, D)</span><br><span class="line">    x = x.permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">4</span>)</span><br><span class="line">    x = x.reshape(B, C_, H*scale_factor, W*scale_factor, D*scale_factor)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 <p>PixelShuffle是一个很酷的想法，其示意图完全值得一个精良的动画。这里可以借pyvista绘制一下，如图所示：</p>
 <center>
-    <img src='/images/trellis_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_2.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <h4 id="Sparse-Structure-Flow"><a href="#Sparse-Structure-Flow" class="headerlink" title="Sparse Structure Flow"></a>Sparse Structure Flow</h4><p>然后我们关注一下生成部分$\mathcal{G}_{\mathrm{S}}$的实现，其主体是一个DiT，但其实也并没有完全沿用DiT里的设计。其训练了一个Rectified Flow，个人觉得训一个DDPM还是Flow Matching在这里区别不大，只不过Rectified Flow在实现起来确实简洁清爽。DiT是一个将Transformer适配进Diffusion的一个设计，生成Sparse Structure的<code>SparseStructureFlowModel</code>基本是DiT的朴素推广：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">SparseStructureFlowModel(</span></span><br><span class="line">  <span class="string">(t_embedder):</span> <span class="string">TimestepEmbedder(</span></span><br><span class="line">    <span class="string">(mlp):</span> <span class="string">Sequential(</span></span><br><span class="line">      <span class="string">(0):</span> <span class="string">Linear(in_features=256,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">      <span class="string">(1):</span> <span class="string">SiLU()</span></span><br><span class="line">      <span class="string">(2):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">    <span class="string">)</span></span><br><span class="line">  <span class="string">)</span></span><br><span class="line">  <span class="string">(input_layer):</span> <span class="string">Linear(in_features=8,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">  <span class="string">(blocks):</span> <span class="string">ModuleList(</span></span><br><span class="line">    <span class="string">(0-23):</span> <span class="number">24</span> <span class="string">x</span> <span class="string">ModulatedTransformerCrossBlock(</span></span><br><span class="line">      <span class="string">(norm1):</span> <span class="string">LayerNorm32((1024,),</span> <span class="string">eps=1e-06,</span> <span class="string">elementwise_affine=False)</span></span><br><span class="line">      <span class="string">(norm2):</span> <span class="string">LayerNorm32((1024,),</span> <span class="string">eps=1e-06,</span> <span class="string">elementwise_affine=True)</span></span><br><span class="line">      <span class="string">(norm3):</span> <span class="string">LayerNorm32((1024,),</span> <span class="string">eps=1e-06,</span> <span class="string">elementwise_affine=False)</span></span><br><span class="line">      <span class="string">(self_attn):</span> <span class="string">MultiHeadAttention(</span></span><br><span class="line">        <span class="string">(to_qkv):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=3072,</span> <span class="string">bias=True)</span></span><br><span class="line">        <span class="string">(q_rms_norm):</span> <span class="string">MultiHeadRMSNorm()</span></span><br><span class="line">        <span class="string">(k_rms_norm):</span> <span class="string">MultiHeadRMSNorm()</span></span><br><span class="line">        <span class="string">(to_out):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">      <span class="string">)</span></span><br><span class="line">      <span class="string">(cross_attn):</span> <span class="string">MultiHeadAttention(</span></span><br><span class="line">        <span class="string">(to_q):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">        <span class="string">(to_kv):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=2048,</span> <span class="string">bias=True)</span></span><br><span class="line">        <span class="string">(to_out):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">      <span class="string">)</span></span><br><span class="line">      <span class="string">(mlp):</span> <span class="string">FeedForwardNet(</span></span><br><span class="line">        <span class="string">(mlp):</span> <span class="string">Sequential(</span></span><br><span class="line">          <span class="string">(0):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=4096,</span> <span class="string">bias=True)</span></span><br><span class="line">          <span class="string">(1):</span> <span class="string">GELU(approximate=&#x27;tanh&#x27;)</span></span><br><span class="line">          <span class="string">(2):</span> <span class="string">Linear(in_features=4096,</span> <span class="string">out_features=1024,</span> <span class="string">bias=True)</span></span><br><span class="line">        <span class="string">)</span></span><br><span class="line">      <span class="string">)</span></span><br><span class="line">      <span class="string">(adaLN_modulation):</span> <span class="string">Sequential(</span></span><br><span class="line">        <span class="string">(0):</span> <span class="string">SiLU()</span></span><br><span class="line">        <span class="string">(1):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=6144,</span> <span class="string">bias=True)</span></span><br><span class="line">      <span class="string">)</span></span><br><span class="line">    <span class="string">)</span></span><br><span class="line">  <span class="string">)</span></span><br><span class="line">  <span class="string">(out_layer):</span> <span class="string">Linear(in_features=1024,</span> <span class="string">out_features=8,</span> <span class="string">bias=True)</span></span><br><span class="line"><span class="string">)</span></span><br></pre></td></tr></table></figure>
 <p>由于后面的<code>SLatFlowModel</code>主体也是一个DiT，但那时候我们需要关注一些其他部分。所以在这里我们在介绍<code>SparseStructureFlowModel</code>的同时，也介绍DiT作为铺垫。</p>
 <center>
-    <img src='/images/trellis_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_3.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -308,19 +319,19 @@ q_i=x_iW^QR_i,k_j=x_jW^KR_j</script><p>这里$R$是一个正交阵，在token的
 <p>然而，Python里并不存在真正的重载。这里的<code>@overload</code>只是类型提示的一部分。这样写在针对这种情景（有许多后端来完成同一件事）时，是很方便的。在TRELLIS项目里，后面还有多处这样的实现。</p>
 <p>​    现在我们关心一下其构造的latent space的性质。在2D图像生成里，我们知道其VAE近乎是一个下采样的作用，我们期望能在3D里看到一样的结果。TRELLIS提供了一个接受图像condition的$\mathcal{G}_{\mathrm{S}}$，我们给出一张在3DV里具有深远意义的图片：</p>
 <center>
-    <img src='/images/trellis_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_4.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>然后来看看得到的[1, 8, 16, 16, 16]是什么样的：</p>
 <center>
-    <img src='/images/trellis_5.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_5.gif' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>对8通道作PCA降维，然后越小的值分配越低的不透明度。我们可以看到，紧凑的立方体内部确实有一个挖掘机的结构。当进一步过$\mathcal{D}_{\mathrm{S}}$后，我们可以得到整个的sparse structure：</p>
 <center>
-    <img src='/images/trellis_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_6.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -360,7 +371,7 @@ q_i=x_iW^QR_i,k_j=x_jW^KR_j</script><p>这里$R$是一个正交阵，在token的
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> num_all_args == <span class="number">1</span>:</span><br><span class="line">    q, k, v = qkv.unbind(dim=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">elif</span> num_all_args == <span class="number">2</span>:</span><br><span class="line">    k, v = kv.unbind(dim=<span class="number">1</span>)</span><br><span class="line">q = q.unsqueeze(<span class="number">0</span>)</span><br><span class="line">k = k.unsqueeze(<span class="number">0</span>)</span><br><span class="line">v = v.unsqueeze(<span class="number">0</span>)</span><br><span class="line">mask = xops.fmha.BlockDiagonalMask.from_seqlens(q_seqlen, kv_seqlen)</span><br><span class="line">out = xops.memory_efficient_attention(q, k, v, mask)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 <p>这样会用如下图所示的一个mask：</p>
 <center>
-    <img src='/images/trellis_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_7.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -430,7 +441,7 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
 <p>​    现在我们可以看看最后生成出来的挖掘机是什么样子了，这里就只展示GS render的效果了：</p>
 <center>
 <video id="video" controls style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <source id="mp4" src="/images/trellis_8.mp4" type="video/mp4" >
+    <source id="mp4" src="/images/trellis/trellis_8.mp4" type="video/mp4" >
 </video>
 </center>
 
@@ -438,7 +449,7 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
 <p>虽然有可能这样的乐高模型已经在数据集里面了，但单张图片能出这样的效果还是很令人欣喜的。</p>
 <p>​    TRELLIS里提供了一系列工具函数来导出<code>.glb</code>，导出以后你可以把它放到blender或meshlab里去看一看：</p>
 <center>
-    <img src='/images/trellis_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_9.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -459,7 +470,7 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
 <p>这是大型Transformer的一个特别的现象，会有某些token的值非常大，他们起到的作用有点像NLP里的CLS，表示整张图片的某些全局信息。DINOv2就采取了这样的“寄存器”设计，训练的时候考虑这些token，推理的时候移除。但一些其他的预训练ViT中不一定有这样的设计。</p>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>​    虽然从应用效果上看，这样做可能不会比那种寻常DiT方案然后疯狂灌数据，出来mesh以后一顿后处理好。但TRELLIS的管线确实是精巧，涵盖了好多技术栈。TRELLIS给我的感觉就像生化危机6（游戏），各代主角全齐了，故事线交织在一起，直接粉丝向的那种。“这怎么什么都会啊？”，懂DiT，懂稀疏卷积，懂CUDA，懂Blender，懂写代码，很难想象这都是一作一个人做出来的，太狠了。我感觉，如果多年后会有新的三维视觉的教材，估计都会把TRELLIS写上去。这太帅了，我什么时候也能整这么个大活就好了。</p>
 <center>
-    <img src='/images/trellis_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/trellis/trellis_end.png' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -498,16 +509,17 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
     <div class="article-info article-info-index">
       
       
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">3DV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -519,11 +531,11 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        			<a href="/categories/3DV//" class="article-tag-list-link color4">3DV</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/深度学习/3DV//" class="article-tag-list-link color4">3DV</a>
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
         		</li>
       		
 		</ul>
@@ -662,8 +674,7 @@ V=\sum_{r=1}^R{v_{r}^{X}\circ v_{r}^{Y}\circ v_{r}^{Z}\circ v_{r}^{C}}</script><
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -733,19 +744,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -803,15 +836,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -895,15 +928,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -919,15 +952,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1136,20 +1169,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

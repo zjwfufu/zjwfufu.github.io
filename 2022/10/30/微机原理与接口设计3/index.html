@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,27 +23,27 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    两周没听课，微机原理又讲到后半本书了。感觉没有前半本书直接和有逻辑性，有点杂乱。这一篇主要捋一下关于西电教材-第五章-总线的知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_edge.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_ad.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_4.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_clip.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_hold.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_5.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_5eg.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_6.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_7.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_8.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_9.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/microcomputer_3_end.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_edge.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_ad.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_clip.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_hold.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_5.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_5eg.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_6.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_7.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_8.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_9.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_end.jpg">
 <meta property="article:published_time" content="2022-10-30T08:39:49.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:11:34.836Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.477Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="微机原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/microcomputer_3_edge.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/mc3/microcomputer_3_edge.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -43,10 +51,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -55,10 +66,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -68,9 +79,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -119,7 +127,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -184,7 +195,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-微机原理与接口设计3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微机原理与接口设计3" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -223,46 +234,46 @@
 <span id="more"></span>
 <p>​    我觉得，越学到后面，就像，吃螃蟹一样。必须，用一种够巧妙的方式来理解，才能逻辑连贯。不然会撞上不可逾越的知识壁垒……比如，这一篇里会涉及到一个元件“三态门”，如果真探究到底，那么就会遇到：</p>
 <center>
-    <img src='/images/microcomputer_3_edge.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_edge.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    显然……这对于时间有限，而且有考核要求的我来说，是不可取的。所以下文不会讨论那些十分高深的内容，只是有条理的总结考试内容。</p>
 <center>
-    <img src='/images/microcomputer_3_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    我继续召唤出这个玩具CPU，我当时在学CPU的那篇里，提到了两点：①这些“线”有规律的亮起，来一步步完成指令。②同一时钟周期内“线”上只能有一组数据。实际上这很好的刻画了，总线的特点。第一点，再仔细观察，其实是靠一种叫“三态门”的元件实现的。如果这个寄存器只需要out，那么可能三态门是单向的，例如上图中的Zout。但是有时候是需要双向的，即能读又能写，比如数据寄存器，就有一个DRin和一个DRout。第二点，由于总线上只能走一组数据，是一种竞争性资源。所以像地址一样的数据，可能需要寄存，这也就是计组中的取指令：M[PC]→IR，的用处，它将数据暂存到地址寄存器，等要用到的时候，再激活IRout的使能端，地址就又出来了。</p>
 <p>​    但是8086毕竟更复杂一些，有些地方更加复杂，而且写法不太一样，但我们仍然能从中看出一些类似的性质。：</p>
 <center>
-    <img src='/images/microcomputer_3_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    首先，8086CPU肯定不像上面那个玩具一样，它是封装好的，对外露出40根引脚。我们一种一种的看：</p>
 <h4 id="1-mathrm-AD-15-sim-mathrm-AD-0"><a href="#1-mathrm-AD-15-sim-mathrm-AD-0" class="headerlink" title="1.$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$"></a>1.$\mathrm{AD_{15}}\sim\mathrm{AD_{0}}$</h4><p>​    它叫Address Data Bus，这里的Bus指的就是总线。它们一共有16条，有三种状态，即“三态”。这种策略也被称为分时复用。</p>
 <center>
-    <img src='/images/microcomputer_3_ad.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_ad.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    在总线周期$T_1$状态，用于输出储存器或者IO端口的地址，在$T_2$到$T_4$状态，用来传送数据，此时是可以双向输入/输出的。这里的“三态”，“双向输入/输出”，如果看上面的toy model，这比较好理解；但如果看教材上甩的一堆74LS244什么的，会非常困惑。这里我找到了一个折中的例子：</p>
 <center>
-    <img src='/images/microcomputer_3_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    如图左侧的情形，$G_1,G_2,G_3$三个外设都想往总线上输入数据，如果没有三态门，就需要接逻辑门做控制，比如一个纯组合逻辑电路。有了三态门以后，直接相连，使用使能端来起到开关。只要使能信号分配好了，电路就能正常工作。同一时刻只能有一个外设在写入，其余都应关闭。而且高阻态这个状态，不同于低电位。对于总线来说，如果外设处于高阻态，那其实相当于不存在。但如果是低电位，可能出现电压不稳等情况，这个不是很清楚，从略了。</p>
 <center>
-    <img src='/images/microcomputer_3_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    数据的双向传输也是通过上图所示的装置实现的，这样只需通过一个使能端，就可以控制数据是从外设写入总线，还是从总线写入外设。</p>
 <p>​    现在我们再来看，基于上述原理，封装的三种常用的芯片，74LS244，74LS245，74LS373。</p>
 <center>
-    <img src='/images/microcomputer_3_clip.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_clip.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -313,7 +324,7 @@
 <p>​    $\mathrm{HOLD},\mathrm{HLDA}$是两个关于总线与CPU的信号，我们以一个例子来理解它们：</p>
 <p>​    直接存储器访问（direct memory access）DMA将数据从一个地址空间复制到另一个地址空间，提供外设和存储器之间或者存储器和存储器之间的高速数据传输。这个技术的关键在于跳过CPU借助总线。当DMA控制器需要占用总线时，会向CPU发出总线请求HOLD（Hold Request），CPU收到有效的HOLD信号后，如果允许让出总线，会在当前总线周期完成时，发出HLDA（Hold Acknowledge）信号，同时使地址总线，数据总线，控制总线处于高阻态，表示让出总线。在下一个时钟周期，总线请求部件收到HLDA信号，获得总线控制权。在这期间HOLD与HLDA都处于高电平，直到总线请求部件完成对总线的栈用，使HOLD变为低电平，撤销总线请求，CPU收到后，HLDA变为低电平，CPU恢复对总线的控制。</p>
 <center>
-    <img src='/images/microcomputer_3_hold.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_hold.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -324,19 +335,19 @@
 <p>​    $\overline{\mathrm{BHE}}$是总线高位有效信号，它与$\mathrm{AD}_0$一起编码，给出总线的使用情况。我们后面会写到。</p>
 <h4 id="最小工作模式"><a href="#最小工作模式" class="headerlink" title="最小工作模式"></a>最小工作模式</h4><p>​    最小工作模式中，系统只有一个微处理器，系统所需的所有控制信号全部由8086直接产生。</p>
 <center>
-    <img src='/images/microcomputer_3_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_5.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    由于在8086中，依照之前的叙述，数据线和地址线是复用的。所以地址锁存器是必要的。在对存储器进行访问时，要先将地址输出。此时复用的引脚是地址线，当利用地址锁存器保存这些地址后。这些引脚才是数据线，将数据读出或写入存储器。由于一片74LS373是8位的，所以图中画了三片。而数据总线共16位，所以两片就够用了。如下图所示：</p>
 <center>
-    <img src='/images/microcomputer_3_5eg.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_5eg.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    由于我们在上面给出了许多的引脚，不方便记忆，而且我们也很难知道这些引脚到底在CPU运行时是如何进行配合的。所以我们现在分别考察读/写总线周期时的时序：</p>
 <center>
-    <img src='/images/microcomputer_3_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_6.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -387,7 +398,7 @@
 <p>​    <strong>T4</strong>状态：</p>
 <p>​    从数据总线上撤销数据，各控制信号和状态信号变为无效。</p>
 <center>
-    <img src='/images/microcomputer_3_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_7.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -455,13 +466,13 @@
 <p>​    $\overline{\mathrm{LOCK}}$有效时，表示CPU不允许其他总线主控者（比如之前例子里的DMA系统，其他CPU）占用总线。</p>
 <p>​    $\overline{\mathrm{RQ}}/\overline{\mathrm{GT}}_1,\overline{\mathrm{RQ}}/\overline{\mathrm{GT}}_0$这两个引脚类似HOLD和HLDA，用于不同处理器之间的连接控制。</p>
 <center>
-    <img src='/images/microcomputer_3_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_8.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
 <p>​    上图展示了8086最大方式下的总线结构，观察中间的总线控制器8288，它主要生成存储器和I/O端口的读写信号（$\overline{\mathrm{MRDC}},\overline{\mathrm{MWTC}},\overline{\mathrm{IORC}},\overline{\mathrm{IOWC}}$）和$\mathrm{ALE}$,${\mathrm{DEN}}$,$\mathrm{DT}/\overline{\mathrm{R}}$。注意此时由8288生成的${\mathrm{DEN}}$极性与8086CPU单独发出的相反。</p>
 <center>
-    <img src='/images/microcomputer_3_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_9.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -533,7 +544,7 @@
 </div>
 <h4 id="End"><a href="#End" class="headerlink" title="End"></a>End</h4><p>​    16号考模式识别，这预示着上强度的期末考试的来临。总线后是存储器设计，接口技术，中断系统和8295A，定时/计数器8253的应用设计。接口技术那一章比较水，但是另外这仨都不简单，争取每天解决一章吧。</p>
 <center>
-    <img src='/images/microcomputer_3_end.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/mc3/microcomputer_3_end.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -570,6 +581,7 @@
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -715,8 +727,7 @@
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -786,19 +797,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -856,15 +889,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -948,15 +981,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -972,15 +1005,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,20 +1222,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

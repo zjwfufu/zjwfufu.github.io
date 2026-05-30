@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,17 +23,17 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    快开学了噻，也不知道写啥了，随便写一个最开始写的偏微分方程的OVA吧，本文以药物扩散分布建模为例，实现一个基于偏微分方程的模型问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDEova_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDEova_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDEova_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/PDEova_4.jpg">
-<meta property="article:published_time" content="2021-08-26T05:21:21.547Z">
-<meta property="article:modified_time" content="2023-08-27T03:03:01.991Z">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde_ova/PDEova_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde_ova/PDEova_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde_ova/PDEova_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pde_ova/PDEova_4.jpg">
+<meta property="article:published_time" content="2021-08-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-30T01:42:49.659Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="PDE">
 <meta property="article:tag" content="数学建模">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/PDEova_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pde_ova/PDEova_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -33,10 +41,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -45,10 +56,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -58,9 +69,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -109,7 +117,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -174,7 +185,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-偏微分方程OVA" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-偏微分方程OVA" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -198,7 +209,7 @@
 		<!--显示阅读次数完毕-->
         
         <a href="/2021/08/26/%E5%81%8F%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8BOVA/" class="archive-article-date">
-  	<time datetime="2021-08-26T05:21:21.547Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-26</time>
+  	<time datetime="2021-08-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-26</time>
 </a>
         
       </header>
@@ -214,8 +225,8 @@
 <p>​    问题说的是：由于血脑屏障的原因，很多精神类药物无法被循环到大脑，例如治疗帕金森症时注射的多巴胺。为此必须精确估计药物影响的脑部区域，他们必须顾及注射后药物在脑内分布区域的大小和形状。</p>
 <p>​    研究数据包括50个圆柱体组织样本的每个样本的药物含量的测定值，每个圆柱体样本的长为0.76mm,直径为0.66mm,这些互相平行的圆柱体的中心位于网格距为1mm×0.76mm×1mm的格点上，注射是在最高计数的那个圆柱体的中心附近进行的，自然在圆柱体之间以及圆柱体样本区域外也有药物。</p>
 <center>
-    <img src='/images/PDEova_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
-    <img src='/images/PDEova_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde_ova/PDEova_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde_ova/PDEova_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -286,7 +297,7 @@ u\left( x,y,z \right) =\frac{M\cdot \exp \left( -\sqrt{\frac{1}{a^2}\left( x-x_0
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">load(<span class="string">&#x27;Front.mat&#x27;</span>)</span><br><span class="line">load(<span class="string">&#x27;Behind.mat&#x27;</span>)</span><br><span class="line"></span><br><span class="line">x_o=<span class="number">1</span>:<span class="number">1</span>:<span class="number">5</span>;</span><br><span class="line">y_o=<span class="number">1</span>:<span class="number">1</span>:<span class="number">5</span>;</span><br><span class="line">[x_o,y_o]=<span class="built_in">meshgrid</span>(x_o,y_o);</span><br><span class="line"></span><br><span class="line">x0=<span class="number">3.226</span>;</span><br><span class="line">y0=<span class="number">0.38</span>;</span><br><span class="line">z0=<span class="number">2.844</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:<span class="number">5</span></span><br><span class="line">        <span class="keyword">for</span> k=<span class="number">0.38</span>:<span class="number">0.76</span>:<span class="number">0.38</span>+<span class="number">0.76</span></span><br><span class="line">            <span class="comment">%x-z-y</span></span><br><span class="line">            <span class="keyword">if</span> k==<span class="number">0.38</span></span><br><span class="line">                k_coord=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                k_coord=<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            r(<span class="built_in">i</span>,<span class="built_in">j</span>,k_coord)=<span class="built_in">sqrt</span>((<span class="built_in">i</span>-x0)^<span class="number">2</span>+(k-y0)^<span class="number">2</span>+(<span class="built_in">j</span>-z0)^<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">u=<span class="built_in">cat</span>(<span class="number">3</span>,Behind,Front);</span><br><span class="line"></span><br><span class="line">int_A=sum(sum(sum(r.*u)));</span><br><span class="line">int_B=sum(sum(sum(u)));</span><br><span class="line"></span><br><span class="line">lambda=<span class="number">2</span>*int_B/int_A;</span><br></pre></td></tr></table></figure>
 <p>​    计算得$\lambda=1.5885$,则$a,b,c$的量级均在0.62附近，这个信息十分有用。基于此，待确定的参数只有M的数量级未知，但单个参数的数量级是好通过遍历得到的。</p>
 <center>
-    <img src='/images/PDEova_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde_ova/PDEova_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -295,7 +306,7 @@ u\left( x,y,z \right) =\frac{M\cdot \exp \left( -\sqrt{\frac{1}{a^2}\left( x-x_0
 <script type="math/tex; mode=display">
 \frac{\partial u}{\partial t}-\left( a^2\frac{\partial ^2u}{\partial x^2}+b^2\frac{\partial ^2u}{\partial y^2}+c^2\frac{\partial ^2u}{\partial z^2}-k^2u \right) =\delta \left( x-x_0,y-y_0,z-z_0,t \right)</script><p>​    同样是借助傅里叶变换得到解析解，并定义取样时间$t=1$,此时参数的选取的自由度比较高，$a,b,c$的数量级之前已经确定，仅需确定$M,k$。再编程求解后，得到的效果变好了许多。</p>
 <center>
-    <img src='/images/PDEova_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pde_ova/PDEova_4.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 <p>​    实际上，扩散问题与热传导问题，虽然遵从的规律相同，但是在实际求解中还是有不同点，在热传导问题中，参数的范围可以从边界条件很好的估计出来；而扩散问题往往要借助傅里叶变换，或者是给定初始点源浓度，之后的扩散系数和点源浓度对于结果的影响是耦合的，所以搜索起来比较困难，此外，由于扩散问题的数据往往比较少，且误差可能比较大，也造成了一定的影响。</p>
@@ -336,6 +347,7 @@ u\left( x,y,z \right) =\frac{M\cdot \exp \left( -\sqrt{\frac{1}{a^2}\left( x-x_0
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -485,8 +497,7 @@ u\left( x,y,z \right) =\frac{M\cdot \exp \left( -\sqrt{\frac{1}{a^2}\left( x-x_0
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -556,19 +567,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -626,15 +659,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,15 +751,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +775,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -959,20 +992,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>

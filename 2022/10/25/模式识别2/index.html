@@ -2,6 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -15,18 +23,18 @@
 <meta property="og:site_name" content="我起初心向明月">
 <meta property="og:description" content="​    模式识别，讲到了第八章。而我，抛去绪论只学了第二章。我觉得要出事。所以我又开始学了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_2_1.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_2_2.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_2_3.jpg">
-<meta property="og:image" content="https://zjwfufu.github.io/images/pr_2_4.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr2/pr_2_1.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr2/pr_2_2.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr2/pr_2_3.jpg">
+<meta property="og:image" content="https://zjwfufu.github.io/images/pr2/pr_2_4.jpg">
 <meta property="article:published_time" content="2022-10-25T12:57:26.000Z">
-<meta property="article:modified_time" content="2023-08-27T03:18:09.897Z">
+<meta property="article:modified_time" content="2026-05-30T01:23:27.502Z">
 <meta property="article:author" content="张嘉伟">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="模式识别">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr_2_1.jpg">
+<meta name="twitter:image" content="https://zjwfufu.github.io/images/pr2/pr_2_1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我起初心向明月" type="application/atom+xml">
   
@@ -34,10 +42,13 @@
     <link rel="icon" href="/img/sigma.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#ccc,#48D1CC);
+      background: linear-gradient(200deg, #80bbff 0%, #66ccff 100%);
     }
   </style>
   
@@ -46,10 +57,10 @@
 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-<body>
+<body class="sidebar-hidden">
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg,#6699ff,#48D1CC)">
+    <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
       
 <div class="overlay" style="background: rgba(0,0,0,0)"></div>
 <div class="intrude-less">
@@ -59,9 +70,6 @@
 		</a>
 		<div class="contain">
 			<p style="font-size:20px;color:white">zjw's blog</p>
-		</div>
-		<div class="contain">
-			<p style="font-size:20px;color:white">我起初心向明月，却不知明月何意。</p>
 		</div>
 		  <h1 class="header-author"><a href="/"></a></h1>
 		</hgroup>
@@ -110,7 +118,10 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse" style="background: undefined">
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: rgba(0,0,0,0)"></div>
@@ -175,7 +186,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-模式识别2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-模式识别2" class="article article-type-post " itemscope itemprop="blogPost" >
   <div class="article-inner">
     
       <header class="article-header">
@@ -235,7 +246,7 @@ J\left( \boldsymbol{w} \right) =\sum_{\boldsymbol{x}\in Y}{\left( \delta _x\bold
 <h4 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h4><p>​    感知器算法给出的超平面并不唯一，可能收敛于任何可能的解，并且每一个解其实都完全的分开了训练集（如果线性可分的话），但真正分类时是在测试集上用的，所以我们仍然需要从每个可能的解里选择那些“泛化性”强的解，这样当面对未知数据时，通过超平面得到的结果更可信。这就引入了支持向量机。</p>
 <p>​    支持向量机在网络上可以找到各种层次的详尽的资料，有的深度很深，有的注重几何直观。但是对我自己来说，仍然有整理的必要。因为学习学的其实不是支持向量机这一个事物，学的是学习能力的提升。如果仅仅只是走马观花的看一看一些视频，或者收藏夹吃灰，大概知道了一下“哦我知道，这不就是找个间隔最大的超平面嘛”，是起不到学习的意义的。</p>
 <center>
-    <img src='/images/pr_2_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr2/pr_2_1.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -282,7 +293,7 @@ L\left( \boldsymbol{x},\boldsymbol{\lambda } \right) =f\left( \boldsymbol{x} \ri
 \nabla _xf\left( x \right) =-\sum_{i=11}^p{\lambda _i\nabla _xh_i\left( \boldsymbol{x} \right)}</script><p>​    这个式子有一个几何解释：在极值点处目标函数的梯度是约束函数梯度的线性组合。</p>
 <p>​    这个解释看起来很抽象，下面做一些解释：考虑一个二维的情形，这将有助于理解。我们知道，如果这个点的梯度是零，那么它就是一个极值；在等式约束下，极值处的梯度虽然往往不为零，但它一定与约束函数的梯度是共线的，否则就可以沿着与约束函数梯度正交的方向再调整，这样这个点就不是极值点。</p>
 <center>
-    <img src='/images/pr_2_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr2/pr_2_2.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -326,7 +337,7 @@ G=\left\{ \left( u,t \right) |u=f_1\left( x \right) ,t=f_0\left( x \right) ,x\in
 <script type="math/tex; mode=display">
 g\left( \lambda \right) =\mathrm{inf}_xL\left( x,\lambda \right) =\mathrm{inf}_x\left( f_0\left( x \right) +\lambda f_1\left( x \right) \right) =\mathrm{inf}_{\left( u,t \right) \in G}\left( t+\lambda u \right)</script><p>​    所以对偶问题的最优解是$d^{s}=\underset{_{\lambda \geqslant 0}}{\mathrm{sup}}g\left( \lambda \right) $，$\mathrm{sup}$是上确界。所以，我作出了这种简单情形下的几何直观：</p>
 <center>
-    <img src='/images/pr_2_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr2/pr_2_3.jpg' style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 
@@ -421,7 +432,7 @@ s.t. \alpha _i\geqslant 0, \sum_{i=1}^l{\alpha _iy_i}=0</script><p>​    这个
 <p>​    写这篇blog最大的时间花费在了理解支持向量机的前置条件，值得重申的是，确实，花费一番功夫弄懂这背后的细节，其实并没有什么用。我可能永远都不会使用支持向量机，因为在大多数情况下，召唤几个nn.Linear()，然后nn.Dropout，再来几个PReLU做分类器，能直接走BP而且效果往往都比SVM好。但是这番功夫的重点还是学习能力的提升，我记得我大一的时候，班里有同学看西瓜书，我打开一看，一堆连乘求和下角标，我非常沮丧，尤其是看到支持向量机那一堆密密麻麻的解释，我觉得我可能学不会，最好退学重新高考。但好在经过两年的学习，在学习知识的方法论上得到了提升，知道了如何有效的利用资料，以及如何理解一些新概念。就像怪物猎人：世界里的蛮颚龙，教会新玩家不要贪刀，学走位，被称为“蛮颚龙老师”一样。能弄懂一遍支持向量机，就起到了这样的效果，说明我的理解能力更进了一步。</p>
 <p>​    “倚醉梦提笔，痴人就不必醒。”</p>
 <center>
-    <img src='/images/pr_2_4.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
+    <img src='/images/pr2/pr_2_4.jpg'  style="max-width: 800px; max-height: 600px; width: auto; height: auto;">
 </center>
 
 		
@@ -458,6 +469,7 @@ s.t. \alpha _i\geqslant 0, \sum_{i=1}^l{\alpha _iy_i}=0</script><p>​    这个
       
     </div>
     <div class="article-info article-info-index">
+      
       
       
 	<div class="article-tag tagcloud">
@@ -611,8 +623,7 @@ s.t. \alpha _i\geqslant 0, \sum_{i=1}^l{\alpha _iy_i}=0</script><p>​    这个
          </style>
          <div id="vcomment" class="comment"></div>
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
-<script src='//unpkg.com/valine@latest/dist/Valine.min.js'></script>
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://unpkg.com/valine@1.5.3/dist/Valine.min.js'></script>
 <script>
   var notify = 'false' == true ? true : false;
   var verify = 'false' == true ? true : false;
@@ -682,19 +693,41 @@ MathJax.Hub.Config({
 MathJax.Hub.Queue(function() {
     var all = MathJax.Hub.getAllJax(), i;
     for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+
+// After all math is rendered, wrap display math for mobile scrolling
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        var jax = all[i];
+        var source = jax.SourceElement();
+        // display math has mode=display on the original script tag
+        if (!source || source.getAttribute('type') !== 'math/tex; mode=display') continue;
+        // The rendered element is the previous sibling of the source script
+        var rendered = source.previousElementSibling;
+        if (!rendered) continue;
+        // Skip if already wrapped
+        if (rendered.parentNode && rendered.parentNode.className &&
+            rendered.parentNode.className.indexOf('math-scroll') !== -1) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'math-scroll';
+        rendered.parentNode.insertBefore(wrapper, rendered);
+        wrapper.appendChild(rendered);
+    }
 });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
+<script type="text/javascript" src="/click.js">
 </script>
-<script type="text/javascript" src="/./click.js">
-</script>
-<script  async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
@@ -752,15 +785,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">3DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -844,15 +877,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -868,15 +901,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">条件概率</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">概率论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,20 +1118,17 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.min.js"></script>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
 </body>
 </html>
