@@ -2179,24 +2179,28 @@ pre .css~* .id,pre .id {
 
 .article-inner h1.article-title,.article-title {
 	font-family: Xingkai;
-	/* color: #696969; */
-	color: rgb(0, 0, 0);;
+	color: rgb(0, 0, 0);
 	margin-left: 0;
-	/* font-weight: 300; */
 	font-weight: 300;
 	line-height: 35px;
 	margin-bottom: 20px;
 	font-size: 36px;
-	transition: 0.3s;
-	display: inline-flex;
-	/*animation: shake-title 2s linear 0s infinite;
-	animation-play-state: running;*/
+	display: block;
 }
 
-.article-title:hover{
-	font-size: 40px;
+/* Card-level hover: whole card scales up */
+.article-index:hover {
+	transform: scale(1.02);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.article-index {
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.article-index:hover .article-title,
+.article-index:hover .article-title a {
 	color: rgb(148, 109, 151);
-	animation-play-state: paused;
 }
 
 @keyframes shake-title {
@@ -4592,39 +4596,22 @@ body {
   border-radius: 12px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
 }
 
-.article-index[style*="--ci"]::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  opacity: 0.25;
-  z-index: 0;
-  pointer-events: none;
-  border-radius: 12px;
-}
+/* Each card gets gradient directly on background — no pseudo-element needed */
+.article-index[style="--ci: 0"] { background: linear-gradient(37deg, rgba(102,204,255,0.25), rgba(153,170,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 1"] { background: linear-gradient(248deg, rgba(119,221,238,0.25), rgba(136,187,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 2"] { background: linear-gradient(103deg, rgba(85,204,238,0.25), rgba(170,187,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 3"] { background: linear-gradient(315deg, rgba(102,187,221,0.25), rgba(119,153,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 4"] { background: linear-gradient(72deg, rgba(136,221,255,0.25), rgba(153,187,238,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 5"] { background: linear-gradient(191deg, rgba(102,204,238,0.25), rgba(170,204,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 6"] { background: linear-gradient(284deg, rgba(119,204,221,0.25), rgba(136,170,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 7"] { background: linear-gradient(156deg, rgba(85,187,238,0.25), rgba(153,204,255,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 8"] { background: linear-gradient(22deg, rgba(119,221,204,0.25), rgba(119,153,238,0.25)), rgba(255,255,255,0.25); }
+.article-index[style="--ci: 9"] { background: linear-gradient(339deg, rgba(102,221,238,0.25), rgba(136,187,221,0.25)), rgba(255,255,255,0.25); }
 
-.article-index .article-inner,
-.article-index .article-info {
-  position: relative;
-  z-index: 1;
-}
-
-.article-index[style="--ci: 0"]::before { background: linear-gradient(37deg, #66ccff, #99aaff); }
-.article-index[style="--ci: 1"]::before { background: linear-gradient(248deg, #77ddee, #88bbff); }
-.article-index[style="--ci: 2"]::before { background: linear-gradient(103deg, #55ccee, #aabbff); }
-.article-index[style="--ci: 3"]::before { background: linear-gradient(315deg, #66bbdd, #7799ff); }
-.article-index[style="--ci: 4"]::before { background: linear-gradient(72deg, #88ddff, #99bbee); }
-.article-index[style="--ci: 5"]::before { background: linear-gradient(191deg, #66ccee, #aaccff); }
-.article-index[style="--ci: 6"]::before { background: linear-gradient(284deg, #77ccdd, #88aaff); }
-.article-index[style="--ci: 7"]::before { background: linear-gradient(156deg, #55bbee, #99ccff); }
-.article-index[style="--ci: 8"]::before { background: linear-gradient(22deg, #77ddcc, #7799ee); }
-.article-index[style="--ci: 9"]::before { background: linear-gradient(339deg, #66ddee, #88bbdd); }
-
-body.dark .article-index[style*="--ci"]::before {
-  opacity: 0.15;
+body.dark .article-index[style*="--ci"] {
+  background: linear-gradient(var(--ci-angle, 135deg), rgba(60,80,140,0.15), rgba(40,70,110,0.15)), rgba(30,32,50,0.7);
 }
 
 /* --- Slider panel (所有文章/友链/关于我): transparent, inherits container gradient --- */
