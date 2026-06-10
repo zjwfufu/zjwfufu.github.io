@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(err => console.error("Error loading posts for star map:", err));
 
     let points, postsData = [];
+    let dustPoints, dustMaterial; // To animate dust
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -188,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const randomZ = Math.pow(Math.random(), randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * randomness * (radius - radiusDistance) / radius;
 
             positions[i * 3]     = Math.cos(branchAngle + spinAngle) * radiusDistance + randomX;
-            positions[i * 3 + 1] = randomY * 0.3; // Flat disc
+            positions[i * 3 + 1] = randomY * 4.0; // Substantially scatter z-axis (actually y-axis in vertical flat galaxy coordinates) up to 4x wider!
             positions[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radiusDistance + randomZ;
 
             initialPositions[i * 3]     = positions[i * 3];
@@ -270,9 +271,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let blackHoleMesh;
+    let pointLight; // Glowing light source from the center
 
     function createBlackHole() {
         // Outer glowing accretion disk
+        // A RingGeometry with transparent: true, depthWrite: true can sometimes cause WebGL depth clipping shadows!
+        // We set depthWrite: false on the disk as well to completely eliminate any background clipping/masking artifacts.
         const accretionGeometry = new THREE.RingGeometry(4, 12, 64);
         const accretionMaterial = new THREE.MeshBasicMaterial({
             color: 0x33BBFF,
@@ -280,22 +284,73 @@ document.addEventListener("DOMContentLoaded", function() {
             transparent: true,
             opacity: 0.8,
             blending: THREE.AdditiveBlending,
+            depthWrite: false, // Prevents depth-buffer clipping of stars behind/underneath the disk!
             map: createCircleTexture(true) // Reuse gradient texture to soften edges
         });
         const accretionDisk = new THREE.Mesh(accretionGeometry, accretionMaterial);
         accretionDisk.rotation.x = Math.PI / 2; // Lay flat
 
-        // Dark sphere in center
+        // Dark sphere in center (the event horizon)
         const bhGeometry = new THREE.SphereGeometry(3.8, 32, 32);
         const bhMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const bhSphere = new THREE.Mesh(bhGeometry, bhMaterial);
 
-        blackHoleMesh = new THREE.Group();
-        blackHoleMesh.add(accretionDisk);
-        blackHoleMesh.add(bhSphere);
+        // Put a point light at the center. It will cast light outward (scattering blue-white light)
+        pointLight = new THREE.PointLight(0xddf3ff, 2.5, 100); // Blue-white vibrant light
+        pointLight.position.set(0, 0, 0);
 
-        // Add an invisible slightly larger hit box for raycaster
-        const hitGeometry = new THREE.SphereGeometry(6, 16, 16);
+        // Create an ellipsoidal/spiral-shaped glow (resembling a real galactic disc bloom)
+        // Instead of a massive billboard PlaneGeometry (which clips with stars and causes semicircular shadows!),
+        // we will generate a high-density, flat glowing light cloud (Points) to render the aura beautifully!
+        // This completely eliminates any flat plane clipping artifacts (no more black crescent shadows).
+        const glowParticlesCount = 600;
+        const glowGeometry = new THREE.BufferGeometry();
+        const glowPositions = new Float32Array(glowParticlesCount * 3);
+        const glowColors = new Float32Array(glowParticlesCount * 3);
+
+        const innerColor = new THREE.Color(0xddf3ff);
+        const outerColor = new THREE.Color(0x1166ff);
+
+        for (let i = 0; i < glowParticlesCount; i++) {
+            // Distribute as a flattened, elliptical spiral-like cloud expanding outwards
+            const r = Math.pow(Math.random(), 1.8) * 80 + 3; // extends up to 80 (across the galaxy)
+            const theta = Math.random() * Math.PI * 2;
+
+            glowPositions[i * 3] = r * Math.cos(theta);
+            glowPositions[i * 3 + 1] = (Math.random() - 0.5) * 1.5; // very flat
+            glowPositions[i * 3 + 2] = r * Math.sin(theta);
+
+            // Interpolate color from bright white-blue at center to deep vibrant blue at edge
+            const interpColor = innerColor.clone().lerp(outerColor, r / 80);
+            glowColors[i * 3] = interpColor.r;
+            glowColors[i * 3 + 1] = interpColor.g;
+            glowColors[i * 3 + 2] = interpColor.b;
+        }
+
+        glowGeometry.setAttribute('position', new THREE.BufferAttribute(glowPositions, 3));
+        glowGeometry.setAttribute('color', new THREE.BufferAttribute(glowColors, 3));
+
+        const glowMaterial = new THREE.PointsMaterial({
+            size: 15.0, // Large glowing fluffy soft blobs
+            sizeAttenuation: true,
+            transparent: true,
+            opacity: 0.35,
+            blending: THREE.AdditiveBlending,
+            map: createCircleTexture(true), // soft radial gradient dot
+            depthWrite: false, // Double safety - disable depth writing so it is purely additive and can't mask anything
+            vertexColors: true
+        });
+
+        const bhGlowPoints = new THREE.Points(glowGeometry, glowMaterial);
+
+        blackHoleMesh = new THREE.Group();
+        blackHoleMesh.add(accretionDisk); // index 0
+        blackHoleMesh.add(bhGlowPoints);   // index 1: Spiral-shaped galactic glow cloud (No plane shadow clipping!)
+        blackHoleMesh.add(bhSphere);       // index 2: Event horizon
+        blackHoleMesh.add(pointLight);     // index 3
+
+        // Add an invisible slightly larger hit box for raycaster (index 4)
+        const hitGeometry = new THREE.SphereGeometry(8, 16, 16);
         const hitMaterial = new THREE.MeshBasicMaterial({ visible: false });
         const hitBox = new THREE.Mesh(hitGeometry, hitMaterial);
         hitBox.userData = { isBlackHole: true };
@@ -305,51 +360,83 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createCosmicDust() {
-        const dustCount = 4000; // slightly more dust
+        const dustCount = 8000; // Even more cosmic dust!
         const dustGeo = new THREE.BufferGeometry();
         const dustPos = new Float32Array(dustCount * 3);
         const dustCol = new Float32Array(dustCount * 3);
+        const dustSizes = new Float32Array(dustCount); // We'll store brightness animation parameters here
 
         const baseBlue = new THREE.Color(0x2288CC);
 
         for(let i=0; i<dustCount; i++) {
-            // Spherical distribution concentrated in center
-            const r = Math.pow(Math.random(), 2) * 150;
+            // Farther and wider spherical distribution (wider radius up to 400)
+            const r = Math.pow(Math.random(), 1.5) * 350 + 20; // Concentrated but reaches much further
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos((Math.random() * 2) - 1);
 
-            // Flatten slightly
+            // True spherical distribution (NOT flattened) so they fill the 3D sky beautifully like a cosmic bubble sphere
             dustPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
-            dustPos[i*3+1] = r * Math.cos(phi) * 0.2; // very flat
+            dustPos[i*3+1] = r * Math.cos(phi);
             dustPos[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
 
             // Keep dust strictly in blue spectrum
             const color = baseBlue.clone();
             const hsl = {};
             color.getHSL(hsl);
-            const lightness = Math.random() * 0.3 + 0.1;
+            const lightness = Math.random() * 0.4 + 0.1;
             color.setHSL(hsl.h + (Math.random() - 0.5) * 0.05, hsl.s, lightness);
 
             dustCol[i*3] = color.r;
             dustCol[i*3+1] = color.g;
             dustCol[i*3+2] = color.b;
+
+            // Random initial animation offset for twinkling
+            dustSizes[i] = Math.random() * Math.PI * 2;
         }
 
         dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
         dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCol, 3));
+        dustGeo.setAttribute('twinkleOffset', new THREE.BufferAttribute(dustSizes, 1));
 
-        const dustMat = new THREE.PointsMaterial({
-            size: 2.5, // Slightly larger dust
-            sizeAttenuation: true,
-            depthWrite: false,
+        // Use custom shader for background dust so we can animate the brightness (twinkle!)
+        // Reduce point size to 1.5 so they are distinctly smaller than the interactive article stars (which are size 6 to 18)
+        const dustVertexShader = `
+            attribute float twinkleOffset;
+            varying vec3 vColor;
+            varying float vTwinkle;
+            uniform float uTime;
+            void main() {
+                vColor = color;
+                // Twinkle effect based on sine wave and unique particle offset
+                vTwinkle = 0.3 + 0.7 * sin(uTime * 2.0 + twinkleOffset);
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                gl_PointSize = 1.5 * (300.0 / -mvPosition.z);
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `;
+        const dustFragmentShader = `
+            uniform sampler2D pointTexture;
+            varying vec3 vColor;
+            varying float vTwinkle;
+            void main() {
+                gl_FragColor = vec4(vColor * vTwinkle, 0.6) * texture2D(pointTexture, gl_PointCoord);
+            }
+        `;
+
+        dustMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                pointTexture: { value: createCircleTexture(true) },
+                uTime: { value: 0.0 }
+            },
+            vertexShader: dustVertexShader,
+            fragmentShader: dustFragmentShader,
             blending: THREE.AdditiveBlending,
-            vertexColors: true,
-            map: createCircleTexture(true),
+            depthWrite: false,
             transparent: true,
-            opacity: 0.6
+            vertexColors: true
         });
 
-        const dustPoints = new THREE.Points(dustGeo, dustMat);
+        dustPoints = new THREE.Points(dustGeo, dustMaterial);
         scene.add(dustPoints);
     }
 
@@ -372,7 +459,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // Check black hole first
         if (blackHoleMesh) {
             raycaster.setFromCamera(mouse, camera);
-            const bhIntersects = raycaster.intersectObject(blackHoleMesh, true);
+            // ONLY check the hitBox child (the last child, index 4 now) of blackHoleMesh to avoid raycasting the massive 160-width glow plane!
+            // That giant plane was blocking all mouse clicks because it covered the entire screen!
+            const hitBox = blackHoleMesh.children[4];
+            const bhIntersects = raycaster.intersectObject(hitBox);
             if (bhIntersects.length > 0) {
                 hoveredBlackHole = true;
                 container.style.cursor = 'pointer';
@@ -397,8 +487,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else {
                 hoveredIndex = null;
-                container.style.cursor = 'default';
-                if (controls && selectedIndex === null && !hoveredBlackHole) controls.autoRotate = true;
+                // Only reset pointer and autoRotate if not hovering the black hole
+                if (!hoveredBlackHole) {
+                    container.style.cursor = 'default';
+                    if (controls && selectedIndex === null) controls.autoRotate = true;
+                }
             }
         }
     }
@@ -484,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function() {
             infoTitle.innerHTML = '？？？';
             infoMeta.innerHTML = '';
             infoExcerpt.innerHTML = '？？？';
-            infoLink.innerHTML = '折跃 &rarr;';
+            infoLink.innerHTML = '确认折跃';
             infoLink.href = 'javascript:void(0)';
             infoLink.onclick = function(e) {
                 e.preventDefault();
@@ -495,6 +588,14 @@ document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => {
                 infoPanel.style.transform = 'translateX(0)';
             }, 10);
+
+            // Update selection box to target black hole (which is at center 0,0,0)
+            selectionGroup.position.set(0, 0, 0);
+            selectionGroup.visible = true;
+
+            // Explicitly set selectedIndex to a sentinel value representing the black hole,
+            // so clicking empty space resets autoRotate and clears the selection
+            selectedIndex = -1;
             return;
         }
 
@@ -606,6 +707,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (controls) {
                 controls.autoRotate = true;
+                controls.enabled = true; // Ensure controls are re-enabled
                 // Gently return target to center
                 if (typeof TWEEN !== 'undefined') {
                     new TWEEN.Tween(controls.target)
@@ -693,10 +795,17 @@ document.addEventListener("DOMContentLoaded", function() {
             selectionGroup.rotation.z += 0.01; // Spin slightly for tech effect
         }
 
+        if (dustMaterial) {
+            // Update time uniform in custom dust shader to trigger twinkling
+            dustMaterial.uniforms.uTime.value = time * 0.001;
+        }
+
         if (blackHoleMesh) {
             // Spin accretion disk slowly if not warping
             if (!isWarping) {
                 blackHoleMesh.children[0].rotation.z -= 0.005;
+                // Spin the galactic soft glow points slightly too for dynamic swirling
+                blackHoleMesh.children[1].rotation.y += 0.002;
             }
         }
 
