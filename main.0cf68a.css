@@ -882,7 +882,6 @@ body,html {
 	height: 100%;
 	/* z-index: 999; */
 	z-index: 1;
-	animation: before_Load_Left_col 2s linear 1, after_Load_Left_col .5s linear 0;
 }
 
 @keyframes before_Load_Left_col{
@@ -2156,7 +2155,6 @@ pre .css~* .id,pre .id {
 	border-radius: 0px;
 	background: rgba(255, 255, 255, 0.5);
 	transition: all .2s ease-in;
-	animation: before_load_article 2s 1, after_load_arricle .5s 0;
 }
 @keyframes before_load_article{
 	from {
@@ -2164,7 +2162,7 @@ pre .css~* .id,pre .id {
     }
   }
 @keyframes after_load_arricle{
-    50% { 
+    50% {
 		transform: scale(1);
 	}
 }
