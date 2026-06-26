@@ -423,7 +423,8 @@
             '    pos.y += cos(uTime * 0.2 + twinkleOffset) * 12.0;',
             '    pos.z += sin(uTime * 0.1 + twinkleOffset) * 12.0;',
             '    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);',
-            '    gl_PointSize = 1.5 * (300.0 / -mvPosition.z);',
+            '    float baseSize = 0.8 + fract(twinkleOffset * 3.17) * 2.5;',
+            '    gl_PointSize = baseSize * (300.0 / -mvPosition.z);',
             '    gl_Position = projectionMatrix * mvPosition;',
             '}'
         ].join('\n');
