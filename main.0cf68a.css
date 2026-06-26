@@ -4947,3 +4947,168 @@ body.dark .archive-year-wrap a {
   font-family: "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
 }
 
+/* ============================================================
+   Dark Mode: Sidebar (left-col)
+   ============================================================ */
+
+/* Left sidebar background: override inline gradient */
+body.dark .left-col {
+  background: linear-gradient(120deg, #1a2040, #1c2a45) !important;
+}
+
+/* Sidebar text and links */
+body.dark .left-col #header a {
+  color: #d4d4d8;
+}
+
+body.dark .left-col #header a:hover {
+  color: #7eb8f0;
+}
+
+body.dark .left-col #header .header-author a {
+  color: #e4e4e8;
+}
+
+body.dark .left-col #header .header-subtitle {
+  color: #888;
+}
+
+/* Menu items */
+body.dark .left-col #header .header-menu li a {
+  color: #d4d4d8;
+}
+
+body.dark .left-col #header .header-menu li a:hover {
+  color: #7eb8f0;
+}
+
+/* Smart menu (所有文章/友链/关于我) */
+body.dark .left-col #header .header-smart-menu a {
+  color: #b0b0b8;
+}
+
+body.dark .left-col #header .header-smart-menu a:hover {
+  color: #7eb8f0;
+}
+
+body.dark .left-col #header .header-smart-menu a:after {
+  color: #555;
+}
+
+/* Profile picture border */
+body.dark .left-col #header .profilepic {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #2a3050;
+}
+
+/* Social icons in sidebar */
+body.dark #header .header-nav .social a {
+  color: #b0b0b8;
+}
+
+body.dark #header .header-nav .social a:hover {
+  color: #7eb8f0;
+}
+
+/* Contain text (zjw's blog) */
+body.dark .left-col .contain p {
+  color: #e4e4e8 !important;
+}
+
+/* ============================================================
+   Dark Mode: Slider panel (tools-col, right side)
+   ============================================================ */
+
+body.dark .tools-col .tools-section,
+body.dark .tools-col .tools-wrap {
+  color: #d4d4d8;
+}
+
+/* Search input */
+body.dark .tools-col .tools-section .search-wrap .search-ipt {
+  color: #d4d4d8;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark .tools-col .tools-section .search-wrap .icon {
+  color: #b0b0b8;
+}
+
+body.dark .tools-col .tools-section .search-wrap ::-webkit-input-placeholder {
+  color: #888;
+}
+
+/* Article list in slider */
+body.dark .tools-col .tools-section .search-ul {
+  color: #b0b0b8;
+}
+
+body.dark .tools-col .tools-section .search-ul .search-li {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark .tools-col .tools-section .search-ul .search-li:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .tools-col .tools-section .search-ul .search-title {
+  color: #d4d4d8;
+  text-shadow: none;
+}
+
+body.dark .tools-col .tools-section .search-ul .search-title:hover {
+  color: #7eb8f0;
+}
+
+body.dark .tools-col .tools-section .search-ul .search-title .icon {
+  color: #888;
+}
+
+body.dark .tools-col .tools-section .search-ul .search-tag,
+body.dark .tools-col .tools-section .search-ul .search-time {
+  color: #888;
+}
+
+body.dark .tools-col .tools-section .search-ul .search-tag span:hover,
+body.dark .tools-col .tools-section .search-ul .search-time span:hover {
+  color: #7eb8f0;
+}
+
+/* Tag cloud in slider */
+body.dark .tools-col .tools-section .search-tag.tagcloud .article-tag-list {
+  color: #b0b0b8;
+}
+
+body.dark .tools-col .tools-section .search-tag.tagcloud .search-tag-wording {
+  color: #888;
+}
+
+/* Friends section */
+body.dark .tools-col .tools-section-friends a {
+  color: #b0b0b8;
+}
+
+body.dark .tools-col .tools-section-friends a:hover {
+  color: #7eb8f0;
+}
+
+/* About me */
+body.dark .tools-col .aboutme-wrap {
+  color: #d4d4d8;
+  text-shadow: none;
+}
+
+/* TOC (table of contents) sidebar popup */
+body.dark .toc-article a {
+  color: #b0b0b8;
+}
+
+body.dark .toc-article a:hover {
+  color: #7eb8f0;
+}
+
+body.dark .tooltip-content {
+  background: rgba(26, 28, 46, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
