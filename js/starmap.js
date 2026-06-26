@@ -30,8 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
-        controls.autoRotate = true; // Auto rotate slightly when not interacting
-        controls.autoRotateSpeed = 0.5;
+        controls.autoRotate = false; // Disable horizontal auto-rotation so the camera is fully free, allowing WASD/dragging to easily show the true spherical depth!
         controls.maxDistance = 300;
         controls.minDistance = 5;
     }
@@ -189,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const randomZ = Math.pow(Math.random(), randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * randomness * (radius - radiusDistance) / radius;
 
             positions[i * 3]     = Math.cos(branchAngle + spinAngle) * radiusDistance + randomX;
-            positions[i * 3 + 1] = randomY * 4.0; // Substantially scatter z-axis (actually y-axis in vertical flat galaxy coordinates) up to 4x wider!
+            positions[i * 3 + 1] = randomY * 8.0; // Enormously scatter the Y-axis (vertical offset) of articles to 8x to create absolute scattering!
             positions[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radiusDistance + randomZ;
 
             initialPositions[i * 3]     = positions[i * 3];
@@ -369,15 +368,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const baseBlue = new THREE.Color(0x2288CC);
 
         for(let i=0; i<dustCount; i++) {
-            // Farther and wider spherical distribution (wider radius up to 400)
-            const r = Math.pow(Math.random(), 1.5) * 350 + 20; // Concentrated but reaches much further
+            // Generates a fully distributed, wide spherical shell in three dimensions.
+            // Radius ranges from 40 up to 400.
+            const r = Math.random() * 360 + 40;
             const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos((Math.random() * 2) - 1);
+            const phi = Math.acos((Math.random() * 2) - 1); // uniform distribution on a sphere
 
-            // True spherical distribution (NOT flattened) so they fill the 3D sky beautifully like a cosmic bubble sphere
+            // Explicitly use trigonometric spherical projection to generate X, Y, Z coordinates.
+            // This guarantees stars spread evenly on ALL three spatial axes, rather than a disc.
             dustPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
-            dustPos[i*3+1] = r * Math.cos(phi);
-            dustPos[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
+            dustPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta); // Use sin(phi)*sin(theta) for real sphere (not cos(phi), which was causing compression!)
+            dustPos[i*3+2] = r * Math.cos(phi); // Use cos(phi) on Z-axis
 
             // Keep dust strictly in blue spectrum
             const color = baseBlue.clone();
@@ -398,8 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
         dustGeo.setAttribute('color', new THREE.BufferAttribute(dustCol, 3));
         dustGeo.setAttribute('twinkleOffset', new THREE.BufferAttribute(dustSizes, 1));
 
-        // Use custom shader for background dust so we can animate the brightness (twinkle!)
-        // Reduce point size to 1.5 so they are distinctly smaller than the interactive article stars (which are size 6 to 18)
+        // Use custom shader for background dust so we can animate the brightness (twinkle!) and positions (drifting flow!)
         const dustVertexShader = `
             attribute float twinkleOffset;
             varying vec3 vColor;
@@ -409,7 +409,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 vColor = color;
                 // Twinkle effect based on sine wave and unique particle offset
                 vTwinkle = 0.3 + 0.7 * sin(uTime * 2.0 + twinkleOffset);
-                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+
+                // Add actual 3D drifting/floating movement along X, Y, Z based on uTime and unique offsets!
+                vec3 pos = position;
+                pos.x += sin(uTime * 0.3 + twinkleOffset) * 12.0; // Drifts horizontal
+                pos.y += cos(uTime * 0.2 + twinkleOffset) * 12.0; // Drifts vertically (Z-axis offset motion!)
+                pos.z += sin(uTime * 0.1 + twinkleOffset) * 12.0; // Drifts depth-wise
+
+                vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
                 gl_PointSize = 1.5 * (300.0 / -mvPosition.z);
                 gl_Position = projectionMatrix * mvPosition;
             }
@@ -813,6 +820,12 @@ document.addEventListener("DOMContentLoaded", function() {
             controls.update(); // Required for damping and autoRotate
         } else if (points && selectedIndex === null) {
             points.rotation.y += 0.001; // Fallback slow rotation
+        }
+
+        if (dustPoints && selectedIndex === null) {
+            dustPoints.rotation.y += 0.0003; // Spin on horizontal axis
+            dustPoints.rotation.x += 0.0001; // Spin on vertical axis
+            dustPoints.rotation.z += 0.0002; // Full 3D rotation
         }
 
         renderer.render(scene, camera);
