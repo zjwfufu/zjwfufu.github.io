@@ -1877,12 +1877,14 @@ pre .css~* .id,pre .id {
 	z-index: 0;
 	padding: 0;
 	opacity: 0;
+	pointer-events: none;
 	-webkit-overflow-scrolling: touch;
 	overflow-scrolling: touch
 }
 
 .tools-col.show {
-	opacity: 1
+	opacity: 1;
+	pointer-events: auto
 }
 
 .tools-col.hide {
