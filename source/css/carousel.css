@@ -1,0 +1,81 @@
+/* Lightweight carousel - replaces Bootstrap carousel */
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+.carousel-inner {
+    position: relative;
+    width: 100%;
+}
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    pointer-events: none;
+}
+.carousel-item.active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+}
+.carousel-item img {
+    max-width: 100%;
+    height: auto;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, background 0.2s;
+    z-index: 10;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+    background: rgba(0,0,0,0.25);
+}
+.carousel-control-prev {
+    left: 0;
+}
+.carousel-control-next {
+    right: 0;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+}
+.carousel-control-prev-icon {
+    transform: rotate(135deg);
+    margin-left: 3px;
+}
+.carousel-control-next-icon {
+    transform: rotate(-45deg);
+    margin-right: 3px;
+}
+.carousel-control-prev span:not(.carousel-control-prev-icon),
+.carousel-control-next span:not(.carousel-control-next-icon) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+}

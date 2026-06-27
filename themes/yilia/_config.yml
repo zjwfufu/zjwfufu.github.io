@@ -1,0 +1,172 @@
+# Header
+
+menu:
+  主页: /
+  归档: /archives
+  分类: /categories
+  标签: /tags
+
+# SubNav
+subnav:
+  github: "https://github.com/zjwfufu"
+  home: "https://zjwsite.github.io/"
+  #weibo: "#"
+  #rss: "#"
+  #zhihu: "#"
+  #qq: "https://user.qzone.qq.com/1174987765"
+  #weixin: "#"
+  #jianshu: "#"
+  #douban: "#"
+  #segmentfault: "#"
+  #bilibili: "#"
+  #acfun: "#"
+  mail: "mailto:jiaweizhang.fufu@gmail.com"
+  #facebook: "#"
+  #google: "#"
+  #twitter: "#"
+  #linkedin: "#"
+
+rss: /atom.xml
+
+# 是否需要修改 root 路径
+# 如果您的网站存放在子目录中，例如 http://yoursite.com/blog，
+# 请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
+root: /
+
+# Content
+
+# 文章太长，截断按钮文字
+#excerpt_link: more
+# 文章卡片右下角常驻链接，不需要请设置为false
+show_all_link: '展开全文'
+busuanzi:
+ enable: true
+# 是否在新窗口打开链接
+
+categories:
+  sort: 
+    date
+
+ # 数学公式
+mathjax: true
+
+open_in_new: false
+
+# 打赏
+# 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏
+reward_type: 2
+# 打赏wording
+reward_wording: '谢谢你请我吃糖果'
+# 支付宝二维码图片地址，跟你设置头像的方式一样。比如：/assets/img/alipay.jpg
+alipay: 
+# 微信二维码图片地址
+weixin: /img/QRcode.png
+
+# 目录
+# 目录设定：0-不显示目录； 1-文章对应的md文件里有toc:true属性，才有目录； 2-所有文章均显示目录
+toc: 1
+# 根据自己的习惯来设置，如果你的目录标题习惯有标号，置为true即可隐藏hexo重复的序号；否则置为false
+toc_hide_index: true
+# 目录为空时的提示
+toc_empty_wording: '目录，不存在的…'
+
+# 是否有快速回到顶部的按钮
+top: true
+
+# Miscellaneous
+baidu_analytics: ''
+google_analytics: ''
+favicon: /favicon.png
+
+#你的头像url
+avatar: /img/me.png
+
+#是否开启分享
+share_jia: true
+
+#评论：1、多说；2、网易云跟帖；3、畅言；4、Disqus；5、Gitment
+#不需要使用某项，直接设置值为false，或注释掉
+#具体请参考wiki：https://github.com/litten/hexo-theme-yilia/wiki/
+
+#1、多说
+duoshuo: false
+
+#2、网易云跟帖
+wangyiyun: false
+
+#3、畅言
+changyan_appid: false
+changyan_conf: false
+
+#4、Disqus 在hexo根目录的config里也有disqus_shortname字段，优先使用yilia的
+disqus: false
+
+#6、Valine https://valine.js.org
+valine: 
+ appid: 'KTThWK27Eh6ekYfsqiopKv5U-gzGzoHsz'
+ appkey: '422yG6fEuKk191rqIdgv7KQY'
+ verify: false #验证码，verify和notify这两个最好就别动了
+ notify: false #评论回复提醒
+ avatar: mm #评论列表头像样式：''/mm/identicon/monsterid/wavatar/retro/hide
+ placeholder: Hi~ #评论框占位符
+
+
+# 样式定制 - 一般不需要修改，除非有很强的定制欲望…
+style:
+  # 头像上面的背景颜色
+  # 右滑板块背景
+  slider: 'linear-gradient(200deg, #80bbff 0%, #66ccff 100%)'
+  header: 'rgba(0,0,0,0)' #设置背景透明度，不然头像上方是默认色
+  #左侧头像板块的背景颜色(IE兼容设置：filter:alpha(opacity=80);)
+  left_ground:
+    enable: true
+    default: 'linear-gradient(120deg, #80bbff, #66ccff)'
+    # url: 'url(https://i.loli.net/2021/08/26/b2VyxgQSI4LjmwA.jpg) no-repeat 100%;background-size:cover;opacity:1.0;filter:alpha(opacity=100);'
+    # url: 'url(http://bucket836.oss-cn-shenzhen.aliyuncs.com/wallpaper/381535373.jpeg)'
+  article_ground: 
+    enable: true
+    # default: 'linear-gradient(200deg,#FFFFF0,#48D1CC)'  #设置背景透明度
+    # default: 'rgba(255,255,255,0)'
+    ##url: 'url(https://i.loli.net/2021/08/06/EwFrgBxASNU9M2V.jpg) no-repeat fixed top;background-size:cover;opacity:1.0;filter:alpha(opacity=100);'
+
+# slider的设置
+slider:
+  # 是否默认展开tags板块
+  showTags: false
+
+# 智能菜单
+# 如不需要，将该对应项置为false
+# 比如
+#smart_menu:
+#  friends: false
+# 网易云音乐插件
+music:
+  enable: false
+  #id: 1332647902  # 网易云分享的ID
+  autoplay: true  # 是否开启自动播放
+smart_menu:
+  innerArchive: '所有文章'
+  friends: '友链'
+  aboutme: '关于我'
+
+# https://github.com/hustcc/canvas-nest.js
+# 配置详见： https://github.com/hustcc/canvas-nest.js#configuration
+# 动态线条效果，会向鼠标集中
+canvas_nest: false
+friends:
+  Ao Li: http://liaoxdu.top
+  Hongfeng Zhou: https://zhf999.github.io/
+  Jia Wang: https://wj-inf.github.io/
+  Tiantian Wang: https://the-sky001.github.io/
+  Jingcheng Xie: https://xiejingcheng.github.io/
+  Mingshuo Cai: https://cfcys.github.io/
+  Zhiyang Liang: https://zhiyangliang.github.io/
+  Yifei Zeng: https://www.zhihu.com/people/ceng-fei-fei-81
+  Yukun Zhou: https://1zeryu.github.io/
+  Xinchen Zhang: https://cominclip.github.io/
+  Alina Wang: https://alinaya.vercel.app/
+  Zijian Wu: https://zijian-wu.github.io/
+  Li Wang: https://wangli000.github.io/
+  Yanwen Wang: https://yanwen-w.github.io/
+
+aboutme: 挟飞仙以遨游，抱明月而长终。<br />知不可乎骤得，托遗响于悲风。

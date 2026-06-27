@@ -1,0 +1,135 @@
+<script>
+	var yiliaConfig = {
+		mathjax: <%=theme.mathjax%>,
+		isHome: <%=is_home()%>,
+		isPost: <%=is_post()%>,
+		isArchive: <%=is_archive()%>,
+		isTag: <%=is_tag()%>,
+		isCategory: <%=is_category()%>,
+		open_in_new: <%=theme.open_in_new%>,
+		toc_hide_index: <%=theme.toc_hide_index%>,
+		root: "<%=config.root%>",
+		innerArchive: <%=theme.smart_menu.innerArchive ? true : false%>,
+		showTags: <%=(theme.slider && theme.slider.showTags) ? true : false%>
+	}
+</script>
+
+<%- partial('script') %>
+
+<% if (page.mathjax){ %>
+<%- partial('mathjax') %>
+<% } %>
+<script type="text/javascript" src="<%=config.root%>click.js">
+</script>
+<% if (theme.busuanzi && theme.busuanzi.enable) { %>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<% } %>
+
+<script>
+(function() {
+  // === Image Blur-to-Sharp Loading ===
+  var imgs = document.querySelectorAll('.card-mosaic img, .card-mosaic-4 img, .card-image img, .article-entry img');
+  imgs.forEach(function(img) {
+    if (img.complete) {
+      img.classList.add('img-loaded');
+    } else {
+      img.classList.add('img-loading');
+      img.addEventListener('load', function() {
+        img.classList.remove('img-loading');
+        img.classList.add('img-loaded');
+      });
+      img.addEventListener('error', function() {
+        img.classList.remove('img-loading');
+      });
+    }
+  });
+
+  // === Reading Progress Bar ===
+  var container = document.getElementById('container');
+  var progressBar = document.getElementById('reading-progress');
+  if (container && progressBar) {
+    container.addEventListener('scroll', function() {
+      var scrollTop = container.scrollTop;
+      var scrollHeight = container.scrollHeight - container.clientHeight;
+      if (scrollHeight > 0) {
+        progressBar.style.width = Math.min(100, (scrollTop / scrollHeight) * 100) + '%';
+      }
+    });
+  }
+
+  // === Code Block Copy Button + Language Label ===
+  var highlights = document.querySelectorAll('.article-entry .highlight');
+  highlights.forEach(function(block) {
+    // Detect language from class name (e.g. "highlight python" or figure > td > code class)
+    var lang = '';
+    var figcap = block.querySelector('figcaption');
+    if (figcap) {
+      lang = figcap.textContent.trim();
+    } else {
+      var cls = block.className.replace('highlight', '').trim();
+      if (cls) lang = cls;
+    }
+
+    var header = document.createElement('div');
+    header.className = 'code-header';
+    header.innerHTML = '<span class="code-lang">' + (lang || 'code') + '</span><button class="code-copy-btn">Copy</button>';
+    block.insertBefore(header, block.firstChild);
+
+    header.querySelector('.code-copy-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      var code = block.querySelector('td.code pre, pre');
+      if (code) {
+        navigator.clipboard.writeText(code.textContent).then(function() {
+          e.target.textContent = 'Copied!';
+          setTimeout(function() { e.target.textContent = 'Copy'; }, 2000);
+        });
+      }
+    });
+  });
+
+  // === Image Lightbox ===
+  var overlay = document.createElement('div');
+  overlay.id = 'lightbox-overlay';
+  overlay.innerHTML = '<img src="" alt="">';
+  document.body.appendChild(overlay);
+
+  var lightboxImg = overlay.querySelector('img');
+
+  document.querySelectorAll('.article-entry img').forEach(function(img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      lightboxImg.src = img.src;
+      overlay.classList.add('active');
+    });
+  });
+
+  overlay.addEventListener('click', function() {
+    overlay.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') overlay.classList.remove('active');
+  });
+
+  // === Card Entrance Animation (IntersectionObserver) ===
+  var cards = document.querySelectorAll('.card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, root: container });
+
+    cards.forEach(function(card) {
+      observer.observe(card);
+    });
+  } else {
+    // Fallback: show all cards immediately
+    cards.forEach(function(card) { card.classList.add('visible'); });
+  }
+})();
+</script>

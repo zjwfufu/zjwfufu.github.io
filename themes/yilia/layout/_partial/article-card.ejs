@@ -1,0 +1,66 @@
+<article class="card" onclick="window.location.href='<%- url_for(post.path) %>'">
+  <%
+    // Use helper to get landscape-only images (filters portrait + tiny via file header reading)
+    var imgCounts = [3, 2, 4, 3, 2, 4];
+    var wantCount = imgCounts[cardIndex % imgCounts.length];
+    var imgs = get_landscape_images(post, wantCount);
+
+    var useGradient = (imgs.length === 0);
+
+    // Gradient presets — lighter blue/cyan mesh style
+    var gradients = [
+      'radial-gradient(ellipse at 20% 50%, #60a5fa 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #67e8f9 0%, transparent 50%), radial-gradient(ellipse at 60% 80%, #1e3a5f 0%, transparent 60%), linear-gradient(135deg, #1e3a5f, #3b82f6)',
+      'radial-gradient(ellipse at 70% 30%, #818cf8 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, #22d3ee 0%, transparent 50%), radial-gradient(ellipse at 90% 70%, #1e3a5f 0%, transparent 60%), linear-gradient(200deg, #1e3a5f, #6366f1)',
+      'radial-gradient(ellipse at 30% 20%, #38bdf8 0%, transparent 45%), radial-gradient(ellipse at 80% 60%, #a78bfa 0%, transparent 50%), radial-gradient(ellipse at 50% 90%, #1e3a5f 0%, transparent 55%), linear-gradient(160deg, #1e3a5f, #0ea5e9)',
+      'radial-gradient(ellipse at 50% 30%, #7dd3fc 0%, transparent 40%), radial-gradient(ellipse at 10% 70%, #60a5fa 0%, transparent 50%), radial-gradient(ellipse at 85% 85%, #2dd4bf 0%, transparent 50%), linear-gradient(180deg, #1e3a5f, #38bdf8)',
+      'radial-gradient(ellipse at 40% 60%, #5eead4 0%, transparent 45%), radial-gradient(ellipse at 80% 20%, #93c5fd 0%, transparent 50%), radial-gradient(ellipse at 20% 10%, #1e3a5f 0%, transparent 55%), linear-gradient(220deg, #1e3a5f, #06b6d4)',
+    ];
+    var gradientIndex = cardIndex % gradients.length;
+  %>
+  <% if (useGradient) { %>
+    <div class="card-gradient card-gradient-medium" style="background: <%= gradients[gradientIndex] %>"></div>
+  <% } else if (imgs.length >= 4) { %>
+    <div class="card-mosaic card-mosaic-4">
+      <div class="card-mosaic-half"><img src="<%- imgs[0] %>" loading="lazy" alt=""></div>
+      <div class="card-mosaic-half"><img src="<%- imgs[1] %>" loading="lazy" alt=""></div>
+      <div class="card-mosaic-half"><img src="<%- imgs[2] %>" loading="lazy" alt=""></div>
+      <div class="card-mosaic-half"><img src="<%- imgs[3] %>" loading="lazy" alt=""></div>
+    </div>
+  <% } else if (imgs.length === 3) { %>
+    <div class="card-mosaic card-mosaic-3 card-mosaic-medium">
+      <div class="card-mosaic-main"><img src="<%- imgs[0] %>" loading="lazy" alt=""></div>
+      <div class="card-mosaic-side">
+        <div class="card-mosaic-half"><img src="<%- imgs[1] %>" loading="lazy" alt=""></div>
+        <div class="card-mosaic-half"><img src="<%- imgs[2] %>" loading="lazy" alt=""></div>
+      </div>
+    </div>
+  <% } else if (imgs.length === 2) { %>
+    <div class="card-mosaic card-mosaic-2 card-mosaic-short">
+      <div class="card-mosaic-half"><img src="<%- imgs[0] %>" loading="lazy" alt=""></div>
+      <div class="card-mosaic-half"><img src="<%- imgs[1] %>" loading="lazy" alt=""></div>
+    </div>
+  <% } else { %>
+    <div class="card-image">
+      <img src="<%- imgs[0] %>" loading="lazy" alt="">
+    </div>
+  <% } %>
+  <div class="card-body">
+    <h2 class="card-title"><%= post.title %></h2>
+    <div class="card-meta">
+      <span class="card-date"><%= date(post.date, 'YYYY-MM-DD') %></span>
+      <% if (post.categories && post.categories.length) { %>
+        <span class="card-category"><%= post.categories.data[0].name %></span>
+      <% } %>
+    </div>
+    <% if (post.excerpt) { %>
+      <p class="card-excerpt"><%- strip_html(post.excerpt).substring(0, 120) %>...</p>
+    <% } %>
+    <% if (post.tags && post.tags.length) { %>
+      <div class="card-tags">
+        <% post.tags.each(function(tag){ %>
+          <span class="card-tag"><%= tag.name %></span>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</article>

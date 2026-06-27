@@ -1,0 +1,43 @@
+<%- partial('_partial/head') %>
+<body class="sidebar-hidden">
+  <div id="reading-progress"></div>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow"  style="background: <%= theme.style && theme.style.left_ground.enable && theme.style.left_ground.url ? theme.style.left_ground.url : theme.style.left_ground.default %>">
+      <%- partial('_partial/left-col', null, {cache: !config.relative_link}) %>
+    </div>
+    <div id="sidebar-toggle" class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-hidden')">
+      <span class="sidebar-toggle-arrow">◀</span>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <%- body %>
+          </div>
+        </div>
+      </div>
+      <%- partial('_partial/footer') %>
+    </div>
+    <%- partial('_partial/after-footer') %>
+    <%- partial('_partial/tools') %>
+    <%- partial('_partial/viewer') %>
+  </div>
+  <div id="theme-toggle" class="theme-toggle" onclick="(function(){var d=document.documentElement.classList,b=document.body.classList;if(d.contains('dark')){d.remove('dark');b.remove('dark');localStorage.setItem('theme','light');document.getElementById('theme-toggle').textContent='☾'}else{d.add('dark');b.add('dark');localStorage.setItem('theme','dark');document.getElementById('theme-toggle').textContent='☀'}})()">
+    ☾
+  </div>
+  <script>
+    (function(){
+      var isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀';
+      }
+    })();
+  </script>
+</body>
+</html>

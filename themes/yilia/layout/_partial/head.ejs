@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = 'Archives';
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = 'Category: ' + page.category;
+  } else if (is_tag()){
+    title = 'Tag: ' + page.tag;
+  }
+  %>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="<%= config.url %>">
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <%- open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (theme.rss){ %>
+    <link rel="alternative" href="<%- theme.rss %>" title="<%= config.title %>" type="application/atom+xml">
+  <% } %>
+  <% if (theme.favicon){ %>
+    <link rel="icon" href="/img/sigma.ico">
+  <% } %>
+  <%- partial('css') %>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"></noscript>
+  <style type="text/css">
+  <% var defaultCtnBg = 'linear-gradient(200deg, #80bbff 0%, #66ccff 100%)' %>
+    #container.show {
+      background: <%= theme.style && theme.style.slider ? theme.style.slider : defaultCtnBg %>;
+    }
+  </style>
+  <%- partial('google-analytics') %>
+  <%- partial('baidu-analytics') %>
+</head>

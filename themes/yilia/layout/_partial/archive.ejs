@@ -1,0 +1,45 @@
+<% if (pagination == 2){ %>
+  <div class="masonry-grid">
+    <% page.posts.each(function(post, i){ %>
+      <%- partial('article-card', {post: post, index: true, cardIndex: i}) %>
+    <% }) %>
+  </div>
+  <% if (page.total > 1){ %>
+    <nav id="page-nav">
+      <%- paginator({
+        prev_text: '上一页',
+        next_text: '下一页'
+      }) %>
+    </nav>
+  <% } %>
+<% } else { %>
+  <% var last; %>
+  <% page.posts.each(function(post, i){ %>
+    <% var year = post.date.year(); %>
+    <% if (last != year){ %>
+      <% if (last != null){ %>
+        </div></section>
+      <% } %>
+      <% last = year; %>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="<%- url_for('archives/' + year) %>" class="archive-year"><%= year %></a>
+        </div>
+        <div class="archives">
+    <% } %>
+    <%- partial('archive-post', {post: post, even: i % 2 == 0}) %>
+  <% }) %>
+  <% if (page.posts.length){ %>
+    </div></section>
+  <% } %>
+
+    <% if (page.total > 1){ %>
+    <nav id="page-nav">
+      <%- paginator({
+        prev_text: '上一页',
+        next_text: '下一页'
+      }) %>
+    </nav>
+  <% } %>
+
+<% } %>

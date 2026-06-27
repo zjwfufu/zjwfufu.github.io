@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1200" height="630" preserveAspectRatio="none" style="filter: saturate(125%)">
+  <rect width="100" height="100" fill="#66CCFF"/>
+  <g>
+    <defs>
+    <radialGradient id="g0" fx="0.1155" fy="0.5">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g1" fx="0.1272" fy="0.5">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" fx="0.2221" fy="0.5">
+      <stop offset="0%" stop-color="#1c7ed6"/>
+      <stop offset="100%" stop-color="#1c7ed6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g3" fx="0.3885" fy="0.5">
+      <stop offset="0%" stop-color="#1c7ed6"/>
+      <stop offset="100%" stop-color="#1c7ed6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g4" fx="0.2235" fy="0.5">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g5" fx="0.2682" fy="0.5">
+      <stop offset="0%" stop-color="#1c7ed6"/>
+      <stop offset="100%" stop-color="#1c7ed6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g6" fx="0.1068" fy="0.5">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g7" fx="0.1986" fy="0.5">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g8" fx="0.2693" fy="0.5">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g9" fx="0.3795" fy="0.5">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#a7f3d0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g10" fx="0.2956" fy="0.5">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g11" fx="0.1267" fy="0.5">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g12" fx="0.1361" fy="0.5">
+      <stop offset="0%" stop-color="#1c7ed6"/>
+      <stop offset="100%" stop-color="#1c7ed6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g13" fx="0.3192" fy="0.5">
+      <stop offset="0%" stop-color="#1c7ed6"/>
+      <stop offset="100%" stop-color="#1c7ed6" stop-opacity="0"/>
+    </radialGradient>
+    </defs>
+  <g transform="translate(50 50) scale(1.3746 1.1078) skewX(7.3266) rotate(163.5001)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="19.5119 -40.9746; 9.2939 -39.4594; 19.5119 -40.9746" dur="5s" begin="-2.5231s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g0)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.2485 0.7546) skewX(1.2940) rotate(274.9984)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-16.3658 -39.4131; -12.4766 -27.8948; -16.3658 -39.4131" dur="5s" begin="-4.9640s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g1)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.0319 1.2784) skewX(-9.1592) rotate(164.8912)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-43.0552 -33.0337; -38.6108 -40.7327; -43.0552 -33.0337" dur="5s" begin="-3.8463s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g2)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(0.7546 1.2350) skewX(-1.7169) rotate(349.5618)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-6.7750 -1.1525; -12.4677 -7.0461; -6.7750 -1.1525" dur="5s" begin="-0.8637s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g3)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(0.9426 0.9234) skewX(-7.5407) rotate(266.6739)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-22.7706 13.6625; -23.7598 7.2648; -22.7706 13.6625" dur="5s" begin="-1.5802s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g4)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.3658 1.3107) skewX(-3.1932) rotate(258.0453)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="27.4690 -0.5128; 31.2191 -22.7747; 27.4690 -0.5128" dur="5s" begin="-1.2001s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g5)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.3339 0.8900) skewX(4.1674) rotate(172.3447)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="28.0511 27.0495; 23.8483 28.6445; 28.0511 27.0495" dur="5s" begin="-3.2325s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g6)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.2798 1.3780) skewX(-0.0127) rotate(55.9815)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="16.5256 3.8932; -1.3186 6.4123; 16.5256 3.8932" dur="5s" begin="-3.0251s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g7)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.2865 0.7560) skewX(-0.4132) rotate(26.9597)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="7.6278 32.7496; 13.8387 39.3045; 7.6278 32.7496" dur="5s" begin="-0.4721s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g8)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.4235 1.1880) skewX(5.6212) rotate(40.3547)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="26.8295 -13.5582; 9.2859 -22.6162; 26.8295 -13.5582" dur="5s" begin="-4.3669s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g9)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.4766 1.3222) skewX(-1.4445) rotate(174.5457)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="21.6064 -39.2127; 10.8373 -22.7022; 21.6064 -39.2127" dur="5s" begin="-1.3844s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g10)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.2690 1.1054) skewX(0.0706) rotate(191.7618)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-22.5716 3.2846; -10.3081 9.1162; -22.5716 3.2846" dur="5s" begin="-2.2012s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g11)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(0.7325 1.2605) skewX(0.3833) rotate(352.7471)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="-9.7566 1.7266; -15.1373 6.7798; -9.7566 1.7266" dur="5s" begin="-2.8771s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g12)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  <g transform="translate(50 50) scale(1.3009 1.0988) skewX(-8.2053) rotate(84.6345)">
+    <g>
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" values="41.5006 40.6732; 28.4266 21.2185; 41.5006 40.6732" dur="5s" begin="-3.6621s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" keyTimes="0; 0.5; 1"/>
+      <rect width="100" height="100" fill="url(#g13)" transform="translate(-50 -50)" style="mix-blend-mode:normal"/>
+    </g>
+  </g>
+  </g>
+</svg>
