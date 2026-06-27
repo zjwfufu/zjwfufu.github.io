@@ -882,7 +882,6 @@ body,html {
 	height: 100%;
 	/* z-index: 999; */
 	z-index: 1;
-	pointer-events: none;
 }
 
 @keyframes before_Load_Left_col{
@@ -919,7 +918,6 @@ body,html {
 }
 
 .left-col .intrude-less {
-	pointer-events: auto;
 	width: 76%;
 	text-align: center;
 	margin: 112px auto 0
@@ -4451,6 +4449,7 @@ a.pswp__share--download:hover {
 .sidebar-hidden .left-col {
   transform: translateX(-300px);
   transition: transform 0.3s ease;
+  visibility: hidden;
 }
 
 .sidebar-hidden .mid-col {
@@ -4461,6 +4460,7 @@ a.pswp__share--download:hover {
 /* When sidebar is shown (page-post class removed by toggle) */
 body:not(.sidebar-hidden) .left-col {
   transform: translateX(0);
+  visibility: visible;
 }
 
 /* Toggle button */
