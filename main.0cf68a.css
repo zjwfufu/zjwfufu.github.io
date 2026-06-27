@@ -882,6 +882,7 @@ body,html {
 	height: 100%;
 	/* z-index: 999; */
 	z-index: 1;
+	pointer-events: none;
 }
 
 @keyframes before_Load_Left_col{
@@ -918,6 +919,7 @@ body,html {
 }
 
 .left-col .intrude-less {
+	pointer-events: auto;
 	width: 76%;
 	text-align: center;
 	margin: 112px auto 0
@@ -927,7 +929,7 @@ body,html {
 	width: 100%;
 	height: 300px;
 	position: relative;
-	border-bottom: 1px solid color-border
+	border-bottom: 1px solid color-border;
 }
 
 .left-col #header a {
