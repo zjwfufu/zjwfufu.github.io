@@ -4543,23 +4543,6 @@ body {
   background: #99ddff;
 }
 
-#container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 15%, rgba(102, 153, 255, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 70% 55% at 85% 10%, rgba(72, 209, 204, 0.10) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 50% at 50% 85%, rgba(120, 170, 230, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 45% at 8% 80%, rgba(72, 209, 204, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(230, 242, 248, 0.3) 0%, transparent 70%);
-  pointer-events: none;
-}
-
 /* Subtle noise overlay for paper/air texture */
 #container::after {
   content: '';
@@ -5112,5 +5095,612 @@ body.dark .toc-article a:hover {
 body.dark .tooltip-content {
   background: rgba(26, 28, 46, 0.95);
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================================
+   Masonry Grid — Homepage Magazine Layout
+   ============================================================ */
+
+.masonry-grid {
+  column-count: 2;
+  column-gap: 20px;
+  padding: 20px 20px 40px;
+}
+
+@media (max-width: 800px) {
+  .masonry-grid {
+    column-count: 1;
+    padding: 12px;
+  }
+}
+
+/* --- Card base --- */
+.card {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Card image --- */
+.card-image {
+  width: 100%;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+  transform: scale(1.03);
+}
+
+/* --- Card gradient fallback (for no-image or portrait-only posts) --- */
+.card-gradient {
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-gradient-tall {
+  height: 180px;
+}
+
+.card-gradient-medium {
+  height: 160px;
+}
+
+.card-gradient-short {
+  height: 120px;
+}
+
+.card-gradient-icon {
+  font-size: 32px;
+  opacity: 0.5;
+}
+
+/* --- Card mosaic (multi-image thumbnail) --- */
+.card-mosaic {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+
+/* Height variants for natural masonry stagger */
+.card-mosaic-tall {
+  height: 200px;
+}
+
+.card-mosaic-medium {
+  height: 140px;
+}
+
+.card-mosaic-short {
+  height: 110px;
+}
+
+/* 3-image layout: large left + two stacked right */
+.card-mosaic-3 .card-mosaic-main {
+  flex: 1.2;
+  overflow: hidden;
+}
+
+.card-mosaic-3 .card-mosaic-side {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-mosaic-3 .card-mosaic-side .card-mosaic-half {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 2-image layout: side by side */
+.card-mosaic-2 .card-mosaic-half {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 4-image layout: 2x2 grid */
+.card-mosaic-4 {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  height: 200px;
+}
+
+.card-mosaic-4 .card-mosaic-half {
+  overflow: hidden;
+}
+
+/* Shared mosaic image style */
+.card-mosaic img,
+.card-mosaic-4 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-mosaic img,
+.card:hover .card-mosaic-4 img {
+  transform: scale(1.05);
+}
+
+/* --- Card body --- */
+.card-body {
+  padding: 18px 20px 20px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  line-height: 1.4;
+  color: #2a2a2a;
+  font-family: "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+}
+
+.card-meta {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-date {
+  color: #999;
+}
+
+.card-category {
+  background: rgba(102, 204, 255, 0.15);
+  color: #2288aa;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.card-excerpt {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0 0 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.card-tag {
+  font-size: 11px;
+  color: #888;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* --- Card dark mode --- */
+body.dark .card {
+  background: rgba(30, 32, 50, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .card-title {
+  color: #e4e4e8;
+}
+
+body.dark .card-excerpt {
+  color: #b0b0b8;
+}
+
+body.dark .card-meta {
+  color: #777;
+}
+
+body.dark .card-date {
+  color: #777;
+}
+
+body.dark .card-category {
+  background: rgba(102, 204, 255, 0.1);
+  color: #7eb8f0;
+}
+
+body.dark .card-tag {
+  background: rgba(255, 255, 255, 0.06);
+  color: #888;
+}
+
+/* --- Pagination dark mode for masonry page --- */
+body.dark #page-nav {
+  color: #b0b0b8;
+}
+
+body.dark #page-nav a {
+  color: #b0b0b8;
+}
+
+body.dark #page-nav a:hover {
+  color: #7eb8f0;
+}
+
+/* --- Mobile: disable backdrop-filter for performance --- */
+@media (max-width: 800px) {
+  .card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  body.dark .card {
+    background: rgba(30, 32, 50, 0.85);
+  }
+}
+
+/* ============================================================
+   Article Page — Narrow Reading Column
+   ============================================================ */
+
+.article-type-post:not(.article-index) {
+  border-radius: 12px;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.article-type-post:not(.article-index) .article-inner {
+  padding: 40px 48px;
+}
+
+.article-type-post:not(.article-index) .article-title,
+.article-type-post:not(.article-index) .article-title a {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.article-type-post:not(.article-index) .article-entry {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #333;
+}
+
+.article-type-post:not(.article-index) .article-entry p {
+  margin-bottom: 1.5em;
+}
+
+.article-type-post:not(.article-index) .article-entry h2 {
+  margin-top: 2.5em;
+  margin-bottom: 0.8em;
+  font-size: 22px;
+}
+
+.article-type-post:not(.article-index) .article-entry h3 {
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  font-size: 18px;
+}
+
+.article-type-post:not(.article-index) .article-entry img {
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+
+body.dark .article-type-post:not(.article-index) .article-entry {
+  color: #d4d4d8;
+}
+
+/* ============================================================
+   Reading Progress Bar
+   ============================================================ */
+
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #66ccff, #3b82f6);
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Code Block: Copy Button + Language Label
+   ============================================================ */
+
+.highlight {
+  position: relative;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px 8px 0 0;
+  font-size: 12px;
+  color: #888;
+}
+
+body.dark .code-header {
+  background: rgba(255, 255, 255, 0.05);
+  color: #777;
+}
+
+.code-lang {
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-copy-btn {
+  padding: 2px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 11px;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.code-copy-btn:hover {
+  background: #66ccff;
+  color: #fff;
+  border-color: #66ccff;
+}
+
+body.dark .code-copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #aaa;
+}
+
+body.dark .code-copy-btn:hover {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+/* ============================================================
+   Image Lightbox
+   ============================================================ */
+
+#lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  cursor: zoom-out;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+#lightbox-overlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   Card Entrance Animation
+   ============================================================ */
+
+.card {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Pagination Beautification
+   ============================================================ */
+
+#page-nav {
+  text-align: center;
+  padding: 30px 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#page-nav a,
+#page-nav .page-number,
+#page-nav .current,
+#page-nav .extend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #555;
+  backdrop-filter: blur(8px);
+}
+
+#page-nav a:hover,
+#page-nav .page-number:hover,
+#page-nav .extend:hover {
+  background: rgba(102, 204, 255, 0.25);
+  border-color: rgba(102, 204, 255, 0.5);
+  color: #1a8ccc;
+  transform: translateY(-2px);
+}
+
+#page-nav .current {
+  background: linear-gradient(135deg, #66ccff, #3b82f6);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+body.dark #page-nav a,
+body.dark #page-nav .page-number,
+body.dark #page-nav .extend {
+  background: rgba(30, 32, 50, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #b0b0b8;
+}
+
+body.dark #page-nav a:hover,
+body.dark #page-nav .page-number:hover {
+  background: rgba(102, 204, 255, 0.15);
+  color: #7eb8f0;
+}
+
+body.dark #page-nav .current {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #fff;
+}
+
+/* ============================================================
+   Sidebar Visual Upgrade
+   ============================================================ */
+
+/* Avatar breathing glow */
+@keyframes avatar-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(102, 204, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(102, 204, 255, 0.6); }
+}
+
+.left-col #header .profilepic {
+  animation: avatar-glow 3s ease-in-out infinite;
+}
+
+/* Menu hover effect */
+.left-col #header .header-menu li a {
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.left-col #header .header-menu li a:hover {
+  padding-left: 8px;
+  color: #66ccff;
+}
+
+.left-col #header .header-smart-menu a {
+  transition: all 0.25s ease;
+}
+
+.left-col #header .header-smart-menu a:hover {
+  color: #66ccff;
+}
+
+/* Social icons hover */
+#header .header-nav .social a {
+  transition: all 0.25s ease;
+}
+
+#header .header-nav .social a:hover {
+  transform: scale(1.3);
+  color: #66ccff;
+}
+
+/* ============================================================
+   Mobile Responsiveness for New Features
+   ============================================================ */
+
+@media screen and (max-width: 800px) {
+  .article-type-post:not(.article-index) .article-inner {
+    padding: 20px 16px;
+    max-width: 100%;
+  }
+
+  .article-type-post:not(.article-index) .article-title,
+  .article-type-post:not(.article-index) .article-title a {
+    font-size: 22px;
+  }
+
+  .article-type-post:not(.article-index) .article-entry {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  #page-nav {
+    padding: 20px 10px 40px;
+  }
+
+  #page-nav a,
+  #page-nav .page-number,
+  #page-nav .current,
+  #page-nav .extend {
+    min-width: 32px;
+    height: 32px;
+    font-size: 13px;
+    padding: 0 8px;
+  }
 }
 

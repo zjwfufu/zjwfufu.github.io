@@ -51,6 +51,7 @@
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body class="sidebar-hidden">
+  <div id="reading-progress"></div>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
     <div class="left-col" q-class="show:isShow"  style="background: linear-gradient(120deg, #80bbff, #66ccff)">
@@ -432,6 +433,98 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+<script>
+(function() {
+  // === Reading Progress Bar ===
+  var container = document.getElementById('container');
+  var progressBar = document.getElementById('reading-progress');
+  if (container && progressBar) {
+    container.addEventListener('scroll', function() {
+      var scrollTop = container.scrollTop;
+      var scrollHeight = container.scrollHeight - container.clientHeight;
+      if (scrollHeight > 0) {
+        progressBar.style.width = Math.min(100, (scrollTop / scrollHeight) * 100) + '%';
+      }
+    });
+  }
+
+  // === Code Block Copy Button + Language Label ===
+  var highlights = document.querySelectorAll('.article-entry .highlight');
+  highlights.forEach(function(block) {
+    // Detect language from class name (e.g. "highlight python" or figure > td > code class)
+    var lang = '';
+    var figcap = block.querySelector('figcaption');
+    if (figcap) {
+      lang = figcap.textContent.trim();
+    } else {
+      var cls = block.className.replace('highlight', '').trim();
+      if (cls) lang = cls;
+    }
+
+    var header = document.createElement('div');
+    header.className = 'code-header';
+    header.innerHTML = '<span class="code-lang">' + (lang || 'code') + '</span><button class="code-copy-btn">Copy</button>';
+    block.insertBefore(header, block.firstChild);
+
+    header.querySelector('.code-copy-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      var code = block.querySelector('td.code pre, pre');
+      if (code) {
+        navigator.clipboard.writeText(code.textContent).then(function() {
+          e.target.textContent = 'Copied!';
+          setTimeout(function() { e.target.textContent = 'Copy'; }, 2000);
+        });
+      }
+    });
+  });
+
+  // === Image Lightbox ===
+  var overlay = document.createElement('div');
+  overlay.id = 'lightbox-overlay';
+  overlay.innerHTML = '<img src="" alt="">';
+  document.body.appendChild(overlay);
+
+  var lightboxImg = overlay.querySelector('img');
+
+  document.querySelectorAll('.article-entry img').forEach(function(img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      lightboxImg.src = img.src;
+      overlay.classList.add('active');
+    });
+  });
+
+  overlay.addEventListener('click', function() {
+    overlay.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') overlay.classList.remove('active');
+  });
+
+  // === Card Entrance Animation (IntersectionObserver) ===
+  var cards = document.querySelectorAll('.card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, root: container });
+
+    cards.forEach(function(card) {
+      observer.observe(card);
+    });
+  } else {
+    // Fallback: show all cards immediately
+    cards.forEach(function(card) { card.classList.add('visible'); });
+  }
+})();
+</script>
+
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">
@@ -484,7 +577,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,7 +585,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,15 +673,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ODE</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">电路分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">微机原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,11 +693,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
+                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最小二乘法</a>
+                <a href="javascript:void(0)" class="js-tag color5">时间序列</a>
               </li>
              
               <li class="article-tag-list-item">
