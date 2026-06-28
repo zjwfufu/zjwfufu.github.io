@@ -4,12 +4,18 @@
 }
 
 /* Custom cursor: xiaolongbao */
-* {
-  cursor: url('/img/xiaolongbao.png') 0 0, auto;
+*, *::before, *::after {
+  cursor: url('/img/xiaolongbao.png') 0 0, auto !important;
 }
 
-a, button, [onclick], input[type="submit"], .card, .sidebar-toggle, .theme-toggle {
-  cursor: url('/img/xiaolongbao_with_tianyi.png') 10 15, pointer;
+a, a *, button, button *, [onclick], [onclick] *, input[type="submit"],
+.card, .card *, .sidebar-toggle, .sidebar-toggle *,
+.theme-toggle, .theme-toggle *,
+.header-menu a, .header-smart-menu a, .header-nav a,
+.page-number, .extend, #page-nav a,
+.code-copy-btn, .search-title, .search-tag span,
+.tools-col a, .profilepic {
+  cursor: url('/img/xiaolongbao_with_tianyi.png') 10 15, pointer !important;
 }
 
 .clearfix:after {
