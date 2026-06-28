@@ -3,6 +3,15 @@
 	display: table
 }
 
+/* Custom cursor: xiaolongbao */
+* {
+  cursor: url('/img/xiaolongbao.png') 0 0, auto;
+}
+
+a, button, [onclick], input[type="submit"], .card, .sidebar-toggle, .theme-toggle {
+  cursor: url('/img/xiaolongbao_with_tianyi.png') 10 15, pointer;
+}
+
 .clearfix:after {
 	clear: both
 }
