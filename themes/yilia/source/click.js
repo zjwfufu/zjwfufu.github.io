@@ -1,61 +1,46 @@
-! function(e, t, a) {
-    function n() {
-        c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), o()
-    }
-
-    var l = false; // animation loop running flag
+! function(e, t) {
+    var d = [];
+    var l = false;
 
     function r() {
-        for (var e = 0; e < d.length; e++)
-            d[e].alpha <= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = "left:" + d[e].x + "px;top:" + d[e].y + "px;opacity:" + d[e].alpha + ";transform:scale(" + d[e].scale + "," + d[e].scale + ") rotate(45deg);background:" + d[e].color + ";z-index:99999");
+        for (var i = 0; i < d.length; i++) {
+            var p = d[i];
+            p.alpha -= 0.015;
+            p.y -= 1.5;
+            p.scale += 0.005;
+            if (p.alpha <= 0) {
+                t.body.removeChild(p.el);
+                d.splice(i, 1);
+                i--;
+            } else {
+                p.el.style.cssText = "left:" + p.x + "px;top:" + p.y + "px;opacity:" + p.alpha + ";transform:scale(" + p.scale + "," + p.scale + ");position:fixed;pointer-events:none;z-index:99999;width:35px;height:41px;";
+            }
+        }
         if (d.length > 0) {
-            requestAnimationFrame(r)
+            requestAnimationFrame(r);
         } else {
-            l = false
+            l = false;
         }
     }
 
-    function o() {
-        var t = "function" == typeof e.onclick && e.onclick;
-        e.onclick = function(e) {
-            t && t(), i(e)
-        }
-    }
-
-    function i(e) {
-        var a = t.createElement("div");
-        a.className = "heart", d.push({
-            el: a,
-            x: e.clientX - 5,
-            y: e.clientY - 5,
+    function spawn(ev) {
+        var img = t.createElement("img");
+        img.src = "/img/xiaolongbao_with_tianyi.png";
+        img.style.cssText = "position:fixed;pointer-events:none;z-index:99999;width:35px;height:41px;left:" + (ev.clientX - 17) + "px;top:" + (ev.clientY - 20) + "px;";
+        d.push({
+            el: img,
+            x: ev.clientX - 17,
+            y: ev.clientY - 20,
             scale: 1,
-            alpha: 1,
-            color: s()
-        }), t.body.appendChild(a);
+            alpha: 1
+        });
+        t.body.appendChild(img);
         if (!l) {
             l = true;
-            requestAnimationFrame(r)
+            requestAnimationFrame(r);
         }
     }
 
-    function c(e) {
-        var a = t.createElement("style");
-        a.type = "text/css";
-        try {
-            a.appendChild(t.createTextNode(e))
-        } catch (t) {
-            a.styleSheet.cssText = e
-        }
-        t.getElementsByTagName("head")[0].appendChild(a)
-    }
-
-    function s() {
-        return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-    }
-    var d = [];
-    e.requestAnimationFrame = function() {
-        return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(e) {
-            setTimeout(e, 1e3 / 60)
-        }
-    }(), n()
+    e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || function(cb) { setTimeout(cb, 1e3 / 60); };
+    e.addEventListener('click', spawn);
 }(window, document);

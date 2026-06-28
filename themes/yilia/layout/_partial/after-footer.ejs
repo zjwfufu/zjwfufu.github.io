@@ -22,7 +22,14 @@
 <script type="text/javascript" src="<%=config.root%>click.js">
 </script>
 <% if (theme.busuanzi && theme.busuanzi.enable) { %>
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+window.addEventListener('load', function() {
+  var s = document.createElement('script');
+  s.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  s.async = true;
+  document.body.appendChild(s);
+});
+</script>
 <% } %>
 
 <script>
@@ -90,10 +97,9 @@
   // === Image Lightbox ===
   var overlay = document.createElement('div');
   overlay.id = 'lightbox-overlay';
-  overlay.innerHTML = '<img src="" alt="">';
+  var lightboxImg = document.createElement('img');
+  overlay.appendChild(lightboxImg);
   document.body.appendChild(overlay);
-
-  var lightboxImg = overlay.querySelector('img');
 
   document.querySelectorAll('.article-entry img').forEach(function(img) {
     img.style.cursor = 'zoom-in';
