@@ -23,15 +23,7 @@
         }
     }
 
-    function o() {
-        var orig = "function" == typeof e.onclick && e.onclick;
-        e.onclick = function(ev) {
-            orig && orig(ev);
-            i(ev);
-        }
-    }
-
-    function i(ev) {
+    function spawn(ev) {
         var img = t.createElement("img");
         img.src = "/img/xiaolongbao_with_tianyi.png";
         img.style.cssText = "position:fixed;pointer-events:none;z-index:99999;width:35px;height:41px;left:" + (ev.clientX - 17) + "px;top:" + (ev.clientY - 20) + "px;";
@@ -50,5 +42,5 @@
     }
 
     e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || function(cb) { setTimeout(cb, 1e3 / 60); };
-    o();
+    e.addEventListener('click', spawn);
 }(window, document);
